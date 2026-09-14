@@ -1,10 +1,14 @@
 # `agentic-coding` 简体中文阅读版
 
-这里是 30 条 canonical Practice 的中文 companion，供人类阅读和审查 Pack 的判断质量。它不是逐词翻译，也不参与安装、检索或运行时注入。ID、元数据、反模式 ID 和运行时行为仍以 [`../../practices`](../../practices/) 中的英文 canonical 文件为唯一真源；中英文有冲突时，以英文为准。
+这里是 31 条 canonical Practice 的中文 companion，供人类阅读和审查 Pack 的判断质量。它不是逐词翻译，也不参与安装、检索或运行时注入。ID、元数据、反模式 ID 和运行时行为仍以 [`../../practices`](../../practices/) 中的英文 canonical 文件为唯一真源；中英文有冲突时，以英文为准。
+
+## Pack 简介
+
+面向 AI Agent 的软件工程决策指导：澄清用户目标和当前应遵循的权威来源，控制范围和调查深度，作出与风险相称的实现和验证选择，并以可信证据处理审查、交付、交接和恢复。
 
 每个文件与 canonical 保持同一相对路径，仅含中文标题和六个正文章节，不含 runtime frontmatter。同步 digest 由 Lorelum 根据格式化后的英文 Markdown 生成，不应手工修改。
 
-## 导航（30 条）
+## 导航（31 条）
 
 ### 需求（3）
 
@@ -20,11 +24,12 @@
 - [为每项验收要求安排够用的证明](practices/planning/plan-sufficient-evidence.md)
 - [按失败代价决定投入多少工程工作](practices/planning/scale-work-to-risk-and-cost.md)
 
-### 实现（6）
+### 实现（7）
 
 - [在能完整工作的方案里选择最简单的](practices/implementation/choose-smallest-sufficient-design.md)
 - [暴露新能力前确认用户能依赖什么](practices/implementation/confirm-product-surface-expansion.md)
 - [新写代码前先查仓库里有没有](practices/implementation/inspect-and-reuse-existing-capability.md)
+- [没有未决判断，就不要扩大调查范围](practices/implementation/limit-investigation-to-current-decision.md)
 - [让负责数据或规则的组件统一作决定](practices/implementation/preserve-responsibility-boundaries.md)
 - [新事实改变任务时暂停并重做计划](practices/implementation/replan-on-material-drift.md)
 - [把安全且临时的假设明确写出来](practices/implementation/surface-unconfirmed-assumptions.md)

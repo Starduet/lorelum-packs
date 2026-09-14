@@ -1,6 +1,6 @@
 fixture_set: agentic-coding-practice-catalog
 evaluation_only: true
-description: Atomic retrieval and behavior hypotheses for 30 Practices; not a runtime schema or proof of retrieval quality.
+description: Atomic retrieval and behavior hypotheses for 31 Practices; not a runtime schema or proof of retrieval quality.
 entries:
   - id: agentic-coding.requirements.ground-user-goal
     positive_trigger: A request says to improve failed uploads, and the agent is about to change a generic error banner without stating what creators must be able to do afterward.
@@ -71,8 +71,16 @@ entries:
     paraphrase: Booking overlap logic is needed, and the scheduling module may already have a tested function with the required endpoint rule.
     near_miss: The repository and dependencies have been checked, and two viable new designs now need a size and reversibility choice.
     nearest_neighbor: agentic-coding.implementation.choose-smallest-sufficient-design
-    expected_behavior: Inspect the relevant callers, tests, runtime, and approved dependencies, then reuse the existing behavior or record why it is unsuitable.
+    expected_behavior: Inspect the responsible module and closest candidate, then read a caller or test only if it can change the reuse decision before reusing the behavior or recording why it is unsuitable.
     forbidden_behavior: Reimplement under deadline pressure or keep searching after enough evidence supports a reuse decision.
+
+  - id: agentic-coding.implementation.limit-investigation-to-current-decision
+    positive_trigger: A settings-page button and its shared variant are located, along with the color token the variant reads, but the Agent is about to open every Button consumer, old theme migration, and unrelated visual suite merely to gain confidence.
+    paraphrase: A bug is isolated to one request handler and its serializer, while the Agent wants to map neighboring endpoints even though none can change the current validation decision.
+    near_miss: The Agent has not yet located the target component or symbol and needs a focused search to find the responsible implementation.
+    nearest_neighbor: agentic-coding.implementation.inspect-and-reuse-existing-capability
+    expected_behavior: Name the unresolved choice, inspect only a direct source that can change the edit, owner, focused check, or need to replan, then stop when those facts are clear.
+    forbidden_behavior: Treat broad familiarity, an exhaustive caller map, or the number of files read as evidence that a local change is safe.
 
   - id: agentic-coding.implementation.surface-unconfirmed-assumptions
     positive_trigger: One importer must choose whether a missing optional description becomes absent or empty, and both forms are currently accepted.

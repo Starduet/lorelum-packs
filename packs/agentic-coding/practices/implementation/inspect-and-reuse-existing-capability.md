@@ -23,11 +23,12 @@ the new code.
 
 ## Guidance
 
-Inspect the module where the behavior belongs, representative call sites, and its tests. Then check
-only the runtime or declared dependencies most likely to provide it. Decide between direct reuse, a
-small adaptation, and a new implementation. Record the specific mismatch that rules out each closer
-option. Stop as soon as the evidence supports one choice; do not catalog every vaguely similar
-helper.
+Inspect the module where the behavior belongs and the closest candidate capability. Read a
+representative call site or test only when it can change whether that candidate preserves a required
+semantic, compatibility, or failure constraint. Then check only the runtime or declared dependency
+most likely to provide the behavior. Decide between direct reuse, a small adaptation, and a new
+implementation. Record the specific mismatch that rules out each closer option. Stop as soon as the
+evidence supports one choice; do not catalog every vaguely similar helper, caller, or test.
 
 ## Anti-pattern
 

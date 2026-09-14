@@ -1,6 +1,6 @@
 name: agentic-coding
-version: 0.3.0
-description: Tool-neutral Practices for evidence-aligned agentic coding across requirements, delegation, delivery, and recovery.
+version: 0.3.1
+description: "Decision-focused Practices for AI agents doing software engineering: clarify goals and authority, control scope and investigation, make proportionate implementation and validation choices, and handle reviews, delivery, handoffs, and recovery with trustworthy evidence."
 author:
   name: Lorelum
 license: CC-BY-4.0
