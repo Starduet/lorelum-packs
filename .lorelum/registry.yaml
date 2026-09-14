@@ -3,7 +3,7 @@ name: lorelum-official
 description: Official Knowledge Packs maintained by the Lorelum project.
 packs:
   - name: agentic-coding
-    description: Practices for evidence-aligned agentic coding workflows.
+    description: "Decision-focused Practices for AI agents doing software engineering: clarify goals and authority, control scope and investigation, make proportionate implementation and validation choices, and handle reviews, delivery, handoffs, and recovery with trustworthy evidence."
     releases:
       - version: 0.1.0
         ref: agentic-coding-v0.1.0
@@ -13,6 +13,9 @@ packs:
         path: packs/agentic-coding
       - version: 0.3.0
         ref: agentic-coding-v0.3.0
+        path: packs/agentic-coding
+      - version: 0.3.1
+        ref: agentic-coding-v0.3.1
         path: packs/agentic-coding
   - name: pack-creator
     description: Practices for creating atomic, retrievable, reviewable, and verifiably published Lorelum Knowledge Packs.

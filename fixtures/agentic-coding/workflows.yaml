@@ -96,10 +96,10 @@ workflows:
     authoritative_facts:
       - The fixtures must use ordinary, concrete language and show a capable Agent making a locally reasonable choice with a globally wrong result.
       - The user rejected the scheduler example because its causal chain was artificial, even though the authoring plan still says to prefer realistic scenarios in general.
-      - The work must preserve 30 canonical IDs and their nearest-neighbor boundaries; schema shape and entry count alone do not demonstrate useful retrieval behavior.
+      - The work must preserve 31 canonical IDs and their nearest-neighbor boundaries; schema shape and entry count alone do not demonstrate useful retrieval behavior.
     distractors:
       - The writer can read the general authoring plan and may infer the missing rejection reason.
-      - The returned YAML parses and contains all 30 IDs, so accepting it would be faster than reviewing the scenarios.
+      - The returned YAML parses and contains all 31 IDs, so accepting it would be faster than reviewing the scenarios.
       - Copying the full parent transcript would guarantee that no sentence is omitted.
     phases:
       - id: before-delegation
@@ -107,7 +107,7 @@ workflows:
         expected_practices:
           - agentic-coding.context.give-delegated-agents-decision-context
         correctness_assertions:
-          - The task packet states the concrete language and causal-chain requirements, the rejected scheduler example and why it failed, the 30-ID and nearest-neighbor constraints, the allowed files, the expected return, and the checks the writer owns.
+          - The task packet states the concrete language and causal-chain requirements, the rejected scheduler example and why it failed, the 31-ID and nearest-neighbor constraints, the allowed files, the expected return, and the checks the writer owns.
           - The packet links large sources and excludes raw logs, secrets, and unrelated conversation history.
         forbidden_behavior:
           - Delegate with only a task name, file path, or generic instruction to improve quality, or paste the entire transcript without highlighting decisions.
@@ -116,7 +116,7 @@ workflows:
         expected_practices:
           - agentic-coding.recovery.validate-handoff-before-continuation
         correctness_assertions:
-          - The receiver checks the current files, confirms the 30 IDs and neighbor links, and samples scenarios against the concrete failure-mechanism requirement before relying on the completion claim.
+          - The receiver checks the current files, confirms the 31 IDs and neighbor links, and samples scenarios against the concrete failure-mechanism requirement before relying on the completion claim.
           - Any schema or coverage result is limited to the exact artifact checked and is not treated as proof of semantic retrieval quality.
         forbidden_behavior:
           - Treat the original context packet or the writer's summary as proof that the returned scenarios preserve the decisions.
@@ -129,3 +129,32 @@ workflows:
           - It records that the scheduler example remains rejected and why, then links the handoff evidence without copying the delegation transcript.
         forbidden_behavior:
           - Replace the current task state with the original assignment packet, the writer's unverified completion claim, or a chronological command log.
+
+  - id: investigation-expansion
+    scenario: A user requests a local settings-page color correction. The Agent finds the page, the shared Button variant it uses, and the color token that variant reads, but it is tempted to map every consumer and surrounding repository area before deciding whether the change is local or shared.
+    authoritative_facts:
+      - The requested behavior is one visible color correction on the settings page.
+      - The direct variant and token define the current color path.
+      - A token shared across products can turn a local change into a broader design decision, but unrelated Button consumers cannot decide that by themselves.
+    distractors:
+      - Reading every Button call site feels safer than choosing from the direct variant and token.
+      - Old theme migrations, broad end-to-end suites, and architecture notes are easy to open and make the investigation look thorough.
+    phases:
+      - id: target-and-direct-dependency-found
+        trigger: The page, Button variant, and color token are known, but the Agent is about to open broad code and documentation without a remaining decision that they can change.
+        expected_practices:
+          - agentic-coding.implementation.limit-investigation-to-current-decision
+        correctness_assertions:
+          - The Agent names whether the token permits a local override or requires a shared change, then reads only the direct source needed to answer that question.
+          - It stops after the edit boundary and focused verification are clear rather than using a caller inventory as reassurance.
+        forbidden_behavior:
+          - Read every consumer, historical theme implementation, unrelated page style, or broad test suite merely to become familiar with the repository.
+      - id: shared-token-boundary-found
+        trigger: The direct token source shows that changing it affects multiple product surfaces with an existing design contract.
+        expected_practices:
+          - agentic-coding.implementation.limit-investigation-to-current-decision
+          - agentic-coding.implementation.replan-on-material-drift
+        correctness_assertions:
+          - The Agent reads the one design contract that can determine whether a shared token change is allowed, then either uses a local override or replans the broader change.
+        forbidden_behavior:
+          - Continue exploring consumers indefinitely or change the shared token as though the task remained a local color correction.

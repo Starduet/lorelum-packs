@@ -22,7 +22,9 @@ locales:
       - path: practices/implementation/confirm-product-surface-expansion.md
         source_digest: sha256:c3764dfde671de793c91978d8a5ced3ad7dbcb646e51a26255f641f308d31ce7
       - path: practices/implementation/inspect-and-reuse-existing-capability.md
-        source_digest: sha256:26e6596d216bc33656f3ce61830faad09ce7411bd133171269d0913e2f2744eb
+        source_digest: sha256:9a4ebfaf6001822f46eba9f9f0c3909fdfa7476017fa7c0e38555d73e5a355c4
+      - path: practices/implementation/limit-investigation-to-current-decision.md
+        source_digest: sha256:12f780ac35b8ce55b4543544df37c02a2de49dce18a93091b1f1705c99b62239
       - path: practices/implementation/preserve-responsibility-boundaries.md
         source_digest: sha256:7eb796cdc21abf6d0bdec8a786d97fe4370d3def4ddd05a718b45ed094d544d4
       - path: practices/implementation/replan-on-material-drift.md
@@ -44,7 +46,7 @@ locales:
       - path: practices/requirements/ground-user-goal.md
         source_digest: sha256:f4490a8e769ca2869bc9a6ecb9c0f433f4321701f7a86800543f0892d66f5ac0
       - path: practices/requirements/resolve-source-authority.md
-        source_digest: sha256:2b7056a1839f3c4a1b3f2e3a2581e5c32e047d37ff106a09e5a55659573efc36
+        source_digest: sha256:83cf9b9103321cc1a8b1378f527dba6d7e3dd9277b2fd7132103d652cceb770b
       - path: practices/review/run-subtractive-review-before-commit.md
         source_digest: sha256:5152d2e3ff7d182ed772cfc455226f8776799ddde02315d9b9152d9194375b08
       - path: practices/review/validate-findings-before-action.md

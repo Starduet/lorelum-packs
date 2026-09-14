@@ -6,7 +6,7 @@ This repository is the official public catalog for installable Lorelum Knowledge
 
 - `pack-creator@0.1.0` — 20 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Lorelum Packs.
   - [简体中文本地化](./packs/pack-creator/i18n/zh-CN/README.md) is available as non-runtime companion content.
-- `agentic-coding@0.3.0` — 30 tool-neutral Practices covering requirements, planning, implementation, testing, verification, review, delivery, correction, context recovery, and decision-aware delegation.
+- `agentic-coding@0.3.1` — 31 decision-focused Practices for AI agents doing software engineering: goals and authority, scope and investigation, implementation and validation, reviews, delivery, handoffs, and recovery.
   - [简体中文本地化](./packs/agentic-coding/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `agentic-coding@0.2.0` — immutable first complete release with 29 Practices.
 - `agentic-coding@0.1.0` — immutable placeholder history retained for reproducible installation tests. It is not production guidance and is not updated in place.
