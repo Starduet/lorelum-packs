@@ -8,24 +8,69 @@ This repository is the official public catalog for installable Lorelum Knowledge
   - [简体中文本地化](./packs/pack-creator/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `agentic-coding@0.3.1` — 31 decision-focused Practices for AI agents doing software engineering: goals and authority, scope and investigation, implementation and validation, reviews, delivery, handoffs, and recovery.
   - [简体中文本地化](./packs/agentic-coding/i18n/zh-CN/README.md) is available as non-runtime companion content.
-- `agentic-coding@0.2.0` — immutable first complete release with 29 Practices.
-- `agentic-coding@0.1.0` — immutable placeholder history retained for reproducible installation tests. It is not production guidance and is not updated in place.
 
-## Install
+## Use Packs
 
-After a release ref listed in `.lorelum/registry.yaml` has been published:
+Pack commands use the user-level LocalStore by default. Use `--store-root <path>` only when a
+worktree, test, or other isolated environment needs its own Pack and derived-index data; it does not
+select a model, Backend address, or runtime directory.
+
+### Browse installed Packs and Practices
 
 ```sh
-lore install <pack>
+# List installed Packs, or include their descriptions and applicability metadata.
+lore pack list
+lore pack list --details
+
+# List one Pack's Practice catalog, then read one exact Practice in full.
+lore pack list agentic-coding
+lore get agentic-coding.testing.classify-failure-before-changing-test
 ```
 
-The Lorelum CLI contains the official Registry repository name, not the Pack content. It reads this descriptor, resolves the release from the same repository, validates the selected Pack, and installs it into the user-level LocalStore.
+`lore pack list <pack>` returns compact Practice summaries (`id`, `title`, and `applies_when`).
+`lore get <practice-id>` reads the selected Practice's complete guidance, anti-patterns, and source
+metadata.
+
+### Install or update
+
+```sh
+# Install the latest stable release into a Store where the Pack is not yet installed.
+lore pack install agentic-coding
+
+# Use `@version` to select an exact release.
+lore pack install <pack>
+lore pack install <pack>@<version>
+lore pack install agentic-coding@0.3.1
+lore pack update <pack>
+lore pack update <pack>@<version>
+lore pack update agentic-coding@0.3.1
+```
+
+Omit `@version` to resolve the Registry's latest stable release. `install` is for a new Pack; use
+`update` when replacing a Pack that is already installed. The Lorelum CLI contains the official
+Registry repository name, not the Pack content: it reads the Registry descriptor, resolves the
+release, validates the Pack, and writes it to the selected LocalStore.
+
+### Remove a Pack
+
+```sh
+lore pack remove agentic-coding
+```
+
+### Use a different public Registry or an isolated Store
 
 Another public GitHub repository can expose the same layout and be selected explicitly:
 
 ```sh
-lore install <pack> --registry owner/repository
+lore pack install agentic-coding@0.3.1 --registry owner/repository
+lore pack update agentic-coding --registry owner/repository
+
+# The global --store-root option can appear before or after the Pack command.
+lore --store-root ./tmp/lore-store pack install agentic-coding
+lore pack list --store-root ./tmp/lore-store
 ```
+
+Custom registries must expose `.lorelum/registry.yaml` from a supported public GitHub repository.
 
 ## Repository layout
 
