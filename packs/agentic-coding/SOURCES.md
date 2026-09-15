@@ -55,4 +55,26 @@ Public issue sources:
 
 ## Synthesis boundary
 
+The `0.4.0` additions `agentic-coding.implementation.validate-at-the-owning-boundary` and
+`agentic-coding.implementation.make-recovery-behavior-explicit` are **Defensive-complexity synthesis**:
+sanitized maintainer feedback about agents repeating validation, normalization, authorization, and
+fallbacks throughout ordinary development. The two decisions concern the owner of an established
+fact and the semantics of recovery after failure. Security is one application, not their scope.
+HTTP/import/domain/database and cache/retry examples are author-constructed composite scenarios,
+not claims of incidents or measurements in those systems.
+
+The same synthesis refines `define-acceptance-and-non-goals`, `admit-only-currently-justified-work`,
+`scale-work-to-risk-and-cost`, `choose-smallest-sufficient-design`,
+`preserve-responsibility-boundaries`, `run-subtractive-review-before-commit`, and
+`assert-observable-behavior`. Their original provenance above still applies; the new distinctions
+about repeated internal checks, bounded uncertainty, false success, and safeguard costs are author
+synthesis rather than quotations from those issues. The generic local-stop example illustrates
+recovery prerequisites and makes no claim that all process identity or compatibility checks are
+unnecessary.
+
+The candidate's fixtures state contrasting selection and behavior hypotheses for typed internal
+handoffs, independent ingress, concurrent writes, enforced and bypassable gateways, stale cache,
+nested retries, and local stop. Structural validation and semantic author review do not establish
+retrieval quality or measured downstream Agent improvement; those evaluations remain unrun.
+
 The mapping records provenance, not empirical proof that retrieval improves task outcomes. The public fixtures provide testable hypotheses for retrieval and behavior evaluation. Benchmark or scoring methods, private artifacts, and unpublished review procedures are outside this repository.

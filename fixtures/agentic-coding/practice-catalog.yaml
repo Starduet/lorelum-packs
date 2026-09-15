@@ -1,7 +1,23 @@
 fixture_set: agentic-coding-practice-catalog
 evaluation_only: true
-description: Atomic retrieval and behavior hypotheses for 31 Practices; not a runtime schema or proof of retrieval quality.
+description: Atomic retrieval and behavior hypotheses for 33 Practices; not a runtime schema or proof of retrieval quality.
 entries:
+  - id: agentic-coding.implementation.validate-at-the-owning-boundary
+    positive_trigger: An HTTP adapter parses a positive quantity into a typed command, but the service and repository plan to parse and clamp the unchanged value again merely because they are separate layers.
+    paraphrase: An enforced internal gateway establishes caller identity, and unchanged internal helper calls are about to grow independent authentication frameworks without a new caller or permission decision.
+    near_miss: The typed request is valid, but the remote status service times out and the caller wants to return stale cache or an empty list.
+    nearest_neighbor: agentic-coding.implementation.make-recovery-behavior-explicit
+    expected_behavior: Identify the fact and its owner, pass the established value through ordinary calls, and retain checks only where another input, transformation, state change, policy, or independently justified protection makes them necessary.
+    forbidden_behavior: Treat every function as a fresh trust boundary, silently renormalize accepted data, or delete independent ingress, concurrency, or bypass-path checks just because a previous check exists.
+
+  - id: agentic-coding.implementation.make-recovery-behavior-explicit
+    positive_trigger: A client retries a status request three times, its service repeats the call, and a broad catch substitutes an empty list after any failure.
+    paraphrase: A supported outage mode permits a five-minute-old snapshot, but decoding failures and permission denials are about to use that fallback too.
+    near_miss: No operation has failed; an unchanged typed quantity is being reparsed at each internal handoff.
+    nearest_neighbor: agentic-coding.implementation.validate-at-the-owning-boundary
+    expected_behavior: Give recovery one owner, classify eligible failures, bound the overall attempts or stale age, preserve material failure information, and deliver the accepted observable outcome.
+    forbidden_behavior: Multiply retry budgets, replay a possibly committed mutation blindly, turn failures into empty success, or delete an accepted bounded offline or stale-read behavior as unnecessary complexity.
+
   - id: agentic-coding.requirements.ground-user-goal
     positive_trigger: A request says to improve failed uploads, and the agent is about to change a generic error banner without stating what creators must be able to do afterward.
     paraphrase: Support staff need to find delayed orders from a customer reference, but the proposed work is only a new badge on an existing dashboard.

@@ -25,7 +25,10 @@ Write a short "done when" list using behavior a caller can observe. Then write a
 task" list for nearby extensions a capable engineer might reasonably add. Keep required behavior
 even when removing it would shrink the diff. Exclude optional infrastructure even when it would make
 the design more general. Stop when the two lists let a reviewer distinguish complete work from
-missing behavior and scope expansion.
+missing behavior and scope expansion. Include any material failure or degraded outcome callers must
+distinguish: unavailable is not empty, rejected is not saved, and stale is not current. Establish
+the actual callers and deployment constraints when they change acceptance; do not silently add a
+public, hostile, multi-tenant, or always-offline scenario to a task that does not require it.
 
 ## Anti-pattern
 
@@ -43,9 +46,10 @@ work from becoming a current commitment.
 
 ## Exceptions and boundaries
 
-Security checks required to use either registry are part of completion, even if the request does not
-list every check. A later authorized requirement may add a non-goal, but future possibility alone
-does not.
+Checks required by the supported inputs, governing policy, or accepted contract remain part of
+completion even when not listed individually. Name that basis rather than treating "robustness" or
+"security" as an unlimited exception. A later authorized requirement may add a non-goal, but future
+possibility alone does not.
 
 ## Example
 

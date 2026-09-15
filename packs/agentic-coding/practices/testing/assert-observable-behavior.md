@@ -27,7 +27,13 @@ caller can rely on: a return value, saved record, protocol message, permission d
 or another promised effect. Check enough detail to distinguish success from the likely failure, but
 do not reconstruct the private route taken to get there. If the result cannot currently be observed,
 expose the smallest legitimate read or test through the nearest stable interface. Stop when the
-assertion would still pass after an internal refactor that preserves the promised behavior.
+assertion would still pass after an internal refactor that preserves the promised behavior. When
+changing validation or recovery, check the valid path still works and observe the distinct invalid
+or degraded outcome at its owning boundary. Assert that a denied request stays denied, stale data is
+identified when required, and exhausted retries return the defined failure. Do not require every
+internal layer to call the same validator or maintain tests for impossible internal states solely to
+justify defensive code. A promised attempt budget or non-duplication guarantee is observable
+behavior.
 
 ## Anti-pattern
 

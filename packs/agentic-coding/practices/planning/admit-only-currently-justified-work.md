@@ -25,7 +25,10 @@ Label each candidate required, optional, out of scope, or unresolved. Required w
 current acceptance, an evidenced risk, behavior already promised to callers, or an approved
 expansion. A useful idea without that support stays optional and cannot block the required path. If
 authority is missing, leave the item unresolved and ask. Stop when every committed item has a
-present reason.
+present reason. Apply the same admission rule to validation, authorization, retries, and fallback
+work: identify the reachable failure or explicit policy, the current protection, and the remaining
+gap. "Another layer of safety" alone is not a gap. Do not require a separate risk document when a
+brief explanation settles a small change.
 
 ## Anti-pattern
 
@@ -42,8 +45,9 @@ depend on it, removal becomes a compatibility decision.
 ## Exceptions and boundaries
 
 A governing contract or evidenced security, privacy, data-integrity, compatibility, or compliance
-risk can require work the feature request does not name. Optional improvements may still be recorded
-without becoming commitments.
+risk can require work the feature request does not name. Explain the actual exposure and
+consequence; the category label alone cannot promote hypothetical work into a requirement. Optional
+improvements may still be recorded without becoming commitments.
 
 ## Example
 

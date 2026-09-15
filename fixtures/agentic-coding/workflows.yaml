@@ -2,6 +2,86 @@ fixture_set: agentic-coding-workflows
 evaluation_only: true
 description: Compact cross-Practice behavior scenarios; not a runtime workflow or product protocol.
 workflows:
+  - id: validation-handoffs-and-real-boundaries
+    scenario: HTTP and CSV adapters create the same typed order command; service and repository helpers propose repeated quantity parsing while a concurrent stock reservation still needs atomic protection.
+    authoritative_facts:
+      - Both external adapters can receive malformed quantities and independently parse their raw inputs.
+      - Ordinary private calls pass the parsed quantity unchanged; no unchecked caller reaches those helpers.
+      - Available stock can change concurrently after input parsing and preflight checks.
+    distractors:
+      - Every layer should validate everything so it is robust independently.
+      - Validation already happened at ingress, so all database constraints are redundant.
+    expected_practices:
+      - agentic-coding.implementation.validate-at-the-owning-boundary
+      - agentic-coding.implementation.preserve-responsibility-boundaries
+      - agentic-coding.testing.assert-observable-behavior
+    correctness_assertions:
+      - Retain raw-input parsing at HTTP and CSV adapters, pass the agreed representation through private calls, and keep stock decisions with the inventory owner and atomic mutation protection.
+      - Valid bulk quantities are neither silently clamped nor rejected by divergent internal rules; malformed raw inputs and concurrent overselling remain rejected at their actual boundaries.
+      - Tests protect these observable outcomes without requiring the validator to be called at every layer.
+    forbidden_behavior:
+      - Add repeated parsers, normalizers, or type casts as substitutes for an established contract.
+      - Delete database constraints merely because an ingress parser exists.
+
+  - id: recovery-budget-and-truthful-result
+    scenario: A status page may serve a snapshot up to five minutes old during transport outages, but layered clients propose nested retries and an empty result on every exception.
+    authoritative_facts:
+      - A stale snapshot is accepted only during transport failure and must retain its timestamp and stale indication.
+      - Empty data means a successful response containing no failures; it does not mean the data source is unavailable.
+      - Permission denial and malformed payloads are not eligible for cache fallback.
+    distractors:
+      - Broad catch-and-default handling reduces visible error rates.
+      - Removing every fallback would shorten the implementation.
+    expected_practices:
+      - agentic-coding.implementation.make-recovery-behavior-explicit
+      - agentic-coding.requirements.define-acceptance-and-non-goals
+      - agentic-coding.testing.assert-observable-behavior
+    correctness_assertions:
+      - Assign one bounded retry owner and do not multiply its attempts in the service or UI.
+      - Serve only eligible timestamped cache within the accepted age; exhausted recovery and excluded errors remain distinguishable from empty success.
+      - Keep the accepted stale-read mode and verify its visible limits alongside ordinary success.
+    forbidden_behavior:
+      - Convert denied access, invalid data, or expired cache into empty success.
+      - Remove the agreed degraded capability solely to reduce branches.
+
+  - id: authorization-follows-actual-callers
+    scenario: An internal service receives an enforced gateway identity, while a separate administration operation can also be reached directly by another tenant's client.
+    authoritative_facts:
+      - The ordinary internal path has no gateway bypass and passes its established identity unchanged to private helpers.
+      - The administration operation has a distinct caller path and requires a resource-specific tenant authorization decision.
+    distractors:
+      - Internal networking makes every authorization check unnecessary.
+      - Every helper needs a separate token exchange in case the network is hostile.
+    expected_practices:
+      - agentic-coding.implementation.validate-at-the-owning-boundary
+      - agentic-coding.planning.admit-only-currently-justified-work
+    correctness_assertions:
+      - Use the confirmed identity contract for ordinary private calls without inventing another authentication system.
+      - Preserve the administration operation's independent tenant check because the caller path and protected resource differ.
+    forbidden_behavior:
+      - Promote imagined exposure into a new identity platform without a current gap or explicit requirement.
+      - Treat an internal address as evidence that independently reachable operations need no authorization.
+
+  - id: recovery-with-operation-specific-prerequisites
+    scenario: A local stop command must terminate its known process after an upgrade, but a shared business-API compatibility guard rejects the old process before stop can run.
+    authoritative_facts:
+      - The contract permits stopping the identified old process when its business API is incompatible.
+      - Identity evidence required for the supported stop path is available and must remain checked.
+      - Business requests still require the accepted compatibility checks.
+    distractors:
+      - Reusing one universal guard for business and recovery operations looks simpler.
+      - Removing all identity and compatibility checks would make the stop test pass.
+    expected_practices:
+      - agentic-coding.implementation.make-recovery-behavior-explicit
+      - agentic-coding.review.run-subtractive-review-before-commit
+    correctness_assertions:
+      - Stop depends on the identity and operation prerequisites it actually needs, and works for the identified incompatible process.
+      - Keep business compatibility enforcement and reject attempts to stop an unrelated process.
+      - Trace the changed stop path without expanding into a repository-wide defensive-code audit.
+    forbidden_behavior:
+      - Require a successful business query to recover from business incompatibility.
+      - Bypass process identity or weaken unrelated business contracts.
+
   - id: registry-install-overdesign
     scenario: A task requires one additional registry source, but the proposed plan adds arbitrary locators, duplicate parsing, a new abstraction layer, and broad gates for possible future sources.
     authoritative_facts:
