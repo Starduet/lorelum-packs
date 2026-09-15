@@ -7,6 +7,7 @@ This Pack combines Lorelum's public format and retrieval boundaries with sanitiz
 - **Format-explicit** means the public Lorelum format or Registry contract directly establishes the structural or release requirement.
 - **Issue-derived synthesis** means a Practice generalizes a content, retrieval, evidence, or scope boundary discussed in a public Lorelum issue.
 - **Pack-authoring synthesis** means a Practice was generalized from a sanitized authoring and review retrospective, including rejected abstract wording, unrealistic examples, missing delegation context, trigger collisions, localization review, and remote installation checks.
+- **Protocol-aligned synthesis** means a Practice records the reviewed resource-directory, locator, and non-execution boundary of the current Lorelum Pack protocol; it does not by itself claim that a future released version is installable.
 
 Public sources:
 
@@ -42,6 +43,17 @@ Public sources:
 | `pack-creator.localization.localize-for-human-review-without-forking-runtime`    | Format-explicit: ADR 0009; Pack-authoring synthesis           | ADR 0009 defines canonical runtime content and mirrored localization assets; authoring review supplies the natural-language and fidelity gates.       |
 | `pack-creator.release.preserve-versioned-content-and-provenance`                 | Format-explicit: ADR 0008, ADR 0009; Pack-authoring synthesis | Registry refs and localization digests require reproducible canonical content, while the authoring retrospective motivates explicit synthesis labels. |
 | `pack-creator.release.verify-the-supported-install-path-before-claiming-release` | Format-explicit: ADR 0008; Pack-authoring synthesis           | ADR 0008 defines the Registry-to-LocalStore path; a sanitized release retrospective showed local validation cannot prove that remote path works.      |
+
+## Resource-practice provenance
+
+| Practice ID | Provenance | Relationship to source |
+| --- | --- | --- |
+| `pack-creator.authoring.link-pack-resources-from-the-practice` | Protocol-aligned synthesis; Pack-authoring synthesis | Keeps the trigger, action, reason, exception, and stop condition in one retrievable Practice, with `resource:` links used only for supplemental same-Pack files. |
+| `pack-creator.authoring.choose-reference-asset-or-script` | Protocol-aligned synthesis; Pack-authoring synthesis | Distinguishes read-on-demand references, copy-before-edit assets, and explicitly authorized scripts without inventing descriptors or execution authority. |
+| `pack-creator.evaluation.verify-resource-integrity-without-overclaiming` | Protocol-aligned synthesis; Pack-authoring synthesis | Separates resource structure, selected-artifact preservation, explicit script behavior, retrieval selection, and downstream Agent evidence. |
+
+The release Practices also apply to resource-only updates: changed bytes require a new immutable Pack
+artifact and release evidence even when an unchanged Practice retains its canonical digest.
 
 ## Synthesis boundary
 

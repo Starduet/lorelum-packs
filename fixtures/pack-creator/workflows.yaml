@@ -137,3 +137,37 @@ workflows:
           - The release report keeps installation evidence separate from semantic, retrieval, and downstream evidence.
         forbidden_behavior:
           - Announce the Pack as installable from a local directory, schema pass, translated companion, or documented command alone.
+
+  - id: resource-backed-pack-release
+    scenario: "A database-migration Pack adds a compatibility reference, a migration-plan asset, and a read-only schema-diff helper. The migration Practice is independently actionable, but the author must route each supplemental file and prepare a release claim without turning the script into automatic authority."
+    authoritative_facts:
+      - "The Practice body contains the decision trigger, action, reason, exception, and stopping point; resources only add conditional depth or repeatable help."
+      - "`lore validate` can report path/link structure but does not execute scripts or prove remote artifact preservation."
+      - "A resource-only update can replace the selected Pack artifact without changing an unchanged Practice's canonical digest or retrieval revision."
+    distractors:
+      - "Putting all files in one directory looks simpler than describing their different next actions."
+      - "A successful local script invocation feels like proof that the released Pack is useful."
+      - "A Pack root returned by one old read can be guessed after the Pack is updated."
+    phases:
+      - id: route-supplementary-material
+        trigger: "The author has the three files but has not explained when a retrieved migration Practice needs each one."
+        expected_practices:
+          - pack-creator.authoring.link-pack-resources-from-the-practice
+          - pack-creator.authoring.choose-reference-asset-or-script
+        correctness_assertions:
+          - "The Practice links each necessary same-Pack file with a `resource:` Markdown target and retains the migration decision in its own body."
+          - "The matrix is read on demand, the plan is copied before editing, and the helper can run only with current-task authorization plus stated input and output."
+        forbidden_behavior:
+          - "Make a directory scan, bare filename, or script presence substitute for a routed use condition."
+          - "Treat a `scripts/` entry as an install hook or a permission declaration."
+      - id: record-resource-evidence
+        trigger: "The Pack has passed local validation and is approaching a new immutable release."
+        expected_practices:
+          - pack-creator.evaluation.verify-resource-integrity-without-overclaiming
+          - pack-creator.release.preserve-versioned-content-and-provenance
+          - pack-creator.release.verify-the-supported-install-path-before-claiming-release
+        correctness_assertions:
+          - "The review distinguishes structure, selected-artifact install/readback, explicit script behavior, retrieval selection, and Agent behavior."
+          - "The release records whether resource bytes changed, creates a new immutable version/ref, and obtains a fresh locator through the supported install path before reading a representative resource."
+        forbidden_behavior:
+          - "Claim installation, script safety, retrieval quality, or Agent success from one local validation or execution result."
