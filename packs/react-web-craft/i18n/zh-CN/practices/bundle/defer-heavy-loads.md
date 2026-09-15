@@ -14,7 +14,10 @@ const ReportBuilder = dynamic(() => import("./report-builder"), {
 });
 ```
 
-组件用框架的组件加载器（Next.js 中是 `next/dynamic`），数据与非组件模块用普通 `import()`，第三方脚本用框架的脚本加载策略——analytics 和聊天挂件通常是脚本而非 React 组件，其加载策略与组件代码切分是两回事。诚实地对待取舍：`ssr: false` 让组件退出服务端渲染（在 App Router 中必须从客户端组件使用），因此交付的 HTML 不含它；这对挂件通常正确、对内容通常错误。
+组件用框架的组件加载器（Next.js 中是 `next/dynamic`），数据与非组件模块用普通
+`import()`，第三方脚本用框架的脚本加载策略——analytics 和聊天挂件通常是脚本而非 React 组件，其加载策略与组件代码切分是两回事。诚实地对待取舍：`ssr: false`
+让组件退出服务端渲染（在 App
+Router 中必须从客户端组件使用），因此交付的 HTML 不含它；这对挂件通常正确、对内容通常错误。
 
 保持导入路径可被静态分析。bundler 拆不动它看不见的东西：优先用显式的 loader 函数映射而不是拼接路径字符串；服务端代码里优先用字面量文件路径——过宽的路径还会扩大 Next.js 的输出文件追踪范围：
 
@@ -27,7 +30,8 @@ const REPORT_LOADERS = {
 const loadReport = REPORT_LOADERS[reportKind];
 ```
 
-延后的同时纠正一个常见误解：`typeof window !== "undefined"` 这类运行时守卫只能阻止模块在服务器上执行，并不能把它移出服务器 bundle。bundle 归属由静态导入和 loader 开关决定，与运行时检查无关。
+延后的同时纠正一个常见误解：`typeof window !== "undefined"`
+这类运行时守卫只能阻止模块在服务器上执行，并不能把它移出服务器 bundle。bundle 归属由静态导入和 loader 开关决定，与运行时检查无关。
 
 ## 反模式
 
@@ -41,8 +45,10 @@ const loadReport = REPORT_LOADERS[reportKind];
 
 - 不要延后关键渲染路径或首次交互路径上的代码；延后关键组件只是用一种成本换更糟的另一种。
 - 小模块不值得拆分：额外的 chunk 请求可能比省下的字节更贵；这是成本边界，不是风格规则。
-- `typeof window` 守卫与 `ssr: false` 回答的是两个问题（执行与打包归属）；本篇不替代 rendering 类别中浏览器 API 与 SSR 的边界决策。
-- 决定延后 chunk 应在点击前多久预取，是 `react.bundle.preload-on-intent` 的决策；barrel 文件入口的排除在本 Pack 中暂缓，待构建产物证据。
+- `typeof window` 守卫与 `ssr: false`
+  回答的是两个问题（执行与打包归属）；本篇不替代 rendering 类别中浏览器 API 与 SSR 的边界决策。
+- 决定延后 chunk 应在点击前多久预取，是 `react.bundle.preload-on-intent`
+  的决策；barrel 文件入口的排除在本 Pack 中暂缓，待构建产物证据。
 
 ## 示例
 
@@ -73,4 +79,6 @@ export function SettingsPage({ isAdmin }: { isAdmin: boolean }) {
 }
 ```
 
-图表库随 `usage-charts` chunk 发货，在 `UsageCharts` 首次渲染时获取——对多数访客而言永远不会。若多种报表竞争同一位置，就挂到上面的 loader 映射上，每个条目都是字面量 `() => import(...)`，让 bundler 枚举拆分点而不是过度打包整个目录。
+图表库随 `usage-charts` chunk 发货，在 `UsageCharts`
+首次渲染时获取——对多数访客而言永远不会。若多种报表竞争同一位置，就挂到上面的 loader 映射上，每个条目都是字面量
+`() => import(...)`，让 bundler 枚举拆分点而不是过度打包整个目录。

@@ -12,15 +12,20 @@
 const [rules, setRules] = useState(() => buildEditableRules(initialRules));
 ```
 
-传入计算值（例如 `useState(buildEditableRules(initialRules))`）时，组件函数每次运行都会求值该表达式。React 会忽略已有状态之后的初值，但 JavaScript 已经为计算付出了成本。函数形式让 React 只在初始化该状态时调用初始化器，而不是每次普通渲染都调用。
+传入计算值（例如
+`useState(buildEditableRules(initialRules))`）时，组件函数每次运行都会求值该表达式。React 会忽略已有状态之后的初值，但 JavaScript 已经为计算付出了成本。函数形式让 React 只在初始化该状态时调用初始化器，而不是每次普通渲染都调用。
 
-保持初始化器纯函数：不得修改输入、执行 I/O、调度更新，也不得依赖「只被调用一次」。开发环境下 React Strict Mode 可能调用初始化器两次，以暴露不纯实现。廉价值（原始类型或小字面量）不要用函数形式；惰性初始化是成本边界，不是默认风格。
+保持初始化器纯函数：不得修改输入、执行 I/O、调度更新，也不得依赖「只被调用一次」。开发环境下 React
+Strict
+Mode 可能调用初始化器两次，以暴露不纯实现。廉价值（原始类型或小字面量）不要用函数形式；惰性初始化是成本边界，不是默认风格。
 
-把初始化器的输入视为该组件状态生命周期的快照。新的 prop 值不会重跑初始化器。若编辑状态属于另一份文档或实体，就给编辑器一个稳定的身份边界（例如 `key`），或定义显式的状态转换/重置路径。若值必须始终反映当前 prop，就不要为了用惰性初始化而把它复制进本地状态；应改选受控或响应式覆盖契约。
+把初始化器的输入视为该组件状态生命周期的快照。新的 prop 值不会重跑初始化器。若编辑状态属于另一份文档或实体，就给编辑器一个稳定的身份边界（例如
+`key`），或定义显式的状态转换/重置路径。若值必须始终反映当前 prop，就不要为了用惰性初始化而把它复制进本地状态；应改选受控或响应式覆盖契约。
 
 ## 反模式
 
-规则编辑器把数百条表达式解析成 token 数组，作为参数直接传给 `useState`。勾选一个复选框触发重渲染，完整解析随之重复，而算出的数组被丢弃——组件早已持有状态。把表达式换成读存储、写缓存的不纯初始化器并不是安全修法：初始化必须保持纯函数并与渲染行为兼容。
+规则编辑器把数百条表达式解析成 token 数组，作为参数直接传给
+`useState`。勾选一个复选框触发重渲染，完整解析随之重复，而算出的数组被丢弃——组件早已持有状态。把表达式换成读存储、写缓存的不纯初始化器并不是安全修法：初始化必须保持纯函数并与渲染行为兼容。
 
 ## 原因
 
@@ -98,9 +103,12 @@ function RuleEditor({ initialRules }: { initialRules: readonly RuleSource[] }) {
 }
 ```
 
-有了 `key`，切换到不同文档会创建新的编辑器实例；普通重渲染或同一文档的 prop 刷新不会重建本地可编辑状态。若同身份的规则更新需要合并进编辑器，就显式定义那条状态转换，而不是期待初始化器重跑。
+有了
+`key`，切换到不同文档会创建新的编辑器实例；普通重渲染或同一文档的 prop 刷新不会重建本地可编辑状态。若同身份的规则更新需要合并进编辑器，就显式定义那条状态转换，而不是期待初始化器重跑。
 
 ## 延伸阅读
 
-- [React `useState`](https://react.dev/reference/react/useState) — 初值、初始化函数与 Strict Mode 纯度检查。
-- [Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state) — 组件身份与 key 如何界定状态生命周期。
+- [React `useState`](https://react.dev/reference/react/useState) — 初值、初始化函数与 Strict
+  Mode 纯度检查。
+- [Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state)
+  — 组件身份与 key 如何界定状态生命周期。

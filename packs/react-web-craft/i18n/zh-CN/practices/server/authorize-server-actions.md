@@ -2,11 +2,13 @@
 
 ## 适用场景
 
-编写或审查任何标记了 `"use server"` 的函数时应用。判断它的认证（调用者是谁）与授权（这个调用者能否对这个目标做这件事）检查放在哪里。
+编写或审查任何标记了 `"use server"`
+的函数时应用。判断它的认证（调用者是谁）与授权（这个调用者能否对这个目标做这件事）检查放在哪里。
 
 ## 具体指导
 
-把每个 server action 当成公开端点，因为它就是：框架把它变成可寻址的处理器，任何客户端可以用任意实参直接调用，与渲染它的 UI 无关。middleware、layout 守卫和页面级检查保护的是渲染路径——直接投递的 action 调用不会经过它们。因此每个 action 在触碰数据之前自行验证自己的契约：
+把每个 server
+action 当成公开端点，因为它就是：框架把它变成可寻址的处理器，任何客户端可以用任意实参直接调用，与渲染它的 UI 无关。middleware、layout 守卫和页面级检查保护的是渲染路径——直接投递的 action 调用不会经过它们。因此每个 action 在触碰数据之前自行验证自己的契约：
 
 ```ts
 "use server";
@@ -33,7 +35,8 @@ export async function archiveProject(projectId: string) {
 
 ## 反模式
 
-管理页在 layout 里检查访客角色，而它的 "use server" `archiveProject` action 自身不做任何检查。用手工构造的请求直接调用 action 时 layout 守卫根本不会运行，于是任何已认证用户都能归档任何项目。
+管理页在 layout 里检查访客角色，而它的 "use server" `archiveProject`
+action 自身不做任何检查。用手工构造的请求直接调用 action 时 layout 守卫根本不会运行，于是任何已认证用户都能归档任何项目。
 
 ## 原因
 

@@ -15,11 +15,15 @@ title: Compose with Children; Reserve Render Props for Data-Bound Slots
 
 ## When to apply
 
-Apply when designing a component others will fill with content — a frame, a card, a toolbar, a dialog. Decide which parts of its API are structure the caller already has, and which are slots the component must fill with its own data.
+Apply when designing a component others will fill with content — a frame, a card, a toolbar, a
+dialog. Decide which parts of its API are structure the caller already has, and which are slots the
+component must fill with its own data.
 
 ## Guidance
 
-Structure passes as children. What the caller can write as elements at the call site — headers, actions, sections — should travel as `children` or named slot props containing elements, not as functions the component calls:
+Structure passes as children. What the caller can write as elements at the call site — headers,
+actions, sections — should travel as `children` or named slot props containing elements, not as
+functions the component calls:
 
 ```tsx
 <Card>
@@ -31,32 +35,50 @@ Structure passes as children. What the caller can write as elements at the call 
 </Card>
 ```
 
-Render functions earn their indirection only when the slot is data-bound: the component holds information the caller needs to render with — each row of a table, each item of a virtualized list, measured dimensions — and the callback is the delivery mechanism:
+Render functions earn their indirection only when the slot is data-bound: the component holds
+information the caller needs to render with — each row of a table, each item of a virtualized list,
+measured dimensions — and the callback is the delivery mechanism:
 
 ```tsx
 <DataTable rows={invoices} renderRow={(invoice) => <InvoiceRow key={invoice.id} invoice={invoice} />} />
 ```
 
-The reviewable question per prop: does the caller need anything from inside the component to render this? If no, take an element. A `renderHeader?: () => ReactNode` whose result never touches internal state is a callback impersonating a prop, and it costs readability and inlining for nothing. Naming follows the split — slot props are element props; data-bound ones are `render*` taking the data as a parameter, not zero-argument thunks.
+The reviewable question per prop: does the caller need anything from inside the component to render
+this? If no, take an element. A `renderHeader?: () => ReactNode` whose result never touches internal
+state is a callback impersonating a prop, and it costs readability and inlining for nothing. Naming
+follows the split — slot props are element props; data-bound ones are `render*` taking the data as a
+parameter, not zero-argument thunks.
 
 ## Anti-pattern
 
-A toolbar component declares `renderLeft`, `renderRight`, and `renderOverflow` — all zero-argument. Callers study the component's signature to compose plain buttons, each usage wraps static elements in arrows, and none of the three slots can ever receive toolbar state, because the component never passes any.
+A toolbar component declares `renderLeft`, `renderRight`, and `renderOverflow` — all zero-argument.
+Callers study the component's signature to compose plain buttons, each usage wraps static elements
+in arrows, and none of the three slots can ever receive toolbar state, because the component never
+passes any.
 
 ## Why
 
-Children are declarative, tree-shaped, and already familiar; render functions add a call layer that pays for itself only when the component supplies data per invocation. Keeping element props and render props distinct also makes the component's contract self-describing: element props say "bring structure", render props say "I will call you with my data".
+Children are declarative, tree-shaped, and already familiar; render functions add a call layer that
+pays for itself only when the component supplies data per invocation. Keeping element props and
+render props distinct also makes the component's contract self-describing: element props say "bring
+structure", render props say "I will call you with my data".
 
 ## Exceptions and boundaries
 
-- Zero-argument render props are occasionally justified for lazy mounting (deferring a heavy subtree until the slot renders); the deferral motive should be stated, and suspense boundaries usually express it better.
-- Compound-component APIs (`<Toolbar.Left />`) are the shared-context evolution of slot elements; they add machinery that single-use slots do not need.
-- Data-bound slots need key discipline and stable callbacks like any list rendering; this Practice covers the API shape, not list rendering semantics.
-- Wrapping children to inject context is provider design, not a render prop; see `react.state.share-one-owner` for the ownership decision underneath.
+- Zero-argument render props are occasionally justified for lazy mounting (deferring a heavy subtree
+  until the slot renders); the deferral motive should be stated, and suspense boundaries usually
+  express it better.
+- Compound-component APIs (`<Toolbar.Left />`) are the shared-context evolution of slot elements;
+  they add machinery that single-use slots do not need.
+- Data-bound slots need key discipline and stable callbacks like any list rendering; this Practice
+  covers the API shape, not list rendering semantics.
+- Wrapping children to inject context is provider design, not a render prop; see
+  `react.state.share-one-owner` for the ownership decision underneath.
 
 ## Example
 
-A page header takes structure as elements and leaves one data-bound slot for what only the table knows. The declared `Button` and `FilterInput` stand in for real components.
+A page header takes structure as elements and leaves one data-bound slot for what only the table
+knows. The declared `Button` and `FilterInput` stand in for real components.
 
 ```tsx
 function PageHeader({ title, actions, children }: {
@@ -81,4 +103,7 @@ function PageHeader({ title, actions, children }: {
 </PageHeader>
 ```
 
-`actions` and `children` are elements: the caller composes real buttons and inputs with no callback layer. A render prop would earn its place here only if the header had to hand the caller something internal — say, which actions overflowed into a menu — and then the signature would say so: `renderOverflow?: (items: Action[]) => ReactNode`, data as a parameter, not a zero-argument thunk.
+`actions` and `children` are elements: the caller composes real buttons and inputs with no callback
+layer. A render prop would earn its place here only if the header had to hand the caller something
+internal — say, which actions overflowed into a menu — and then the signature would say so:
+`renderOverflow?: (items: Action[]) => ReactNode`, data as a parameter, not a zero-argument thunk.

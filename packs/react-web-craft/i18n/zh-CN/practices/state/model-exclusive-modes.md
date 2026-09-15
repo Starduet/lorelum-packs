@@ -6,13 +6,15 @@
 
 ## 具体指导
 
-同一时刻只会有一个模式生效时，用一个状态值表达它。在 TypeScript 中，判别联合（discriminated union）可以只在特定变体上携带数据，例如把错误消息挂在 failed 变体上。转换时整体替换状态值，让下一个模式与它附带的数据一起变化。
+同一时刻只会有一个模式生效时，用一个状态值表达它。在 TypeScript 中，判别联合（discriminated
+union）可以只在特定变体上携带数据，例如把错误消息挂在 failed 变体上。转换时整体替换状态值，让下一个模式与它附带的数据一起变化。
 
 可以同时为真、且所有者或生命周期不同的独立事实保持独立。不要为了减少状态变量个数就合并不相关的开关；也不要用本篇判断「一个值能否从其他状态推导」。
 
 ## 反模式
 
-label manager 把 `isCreating` 与 `editingLabelId` 存成两个独立 state。没有任何机制阻止两者同时生效，于是界面可以同时打开新建 label 编辑器和重命名编辑器——而产品只允许存在一个 label 编辑器。
+label manager 把 `isCreating` 与 `editingLabelId`
+存成两个独立 state。没有任何机制阻止两者同时生效，于是界面可以同时打开新建 label 编辑器和重命名编辑器——而产品只允许存在一个 label 编辑器。
 
 ## 原因
 
@@ -27,7 +29,8 @@ label manager 把 `isCreating` 与 `editingLabelId` 存成两个独立 state。�
 
 ## 示例
 
-label manager 要么新建 label，要么重命名一个既有 label，绝不同时打开两个编辑器。一个带标签的状态保存当前模式与该模式所需的数据。
+label
+manager 要么新建 label，要么重命名一个既有 label，绝不同时打开两个编辑器。一个带标签的状态保存当前模式与该模式所需的数据。
 
 ```tsx
 import { useState } from "react";
@@ -112,4 +115,5 @@ export function LabelManager({
 }
 ```
 
-`editor.kind` 为 `closed` 时没有 name 或 label ID；`create` 模式有草稿名但没有 ID；`rename` 模式携带将要更新的 ID。如果新建与重命名允许同时进行，它们就是独立模式，不应这样合并。
+`editor.kind` 为 `closed` 时没有 name 或 label ID；`create` 模式有草稿名但没有 ID；`rename`
+模式携带将要更新的 ID。如果新建与重命名允许同时进行，它们就是独立模式，不应这样合并。

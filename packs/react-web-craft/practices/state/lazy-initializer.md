@@ -15,7 +15,10 @@ title: Lazy-Initialize Expensive Mount-Time State
 
 ## When to apply
 
-Apply when a component needs an editable local copy initialized from a stable input, and producing that initial value requires meaningful parsing, normalization, indexing, or other pure work. Decide whether the work is truly mount-time initialization or whether the state should instead follow changing inputs.
+Apply when a component needs an editable local copy initialized from a stable input, and producing
+that initial value requires meaningful parsing, normalization, indexing, or other pure work. Decide
+whether the work is truly mount-time initialization or whether the state should instead follow
+changing inputs.
 
 ## Guidance
 
@@ -25,30 +28,55 @@ Pass an initializer function to `useState` when the initial calculation is costl
 const [rules, setRules] = useState(() => buildEditableRules(initialRules));
 ```
 
-Passing a calculated value, such as `useState(buildEditableRules(initialRules))`, evaluates that expression whenever the component function runs. React ignores later initial values for the existing state, but JavaScript has already paid to compute them. The function form lets React call the initializer when it initializes that state rather than on each ordinary render.
+Passing a calculated value, such as `useState(buildEditableRules(initialRules))`, evaluates that
+expression whenever the component function runs. React ignores later initial values for the existing
+state, but JavaScript has already paid to compute them. The function form lets React call the
+initializer when it initializes that state rather than on each ordinary render.
 
-Keep the initializer pure: it must not mutate inputs, perform I/O, schedule updates, or rely on being invoked exactly once. React Strict Mode may call an initializer twice in development to help expose impurities. Avoid the function form for cheap values such as a primitive or a small literal; lazy initialization is a cost boundary, not a default style rule.
+Keep the initializer pure: it must not mutate inputs, perform I/O, schedule updates, or rely on
+being invoked exactly once. React Strict Mode may call an initializer twice in development to help
+expose impurities. Avoid the function form for cheap values such as a primitive or a small literal;
+lazy initialization is a cost boundary, not a default style rule.
 
-Treat the initializer's inputs as a snapshot for that component's state lifetime. A new prop value does not rerun the initializer. If the edited state belongs to a different document or entity, give the editor a stable identity boundary (for example, a `key`) or define an explicit state-transition/reset path. If the value must always reflect the current prop, do not copy it into local state just to use a lazy initializer; choose a controlled or reactive-override contract instead.
+Treat the initializer's inputs as a snapshot for that component's state lifetime. A new prop value
+does not rerun the initializer. If the edited state belongs to a different document or entity, give
+the editor a stable identity boundary (for example, a `key`) or define an explicit
+state-transition/reset path. If the value must always reflect the current prop, do not copy it into
+local state just to use a lazy initializer; choose a controlled or reactive-override contract
+instead.
 
 ## Anti-pattern
 
-A rule editor parses hundreds of expressions into token arrays as an argument to `useState`. Editing one checkbox rerenders the editor and repeats the full parse, while the resulting arrays are discarded because the component already has state. Replacing the expression with an impure initializer that reads storage or writes a cache is not a safe fix: initialization must remain pure and compatible with render behavior.
+A rule editor parses hundreds of expressions into token arrays as an argument to `useState`. Editing
+one checkbox rerenders the editor and repeats the full parse, while the resulting arrays are
+discarded because the component already has state. Replacing the expression with an impure
+initializer that reads storage or writes a cache is not a safe fix: initialization must remain pure
+and compatible with render behavior.
 
 ## Why
 
-The argument expression to a Hook is evaluated by JavaScript during every component invocation. React's one-time use of the initial value does not make that expression lazy. Supplying a function separates the initialization calculation from subsequent renders, while the explicit lifetime boundary prevents the optimization from being mistaken for synchronization with changing props.
+The argument expression to a Hook is evaluated by JavaScript during every component invocation.
+React's one-time use of the initial value does not make that expression lazy. Supplying a function
+separates the initialization calculation from subsequent renders, while the explicit lifetime
+boundary prevents the optimization from being mistaken for synchronization with changing props.
 
 ## Exceptions and boundaries
 
 - If construction is cheap, prefer the simpler direct initial value.
-- If a derived value should change whenever its inputs change, calculate it from current inputs or use an appropriate memoization decision; lazy state initialization intentionally does not track those changes.
-- If the user must edit a snapshot of an input, decide separately how identity changes replace that snapshot. Do not reset it through an Effect merely because props changed.
-- Initializers must be pure. Generate random identifiers, read browser-only storage, perform requests, or apply other side effects outside the initializer and pass a suitable result through the owning event, data-loading, or component-lifecycle path.
+- If a derived value should change whenever its inputs change, calculate it from current inputs or
+  use an appropriate memoization decision; lazy state initialization intentionally does not track
+  those changes.
+- If the user must edit a snapshot of an input, decide separately how identity changes replace that
+  snapshot. Do not reset it through an Effect merely because props changed.
+- Initializers must be pure. Generate random identifiers, read browser-only storage, perform
+  requests, or apply other side effects outside the initializer and pass a suitable result through
+  the owning event, data-loading, or component-lifecycle path.
 
 ## Example
 
-A rule editor turns the selected document's rule expressions into editable token lists. The document key defines when a new editor state lifetime begins; the initializer normalizes the selected document once per mount, and subsequent checkbox updates reuse that state.
+A rule editor turns the selected document's rule expressions into editable token lists. The document
+key defines when a new editor state lifetime begins; the initializer normalizes the selected
+document once per mount, and subsequent checkbox updates reuse that state.
 
 ```tsx
 import { useState } from "react";
@@ -111,9 +139,14 @@ function RuleEditor({ initialRules }: { initialRules: readonly RuleSource[] }) {
 }
 ```
 
-The key means switching to a different document creates a new editor instance; an ordinary rerender or same-document prop refresh does not rebuild the local editable state. If same-identity rule updates must merge into the editor, define that state transition explicitly instead of expecting the initializer to run again.
+The key means switching to a different document creates a new editor instance; an ordinary rerender
+or same-document prop refresh does not rebuild the local editable state. If same-identity rule
+updates must merge into the editor, define that state transition explicitly instead of expecting the
+initializer to run again.
 
 ## Further reading
 
-- [React `useState`](https://react.dev/reference/react/useState) — initial values, initializer functions, and Strict Mode purity checks.
-- [Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state) — how component identity and keys delimit state lifetime.
+- [React `useState`](https://react.dev/reference/react/useState) — initial values, initializer
+  functions, and Strict Mode purity checks.
+- [Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state) — how
+  component identity and keys delimit state lifetime.
