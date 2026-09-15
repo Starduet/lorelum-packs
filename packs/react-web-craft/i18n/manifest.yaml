@@ -1,0 +1,53 @@
+schema_version: 1
+source_locale: en
+locales:
+  zh-CN:
+    entries:
+      - path: practices/async/await-after-cheap-work.md
+        source_digest: sha256:707b7f429ad30ebea6398364d6678f17e56ad649a223514be5e386737ce54a46
+      - path: practices/async/chain-nested-item-fetches.md
+        source_digest: sha256:9413ef50b2cd3732b698d77d48803186ecdef95979e80cc6e5c45e06be6d2299
+      - path: practices/async/parallel-independent-work.md
+        source_digest: sha256:f864a4980205c00a79bd788bdfb52260fca86adaa344f31e2b913f695616b0ea
+      - path: practices/async/suspense-boundary-scope.md
+        source_digest: sha256:557f7502869da647d5dcda95a410619f35057ef017c419435887c8d8bf4f6793
+      - path: practices/bundle/defer-heavy-loads.md
+        source_digest: sha256:e7b1dde7df8de23556d212847bad1b5d893ae3ec4526435c220c3b28c1795c68
+      - path: practices/bundle/preload-on-intent.md
+        source_digest: sha256:f374dcac9daf5adfd2985336807d0993484a68fbbc27a97a3e2033fd67e16bdc
+      - path: practices/composition/children-over-render-props.md
+        source_digest: sha256:1e1273c9edacb59b9c9003708cc9292b65cb459767547deb5b681876c32f74cb
+      - path: practices/composition/explicit-variants-over-flags.md
+        source_digest: sha256:52f82a044ae51e80ffc5e3780b33e852de89d35c448be9494ed6821a231defd2
+      - path: practices/composition/model-mutually-exclusive-props.md
+        source_digest: sha256:74cd9bd615ebcb0e467d4777169d19a0b73eecf4b5b04f91d00b41173f57f5c0
+      - path: practices/composition/react19-ref-prop.md
+        source_digest: sha256:20d4efd734d8231f5dc84045a1d92f8d4266a4c3e1e8382e774cb9324bcbb04a
+      - path: practices/rendering/boolean-render-guards.md
+        source_digest: sha256:ad314aee12d77bcf9d2cc26a6aefad151220e4a6a208387e050c8847f311afce
+      - path: practices/rendering/derive-dont-mirror.md
+        source_digest: sha256:cd617f7be8295a358c479b7a0170ae4bced38a8924413a41ae49cc74c702751f
+      - path: practices/rendering/hydration-consistency.md
+        source_digest: sha256:4c3a0ba13e8e5c4ba5e6079da797f9ec72a77f2dd0abc86615d944c7843e1302
+      - path: practices/rendering/resource-hints-scripts.md
+        source_digest: sha256:6c2b568b990b7128a53402c53f84bd3b48aeb4d78fe69aa6cb4ca88251150a36
+      - path: practices/rendering/update-priority.md
+        source_digest: sha256:4ab678a605c628457dce7a635a6bfe09c047733949626dee1484bc54ff6c86d5
+      - path: practices/server/authorize-server-actions.md
+        source_digest: sha256:c7f2482a276d858ee55db28da60e9e49ff4e9d71d024116edc8e3a981dc89f7b
+      - path: practices/server/no-module-request-state.md
+        source_digest: sha256:3609a385af55109180af6d7ed82fb27e17d83192ed4f9327a69137c2e28aa72f
+      - path: practices/server/request-dedup-cache.md
+        source_digest: sha256:8a0069d5d2e64fb899a8131b16d09b59dceaa205dbc02932492e650b0989d2f2
+      - path: practices/state/fallback-until-overridden.md
+        source_digest: sha256:724883e1ee7a5f82b3347237cb3f56a491a107b8b702239f8ce444fdec508648
+      - path: practices/state/functional-updater-scope.md
+        source_digest: sha256:ef6ca0d92e10b4af302b2b1f60bb36535e0b21d800125a79686a3a4ee5dfc136
+      - path: practices/state/lazy-initializer.md
+        source_digest: sha256:22117ad324769424a971d137f2f45cbf31369cb26487ee0971d7e5daf037a0ab
+      - path: practices/state/model-exclusive-modes.md
+        source_digest: sha256:6cd4fc860cb47c34b816dc8b54dd5ee7169264c393007ee49d7abb3e3c2aa203
+      - path: practices/state/ref-for-nonrendered-values.md
+        source_digest: sha256:4103084774c8aa7241ee315a75358f9078cfac2f70421736261cf79da53873f0
+      - path: practices/state/share-one-owner.md
+        source_digest: sha256:222d849d63fea75570c9acae6b7ec86b83fc4870c9df11b9bf04a9985b27fccf
