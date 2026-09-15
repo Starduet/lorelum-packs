@@ -1,10 +1,10 @@
 # Lorelum Knowledge Packs
 
-This repository is the official public catalog for installable Lorelum Knowledge Packs. Each directory under `packs/` is a self-contained Pack root using the public `pack.yaml + practices/**/*.md + decisions.yaml?` format.
+This repository is the official public catalog for installable Lorelum Knowledge Packs. Each directory under `packs/` is a self-contained Pack root using the public `pack.yaml + practices/**/*.md + decisions.yaml?` format. A Pack may also include on-demand `references/`, `assets/`, and `scripts/` resources when its Practices route a reader to them with a `resource:` Markdown link.
 
 ## Catalog
 
-- `pack-creator@0.1.0` — 20 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Lorelum Packs.
+- `pack-creator@0.2.0` — unreleased candidate with 23 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, releasing, and safely consuming Pack-native resources. The latest published release remains `0.1.0` until an immutable `pack-creator-v0.2.0` ref and Registry entry exist.
   - [简体中文本地化](./packs/pack-creator/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `react-web-craft@0.1.0` — 24 Practices for React web application design and performance across component state, async data flow, code loading, rendering, and component composition.
   - [简体中文本地化](./packs/react-web-craft/i18n/zh-CN/README.md) is available as non-runtime companion content.
@@ -90,6 +90,9 @@ packs/
     README.md
     SOURCES.md
     practices/
+    references/
+    assets/
+    scripts/
     i18n/
   react-web-craft/
     pack.yaml

@@ -11,6 +11,8 @@ ref，按支持方式物化 Pack 文件，通过 decoder 与验证门禁，安�
 ID 和预期 Practice
 ID。记录 commit、版本、命令或 API 路径、环境和结果。ref 缺失或可移动、远程来源与候选不一致、物化漏文件、解码失败或安装身份错误时，都不能声称发布。准确版本的一条代表性支持路径成功，加上发布策略要求的平台检查后停止；重复安装次数不能变成语义质量分数。
 
+若 release 包含 Pack-native resources，再取回一条链接代表性文件的 Practice，并从返回的 Pack root 解析该 target。记录 target 与观察到的 bytes 或 digest。这只能证明所选 artifact 得到保存；它不运行脚本，也不证明召回质量。
+
 ## 反模式
 
 事故告警 Pack 的本地目录校验通过，目录文件齐全，README 也写了官方安装命令。发布日期临近，合并后打 tag 看似例行工作，作者便宣布

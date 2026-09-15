@@ -1,6 +1,6 @@
 fixture_set: pack-creator-practice-catalog
 evaluation_only: true
-description: Retrieval and content hypotheses for the 20 pack-creator Practices; not a runtime schema or proof of content, retrieval, or downstream quality.
+description: Retrieval and content hypotheses for the 23 pack-creator Practices; not a runtime schema or proof of content, retrieval, or downstream quality.
 entries:
   - id: pack-creator.discovery.define-pack-decision-outcome
     positive_trigger: A security Pack has forty authentication documents, and the author must decide whether the collection should cover those topics or improve concrete credential-storage, rotation, and validation decisions.
@@ -161,3 +161,27 @@ entries:
     nearest_neighbor: pack-creator.release.preserve-versioned-content-and-provenance
     expected_behavior: Install through the documented Registry path into an isolated store, verify the exact ref and files, pass decoding, and read back the expected identity.
     forbidden_behavior: Claim publication or installability from a working-tree directory, schema pass, fixture count, or README command that never exercised the remote chain.
+
+  - id: pack-creator.authoring.link-pack-resources-from-the-practice
+    positive_trigger: An API-review Practice already explains when a breaking change needs compatibility review, but a full field matrix and report template would make the follow-up review more reliable.
+    paraphrase: A migration Pack has a rollback script and evidence note beside its Practice, and the author must explain which one a retrieved reader should use after the irreversible-change decision.
+    near_miss: A Practice still omits the condition that decides whether an API change is breaking; the author is considering moving that condition into a detailed reference file.
+    nearest_neighbor: pack-creator.design.keep-each-practice-standalone
+    expected_behavior: Keep the immediate decision in the Practice and link only supplementary same-Pack material with an explicit `resource:` target and use condition.
+    forbidden_behavior: Rely on a Pack directory listing, a bare filename, or a reference document to supply a decision-critical trigger or stop condition.
+
+  - id: pack-creator.authoring.choose-reference-asset-or-script
+    positive_trigger: A Pack author has a compatibility table, report skeleton, and deterministic checker, and must decide whether readers should read, copy, or explicitly run each file.
+    paraphrase: A static JSON file might be evidence to inspect in one Practice and a starter fixture to copy in another, so its extension alone cannot choose the resource directory.
+    near_miss: A Practice has already selected a same-Pack resource and must verify that its Markdown target is safe and exists.
+    nearest_neighbor: pack-creator.authoring.link-pack-resources-from-the-practice
+    expected_behavior: Classify the file by the reader's next action, state script inputs and output when applicable, and preserve explicit current-task authorization for any execution.
+    forbidden_behavior: Treat `scripts/` as an installation hook, classify every file as a reference, or infer permission from the resource directory.
+
+  - id: pack-creator.evaluation.verify-resource-integrity-without-overclaiming
+    positive_trigger: A release candidate adds a binary template and a script; local validation passes, and the author must decide what evidence supports structure, remote preservation, script behavior, and Agent use.
+    paraphrase: A Pack resource changed without changing canonical Practice text, so the reviewer needs to confirm a new selected artifact is located without claiming that retrieval ranking changed.
+    near_miss: A Pack has only added a `resource:` target in the Practice body, so the immediate concern is the ordinary Practice content/retrieval revision rather than resource-only evidence.
+    nearest_neighbor: pack-creator.evaluation.separate-structural-and-semantic-evidence
+    expected_behavior: Record structural validation, supported install/readback, explicit script execution, retrieval selection, and downstream behavior as separate observations and claims.
+    forbidden_behavior: Report a local directory pass, file count, or one script run as proof that a published Pack routes and safely automates the task.

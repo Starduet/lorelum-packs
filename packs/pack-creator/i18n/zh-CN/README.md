@@ -1,10 +1,10 @@
 # `pack-creator` 简体中文审阅版
 
-这里是 `pack-creator` 20 条 canonical Practice 的中文 companion，供中文读者审查这套 Pack 的写作判断是否清楚、具体且适用于不同领域。它不是另一套运行时 Pack，也不会参与召回。
+这里是 `pack-creator@0.2.0` 23 条 canonical Practice 的中文 companion，供中文读者审查这套 Pack 的写作判断是否清楚、具体且适用于不同领域。`0.2.0` 仍是未发布候选；当前已发布版本仍为 `0.1.0`。它不是另一套运行时 Pack，也不会参与召回。
 
 [`../../practices`](../../practices/) 中的英文 canonical 文件是运行时权威：Practice ID、anti-pattern ID、trigger、动作、例外和发布含义都由英文文件控制。中文文件通过相同相对路径与 canonical 对应，不复制 runtime frontmatter。若中英文意义冲突，应先修正 canonical，再重新同步译文，不能只在中文中另写规则。
 
-## 导航（20 条）
+## 导航（23 条）
 
 ### 发现（3）
 
@@ -18,21 +18,24 @@
 - [让每条 Practice 脱离相邻文件也能直接使用](practices/design/keep-each-practice-standalone.md)
 - [把会竞争同一查询的相邻 Practice 区分开](practices/design/separate-neighboring-triggers.md)
 
-### 写作（8）
+### 写作（10）
 
 - [原因要写动作直接造成的结果](practices/authoring/explain-the-direct-causal-reason.md)
+- [按读者下一步动作选择 reference、asset 或 script](practices/authoring/choose-reference-asset-or-script.md)
 - [让反模式和示例各自提供不同信息](practices/authoring/give-anti-pattern-and-example-distinct-jobs.md)
 - [单个示例本身要交代清楚决定所需事实](practices/authoring/make-examples-self-contained.md)
+- [从 Practice 中明确引导补充资源](practices/authoring/link-pack-resources-from-the-practice.md)
 - [用普通词直接说清人、东西和动作](practices/authoring/prefer-plain-language-and-concrete-referents.md)
 - [反模式要写能力正常的人也可能犯的错](practices/authoring/use-realistic-failure-mechanisms.md)
 - [指导要给出具体动作和明确停止点](practices/authoring/write-concrete-guidance-and-stop-condition.md)
 - [`applies_when` 要能选中这一条，而不是整个主题](practices/authoring/write-discriminating-applies-when.md)
 - [例外要写成读者能识别的具体条件](practices/authoring/write-specific-exceptions-and-boundaries.md)
 
-### 评估（2）
+### 评估（3）
 
 - [不同检查结果只能证明各自观察到的事情](practices/evaluation/separate-structural-and-semantic-evidence.md)
 - [用应该匹配和不该匹配的查询一起测试召回](practices/evaluation/test-retrieval-with-contrasting-queries.md)
+- [把资源完整性作为独立证据链验证](practices/evaluation/verify-resource-integrity-without-overclaiming.md)
 
 ### 本地化（1）
 

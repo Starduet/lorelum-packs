@@ -3,10 +3,14 @@ source_locale: en
 locales:
   zh-CN:
     entries:
+      - path: practices/authoring/choose-reference-asset-or-script.md
+        source_digest: sha256:1380461374d4e32bc089400ad83f58561dacc0fe37e4e468757acbef090cbe45
       - path: practices/authoring/explain-the-direct-causal-reason.md
         source_digest: sha256:3895f0ec8d48078b384bcd2b2762656683f035a0b705042ac6977c63a12325aa
       - path: practices/authoring/give-anti-pattern-and-example-distinct-jobs.md
         source_digest: sha256:a1555a6130c394c9dae5ece19fa350509f794f2bb453522a4c975ea5ae6996ec
+      - path: practices/authoring/link-pack-resources-from-the-practice.md
+        source_digest: sha256:27ea5ab2a0f5298309d10373db103e3b6384367733e0f4f6a4cde8549c32bce5
       - path: practices/authoring/make-examples-self-contained.md
         source_digest: sha256:cc511dd443bdd54b2ed4b0f6e179d2c2c62c8f342f95c14a1d0a7e7bf38c44c5
       - path: practices/authoring/prefer-plain-language-and-concrete-referents.md
@@ -35,11 +39,13 @@ locales:
         source_digest: sha256:a552b0aeacead97df3cd7e1b0ac87515abaf4c2da818b544e962877d71baacd8
       - path: practices/evaluation/test-retrieval-with-contrasting-queries.md
         source_digest: sha256:c147e47c8c9696078edf9dc0fabe81b2bfb3d113e1758785502454b8706c7347
+      - path: practices/evaluation/verify-resource-integrity-without-overclaiming.md
+        source_digest: sha256:5b846f6e8c2f48eade3aba7c6beb3902b3ec261524c2aa913edd8b3c89d7e40b
       - path: practices/localization/localize-for-human-review-without-forking-runtime.md
         source_digest: sha256:d369e4bc4311db303a4c94417b55896d59d037255eea199e3cb59b71546d8c2e
       - path: practices/release/preserve-versioned-content-and-provenance.md
-        source_digest: sha256:7373ec49de818546139aa3f15e2dd7f4044c0ac3040bfc3b81358c8d62aaad2d
+        source_digest: sha256:4953638bab703269381f9d2fb1173f1fb6ba3bb0b2df5b3729c9fb8733d3e780
       - path: practices/release/verify-the-supported-install-path-before-claiming-release.md
-        source_digest: sha256:44f75d62a16af614f60e93b4e0a71ab2ab9844f80e9771a422895a7c0581954d
+        source_digest: sha256:9350d3979795789ab4067252a909fd8e8e1e9200d42970459cc17d970bab6ec4
       - path: practices/review/run-subtractive-content-review.md
         source_digest: sha256:cc5f73ad46f674fbc5e2486c73c2905dd5929db192c0f1e49cb9c6e718e02a6c

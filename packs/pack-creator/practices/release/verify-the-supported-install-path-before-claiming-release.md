@@ -32,6 +32,11 @@ materialization omits files, decoding fails, or the installed identity is wrong.
 representative supported path succeeds for the exact release, plus any additional platform checks
 the release policy requires; do not turn repeated installs into a semantic-quality score.
 
+When the release contains Pack-native resources, retrieve one Practice that links a representative
+file and resolve that target from its returned Pack root. Record the target and observed file bytes
+or digest. This establishes selected-artifact preservation only; it does not execute a script or
+prove retrieval quality.
+
 ## Anti-pattern
 
 An author prepares an incident-alerting Pack. The local directory validates, all files appear in the

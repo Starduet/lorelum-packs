@@ -29,8 +29,10 @@ replacing its files. Update the Registry entry and human release notes to point 
 when the release object is ready. Record provenance at enough detail for a reviewer to distinguish
 source-explicit requirements, observations of recurring failures, and the author’s generalized
 judgment; do not describe synthesis as measured effectiveness. Preserve source links and the version
-boundary even when a correction changes only wording, because wording can change retrieval and
-action. Stop when the version, commit, release ref, canonical files, and provenance record identify
+boundary even when a correction changes only wording or resource bytes, because wording can change
+retrieval and a resource-only change still changes the selected artifact. Record whether a release
+changes canonical Practice content, only `references/`/`assets/`/`scripts/` bytes, or both. Stop
+when the version, commit, release ref, canonical files, resource tree, and provenance record identify
 one reproducible object. Installation proof comes next.
 
 ## Anti-pattern
@@ -45,8 +47,10 @@ vendor documentation or author judgment.
 ## Why
 
 Pack content changes Agent decisions, so an old version must continue to mean the same bytes and
-guidance. Clear provenance lets reviewers assess the basis and limits of a rule without mistaking a
-reasonable synthesis for published evidence that the Pack works.
+guidance. A resource-only update can change the reference, asset, or script the next retrieval
+locates even when a Practice digest remains stable. Clear provenance lets reviewers assess the basis
+and limits of a rule without mistaking a reasonable synthesis for published evidence that the Pack
+works.
 
 ## Exceptions and boundaries
 
