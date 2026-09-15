@@ -1,10 +1,10 @@
 # Bug report issue template
 
-Copy this skeleton to the task workspace and fill it in. It distills the `lorelum/lorelum` bug
-report form; adapt it to the repository's own template when one exists. Write in the repository's
-collaboration language; paste logs and commands verbatim, sanitized of any private values.
+Copy this skeleton to the task workspace and fill it in; adapt it to the repository's own template
+when one exists. Write in the repository's collaboration language; paste logs and commands
+verbatim, sanitized of any private values.
 
-**Title:** `[bug] <what behaves unexpectedly>`
+**Title:** `<what behaves unexpectedly>`
 
 ## What happened?
 

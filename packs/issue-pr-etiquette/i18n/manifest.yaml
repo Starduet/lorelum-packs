@@ -6,7 +6,7 @@ locales:
       - path: practices/communication/read-back-your-post-before-requesting-review.md
         source_digest: sha256:f4c0329bb4a6ce267ea752556a05de64b68cff7b7bfa8af5148e8d8789aff852
       - path: practices/communication/write-in-the-repos-collaboration-language-with-clean-markdown.md
-        source_digest: sha256:674ee349faf0dcca9ce343dda2dd9a0b40fe89a0d76f470efec8ff089c7b18e0
+        source_digest: sha256:fa663b37940b17798779fc5bcd326a343e0f036e3f60502a485ad13e0263d4d2
       - path: practices/issue/converge-on-one-problem-with-testable-acceptance-criteria.md
         source_digest: sha256:2b753d07c71e17f5c660ea5429082bc9a7081f72b8777fbe83e30a0295c5b535
       - path: practices/issue/ground-the-problem-in-cited-evidence.md
@@ -18,9 +18,9 @@ locales:
       - path: practices/pull-request/keep-secrets-and-private-material-out-of-the-diff.md
         source_digest: sha256:0e40bd57e0df3a6e1da9b05a0427ffe50354fc388639789ec4d1fc1de3e9cf6c
       - path: practices/pull-request/match-the-change-to-the-required-upstream-gate.md
-        source_digest: sha256:eb64528367abe3cf5edf98c9a7b9c9d5fc7975c52a80349ad129e5aeac23d54b
+        source_digest: sha256:c037dae87a94db2787f8b5262fe262b42399341627192cb76e13c72d5b11a030
       - path: practices/pull-request/title-and-commit-conventionally.md
-        source_digest: sha256:32b9224bfacf594ad9b623a294edef9d14e7d854ff159a19d0e06a23e3f1bffb
+        source_digest: sha256:38295290f02a3eb545d8d01e5e15e5e00ffd339de3c1d8c7428da7383c2378cf
       - path: practices/pull-request/write-the-pr-body-for-a-cold-reviewer.md
         source_digest: sha256:8ae1688b4a0fc8025201bdff2f10a0de5253b3b47badcc6ab0d3791ce4896cfd
       - path: practices/review/address-feedback-with-new-commits-and-freeze-during-review.md

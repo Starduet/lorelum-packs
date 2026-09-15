@@ -53,7 +53,7 @@ opening the PR when the repository's flow expects it.
 ## Example
 
 A PR adding a resource protocol to a pack engine is titled
-`feat(pack): add Pack-native resource support` — type, scope, imperative lowercase subject,
-sixty-one characters. Its body carries the design rationale and the linked issue. A sibling typo fix
-lands as `docs(readme): fix install command flag`, and a year later both are found by
+`feat(pack): add resource protocol support` — type, scope, imperative lowercase subject, forty-one
+characters. Its body carries the design rationale and the linked issue. A sibling typo fix lands as
+`docs(readme): fix install command flag`, and a year later both are found by
 `git log --grep 'resource support'`.

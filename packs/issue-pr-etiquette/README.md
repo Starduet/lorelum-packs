@@ -8,7 +8,7 @@ Canonical English · [简体中文 companion](./i18n/zh-CN/README.md)
 
 Use this Pack when about to file a bug or feature issue, decide whether a change needs a prior issue or design alignment, assemble or name a PR, write a PR body a cold reviewer can verify, keep private material out of a diff, respond to review feedback, or disclose AI assistance and AI review findings.
 
-The Practices generalize contribution rules and exemplars from the Lorelum repositories. Repository-specific mechanisms — OpenSpec change gates, two-round review protocols, branch-naming schemes, freeze rules — are deliberately kept out of Practice bodies and collected in the [contribution gate map](resource:references/contribution-gate-map.md). Reusable starting points for posts are attached as templates in `assets/`, linked from the Practices that need them.
+The Practices stay repository-neutral: each one states the general decision, and each repository's own contributing guide remains authoritative for its specific gates, branch schemes, review rounds, and freeze rules. Reusable starting points for posts are attached as templates in `assets/`, linked from the Practices that need them.
 
 ## Non-goals
 

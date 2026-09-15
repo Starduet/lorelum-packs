@@ -17,9 +17,7 @@ title: Match the Change to the Required Upstream Gate
 
 Apply before writing code, when the change's class is known: does it alter a contract, interface, or
 semantics that other work depends on, or is it a contained fix that does not. The decision is which
-upstream gate the repository's process demands for that class. For the concrete gate rules of the
-Lorelum repositories, read the [contribution gate map](resource:references/contribution-gate-map.md)
-after this Practice's immediate decision.
+upstream gate the repository's process demands for that class.
 
 ## Guidance
 
@@ -57,8 +55,8 @@ safe default.
 
 ## Example
 
-Before touching a benchmark evaluator, a contributor classifies the change: scoring semantics is
-contract-class, so they first file an issue converging on the single behavior change and wait for
-the validated change artifact the process requires. A README typo the same day goes as a direct PR
-whose body states the root cause, the one-file fix boundary, and the rendered-docs check that
-verified it.
+Before changing how a test harness scores results, a contributor classifies the change: scoring
+semantics is contract-class, so they first file an issue converging on the single behavior change
+and wait for the validated change artifact the process requires. A README typo the same day goes as
+a direct PR whose body states the root cause, the one-file fix boundary, and the rendered-docs check
+that verified it.

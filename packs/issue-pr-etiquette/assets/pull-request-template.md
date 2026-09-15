@@ -1,11 +1,10 @@
 # Pull request template
 
-Copy this skeleton to the task workspace and fill it in before requesting review. It distills the
-`lorelum/lorelum` pull request template; when the repository provides its own template, that one
-wins. Write in the repository's collaboration language; keep commands and identifiers verbatim.
-After posting, read the saved body back on the platform and fix any flattened Markdown before
-requesting review. For the decisions behind each section, retrieve the
-`issue-pr-etiquette.pull-request.*` Practices.
+Copy this skeleton to the task workspace and fill it in before requesting review; when the
+repository provides its own template, that one wins. Write in the repository's collaboration
+language; keep commands and identifiers verbatim. After posting, read the saved body back on the
+platform and fix any flattened Markdown before requesting review. For the decisions behind each
+section, retrieve the `issue-pr-etiquette.pull-request.*` Practices.
 
 **Title:** `<type>(<scope>): <imperative, lowercase subject, ≤72 characters>`
 

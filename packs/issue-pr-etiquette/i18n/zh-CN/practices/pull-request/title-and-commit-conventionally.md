@@ -26,6 +26,6 @@ changes"、"wip"。半年后，贡献者检索改动物包校验的那个变更�
 ## 示例
 
 给包引擎加资源协议的 PR 标题为
-`feat(pack): add Pack-native resource support`——类型、scope、祈使小写主题，61 个字符。正文承载设计理由和关联 issue。姊妹错字修复以
+`feat(pack): add resource protocol support`——类型、scope、祈使小写主题，41 个字符。正文承载设计理由和关联 issue。姊妹错字修复以
 `docs(readme): fix install command flag` 落地，一年后两者都能被 `git log --grep 'resource support'`
 找到。

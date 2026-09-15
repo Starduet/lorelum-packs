@@ -1,11 +1,11 @@
 # Feature / proposal issue template
 
-Copy this skeleton to the task workspace and fill it in. It distills the `lorelum/lorelum` feature
-request form; adapt section order to the repository's own template when one exists. Write in the
-repository's collaboration language; keep commands and identifiers in their original spelling. For
-the full writing decisions behind each section, retrieve the `issue-pr-etiquette.issue.*` Practices.
+Copy this skeleton to the task workspace and fill it in; adapt section order to the repository's
+own template when one exists. Write in the repository's collaboration language; keep commands and
+identifiers in their original spelling. For the full writing decisions behind each section,
+retrieve the `issue-pr-etiquette.issue.*` Practices.
 
-**Title:** `[feat] <one problem, stated as a gap>`
+**Title:** `<one problem, stated as a gap>`
 
 ## The problem
 
@@ -39,5 +39,4 @@ the author.
 ## Confirmation
 
 - [ ] I searched existing issues and Discussions and this is not a duplicate.
-- [ ] I understand this is a proposal — maintainers decide if and when it is picked up, and a spec
-      may be required.
+- [ ] I understand this is a proposal — maintainers decide if and when it is picked up.

@@ -22,14 +22,14 @@ artifact itself, such as quoted log output, code, or upstream documents.
 
 ## Guidance
 
-Write the prose in the repository's declared collaboration language — in the Lorelum repositories,
-issue and PR titles, bodies, reviews, and significant status comments default to Chinese unless the
-user explicitly asks for another language. Keep file paths, commands, code identifiers, error
-messages, and untranslatable proper nouns in their original form instead of translating them.
-Structure the post with Markdown headings, paragraphs, and lists so a reviewer can scan sections and
-quote a specific line; one dense wall of text is a structure choice, and usually the wrong one. Stop
-when a native reader of the declared language can locate any section of the post in seconds and
-every identifier remains searchable in its original spelling.
+Write the prose in the repository's declared collaboration language — for example, a repository
+whose contributing guide says collaborator-facing posts default to Chinese unless the user requests
+otherwise. Keep file paths, commands, code identifiers, error messages, and untranslatable proper
+nouns in their original form instead of translating them. Structure the post with Markdown headings,
+paragraphs, and lists so a reviewer can scan sections and quote a specific line; one dense wall of
+text is a structure choice, and usually the wrong one. Stop when a native reader of the declared
+language can locate any section of the post in seconds and every identifier remains searchable in
+its original spelling.
 
 ## Anti-pattern
 
@@ -54,6 +54,6 @@ marked as quotation.
 ## Example
 
 A contributor files a defect issue in Chinese: the title and every explanatory paragraph are
-Chinese, while `lore pack install`, the file path `packages/format/src/validate/resources.ts`, and
-the error `ENOENT: no such file or directory` stay verbatim. A reviewer scans the headings, greps
-the identifier, and lands in the right file on the first try.
+Chinese, while `npm test`, the file path `src/validate/resources.ts`, and the error
+`ENOENT: no such file or directory` stay verbatim. A reviewer scans the headings, greps the
+identifier, and lands in the right file on the first try.
