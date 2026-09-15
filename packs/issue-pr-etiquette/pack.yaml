@@ -1,0 +1,8 @@
+name: issue-pr-etiquette
+version: 0.1.0
+description: "Practices for filing single-problem issues and single-scope pull requests that reviewers can verify: evidence-grounded proposals, self-contained PR bodies, disciplined review communication, and honest AI-assistance disclosure."
+author:
+  name: Lorelum
+license: CC-BY-4.0
+applies_to:
+  - github-contribution
