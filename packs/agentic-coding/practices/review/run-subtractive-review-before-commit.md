@@ -25,7 +25,11 @@ For each material addition, name the requirement, risk, contract, or dependency 
 Remove additions with no present reason, merge duplicates, and reuse suitable existing code.
 Preserve required behavior, migration support, and safeguards. Stop with the smallest diff that
 still satisfies the request and its risks. If a deletion changes behavior, verify the revised state
-before commit.
+before commit. For a path touched by the diff, follow one representative value and one failure
+through its layers. Challenge repeated parsing, normalization, authorization, catch-and-default
+wrappers, and nested retries: each needs a distinct condition and owner. Check whether a shared
+guard unnecessarily blocks status, stop, upgrade, or repair. Limit this trace to the changed
+behavior; subtractive review is not an invitation to audit the entire repository.
 
 ## Anti-pattern
 

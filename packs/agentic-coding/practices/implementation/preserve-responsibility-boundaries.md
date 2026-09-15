@@ -44,10 +44,13 @@ differently.
 
 ## Exceptions and boundaries
 
-Trust boundaries may repeat validation for defense in depth, but those checks should reinforce
-rather than redefine the authoritative rule. Performance-driven duplication needs evidence and a
-strategy for keeping results consistent. If the requirement intentionally moves ownership or splits
-a domain, treat that as an architectural change with migration consequences.
+Distinct input or trust boundaries may need checks of the same field, but each must establish a fact
+that can be false there and must reinforce rather than redefine the authoritative rule. Passing an
+unchanged validated value through another internal layer does not create that need. A database
+constraint guarding concurrent mutation can remain necessary after input validation.
+Performance-driven duplication needs evidence and a strategy for keeping results consistent. If the
+requirement intentionally moves ownership or splits a domain, treat that as an architectural change
+with migration consequences.
 
 ## Example
 

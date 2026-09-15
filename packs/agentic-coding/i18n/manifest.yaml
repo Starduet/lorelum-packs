@@ -18,21 +18,25 @@ locales:
       - path: practices/delivery/report-material-residuals.md
         source_digest: sha256:7659e4f459ce97b468e11231978b75216b1afda901f4821b57bb62a0dad9e7b9
       - path: practices/implementation/choose-smallest-sufficient-design.md
-        source_digest: sha256:2a80ea0d3849b8b82f86d0068b157d36498056bc1416fb04a2c1d70615d70da7
+        source_digest: sha256:4868fc825203c0b3077540a453ecba7dc5ac984fd37cd9dc72c3149cb363974c
       - path: practices/implementation/confirm-product-surface-expansion.md
         source_digest: sha256:c3764dfde671de793c91978d8a5ced3ad7dbcb646e51a26255f641f308d31ce7
       - path: practices/implementation/inspect-and-reuse-existing-capability.md
         source_digest: sha256:9a4ebfaf6001822f46eba9f9f0c3909fdfa7476017fa7c0e38555d73e5a355c4
       - path: practices/implementation/limit-investigation-to-current-decision.md
         source_digest: sha256:12f780ac35b8ce55b4543544df37c02a2de49dce18a93091b1f1705c99b62239
+      - path: practices/implementation/make-recovery-behavior-explicit.md
+        source_digest: sha256:1798f8036c38af882440916ad06a23e3eb840a6522a86b8d60c250ffcc4b543c
       - path: practices/implementation/preserve-responsibility-boundaries.md
-        source_digest: sha256:7eb796cdc21abf6d0bdec8a786d97fe4370d3def4ddd05a718b45ed094d544d4
+        source_digest: sha256:3ab043f6fd58ec5c2dd98f630be3555592a5fb11015ddbee6eb3884f9bbae86d
       - path: practices/implementation/replan-on-material-drift.md
         source_digest: sha256:eaec0e27c85f5df6553eccf5cbcb521d2975aecfb0a3ffd0b7d754c89afa2909
       - path: practices/implementation/surface-unconfirmed-assumptions.md
         source_digest: sha256:f1d8d56e1b04861cf5f2ec2ef78e0888de86c74c2e5837ad0f9955feda82d9bb
+      - path: practices/implementation/validate-at-the-owning-boundary.md
+        source_digest: sha256:f1a85cb41f790e74074c21007a8db44cf08581cc48468d610b0d15a00eb470d9
       - path: practices/planning/admit-only-currently-justified-work.md
-        source_digest: sha256:d44cd17c9c05b9fc0468275e6e4f54089490c8fa3ed55fbd550f004aa5df0912
+        source_digest: sha256:cbe0159ffb1e4bb2938690268d6d656de6996e88bb0ed2f4f0bcb6562cbda404
       - path: practices/planning/define-stop-condition.md
         source_digest: sha256:4c0afa62de65cc1e6b90369af71944255b65faca59412a891bd9b6960ff9231c
       - path: practices/planning/map-plan-to-user-capability.md
@@ -40,21 +44,21 @@ locales:
       - path: practices/planning/plan-sufficient-evidence.md
         source_digest: sha256:dd0d6c0348d595ad58f158bc39df6e805c63fd9169b90c1ec11ed23e2de52f62
       - path: practices/planning/scale-work-to-risk-and-cost.md
-        source_digest: sha256:eda3107f4658ecf1641413490ecae40aea86d21572e7b16be608ce67f6deee72
+        source_digest: sha256:c339aa839438f18462f536e990d8db7ef0d95482822fccac277ec54dd58d360a
       - path: practices/requirements/define-acceptance-and-non-goals.md
-        source_digest: sha256:12b172df0b3f327090050fdaf02e16edfa813d3623925a217fa7b8e82f22e1b3
+        source_digest: sha256:4208c8e2b5eb7b4ebf1a8eab3fda2f9d9cb825fd982a5eeac0f4645a3fad5ea1
       - path: practices/requirements/ground-user-goal.md
         source_digest: sha256:f4490a8e769ca2869bc9a6ecb9c0f433f4321701f7a86800543f0892d66f5ac0
       - path: practices/requirements/resolve-source-authority.md
         source_digest: sha256:83cf9b9103321cc1a8b1378f527dba6d7e3dd9277b2fd7132103d652cceb770b
       - path: practices/review/run-subtractive-review-before-commit.md
-        source_digest: sha256:5152d2e3ff7d182ed772cfc455226f8776799ddde02315d9b9152d9194375b08
+        source_digest: sha256:0ff5a448181dd1189577e46a288ea61c737126f48a2b639d988971bb9bbfa479
       - path: practices/review/validate-findings-before-action.md
         source_digest: sha256:f0a0975c5839daf7ba4b5a20ecd3e7461d45841e9aa29a55fbc825191aba2eb1
       - path: practices/testing/anchor-tests-to-requirements.md
         source_digest: sha256:e5349de1a21ca00005498750e85f787d9404f050649cf0b6d0947cdacf80086d
       - path: practices/testing/assert-observable-behavior.md
-        source_digest: sha256:1173732c1d954a59523105684e2d0f5af1e76e73904f9156749815842634dbdc
+        source_digest: sha256:b04d750910accdd8cb3d7ad93bc352d6adab121f0d91ad130458c40f61ae6fc7
       - path: practices/testing/classify-failure-before-changing-test.md
         source_digest: sha256:9dce69a178817b7c594dd964ed9cbf7abb8afae709ee9ac716bd4728c28051aa
       - path: practices/testing/justify-regression-protection.md

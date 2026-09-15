@@ -26,7 +26,10 @@ List the required behavior and rules that must stay true, such as authorization,
 data integrity. Discard any option that misses them. From the rest, choose the design that adds the
 fewest responsibilities and is easiest to reverse in the current code. Require a present reason for
 every extra layer, stored state, fallback, or data pass. Stop with one design and why it fully meets
-the task.
+the task. Count data passes and failure branches as complexity too: a direct typed call can be
+smaller than a short chain of validation wrappers, reparsing, and fallback defaults. A more
+defensive option is not automatically sufficient if it rejects supported input or hides an actual
+failure.
 
 ## Anti-pattern
 
@@ -45,8 +48,10 @@ smaller diff is not success by itself.
 
 Security isolation, migration safety, published compatibility, measured performance limits, or an
 approved near-term requirement may make the larger option the smallest sufficient design. Do not
-remove meaningful behavior or protection to reduce line count. If the options place a rule in
-different components, decide which component owns that rule before comparing internal designs.
+remove meaningful behavior or protection to reduce line count. Name the concrete condition that
+requires the larger option; a general desire for robustness is insufficient. If the options place a
+rule in different components, decide which component owns that rule before comparing internal
+designs.
 
 ## Example
 

@@ -27,7 +27,9 @@ Identify credible harm to users, data, security, compatibility, or operations. C
 level of investigation, validation, review, and recovery preparation. Connect each safeguard to a
 failure mode or mandatory policy, and remove ceremony that has no such reason. If a material risk is
 unknown, investigate it or run a bounded probe first. Stop when every safeguard has a reason in the
-actual failure profile.
+actual failure profile. Include the safeguard's own costs: false rejection, slower failure,
+additional configuration, blocked upgrade or repair, and maintenance. A recoverable failure with a
+clear message may need less machinery than a fallback that changes the result.
 
 ## Anti-pattern
 
@@ -44,8 +46,10 @@ cheap changes and false economy when failure is expensive or hard to reverse.
 ## Exceptions and boundaries
 
 Organizational policy may require a review or check regardless of local risk. Unknown security,
-privacy, or data-loss exposure calls for investigation until bounded, not a smaller plan for
-convenience.
+privacy, or data-loss exposure calls for a bounded investigation when it could materially change the
+decision. Name the unresolved fact and what result would change the plan; stop when that fact is
+settled or hand off the specific remaining decision. Uncertainty is not permission to enumerate
+unlimited hypothetical attackers, corruption modes, or recovery frameworks.
 
 ## Example
 
