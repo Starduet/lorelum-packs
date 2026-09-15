@@ -1,0 +1,99 @@
+fixture_set: issue-pr-etiquette-practice-catalog
+evaluation_only: true
+description: Retrieval and content hypotheses for the 12 issue-pr-etiquette Practices; not a runtime schema or proof of content, retrieval, or downstream quality.
+entries:
+  - id: issue-pr-etiquette.issue.converge-on-one-problem-with-testable-acceptance-criteria
+    positive_trigger: A contributor is about to file "Improve onboarding" covering signup flow, docs, and email templates, and must decide what one problem the issue owns and when it can be called done.
+    paraphrase: A defect report mixes a rendering bug and the underlying data race that triggered it, and the team cannot tell which one closing the issue would resolve.
+    near_miss: The problem is already single and the acceptance criteria exist, but the author is now choosing which prior incidents to cite as evidence for why it matters.
+    nearest_neighbor: issue-pr-etiquette.issue.ground-the-problem-in-cited-evidence
+    expected_behavior: State one problem with its boundary and dependencies, write checklist acceptance criteria a non-author can check, and split independently reviewable deliverables into their own issues.
+    forbidden_behavior: File a multi-deliverable issue whose completion wording is an uncheckable adjective like "better" or "improved".
+
+  - id: issue-pr-etiquette.issue.ground-the-problem-in-cited-evidence
+    positive_trigger: An Agent is about to file "retrieval sometimes misses obvious Practices" with no links, and must decide what evidence belongs in the issue before maintainers see it.
+    paraphrase: A proposal asserts the whole team feels this pain every sprint, and the author must decide what observed material, if any, backs that claim.
+    near_miss: The evidence is cited and linked; the open question is how much of the proposal's implementation mechanism belongs in the issue itself.
+    nearest_neighbor: issue-pr-etiquette.issue.separate-direction-from-design-and-state-non-goals
+    expected_behavior: Lead with linked incidents, runs, or prior issues quoted at the shortest useful fragment, separate observed facts from interpretation, and give each related issue a one-line role.
+    forbidden_behavior: Ask maintainers to act on an uncited claim and let triage stall on requests for examples that should have led the issue.
+
+  - id: issue-pr-etiquette.issue.separate-direction-from-design-and-state-non-goals
+    positive_trigger: A feature issue draft opens by prescribing the storage schema and upload client for a usage-feedback capability that has at least two credible designs.
+    paraphrase: A proposal states its objective and principles but silently omits which decisions are deferred, and reviewers may read the silence as considered.
+    near_miss: The issue already cites its evidence chain; the author is now deciding what belongs in acceptance criteria rather than in design discussion.
+    nearest_neighbor: issue-pr-etiquette.issue.converge-on-one-problem-with-testable-acceptance-criteria
+    expected_behavior: State objective and principles, cite already-made decisions instead of reopening them, and add a non-goals section naming each deferred decision and where it will be made.
+    forbidden_behavior: Lock one implementation design inside a proposal so reviewers must reject the goal to reject the mechanism.
+
+  - id: issue-pr-etiquette.communication.write-in-the-repos-collaboration-language-with-clean-markdown
+    positive_trigger: In a repository whose contributing guide defaults collaborator-facing posts to Chinese, an Agent is drafting an English PR body because the diff is in English.
+    paraphrase: A status comment mixes two languages sentence by sentence, and the author must decide how to write it so the whole team scans it fluently.
+    near_miss: The prose already follows the repository language and structure; the remaining doubt is whether the just-pasted body survived the platform's save.
+    nearest_neighbor: issue-pr-etiquette.communication.read-back-your-post-before-requesting-review
+    expected_behavior: Write prose in the declared collaboration language with headings, paragraphs, and lists, keeping paths, commands, and identifiers in their original spelling.
+    forbidden_behavior: Translate code identifiers into the collaboration language or post an unscannable wall of text in a language the repository does not read fluently.
+
+  - id: issue-pr-etiquette.communication.read-back-your-post-before-requesting-review
+    positive_trigger: An Agent pasted a long PR body from a local editor into the web form, and the acceptance checklist may have collapsed into a single prose line on save.
+    paraphrase: An issue's headings, lists, and checkboxes need verification that the saved copy still renders them before anyone is asked to review.
+    near_miss: The saved post is known to render correctly; the question is now whether its checklist items are testable by a non-author at all.
+    nearest_neighbor: issue-pr-etiquette.issue.converge-on-one-problem-with-testable-acceptance-criteria
+    expected_behavior: Reopen the saved post, verify headings, lists, line breaks, checkboxes, code fences, and tables survived, fix and re-verify, then request review.
+    forbidden_behavior: Request review or merge on a post whose saved rendering was never checked against the draft.
+
+  - id: issue-pr-etiquette.pull-request.match-the-change-to-the-required-upstream-gate
+    positive_trigger: An Agent is about to rewrite an evaluator's scoring semantics because the diff is small, without checking whether the repository's process requires a prior issue or design artifact.
+    paraphrase: A contributor must decide whether a schema change that three downstream suites consume needs design alignment before code, or can ride a direct PR.
+    near_miss: The gate class is settled and the required issue exists; the author is now keeping unrelated drive-by fixes out of the diff.
+    nearest_neighbor: issue-pr-etiquette.pull-request.keep-one-pr-to-one-declared-scope
+    expected_behavior: Classify the change against the repository's gate rules before writing code; contract-class work gets its converging issue and design artifact, direct fixes carry root cause, boundary, and verification in the PR body.
+    forbidden_behavior: Start implementing a contract-class change straight into a PR, or bury a typo fix behind an issue-approval process meant for contract changes.
+
+  - id: issue-pr-etiquette.pull-request.keep-one-pr-to-one-declared-scope
+    positive_trigger: While fixing an off-by-one error, a contributor is tempted to also reformat the surrounding module and bump a dependency in the same branch.
+    paraphrase: A PR titled as one fix has accumulated hunks that would not disappear if the fix were reverted, and the author must decide what stays.
+    near_miss: The scope is single and clean; the remaining task is naming the branch and title under the repository's commit convention.
+    nearest_neighbor: issue-pr-etiquette.pull-request.title-and-commit-conventionally
+    expected_behavior: Hold every hunk to the declared scope, file drive-by findings as separate changes however tiny, and split a discovered blocker into the minimum unblocking fix plus a filed issue.
+    forbidden_behavior: Package unrelated risk under one approval so reverting any part tears out the rest.
+
+  - id: issue-pr-etiquette.pull-request.title-and-commit-conventionally
+    positive_trigger: A PR in a Conventional Commits repository is about to be titled "final changes" because the author cannot decide the type and scope.
+    paraphrase: A contributor must choose between "fixes", "update stuff", and a typed imperative subject when the repository squash-merges and the PR title becomes the commit.
+    near_miss: The subjects are conventional; the author is now writing the body sections a cold reviewer needs.
+    nearest_neighbor: issue-pr-etiquette.pull-request.write-the-pr-body-for-a-cold-reviewer
+    expected_behavior: Follow the declared convention exactly — type, optional scope, imperative lowercase subject within the length budget — with the why in the body and one logical change per commit.
+    forbidden_behavior: Land improvised subjects that defeat log search, changelog tooling, and blame six months later.
+
+  - id: issue-pr-etiquette.pull-request.write-the-pr-body-for-a-cold-reviewer
+    positive_trigger: A PR body draft reads "As discussed" and "See title", and a reviewer with none of the author's context must verify a two-hundred-line diff.
+    paraphrase: An author must decide what a direct-fix PR with no linked issue carries in its body so review starts from verification rather than reconstruction.
+    near_miss: The body is complete and self-contained; the last step is scanning added lines for tokens and internal hostnames before requesting review.
+    nearest_neighbor: issue-pr-etiquette.pull-request.keep-secrets-and-private-material-out-of-the-diff
+    expected_behavior: Include summary with explicit non-behavior, linked issue, change type with breaking surface, verbatim test commands and named scenarios, the repository checklist, and notes for reviewers.
+    forbidden_behavior: Replace verification evidence with an adjective like "tested locally", or delegate a direct-fix PR's root cause and boundary to a discussion the reviewer has not read.
+
+  - id: issue-pr-etiquette.pull-request.keep-secrets-and-private-material-out-of-the-diff
+    positive_trigger: To make a failing integration test reproducible, a contributor is about to paste a real internal endpoint and a working token into a fixture on a public PR.
+    paraphrase: Quoted error logs in a defect issue contain an internal hostname, and the author must decide what is safe to publish before posting.
+    near_miss: The diff is clean and every suspicious string is synthetic; the author is now composing the AI-assistance disclosure for the PR body.
+    nearest_neighbor: issue-pr-etiquette.review.disclose-ai-assistance-and-its-review-findings
+    expected_behavior: Scan every added line and quoted log for secrets and private material, replace real values with synthetic placeholders, and treat any pushed secret as leaked — rotate first, then remove.
+    forbidden_behavior: Publish credentials or private identifiers and rely on later deletion or force-push, which does not unpublish what crawlers copied.
+
+  - id: issue-pr-etiquette.review.address-feedback-with-new-commits-and-freeze-during-review
+    positive_trigger: Midway through a two-round review, an author wants to force-push a cleaned-up history instead of adding commits that map to the six findings.
+    paraphrase: A scheduled independent review session is running against the branch, and the author has a fix ready that was not requested by the round.
+    near_miss: Each finding already has its addressing commit or written reply; the remaining duty is recording what the AI review found and what changed as a result.
+    nearest_neighbor: issue-pr-etiquette.review.disclose-ai-assistance-and-its-review-findings
+    expected_behavior: Respond with new commits that name the finding they address, keep unrelated improvements separate, and freeze code changes until a formal round concludes, rebasing only when asked.
+    forbidden_behavior: Rewrite published history mid-review or push mid-round changes that orphan inline comments and invalidate the round's conclusions.
+
+  - id: issue-pr-etiquette.review.disclose-ai-assistance-and-its-review-findings
+    positive_trigger: An Agent drafted a PR and is deciding whether to check the repository's AI-assistance box and what to write where the body asks for review findings.
+    paraphrase: An AI review returned five findings on a branch; the author must decide what the PR records about the ones fixed, the ones rejected, and the AI's role in drafting.
+    near_miss: The disclosure is honest and scoped; the remaining question is whether the just-pushed response commits satisfy the reviewers without rewriting history.
+    nearest_neighbor: issue-pr-etiquette.review.address-feedback-with-new-commits-and-freeze-during-review
+    expected_behavior: Declare the assistance with its concrete scope, record each material AI finding and what the branch changed as a result including rejections with reasons, and verify AI-suggested changes yourself.
+    forbidden_behavior: Present AI-drafted work as unaided, or offer "reviewed every line" as acceptance evidence instead of stating what was checked and how.

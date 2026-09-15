@@ -1,0 +1,84 @@
+fixture_set: issue-pr-etiquette-workflows
+evaluation_only: true
+description: Cross-Practice contribution scenarios; not a required workflow, runtime protocol, or proof of content or retrieval quality.
+workflows:
+  - id: real-defect-from-issue-to-merge
+    scenario: A contributor hits a reproducible defect in a tool whose repository defaults collaborator-facing posts to Chinese, requires an issue for contract-class changes, runs Conventional Commits with squash merge, and asks contributors to disclose AI assistance.
+    authoritative_facts:
+      - The defect's root cause is a validation rule that silently drops malformed entries, which other teams' pipelines consume — a contract-class behavior change to fix.
+      - Two earlier issues reported symptoms of the same rule but neither converged on the root cause.
+      - The fix was drafted with AI assistance, and an AI review ran over the branch before review was requested.
+    distractors:
+      - The diff is small, so pushing straight to a PR looks fastest.
+      - The pasted failing log contains the internal hostname where the defect reproduced.
+      - Folding a neighboring typo fix into the branch avoids opening a second PR.
+    phases:
+      - id: filing-the-issue
+        trigger: The contributor sits down to report the defect and must decide what the issue contains before anyone reviews code.
+        expected_practices:
+          - issue-pr-etiquette.issue.converge-on-one-problem-with-testable-acceptance-criteria
+          - issue-pr-etiquette.issue.ground-the-problem-in-cited-evidence
+          - issue-pr-etiquette.communication.write-in-the-repos-collaboration-language-with-clean-markdown
+        correctness_assertions:
+          - The issue owns the single root-cause problem with boundary and dependencies stated, and its acceptance criteria are checkboxes a maintainer can verify without the author.
+          - The two earlier symptom issues are linked with one-line roles, and the quoted failing log is sanitized of the internal hostname before posting.
+          - The prose is Chinese per the repository default while commands, paths, and error identifiers stay verbatim.
+        forbidden_behavior:
+          - File a symptom-level issue that mixes the root cause, a UI complaint, and a feature wish with no checkable completion wording.
+          - Ask maintainers to reproduce the problem from memory because no occurrence was cited.
+      - id: opening-the-pr
+        trigger: The fix is implemented on a branch and the contributor must name it, scope it, and write the body before requesting review.
+        expected_practices:
+          - issue-pr-etiquette.pull-request.match-the-change-to-the-required-upstream-gate
+          - issue-pr-etiquette.pull-request.keep-one-pr-to-one-declared-scope
+          - issue-pr-etiquette.pull-request.title-and-commit-conventionally
+          - issue-pr-etiquette.pull-request.write-the-pr-body-for-a-cold-reviewer
+        correctness_assertions:
+          - The contract-class fix links the converging issue instead of riding a direct PR, and the body states the breaking surface of the changed validation rule.
+          - The neighboring typo fix is filed separately however tiny, and every hunk in the diff belongs to the declared scope.
+          - The title is a typed imperative Conventional Commits subject, and the body lists verbatim commands and named scenarios instead of "tested locally".
+        forbidden_behavior:
+          - Open the PR with a body that assumes the reviewer read the issue thread, chat, or the author's local attempts.
+          - Title the PR "fixes validation" and let the squash merge land an untyped subject in history.
+      - id: requesting-and-answering-review
+        trigger: The PR is posted; review feedback and a scheduled review round follow, and the author responds.
+        expected_practices:
+          - issue-pr-etiquette.communication.read-back-your-post-before-requesting-review
+          - issue-pr-etiquette.review.address-feedback-with-new-commits-and-freeze-during-review
+          - issue-pr-etiquette.review.disclose-ai-assistance-and-its-review-findings
+        correctness_assertions:
+          - The saved PR body is read back on the platform and its flattened checklist fixed before review is requested.
+          - Each round-one finding gets a new commit that names it or a written reply explaining why not, with no force-push while the round runs.
+          - The assistance section declares the AI's drafting scope and records the AI review's material findings, including any rejected with reasons.
+        forbidden_behavior:
+          - Request review on a body that was never read back, respond to findings by rewriting published history, or claim every line was hand-reviewed.
+
+  - id: direct-fix-without-an-issue
+    scenario: A documentation typo and a broken link are found in a repository whose process allows non-contract fixes to go straight to a PR, provided the body states root cause, fix boundary, and verification.
+    authoritative_facts:
+      - The repository's direct-PR exception exists precisely so trivial fixes do not wait behind issue approval.
+      - The same repository still requires conventional titles, the no-secrets checklist, and read-back before requesting review.
+    distractors:
+      - Filing an issue first feels more formal and therefore safer.
+      - The typo fix touches a config example line where a real endpoint could plausibly appear.
+    phases:
+      - id: choosing-the-route
+        trigger: The contributor must decide whether the typo gets an issue, a PR with an issue, or a direct PR.
+        expected_practices:
+          - issue-pr-etiquette.pull-request.match-the-change-to-the-required-upstream-gate
+          - issue-pr-etiquette.pull-request.keep-one-pr-to-one-declared-scope
+        correctness_assertions:
+          - The change is classified as non-contract and goes direct-PR under the repository's exception, without manufacturing an issue for ceremony.
+          - The body carries the root cause, the one-file fix boundary, and the rendered-docs check that verified it, because no linked issue carries them.
+        forbidden_behavior:
+          - Route a trivial fix through contract-class gates, or skip the direct-PR duties because the change is small.
+      - id: before-requesting-review
+        trigger: The PR is open and the author does the final checks before asking for review.
+        expected_practices:
+          - issue-pr-etiquette.pull-request.keep-secrets-and-private-material-out-of-the-diff
+          - issue-pr-etiquette.communication.read-back-your-post-before-requesting-review
+        correctness_assertions:
+          - The config-example line is scanned and any real endpoint replaced with a synthetic placeholder before review is requested.
+          - The saved PR body is reopened and verified intact — headings, checklist, code fence — before the review request.
+        forbidden_behavior:
+          - Publish a real endpoint because it made the example reproducible, or request review on a body whose saved rendering was never checked.
