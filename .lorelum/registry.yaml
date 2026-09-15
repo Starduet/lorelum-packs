@@ -29,3 +29,9 @@ packs:
       - version: 0.1.0
         ref: react-web-craft-v0.1.0
         path: packs/react-web-craft
+  - name: issue-pr-etiquette
+    description: "Practices for filing single-problem issues and single-scope pull requests that reviewers can verify: evidence-grounded proposals, self-contained PR bodies, disciplined review communication, and honest AI-assistance disclosure."
+    releases:
+      - version: 0.1.0
+        ref: issue-pr-etiquette-v0.1.0
+        path: packs/issue-pr-etiquette

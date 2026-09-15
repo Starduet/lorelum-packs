@@ -1,0 +1,29 @@
+schema_version: 1
+source_locale: en
+locales:
+  zh-CN:
+    entries:
+      - path: practices/communication/read-back-your-post-before-requesting-review.md
+        source_digest: sha256:f4c0329bb4a6ce267ea752556a05de64b68cff7b7bfa8af5148e8d8789aff852
+      - path: practices/communication/write-in-the-repos-collaboration-language-with-clean-markdown.md
+        source_digest: sha256:fa663b37940b17798779fc5bcd326a343e0f036e3f60502a485ad13e0263d4d2
+      - path: practices/issue/converge-on-one-problem-with-testable-acceptance-criteria.md
+        source_digest: sha256:2b753d07c71e17f5c660ea5429082bc9a7081f72b8777fbe83e30a0295c5b535
+      - path: practices/issue/ground-the-problem-in-cited-evidence.md
+        source_digest: sha256:d3b3f8ce9dca0b5b95c902b87f0ffb4596b92ff5513ca32587b988364fe8b38b
+      - path: practices/issue/separate-direction-from-design-and-state-non-goals.md
+        source_digest: sha256:e3fff90f218d4addb986f081eef7696db65be4296160e475029b8d87fd2e436b
+      - path: practices/pull-request/keep-one-pr-to-one-declared-scope.md
+        source_digest: sha256:cefd7f611555a4c64d20ff9830b6da06842b9fa802c2d1da6f0d79f9ce8cfb99
+      - path: practices/pull-request/keep-secrets-and-private-material-out-of-the-diff.md
+        source_digest: sha256:0e40bd57e0df3a6e1da9b05a0427ffe50354fc388639789ec4d1fc1de3e9cf6c
+      - path: practices/pull-request/match-the-change-to-the-required-upstream-gate.md
+        source_digest: sha256:c037dae87a94db2787f8b5262fe262b42399341627192cb76e13c72d5b11a030
+      - path: practices/pull-request/title-and-commit-conventionally.md
+        source_digest: sha256:38295290f02a3eb545d8d01e5e15e5e00ffd339de3c1d8c7428da7383c2378cf
+      - path: practices/pull-request/write-the-pr-body-for-a-cold-reviewer.md
+        source_digest: sha256:8ae1688b4a0fc8025201bdff2f10a0de5253b3b47badcc6ab0d3791ce4896cfd
+      - path: practices/review/address-feedback-with-new-commits-and-freeze-during-review.md
+        source_digest: sha256:15cbb4ad361381cf51658ed57dc561f85ed082ca8664f8e81df2bd780515cf56
+      - path: practices/review/disclose-ai-assistance-and-its-review-findings.md
+        source_digest: sha256:b458d90ee00702a3d91898d6b60ab0815b22e68e6ad53d811f662156e6ef8192
