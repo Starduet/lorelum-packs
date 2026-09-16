@@ -3,6 +3,7 @@ evaluation_only: true
 description: Retrieval query hypotheses for the 33 agentic-coding Practices; each Practice contributes 3 positive queries and 2 neighbor queries that are worded near that Practice but expected to select its nearest neighbor (per agentic-coding-practice-catalog). Query wording avoids restating Practice titles, applies_when, or guidance so keyword hits are not quotation matches. Not a runtime input or proof of retrieval quality.
 target_pack: agentic-coding@0.4.0
 top_k: 3
+min_top3: 0.90
 queries:
   # requirements.ground-user-goal
   - id: requirements.ground-user-goal.p1

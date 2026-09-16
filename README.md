@@ -97,7 +97,23 @@ python scripts/eval-queries --mode keyword --require-coverage --min-top3 0.90 \
   --baseline fixtures/agentic-coding/baselines/<previous-release>.json
 ```
 
-A Practice that reaches a release is expected to carry its own queries: the change that adds a Practice adds 3 positive and 2 neighbor queries to `queries.yaml`, so the installed Pack can never silently contain a Practice the fixture set cannot see. Existing queries double as canaries — re-running them against a new release with `--baseline` detects whether newly added Practices steal hits meant for existing ones. A degraded semantic mode is exempt from `--min-top3` and reported as not evaluated on that machine.
+### Updating the query set
+
+The query set is a maintained fixture, not a generated one: it grows with the catalog through the promotion flow, and the gates make skipping a step visible.
+
+- **A change that adds a Practice adds its queries in the same change**: 3 positive + 2 neighbor queries in `fixtures/agentic-coding/queries.yaml`. Neighbor expectations follow the practice-catalog `nearest_neighbor` map — update the catalog first if the new Practice changes which neighbor is nearest for an existing one. `--require-coverage` fails any run against a Pack containing a Practice with no positive queries.
+- **Queries must be written in situation wording, not the Practice's own words.** Check every change with `python scripts/eval-queries --check-discipline --mode keyword --limit 1` — it fails on any 4+-word run shared with an installed Practice's title or `applies_when`, because such a query matches the keyword index by quotation and proves nothing about retrieval.
+- **When Practices merge or are removed, migrate the affected queries' `expect` to the successor Practice ID** and re-run; per issue #17, an old query should hit its successor.
+- **The team gate is recorded in the fixture** (`min_top3`); every run enforces it by default. `--min-top3 <rate>` overrides it for a single run, and a degraded semantic mode is reported as not evaluated rather than silently passing.
+
+```sh
+# Preflight for a change that touches Practices or queries.
+python scripts/eval-queries --mode keyword --require-coverage --check-discipline \
+  --ensure-install agentic-coding@0.4.0 --store-root tmp/eval-store \
+  --baseline fixtures/agentic-coding/baselines/<previous-release>.json
+```
+
+Existing queries double as canaries: re-running them against a new release with `--baseline` reports whether newly added Practices steal hits meant for existing ones.
 
 ## Repository layout
 

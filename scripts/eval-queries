@@ -20,6 +20,7 @@ import argparse
 import datetime as _dt
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -130,7 +131,45 @@ def installed_pack_details(lore: str, name: str, store_root: str | None) -> dict
         "name": data["pack"]["name"],
         "version": data["pack"]["version"],
         "practice_ids": sorted(p["id"] for p in data.get("practices", [])),
+        "practices": [
+            {"id": p["id"], "title": p.get("title", ""), "applies_when": p.get("applies_when", "")}
+            for p in data.get("practices", [])
+        ],
     }
+
+
+DISCIPLINE_STOPWORDS = set(
+    "a an the of to in on for and or is are was were be been it its this that with without must not no "
+    "do does can could should would will shall may might as at by from into than then there their they "
+    "you your we our i me my when where which who whom what how before after during while".split()
+)
+
+
+def discipline_violations(queries: list, practices: list) -> list:
+    """Flag queries sharing a 4+-word run with any installed Practice's title/applies_when.
+
+    Such queries match the keyword index by quotation rather than meaning, so a hit proves
+    nothing about retrieval; the shipped fixture is written to pass this check.
+    """
+    practice_grams = {}
+    for p in practices:
+        words = re.findall(r"[a-z]+", (p["title"] + " " + p["applies_when"]).lower())
+        grams = set()
+        for n in (5, 4):
+            for i in range(len(words) - n + 1):
+                g = tuple(words[i:i + n])
+                if len([w for w in g if w not in DISCIPLINE_STOPWORDS]) >= max(2, n - 2):
+                    grams.add(g)
+        if grams:
+            practice_grams[p["id"]] = grams
+    out = []
+    for q in queries:
+        qw = re.findall(r"[a-z]+", q["text"].lower())
+        qgrams = {tuple(qw[i:i + n]) for n in (5, 4) for i in range(len(qw) - n + 1)}
+        for pid, grams in practice_grams.items():
+            for g in grams & qgrams:
+                out.append({"query": q["id"], "practice": pid, "n": len(g), "shared": " ".join(g)})
+    return out
 
 
 def partition_queries(queries: list, installed_ids: set) -> tuple[list, list]:
@@ -326,7 +365,7 @@ def render_report(run: dict) -> str:
         if section.get("gate"):
             g = section["gate"]
             lines.append(f"## {mode} — gate {'PASSED' if g['passed'] else 'FAILED'} "
-                         f"(positive top-3 {fmt_rate(g['observed'])} vs minimum {fmt_rate(g['min'])})")
+                         f"(positive top-3 {fmt_rate(g['observed'])} vs {g.get('source', 'flag')} minimum {fmt_rate(g['min'])})")
         else:
             lines.append(f"## {mode}")
         lines.append("")
@@ -392,7 +431,8 @@ def main() -> int:
     ap.add_argument("--limit", type=int, default=None, help="run only the first N queries (smoke runs)")
     ap.add_argument("--semantic-timeout", type=int, default=600, help="seconds to wait for semantic index readiness")
     ap.add_argument("--require-coverage", action="store_true", help="fail if any installed Practice has no positive queries")
-    ap.add_argument("--min-top3", type=float, default=None, metavar="RATE", help="gate: minimum positive top-3 hit rate (0-1) for each evaluated mode; exit 1 if below (degraded modes are reported as not evaluated)")
+    ap.add_argument("--check-discipline", action="store_true", help="fail if any query shares a 4+-word run with an installed Practice's title/applies_when (quotation matches prove nothing)")
+    ap.add_argument("--min-top3", type=float, default=None, metavar="RATE", help="gate: minimum positive top-3 hit rate (0-1) for each evaluated mode; defaults to the fixture's min_top3 when present. Exit 1 below it; degraded modes are reported as not evaluated")
     args = ap.parse_args()
 
     if args.report_from:
@@ -452,8 +492,26 @@ def main() -> int:
         "uncovered": uncovered,
     }
 
+    discipline = None
+    if args.check_discipline:
+        violations = discipline_violations(doc["queries"], pack.get("practices", []))
+        discipline = {"checked": True, "violations": len(violations)}
+        if violations:
+            print(f"discipline: {len(violations)} query/practice restatement(s):")
+            for v in violations:
+                print(f"  - {v['query']} restates {short(v['practice'])} ({v['n']}-word run: \"{v['shared']}\")")
+            print("error: rewrite the flagged queries in situation wording; quotation matches prove nothing about retrieval.", file=sys.stderr)
+            return 1
+        print("discipline: no query restates an installed Practice's title or applies_when text")
+
     requested = ["keyword", "semantic"] if args.mode == "both" else [args.mode]
     fetch_k = max(args.top_k + 2, 5)
+    if args.min_top3 is not None:
+        min_top3, min_top3_source = args.min_top3, "flag"
+    elif doc.get("min_top3") is not None:
+        min_top3, min_top3_source = float(doc["min_top3"]), "fixture"
+    else:
+        min_top3, min_top3_source = None, None
     modes_section = {}
     for mode in requested:
         if mode == "semantic":
@@ -478,15 +536,15 @@ def main() -> int:
               f"top-{args.top_k} {fmt_rate(pos[f'top{args.top_k}_rate'])} | "
               f"neighbor expected top-1 {fmt_rate(nb['expect_top1_rate'])}, trap top-1 {fmt_rate(nb['trap_top1_rate'])}")
         section = {"state": "ok", "metrics": metrics, "results": results}
-        if args.min_top3 is not None:
+        if min_top3 is not None:
             pos_rows = [r for r in results if r["kind"] == "positive" and not r["error"]]
             observed = (len([r for r in pos_rows if r["hit_rank"] is not None and r["hit_rank"] <= 3]) / len(pos_rows)) if pos_rows else 0.0
-            gate = {"metric": "positive_top3", "min": args.min_top3, "observed": round(observed, 4), "passed": observed >= args.min_top3}
+            gate = {"metric": "positive_top3", "min": min_top3, "observed": round(observed, 4), "passed": observed >= min_top3, "source": min_top3_source}
             section["gate"] = gate
-            print(f"gate [{mode}]: positive top-3 {fmt_rate(gate['observed'])} >= {fmt_rate(args.min_top3)} -> {'PASS' if gate['passed'] else 'FAIL'}")
+            print(f"gate [{mode}]: positive top-3 {fmt_rate(gate['observed'])} >= {fmt_rate(min_top3)} ({min_top3_source}) -> {'PASS' if gate['passed'] else 'FAIL'}")
         modes_section[mode] = section
     for mode, section in modes_section.items():
-        if args.min_top3 is not None and section["state"] == "degraded":
+        if min_top3 is not None and section["state"] == "degraded":
             print(f"gate [{mode}]: NOT EVALUABLE (mode degraded on this machine); gate applies to evaluated modes only")
 
     run = {
@@ -505,6 +563,8 @@ def main() -> int:
         "totals": {"runnable": len(runnable), "skipped": len(skipped)},
         "skipped": skipped,
         "coverage": coverage,
+        "discipline": discipline,
+        "min_top3": {"value": min_top3, "source": min_top3_source},
         "modes": modes_section,
     }
 
