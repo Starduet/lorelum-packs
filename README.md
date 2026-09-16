@@ -76,10 +76,57 @@ lore pack list --store-root ./tmp/lore-store
 
 Custom registries must expose `.lorelum/registry.yaml` from a supported public GitHub repository.
 
+## Evaluation fixtures and scripts
+
+`fixtures/<pack>/` holds `evaluation_only` hypotheses, never runtime input: `practice-catalog.yaml` (per-Practice retrieval and behavior contrasts) and `workflows.yaml` (cross-Practice scenarios). `fixtures/agentic-coding/queries.yaml` additionally holds a retrieval query set — 3 positive and 2 neighbor queries per Practice, worded to avoid restating Practice text — whose expected selections are declared before any run. `fixtures/agentic-coding/baselines/` stores recorded runs. Fixtures state hypotheses, not proof of retrieval or downstream quality.
+
+`scripts/eval-queries` evaluates a query set against an installed Pack by looping the public `lore` CLI (Python 3.9+ with PyYAML; no CLI changes). It supports `--mode keyword|semantic|both`; when the semantic index cannot build on a machine (for example the known `embedding.deadline-exceeded` on some Windows x64 hosts), the run is marked degraded with the failure code instead of failing. It reports per-query hits, positive top-k hit rates, the neighbor confusion matrix, and `--baseline` regression diffs.
+
+```sh
+# Isolated-store run against a registry release, writing a JSON artifact and Markdown report.
+python scripts/eval-queries --mode both --ensure-install agentic-coding@0.4.0 \
+  --store-root tmp/eval-store --out run.json --report run.md
+
+# Compare a later run (for example a rewritten Practice set) against a recorded baseline.
+python scripts/eval-queries --mode keyword --baseline fixtures/agentic-coding/baselines/<baseline>.json
+
+# Promotion gate for a future release: every installed Practice must have fixture queries,
+# and the positive top-3 hit rate must clear the team's bar. Exits non-zero otherwise.
+python scripts/eval-queries --mode keyword --require-coverage --min-top3 0.90 \
+  --ensure-install agentic-coding@0.5.0 --store-root tmp/eval-store \
+  --baseline fixtures/agentic-coding/baselines/<previous-release>.json
+```
+
+### Updating the query set
+
+The query set is a maintained fixture, not a generated one: it grows with the catalog through the promotion flow, and the gates make skipping a step visible.
+
+- **A change that adds a Practice adds its queries in the same change**: 3 positive + 2 neighbor queries in `fixtures/agentic-coding/queries.yaml`. Neighbor expectations follow the practice-catalog `nearest_neighbor` map — update the catalog first if the new Practice changes which neighbor is nearest for an existing one. `--require-coverage` fails any run against a Pack containing a Practice with no positive queries.
+- **Queries must be written in situation wording, not the Practice's own words.** Check every change with `python scripts/eval-queries --check-discipline --mode keyword --limit 1` — it fails on any 4+-word run shared with an installed Practice's title or `applies_when`, because such a query matches the keyword index by quotation and proves nothing about retrieval.
+- **When Practices merge or are removed, migrate the affected queries' `expect` to the successor Practice ID** and re-run; per issue #17, an old query should hit its successor.
+- **The team gate is recorded in the fixture** (`min_top3`); every run enforces it by default. `--min-top3 <rate>` overrides it for a single run, and a degraded semantic mode is reported as not evaluated rather than silently passing.
+
+```sh
+# Preflight for a change that touches Practices or queries.
+python scripts/eval-queries --mode keyword --require-coverage --check-discipline \
+  --ensure-install agentic-coding@0.4.0 --store-root tmp/eval-store \
+  --baseline fixtures/agentic-coding/baselines/<previous-release>.json
+```
+
+Existing queries double as canaries: re-running them against a new release with `--baseline` reports whether newly added Practices steal hits meant for existing ones.
+
 ## Repository layout
 
 ```text
 .lorelum/registry.yaml
+fixtures/
+  agentic-coding/
+    practice-catalog.yaml
+    workflows.yaml
+    queries.yaml
+    baselines/
+scripts/
+  eval-queries
 packs/
   agentic-coding/
     pack.yaml

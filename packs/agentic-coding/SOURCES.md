@@ -78,3 +78,5 @@ nested retries, and local stop. Structural validation and semantic author review
 retrieval quality or measured downstream Agent improvement; those evaluations remain unrun.
 
 The mapping records provenance, not empirical proof that retrieval improves task outcomes. The public fixtures provide testable hypotheses for retrieval and behavior evaluation. Benchmark or scoring methods, private artifacts, and unpublished review procedures are outside this repository.
+
+`fixtures/agentic-coding/queries.yaml` turns those hypotheses into a runnable retrieval query set (three positive and two neighbor queries per Practice, expected selections declared before the run, wording held away from Practice text). Recorded runs under `fixtures/agentic-coding/baselines/` report observed selection only — keyword mode plus, where the semantic index builds on that machine, semantic mode; a degraded semantic run is annotated with its failure code rather than reported as a result.
