@@ -8,6 +8,7 @@ This Pack combines Lorelum's public format and retrieval boundaries with sanitiz
 - **Issue-derived synthesis** means a Practice generalizes a content, retrieval, evidence, or scope boundary discussed in a public Lorelum issue.
 - **Pack-authoring synthesis** means a Practice was generalized from a sanitized authoring and review retrospective, including rejected abstract wording, unrealistic examples, missing delegation context, trigger collisions, localization review, and remote installation checks.
 - **Protocol-aligned synthesis** means a Practice records the reviewed resource-directory, locator, and non-execution boundary of the current Lorelum Pack protocol; it does not by itself claim that a future released version is installable.
+- **ProjectContext-explicit** means current Lorelum project-layer and authoring-command documentation establishes the directory, inheritance, precedence, cache, and command behavior; the Practice adds domain-neutral authoring judgment around that contract.
 
 Public sources:
 
@@ -18,6 +19,8 @@ Public sources:
 - [Issue #32: Practice guidance before context compaction](https://github.com/lorelum/lorelum/issues/32)
 - [Issue #35: Reward hacking and over-engineering in agent coding](https://github.com/lorelum/lorelum/issues/35)
 - [`agentic-coding` clarity revision PR #6](https://github.com/lorelum/lorelum-packs/pull/6), used as public evidence of concrete wording, scenario, and authoring-review changes, not as a required template. The final [`agentic-coding@0.3.0`](https://github.com/lorelum/lorelum-packs/tree/agentic-coding-v0.3.0/packs/agentic-coding) tag shows the resulting Pack content, not the full review process.
+- [ProjectContext query documentation](https://github.com/lorelum/lorelum/blob/main/docs/cli/query.md)
+- [Pack authoring command documentation](https://github.com/lorelum/lorelum/blob/main/apps/site/content/docs/reference/authoring.mdx)
 
 ## Practice map
 
@@ -43,6 +46,10 @@ Public sources:
 | `pack-creator.localization.localize-for-human-review-without-forking-runtime`    | Format-explicit: ADR 0009; Pack-authoring synthesis           | ADR 0009 defines canonical runtime content and mirrored localization assets; authoring review supplies the natural-language and fidelity gates.       |
 | `pack-creator.release.preserve-versioned-content-and-provenance`                 | Format-explicit: ADR 0008, ADR 0009; Pack-authoring synthesis | Registry refs and localization digests require reproducible canonical content, while the authoring retrospective motivates explicit synthesis labels. |
 | `pack-creator.release.verify-the-supported-install-path-before-claiming-release` | Format-explicit: ADR 0008; Pack-authoring synthesis           | ADR 0008 defines the Registry-to-LocalStore path; a sanitized release retrospective showed local validation cannot prove that remote path works.      |
+| `pack-creator.discovery.choose-project-local-or-registry-release` | ProjectContext-explicit; Format-explicit: ADR 0008; Pack-authoring synthesis | Separates repository-owned directory layers from immutable Registry distribution, without treating local source as an installable artifact. |
+| `pack-creator.design.compose-inherited-project-layers` | ProjectContext-explicit; Pack-authoring synthesis | Translates parent-to-child config folding and same-ID winner behavior into the authoring decision to use a small child overlay instead of copying a Pack. |
+| `pack-creator.authoring.create-a-project-local-pack` | ProjectContext-explicit; Format-explicit: ADR 0003; Pack-authoring synthesis | Grounds the local Pack tree, `lore init`, authoring commands, and user-cache boundary in the current CLI contract. |
+| `pack-creator.evaluation.verify-project-local-pack-activation` | ProjectContext-explicit; Pack-authoring synthesis | Separates local Pack structure checks from working-directory activation, current winner verification, and unexercised semantic behavior. |
 
 ## Resource-practice provenance
 

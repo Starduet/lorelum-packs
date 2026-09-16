@@ -23,15 +23,15 @@ into a deliverable, or explicitly run it as a bounded operation.
 
 Put material whose next action is reading in `references/`: examples include a long policy, field
 table, evidence note, compatibility matrix, or runbook. Put material whose next action is making a
-task artifact in `assets/`: examples include a report outline, checklist, config skeleton, or starter
-file; instruct the reader to copy it to the intended workspace before editing. Put a repeated,
-deterministic diagnostic, check, or conversion in `scripts/`; the linking Practice must name when it
-is useful, its inputs, expected output, and the condition that ends the work.
+task artifact in `assets/`: examples include a report outline, checklist, config skeleton, or
+starter file; instruct the reader to copy it to the intended workspace before editing. Put a
+repeated, deterministic diagnostic, check, or conversion in `scripts/`; the linking Practice must
+name when it is useful, its inputs, expected output, and the condition that ends the work.
 
 Use the smallest resource that supports the next action. Keep scripts explicit and self-contained
 enough to inspect: do not make installation install dependencies, read credentials, connect to a
-service, or execute a script. Stop when a reader can infer one intended action from the directory and
-the Practice's link text, without treating every resource as an executable instruction.
+service, or execute a script. Stop when a reader can infer one intended action from the directory
+and the Practice's link text, without treating every resource as an executable instruction.
 
 When an author needs a bounded review inventory, they may explicitly run the
 [resource inventory helper](resource:scripts/inspect-resources.py) with the Pack root as its only
@@ -63,7 +63,7 @@ structure but does not run scripts or prove their behavior.
 ## Example
 
 A deployment-review Practice links a cloud-provider compatibility table from `references/`, tells
-the release manager to copy a change-summary skeleton from `assets/`, and links a deterministic
-diff checker under `scripts/` for repositories with a public API change. The Practice names the diff
+the release manager to copy a change-summary skeleton from `assets/`, and links a deterministic diff
+checker under `scripts/` for repositories with a public API change. The Practice names the diff
 range and expected report, while install and retrieval merely preserve the script bytes. Each file’s
 location matches the reader’s next action.
