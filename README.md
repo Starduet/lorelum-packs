@@ -76,10 +76,33 @@ lore pack list --store-root ./tmp/lore-store
 
 Custom registries must expose `.lorelum/registry.yaml` from a supported public GitHub repository.
 
+## Evaluation fixtures and scripts
+
+`fixtures/<pack>/` holds `evaluation_only` hypotheses, never runtime input: `practice-catalog.yaml` (per-Practice retrieval and behavior contrasts) and `workflows.yaml` (cross-Practice scenarios). `fixtures/agentic-coding/queries.yaml` additionally holds a retrieval query set — 3 positive and 2 neighbor queries per Practice, worded to avoid restating Practice text — whose expected selections are declared before any run. `fixtures/agentic-coding/baselines/` stores recorded runs. Fixtures state hypotheses, not proof of retrieval or downstream quality.
+
+`scripts/eval-queries` evaluates a query set against an installed Pack by looping the public `lore` CLI (Python 3.9+ with PyYAML; no CLI changes). It supports `--mode keyword|semantic|both`; when the semantic index cannot build on a machine (for example the known `embedding.deadline-exceeded` on some Windows x64 hosts), the run is marked degraded with the failure code instead of failing. It reports per-query hits, positive top-k hit rates, the neighbor confusion matrix, and `--baseline` regression diffs.
+
+```sh
+# Isolated-store run against a registry release, writing a JSON artifact and Markdown report.
+python scripts/eval-queries --mode both --ensure-install agentic-coding@0.4.0 \
+  --store-root tmp/eval-store --out run.json --report run.md
+
+# Compare a later run (for example a rewritten Practice set) against a recorded baseline.
+python scripts/eval-queries --mode keyword --baseline fixtures/agentic-coding/baselines/<baseline>.json
+```
+
 ## Repository layout
 
 ```text
 .lorelum/registry.yaml
+fixtures/
+  agentic-coding/
+    practice-catalog.yaml
+    workflows.yaml
+    queries.yaml
+    baselines/
+scripts/
+  eval-queries
 packs/
   agentic-coding/
     pack.yaml
