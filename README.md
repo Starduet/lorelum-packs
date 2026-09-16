@@ -89,7 +89,15 @@ python scripts/eval-queries --mode both --ensure-install agentic-coding@0.4.0 \
 
 # Compare a later run (for example a rewritten Practice set) against a recorded baseline.
 python scripts/eval-queries --mode keyword --baseline fixtures/agentic-coding/baselines/<baseline>.json
+
+# Promotion gate for a future release: every installed Practice must have fixture queries,
+# and the positive top-3 hit rate must clear the team's bar. Exits non-zero otherwise.
+python scripts/eval-queries --mode keyword --require-coverage --min-top3 0.90 \
+  --ensure-install agentic-coding@0.5.0 --store-root tmp/eval-store \
+  --baseline fixtures/agentic-coding/baselines/<previous-release>.json
 ```
+
+A Practice that reaches a release is expected to carry its own queries: the change that adds a Practice adds 3 positive and 2 neighbor queries to `queries.yaml`, so the installed Pack can never silently contain a Practice the fixture set cannot see. Existing queries double as canaries — re-running them against a new release with `--baseline` detects whether newly added Practices steal hits meant for existing ones. A degraded semantic mode is exempt from `--min-top3` and reported as not evaluated on that machine.
 
 ## Repository layout
 

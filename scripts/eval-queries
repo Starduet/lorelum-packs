@@ -303,6 +303,10 @@ def render_report(run: dict) -> str:
     lines.append(f"- Store: {run.get('store_root') or 'user-level default'}  |  Queries: {run['totals']['runnable']} runnable, {run['totals']['skipped']} skipped")
     if run.get("skipped"):
         lines.append(f"- Skipped (Practice not in this Pack version): {len(run['skipped'])}")
+    coverage = run.get("coverage") or {}
+    if coverage.get("uncovered"):
+        lines.append(f"- Coverage gap: {len(coverage['uncovered'])} installed Practice(s) have no positive queries: "
+                     + ", ".join(f"`{short(p)}`" for p in coverage["uncovered"]))
     for mode, section in modes.items():
         lines.append("")
         if section["state"] == "degraded":
@@ -311,12 +315,20 @@ def render_report(run: dict) -> str:
             lines.append("")
             lines.append(f"Index preparation failed with `{err.get('code')}` ({err.get('message')}). "
                          f"No {mode} numbers below; run on a machine where the semantic index builds to collect them.")
+            if section.get("gate") is None and any(s.get("gate") for s in modes.values()):
+                lines.append("")
+                lines.append(f"The hit-rate gate was not evaluable for {mode} on this machine.")
             continue
         m = section["metrics"]
         pos, nb = m["positive"], m["neighbor"]
         topk_key = f"top{run['top_k']}_rate"
         nb_topk_key = f"expect_top{run['top_k']}_rate"
-        lines.append(f"## {mode}")
+        if section.get("gate"):
+            g = section["gate"]
+            lines.append(f"## {mode} — gate {'PASSED' if g['passed'] else 'FAILED'} "
+                         f"(positive top-3 {fmt_rate(g['observed'])} vs minimum {fmt_rate(g['min'])})")
+        else:
+            lines.append(f"## {mode}")
         lines.append("")
         lines.append(f"- Positive queries: top-1 {fmt_rate(pos['top1_rate'])} ({pos['n']} queries), "
                      f"top-{run['top_k']} {fmt_rate(pos.get(topk_key))}")
@@ -379,6 +391,8 @@ def main() -> int:
     ap.add_argument("--lore", default="lore")
     ap.add_argument("--limit", type=int, default=None, help="run only the first N queries (smoke runs)")
     ap.add_argument("--semantic-timeout", type=int, default=600, help="seconds to wait for semantic index readiness")
+    ap.add_argument("--require-coverage", action="store_true", help="fail if any installed Practice has no positive queries")
+    ap.add_argument("--min-top3", type=float, default=None, metavar="RATE", help="gate: minimum positive top-3 hit rate (0-1) for each evaluated mode; exit 1 if below (degraded modes are reported as not evaluated)")
     args = ap.parse_args()
 
     if args.report_from:
@@ -423,6 +437,21 @@ def main() -> int:
         print("error: no runnable queries for this Pack", file=sys.stderr)
         return 1
 
+    queried = {q["expect"] for q in doc["queries"] if q["kind"] == "positive"}
+    uncovered = sorted(installed_ids - queried)
+    if uncovered:
+        listed = ", ".join(short(p) for p in uncovered)
+        if args.require_coverage:
+            print(f"error: coverage: {len(uncovered)} installed practice(s) have no positive queries: {listed}", file=sys.stderr)
+            print("error: add 3 positive + 2 neighbor queries to the fixture in the Practice's change (issue #17 promotion flow).", file=sys.stderr)
+            return 1
+        print(f"warning: coverage: {len(uncovered)} installed practice(s) have no positive queries: {listed}")
+    coverage = {
+        "practices_installed": len(installed_ids),
+        "practices_with_positive_queries": len(queried & installed_ids),
+        "uncovered": uncovered,
+    }
+
     requested = ["keyword", "semantic"] if args.mode == "both" else [args.mode]
     fetch_k = max(args.top_k + 2, 5)
     modes_section = {}
@@ -448,7 +477,17 @@ def main() -> int:
         print(f"{mode}: positive top-1 {fmt_rate(pos['top1_rate'])}, "
               f"top-{args.top_k} {fmt_rate(pos[f'top{args.top_k}_rate'])} | "
               f"neighbor expected top-1 {fmt_rate(nb['expect_top1_rate'])}, trap top-1 {fmt_rate(nb['trap_top1_rate'])}")
-        modes_section[mode] = {"state": "ok", "metrics": metrics, "results": results}
+        section = {"state": "ok", "metrics": metrics, "results": results}
+        if args.min_top3 is not None:
+            pos_rows = [r for r in results if r["kind"] == "positive" and not r["error"]]
+            observed = (len([r for r in pos_rows if r["hit_rank"] is not None and r["hit_rank"] <= 3]) / len(pos_rows)) if pos_rows else 0.0
+            gate = {"metric": "positive_top3", "min": args.min_top3, "observed": round(observed, 4), "passed": observed >= args.min_top3}
+            section["gate"] = gate
+            print(f"gate [{mode}]: positive top-3 {fmt_rate(gate['observed'])} >= {fmt_rate(args.min_top3)} -> {'PASS' if gate['passed'] else 'FAIL'}")
+        modes_section[mode] = section
+    for mode, section in modes_section.items():
+        if args.min_top3 is not None and section["state"] == "degraded":
+            print(f"gate [{mode}]: NOT EVALUABLE (mode degraded on this machine); gate applies to evaluated modes only")
 
     run = {
         "schema": SCHEMA,
@@ -465,6 +504,7 @@ def main() -> int:
         "limit": args.limit,
         "totals": {"runnable": len(runnable), "skipped": len(skipped)},
         "skipped": skipped,
+        "coverage": coverage,
         "modes": modes_section,
     }
 
@@ -498,6 +538,11 @@ def main() -> int:
 
     if all(s["state"] == "degraded" for s in modes_section.values()):
         print("error: every requested mode degraded; no evaluation ran", file=sys.stderr)
+        return 1
+    failed_gates = [(m, s["gate"]) for m, s in modes_section.items() if s.get("gate") and not s["gate"]["passed"]]
+    if failed_gates:
+        for mode, gate in failed_gates:
+            print(f"error: gate FAILED [{mode}]: positive top-3 {fmt_rate(gate['observed'])} below minimum {fmt_rate(gate['min'])}", file=sys.stderr)
         return 1
     return 0
 
