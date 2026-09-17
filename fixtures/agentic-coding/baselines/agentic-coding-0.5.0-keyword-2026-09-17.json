@@ -1,7 +1,7 @@
 {
  "schema": "eval-queries-run/1",
  "note": "Evaluation-only evidence: observed retrieval selection for the fixture queries on one machine and one Pack revision. It is not a claim about content quality, other queries, other modes that were unavailable, or downstream Agent behavior.",
- "generated": "2026-09-17T07:25:04+00:00",
+ "generated": "2026-09-17T08:10:55+00:00",
  "fixture_set": "agentic-coding-queries",
  "fixtures_path": "fixtures\\agentic-coding\\queries.yaml",
  "pack": {
@@ -41,7 +41,7 @@
    "metrics": {
     "positive": {
      "n": 99,
-     "top1_rate": 0.9697,
+     "top1_rate": 0.9596,
      "top3_rate": 1.0
     },
     "neighbor": {
@@ -400,7 +400,7 @@
       "hit_ranks": [
        1,
        1,
-       1
+       2
       ],
       "top1": true,
       "topk": true
@@ -543,8 +543,8 @@
       "agentic-coding.requirements.ground-user-goal",
       "agentic-coding.verification.bind-evidence-to-artifact-state",
       "agentic-coding.testing.classify-failure-before-changing-test",
-      "agentic-coding.planning.decide-scope-and-stop-conditions",
-      "agentic-coding.correction.restore-authoritative-baseline"
+      "agentic-coding.correction.restore-authoritative-baseline",
+      "agentic-coding.planning.decide-scope-and-stop-conditions"
      ],
      "hit_rank": 1,
      "error": null
@@ -559,8 +559,8 @@
       "agentic-coding.requirements.ground-user-goal",
       "agentic-coding.implementation.choose-smallest-sufficient-design",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability",
-      "agentic-coding.implementation.replan-on-material-drift",
-      "agentic-coding.context.write-decision-dense-checkpoint"
+      "agentic-coding.planning.decide-scope-and-stop-conditions",
+      "agentic-coding.implementation.replan-on-material-drift"
      ],
      "hit_rank": 1,
      "error": null
@@ -814,9 +814,9 @@
      "hits": [
       "agentic-coding.implementation.confirm-product-surface-expansion",
       "agentic-coding.implementation.choose-smallest-sufficient-design",
+      "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.planning.map-plan-to-user-capability",
-      "agentic-coding.implementation.replan-on-material-drift",
-      "agentic-coding.planning.decide-scope-and-stop-conditions"
+      "agentic-coding.implementation.replan-on-material-drift"
      ],
      "hit_rank": 1,
      "error": null
@@ -832,7 +832,7 @@
       "agentic-coding.requirements.define-acceptance-and-non-goals",
       "agentic-coding.testing.assert-observable-behavior",
       "agentic-coding.review.validate-findings-before-action",
-      "agentic-coding.requirements.resolve-source-authority"
+      "agentic-coding.context.give-delegated-agents-decision-context"
      ],
      "hit_rank": 1,
      "error": null
@@ -848,7 +848,7 @@
       "agentic-coding.recovery.validate-handoff-before-continuation",
       "agentic-coding.planning.plan-sufficient-evidence",
       "agentic-coding.testing.classify-failure-before-changing-test",
-      "agentic-coding.review.run-subtractive-review-before-commit"
+      "agentic-coding.context.give-delegated-agents-decision-context"
      ],
      "hit_rank": 1,
      "error": null
@@ -958,8 +958,8 @@
      "hits": [
       "agentic-coding.planning.map-plan-to-user-capability",
       "agentic-coding.verification.map-evidence-to-acceptance",
-      "agentic-coding.requirements.ground-user-goal",
       "agentic-coding.implementation.preserve-responsibility-boundaries",
+      "agentic-coding.requirements.ground-user-goal",
       "agentic-coding.implementation.make-recovery-behavior-explicit"
      ],
      "hit_rank": 1,
@@ -1102,8 +1102,8 @@
      "hits": [
       "agentic-coding.requirements.define-acceptance-and-non-goals",
       "agentic-coding.planning.decide-scope-and-stop-conditions",
-      "agentic-coding.implementation.limit-investigation-to-current-decision",
       "agentic-coding.delivery.claim-only-supported-outcome",
+      "agentic-coding.implementation.limit-investigation-to-current-decision",
       "agentic-coding.implementation.validate-at-the-owning-boundary"
      ],
      "hit_rank": 2,
@@ -1167,8 +1167,8 @@
       "agentic-coding.implementation.inspect-and-reuse-existing-capability",
       "agentic-coding.implementation.preserve-responsibility-boundaries",
       "agentic-coding.implementation.replan-on-material-drift",
-      "agentic-coding.context.write-decision-dense-checkpoint",
-      "agentic-coding.recovery.validate-handoff-before-continuation"
+      "agentic-coding.review.run-subtractive-review-before-commit",
+      "agentic-coding.context.write-decision-dense-checkpoint"
      ],
      "hit_rank": 1,
      "error": null
@@ -1200,7 +1200,7 @@
       "agentic-coding.implementation.choose-smallest-sufficient-design",
       "agentic-coding.implementation.replan-on-material-drift",
       "agentic-coding.implementation.validate-at-the-owning-boundary",
-      "agentic-coding.verification.bind-evidence-to-artifact-state"
+      "agentic-coding.review.run-subtractive-review-before-commit"
      ],
      "hit_rank": 1,
      "error": null
@@ -1293,12 +1293,12 @@
      "text": "I have not even located the component that renders this yet; I need a focused search to find where the behavior lives before anything else",
      "hits": [
       "agentic-coding.implementation.limit-investigation-to-current-decision",
-      "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability",
-      "agentic-coding.implementation.choose-smallest-sufficient-design",
-      "agentic-coding.implementation.validate-at-the-owning-boundary"
+      "agentic-coding.review.run-subtractive-review-before-commit",
+      "agentic-coding.implementation.validate-at-the-owning-boundary",
+      "agentic-coding.implementation.choose-smallest-sufficient-design"
      ],
-     "hit_rank": 3,
+     "hit_rank": 2,
      "error": null
     },
     {
@@ -1312,7 +1312,7 @@
       "agentic-coding.implementation.inspect-and-reuse-existing-capability",
       "agentic-coding.implementation.choose-smallest-sufficient-design",
       "agentic-coding.implementation.preserve-responsibility-boundaries",
-      "agentic-coding.review.run-subtractive-review-before-commit"
+      "agentic-coding.verification.bind-evidence-to-artifact-state"
      ],
      "hit_rank": 2,
      "error": null
@@ -1344,7 +1344,7 @@
       "agentic-coding.planning.scale-work-to-risk-and-cost",
       "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.testing.classify-failure-before-changing-test",
-      "agentic-coding.recovery.validate-handoff-before-continuation"
+      "agentic-coding.context.write-decision-dense-checkpoint"
      ],
      "hit_rank": 1,
      "error": null
@@ -1376,7 +1376,7 @@
       "agentic-coding.requirements.resolve-source-authority",
       "agentic-coding.implementation.confirm-product-surface-expansion",
       "agentic-coding.testing.justify-regression-protection",
-      "agentic-coding.implementation.limit-investigation-to-current-decision"
+      "agentic-coding.implementation.inspect-and-reuse-existing-capability"
      ],
      "hit_rank": 2,
      "error": null
@@ -1389,10 +1389,10 @@
      "text": "two governing documents contradict each other on record retention; this is not a guess I can mark local and move on",
      "hits": [
       "agentic-coding.requirements.resolve-source-authority",
-      "agentic-coding.implementation.surface-unconfirmed-assumptions",
       "agentic-coding.review.run-subtractive-review-before-commit",
+      "agentic-coding.implementation.surface-unconfirmed-assumptions",
       "agentic-coding.implementation.replan-on-material-drift",
-      "agentic-coding.planning.map-plan-to-user-capability"
+      "agentic-coding.verification.close-or-declare-evidence-gaps"
      ],
      "hit_rank": 1,
      "error": null
@@ -1408,7 +1408,7 @@
       "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.testing.assert-observable-behavior",
       "agentic-coding.context.give-delegated-agents-decision-context",
-      "agentic-coding.requirements.resolve-source-authority"
+      "agentic-coding.requirements.define-acceptance-and-non-goals"
      ],
      "hit_rank": 1,
      "error": null
@@ -1422,8 +1422,8 @@
      "hits": [
       "agentic-coding.implementation.confirm-product-surface-expansion",
       "agentic-coding.implementation.choose-smallest-sufficient-design",
-      "agentic-coding.implementation.validate-at-the-owning-boundary",
       "agentic-coding.implementation.preserve-responsibility-boundaries",
+      "agentic-coding.implementation.validate-at-the-owning-boundary",
       "agentic-coding.testing.classify-failure-before-changing-test"
      ],
      "hit_rank": 1,
@@ -1518,8 +1518,8 @@
      "hits": [
       "agentic-coding.implementation.choose-smallest-sufficient-design",
       "agentic-coding.review.run-subtractive-review-before-commit",
-      "agentic-coding.testing.classify-failure-before-changing-test",
       "agentic-coding.implementation.replan-on-material-drift",
+      "agentic-coding.testing.classify-failure-before-changing-test",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability"
      ],
      "hit_rank": 1,
@@ -1597,10 +1597,10 @@
      "text": "I am adding another guard midway through the data path; how do I tell whether this location can actually see an invalid value or the fact is already established",
      "hits": [
       "agentic-coding.implementation.validate-at-the-owning-boundary",
-      "agentic-coding.implementation.make-recovery-behavior-explicit",
       "agentic-coding.review.run-subtractive-review-before-commit",
+      "agentic-coding.implementation.make-recovery-behavior-explicit",
       "agentic-coding.implementation.replan-on-material-drift",
-      "agentic-coding.testing.assert-observable-behavior"
+      "agentic-coding.implementation.choose-smallest-sufficient-design"
      ],
      "hit_rank": 1,
      "error": null
@@ -1725,9 +1725,9 @@
      "text": "the checkout screen could compute invoice totals locally, but refunds and the API orders path also depend on that rounding rule",
      "hits": [
       "agentic-coding.implementation.preserve-responsibility-boundaries",
-      "agentic-coding.implementation.confirm-product-surface-expansion",
       "agentic-coding.testing.classify-failure-before-changing-test",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability",
+      "agentic-coding.implementation.confirm-product-surface-expansion",
       "agentic-coding.correction.restore-authoritative-baseline"
      ],
      "hit_rank": 1,
@@ -1744,7 +1744,7 @@
       "agentic-coding.implementation.validate-at-the-owning-boundary",
       "agentic-coding.planning.map-plan-to-user-capability",
       "agentic-coding.testing.assert-observable-behavior",
-      "agentic-coding.planning.plan-sufficient-evidence"
+      "agentic-coding.implementation.replan-on-material-drift"
      ],
      "hit_rank": 1,
      "error": null
@@ -1758,9 +1758,9 @@
      "hits": [
       "agentic-coding.implementation.preserve-responsibility-boundaries",
       "agentic-coding.implementation.validate-at-the-owning-boundary",
-      "agentic-coding.implementation.choose-smallest-sufficient-design",
+      "agentic-coding.implementation.inspect-and-reuse-existing-capability",
       "agentic-coding.review.run-subtractive-review-before-commit",
-      "agentic-coding.requirements.resolve-source-authority"
+      "agentic-coding.implementation.choose-smallest-sufficient-design"
      ],
      "hit_rank": 1,
      "error": null
@@ -1822,8 +1822,8 @@
      "hits": [
       "agentic-coding.implementation.replan-on-material-drift",
       "agentic-coding.testing.anchor-tests-to-requirements",
-      "agentic-coding.verification.close-or-declare-evidence-gaps",
       "agentic-coding.context.write-decision-dense-checkpoint",
+      "agentic-coding.verification.close-or-declare-evidence-gaps",
       "agentic-coding.implementation.validate-at-the-owning-boundary"
      ],
      "hit_rank": 1,
@@ -1838,8 +1838,8 @@
      "hits": [
       "agentic-coding.implementation.replan-on-material-drift",
       "agentic-coding.review.run-subtractive-review-before-commit",
-      "agentic-coding.requirements.ground-user-goal",
       "agentic-coding.planning.decide-scope-and-stop-conditions",
+      "agentic-coding.requirements.ground-user-goal",
       "agentic-coding.context.give-delegated-agents-decision-context"
      ],
      "hit_rank": 1,
@@ -1885,8 +1885,8 @@
      "text": "the retry-safe submission grew new helpers and status values, and I am writing one test per method without ever exercising duplicate submission",
      "hits": [
       "agentic-coding.testing.anchor-tests-to-requirements",
-      "agentic-coding.verification.map-evidence-to-acceptance",
       "agentic-coding.implementation.replan-on-material-drift",
+      "agentic-coding.verification.map-evidence-to-acceptance",
       "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.implementation.make-recovery-behavior-explicit"
      ],
@@ -1934,9 +1934,9 @@
      "hits": [
       "agentic-coding.testing.justify-regression-protection",
       "agentic-coding.testing.classify-failure-before-changing-test",
+      "agentic-coding.planning.plan-sufficient-evidence",
       "agentic-coding.implementation.choose-smallest-sufficient-design",
-      "agentic-coding.testing.anchor-tests-to-requirements",
-      "agentic-coding.review.validate-findings-before-action"
+      "agentic-coding.testing.anchor-tests-to-requirements"
      ],
      "hit_rank": 1,
      "error": null
@@ -1950,8 +1950,8 @@
      "hits": [
       "agentic-coding.implementation.confirm-product-surface-expansion",
       "agentic-coding.testing.justify-regression-protection",
-      "agentic-coding.verification.bind-evidence-to-artifact-state",
       "agentic-coding.review.run-subtractive-review-before-commit",
+      "agentic-coding.verification.bind-evidence-to-artifact-state",
       "agentic-coding.context.write-decision-dense-checkpoint"
      ],
      "hit_rank": 2,
@@ -2062,9 +2062,9 @@
      "hits": [
       "agentic-coding.testing.classify-failure-before-changing-test",
       "agentic-coding.implementation.make-recovery-behavior-explicit",
+      "agentic-coding.planning.plan-sufficient-evidence",
       "agentic-coding.testing.justify-regression-protection",
-      "agentic-coding.requirements.resolve-source-authority",
-      "agentic-coding.review.validate-findings-before-action"
+      "agentic-coding.requirements.resolve-source-authority"
      ],
      "hit_rank": 1,
      "error": null
@@ -2109,8 +2109,8 @@
      "text": "the requester's clarification means the old interpretation is rejected; remove its traces from tests and documentation",
      "hits": [
       "agentic-coding.correction.restore-authoritative-baseline",
-      "agentic-coding.requirements.ground-user-goal",
       "agentic-coding.implementation.surface-unconfirmed-assumptions",
+      "agentic-coding.requirements.ground-user-goal",
       "agentic-coding.implementation.limit-investigation-to-current-decision",
       "agentic-coding.context.give-delegated-agents-decision-context"
      ],
@@ -2156,13 +2156,13 @@
      "resembles": null,
      "text": "when does a fixed bug deserve a durable guard in the suite, and when is a one-off repair enough",
      "hits": [
-      "agentic-coding.testing.justify-regression-protection",
       "agentic-coding.review.run-subtractive-review-before-commit",
+      "agentic-coding.testing.justify-regression-protection",
       "agentic-coding.testing.classify-failure-before-changing-test",
       "agentic-coding.delivery.claim-only-supported-outcome",
       "agentic-coding.planning.scale-work-to-risk-and-cost"
      ],
-     "hit_rank": 1,
+     "hit_rank": 2,
      "error": null
     },
     {
@@ -2239,8 +2239,8 @@
       "agentic-coding.verification.map-evidence-to-acceptance",
       "agentic-coding.implementation.choose-smallest-sufficient-design",
       "agentic-coding.planning.map-plan-to-user-capability",
-      "agentic-coding.review.run-subtractive-review-before-commit",
-      "agentic-coding.requirements.define-acceptance-and-non-goals"
+      "agentic-coding.requirements.define-acceptance-and-non-goals",
+      "agentic-coding.review.run-subtractive-review-before-commit"
      ],
      "hit_rank": 1,
      "error": null
@@ -2254,9 +2254,9 @@
      "hits": [
       "agentic-coding.verification.close-or-declare-evidence-gaps",
       "agentic-coding.recovery.reground-after-context-loss",
-      "agentic-coding.requirements.ground-user-goal",
+      "agentic-coding.planning.plan-sufficient-evidence",
       "agentic-coding.testing.anchor-tests-to-requirements",
-      "agentic-coding.verification.map-evidence-to-acceptance"
+      "agentic-coding.requirements.ground-user-goal"
      ],
      "hit_rank": 1,
      "error": null
@@ -2303,8 +2303,8 @@
       "agentic-coding.verification.bind-evidence-to-artifact-state",
       "agentic-coding.recovery.validate-handoff-before-continuation",
       "agentic-coding.review.run-subtractive-review-before-commit",
-      "agentic-coding.implementation.validate-at-the-owning-boundary",
-      "agentic-coding.verification.close-or-declare-evidence-gaps"
+      "agentic-coding.verification.close-or-declare-evidence-gaps",
+      "agentic-coding.implementation.validate-at-the-owning-boundary"
      ],
      "hit_rank": 1,
      "error": null
@@ -2368,7 +2368,7 @@
       "agentic-coding.planning.plan-sufficient-evidence",
       "agentic-coding.implementation.validate-at-the-owning-boundary",
       "agentic-coding.delivery.report-material-residuals",
-      "agentic-coding.implementation.inspect-and-reuse-existing-capability"
+      "agentic-coding.correction.restore-authoritative-baseline"
      ],
      "hit_rank": 1,
      "error": null
@@ -2383,8 +2383,8 @@
       "agentic-coding.verification.close-or-declare-evidence-gaps",
       "agentic-coding.testing.classify-failure-before-changing-test",
       "agentic-coding.requirements.define-acceptance-and-non-goals",
-      "agentic-coding.planning.decide-scope-and-stop-conditions",
-      "agentic-coding.verification.bind-evidence-to-artifact-state"
+      "agentic-coding.verification.bind-evidence-to-artifact-state",
+      "agentic-coding.planning.decide-scope-and-stop-conditions"
      ],
      "hit_rank": 1,
      "error": null
@@ -2416,7 +2416,7 @@
       "agentic-coding.verification.map-evidence-to-acceptance",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability",
       "agentic-coding.planning.map-plan-to-user-capability",
-      "agentic-coding.planning.decide-scope-and-stop-conditions"
+      "agentic-coding.verification.bind-evidence-to-artifact-state"
      ],
      "hit_rank": 2,
      "error": null
@@ -2640,7 +2640,7 @@
       "agentic-coding.implementation.replan-on-material-drift",
       "agentic-coding.implementation.choose-smallest-sufficient-design",
       "agentic-coding.planning.map-plan-to-user-capability",
-      "agentic-coding.planning.plan-sufficient-evidence"
+      "agentic-coding.review.run-subtractive-review-before-commit"
      ],
      "hit_rank": 1,
      "error": null
@@ -2670,8 +2670,8 @@
      "hits": [
       "agentic-coding.verification.close-or-declare-evidence-gaps",
       "agentic-coding.correction.restore-authoritative-baseline",
-      "agentic-coding.requirements.resolve-source-authority",
       "agentic-coding.planning.plan-sufficient-evidence",
+      "agentic-coding.requirements.resolve-source-authority",
       "agentic-coding.verification.bind-evidence-to-artifact-state"
      ],
      "hit_rank": 1,
@@ -2688,7 +2688,7 @@
       "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.implementation.make-recovery-behavior-explicit",
       "agentic-coding.planning.scale-work-to-risk-and-cost",
-      "agentic-coding.implementation.limit-investigation-to-current-decision"
+      "agentic-coding.planning.plan-sufficient-evidence"
      ],
      "hit_rank": 1,
      "error": null
@@ -3006,9 +3006,9 @@
      "hits": [
       "agentic-coding.recovery.reground-after-context-loss",
       "agentic-coding.requirements.define-acceptance-and-non-goals",
+      "agentic-coding.context.write-decision-dense-checkpoint",
       "agentic-coding.delivery.claim-only-supported-outcome",
-      "agentic-coding.verification.map-evidence-to-acceptance",
-      "agentic-coding.context.write-decision-dense-checkpoint"
+      "agentic-coding.verification.map-evidence-to-acceptance"
      ],
      "hit_rank": 1,
      "error": null
@@ -3103,8 +3103,8 @@
       "agentic-coding.recovery.validate-handoff-before-continuation",
       "agentic-coding.delivery.claim-only-supported-outcome",
       "agentic-coding.verification.close-or-declare-evidence-gaps",
-      "agentic-coding.planning.scale-work-to-risk-and-cost",
-      "agentic-coding.delivery.report-material-residuals"
+      "agentic-coding.review.run-subtractive-review-before-commit",
+      "agentic-coding.planning.scale-work-to-risk-and-cost"
      ],
      "hit_rank": 1,
      "error": null
@@ -3136,7 +3136,7 @@
       "agentic-coding.delivery.claim-only-supported-outcome",
       "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.recovery.reground-after-context-loss",
-      "agentic-coding.context.write-decision-dense-checkpoint"
+      "agentic-coding.planning.plan-sufficient-evidence"
      ],
      "hit_rank": 1,
      "error": null
@@ -3149,12 +3149,12 @@
      "text": "the requester's new decision invalidates the old route; remove it everywhere rather than re-checking the other agent's summary",
      "hits": [
       "agentic-coding.recovery.validate-handoff-before-continuation",
+      "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.correction.restore-authoritative-baseline",
-      "agentic-coding.planning.map-plan-to-user-capability",
-      "agentic-coding.requirements.ground-user-goal",
-      "agentic-coding.recovery.reground-after-context-loss"
+      "agentic-coding.recovery.reground-after-context-loss",
+      "agentic-coding.planning.map-plan-to-user-capability"
      ],
-     "hit_rank": 2,
+     "hit_rank": 3,
      "error": null
     }
    ],
@@ -3203,7 +3203,7 @@
      },
      {
       "id": "implementation.limit-investigation-to-current-decision.n1",
-      "now_rank": 3
+      "now_rank": 2
      },
      {
       "id": "testing.justify-regression-protection.n2",
