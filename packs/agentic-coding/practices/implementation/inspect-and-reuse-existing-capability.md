@@ -23,8 +23,9 @@ new code.
 ## Guidance
 
 1. Open the module where the behavior belongs and the closest candidate capability inside it.
-2. Read one representative caller or test of that candidate only if it can change whether the
-   candidate preserves a required semantic, compatibility, or failure constraint.
+2. Read the caller or test closest to your intended use — and one per distinct semantic,
+   compatibility, or failure contract when the candidate serves several — to decide whether it
+   preserves your required constraint.
 3. Check the one declared dependency or runtime facility most likely to provide the behavior.
 4. Decide between direct reuse, a small adaptation, and a new implementation, and record the
    specific mismatch that rules out each closer option.

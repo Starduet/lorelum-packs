@@ -32,6 +32,10 @@ unvalidated finding.
 5. Challenge repeated parsing, normalization, authorization, catch-and-default wrappers, and nested
    retries — each needs a distinct condition and owner — and check whether a shared guard
    unnecessarily blocks status, stop, upgrade, or repair.
+6. Before removing a shared guard, authorization, migration, or recovery protection, enumerate its
+   current callers and entry points and verify one path per distinct trust boundary (see Validate at
+   the Boundary That Owns the Fact); a single representative path is not enough for a check that
+   other entrances depend on.
 
 Limit the trace to the changed behavior; subtractive review is not an invitation to audit the entire
 repository. Stop with the smallest diff that still satisfies the request and its risks.

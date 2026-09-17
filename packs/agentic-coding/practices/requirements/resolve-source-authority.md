@@ -25,10 +25,11 @@ implementation instead.
 ## Guidance
 
 1. Isolate the disputed behavior to one sentence, for example how long order records are kept.
-2. State each known source's role: defines current behavior, records an accepted constraint,
-   proposes future work, preserves history, or only shows the current artifact. An adopted spec or
-   active contract controls; a detailed README or passing tests only show what exists today; a plan
-   or prototype describes work that may not be accepted.
+2. State each known source's role from its declared status, not its file type: defines current
+   behavior, records an accepted constraint, proposes future work, preserves history, or only shows
+   the current artifact. An adopted spec or active contract controls — including a README the
+   repository has explicitly adopted as its contract; an unadopted README or passing tests only show
+   what exists today; a plan or prototype describes work that may not be accepted.
 3. Decide which source wins from status, not from detail, recency, or implementation convenience:
    use the repository's stated authority rules, explicit adoption or supersession, and authorized
    corrections.

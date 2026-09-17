@@ -15,11 +15,13 @@ title: Decide Scope and Stop Conditions Before Work Begins
 
 ## When to apply
 
-Apply when candidate work items are about to become the committed plan. This one decision fixes what
-is committed, what is deferred, and when execution stops. If implementation has already revealed
-facts that change scope or risk, replan from the observed facts instead. This Practice does not
-decide how much validation depth a committed item deserves, or which values of an approved public
-surface may be exposed.
+Apply when candidate work items are about to become the committed plan. Admission labeling and stop
+conditions are two actions of the same pre-work scope decision: what is committed, what is deferred,
+and when execution stops are fixed together. If the committed scope is already fixed by the
+requester, accept those items as required and start at the finish conditions. If implementation has
+already revealed facts that change scope or risk, replan from the observed facts instead. This
+Practice does not decide how much validation depth a committed item deserves, or which values of an
+approved public surface may be exposed.
 
 ## Guidance
 

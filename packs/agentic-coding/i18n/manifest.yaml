@@ -10,7 +10,7 @@ locales:
       - path: practices/context/validate-handoff-before-continuation.md
         source_digest: sha256:e40fe7adf4dced57bc03240cd3920faa58feabc04cbf41a8168f74c318164c6e
       - path: practices/context/write-decision-dense-checkpoint.md
-        source_digest: sha256:cffbc3ff747a1ccfa1e2efca0a1a66d9f49bbdd79d9ef88cb6e79148f53a6b59
+        source_digest: sha256:a75f22f52bceb7d082ef4c9e55fbcf1804419c16736c46644029cceea338a833
       - path: practices/correction/restore-authoritative-baseline.md
         source_digest: sha256:63bce23b4c7fd754e2dc707d6cd8d915e82e16a0eecaebc3e4f27f5cc662a315
       - path: practices/delivery/claim-only-supported-outcome.md
@@ -22,7 +22,7 @@ locales:
       - path: practices/implementation/confirm-product-surface-expansion.md
         source_digest: sha256:88fad4bcc8fb3c9d48a2b4c03a2e657d37e73264f17ce146fcac46b417b59c39
       - path: practices/implementation/inspect-and-reuse-existing-capability.md
-        source_digest: sha256:f45a6874de89f9ad6f0ef0c1792735a62be3543eaeea21911dd071bd1f7e5d67
+        source_digest: sha256:83f7dcfc22b19c62fc73a54a69422c687ebbf27003ff9694b3477916cbcf1350
       - path: practices/implementation/limit-investigation-to-current-decision.md
         source_digest: sha256:ac7adabc18cf4a034e9f903c94b8b8023501df2aa4c55e2ae59ad1cfd266d072
       - path: practices/implementation/make-recovery-behavior-explicit.md
@@ -36,11 +36,11 @@ locales:
       - path: practices/implementation/validate-at-the-owning-boundary.md
         source_digest: sha256:856118e7aa6b5f45874a341ac08ad230f04ed2dc93c4a272ef63c457ae9bdb41
       - path: practices/planning/decide-scope-and-stop-conditions.md
-        source_digest: sha256:ad0ca0790253104f53d951a36d5b93b3eae4fe3b70dd37f1f8501444ac717c8d
+        source_digest: sha256:f5db938b8794321d4456d85e3f0c83ad135af915eedaaa20f7a4f1b2aec6cd17
       - path: practices/planning/map-plan-to-user-capability.md
         source_digest: sha256:65cecda2dba123da62dbf01aa9bbef6a48737038a6068b5270b6990468bfc41f
       - path: practices/planning/plan-sufficient-evidence.md
-        source_digest: sha256:9f49dcc39edd0faab93fb388e62bbed4454bc87a026f67a3aaa174dffe028762
+        source_digest: sha256:323f8ae443ca96a95dcfe1bacecf7db8ceefa09ea227ec1a7433f64290664232
       - path: practices/planning/scale-work-to-risk-and-cost.md
         source_digest: sha256:162b2c9b390a2bdc5b3c9169ef618f5eb26626e375c505acba573610607790c1
       - path: practices/requirements/define-acceptance-and-non-goals.md
@@ -48,9 +48,9 @@ locales:
       - path: practices/requirements/ground-user-goal.md
         source_digest: sha256:20124dfed3d0733cf4e1e193409f36a6684fa6c2adcc68f7ed4a583394604906
       - path: practices/requirements/resolve-source-authority.md
-        source_digest: sha256:615ec6fb0ec797bba4d72a533b321d9d92eadeb38cc8bf934ba960dcf2df14aa
+        source_digest: sha256:8a4faabd97dbbc0033d05e0fb539bcd7788559863519c824d5d68ff886ea1f1a
       - path: practices/review/run-subtractive-review-before-commit.md
-        source_digest: sha256:fa8d5c8c6bb49821dc5c65e55e3776a3d4ae4a3174cdedd162dfcd816d4780ae
+        source_digest: sha256:8b35954ad9f3ba4ed35af858611d9ed7338d5f1778b7b2afc7fb6f4b2258e7dd
       - path: practices/review/validate-findings-before-action.md
         source_digest: sha256:db12081f9d618e39ec9690f1d9069e136fa0e4181b41eb187e0b28cb02bf41ff
       - path: practices/testing/anchor-tests-to-requirements.md

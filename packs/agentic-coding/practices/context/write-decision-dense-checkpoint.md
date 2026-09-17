@@ -52,10 +52,13 @@ remain available through links.
 
 ## Exceptions and boundaries
 
-Retain full logs separately when incident response, audit, legal, or reproducibility requirements
-demand them; the checkpoint should link to that evidence rather than replace it. Very short,
-stateless tasks may need only one sentence. A checkpoint does not authorize a new Agent to trust
-another Agent's conclusions without validation; that is a handoff boundary.
+When context is about to run out during an active incident or safety containment, write the minimal
+recovery record first — current action, owner, containment or rollback state, and the next step —
+execute the containment, and complete the full checkpoint once the incident is stable. Retain full
+logs separately when incident response, audit, legal, or reproducibility requirements demand them;
+the checkpoint should link to that evidence rather than replace it. Very short, stateless tasks may
+need only one sentence. A checkpoint does not authorize a new Agent to trust another Agent's
+conclusions without validation; that is a handoff boundary.
 
 ## Example
 
