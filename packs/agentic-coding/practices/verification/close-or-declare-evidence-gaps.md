@@ -21,9 +21,10 @@ first set of checks belongs to planning; writing the final completion statement 
 
 ## Guidance
 
-1. Name the exact behavior not yet proved, and explain why the existing results stop short.
-2. Choose one action: run the missing check, ask the person who owns the requirement to accept a
-   smaller goal, or report the work incomplete and name what remains.
+1. Name the exact uncovered behavior that remains unproved, and explain why the existing results
+   stop short.
+2. Choose one action: run the missing check, narrow the promise with the person who owns the
+   requirement, or mark the item explicitly unfinished and name what remains.
 3. Base the choice on the harm of being wrong, whether the requirement is mandatory, and whether the
    check can be performed. A must-have requirement cannot be silently reduced because its check is
    slow or inconvenient.

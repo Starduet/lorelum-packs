@@ -30,7 +30,7 @@ locales:
       - path: practices/implementation/preserve-responsibility-boundaries.md
         source_digest: sha256:990268a92014ff70f9f41cc318674ba01a60eb6b77abc6a131aaa9a222aa3402
       - path: practices/implementation/replan-on-material-drift.md
-        source_digest: sha256:52dca53cd0c50b6fd2122d4392aad4967c2a4530ea3a24f2ba490256465be838
+        source_digest: sha256:79b1193ef1a75e56138998280135d7b844c692d4902d040f82dfb8bfe1f24911
       - path: practices/implementation/surface-unconfirmed-assumptions.md
         source_digest: sha256:5a34d678cbc68136611d9d297b4733bfb73507153ff69f5e18c23fbc97249e52
       - path: practices/implementation/validate-at-the-owning-boundary.md
@@ -64,6 +64,6 @@ locales:
       - path: practices/verification/bind-evidence-to-artifact-state.md
         source_digest: sha256:7cf5b60a9d9c47e75bc0b760c20deb45c6b356bb2bb47c0bca04115d365fdbdb
       - path: practices/verification/close-or-declare-evidence-gaps.md
-        source_digest: sha256:90261b7c90f5660634adce577ee3586e106444e3541a16f1c35e1708a53478f9
+        source_digest: sha256:677c5b69e818a1e6612541db6f3972b72989464d9efbc4610b08c2f3dd2ad78d
       - path: practices/verification/map-evidence-to-acceptance.md
         source_digest: sha256:f2a3a2471c1958ffd772e67f5349d59f56c5f14eaa6d0a17df0f6c8d3ee4760c

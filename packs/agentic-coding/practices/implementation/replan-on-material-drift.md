@@ -38,8 +38,9 @@ revealed.
 The user asks for a download endpoint that returns an account export. A large fixture exceeds the
 response limit, so the agent adds a temporary file, then a retry queue, then background cleanup.
 Each small addition fixes the next focused test and seems faster than stopping to redesign the
-endpoint. Together they turn a synchronous download into a stateful background job with new failure
-and recovery behavior that the accepted work never covered.
+endpoint. The endpoint quietly grows into a stateful background job with its own queue and cleanup
+storage that the accepted plan never included, bringing new failure and recovery behavior the
+accepted work never covered.
 
 ## Why
 
