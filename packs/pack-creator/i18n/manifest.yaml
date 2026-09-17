@@ -5,6 +5,8 @@ locales:
     entries:
       - path: practices/authoring/choose-reference-asset-or-script.md
         source_digest: sha256:1380461374d4e32bc089400ad83f58561dacc0fe37e4e468757acbef090cbe45
+      - path: practices/authoring/create-a-project-local-pack.md
+        source_digest: sha256:be952c557fed368b6e2a7a083975aa1f5284f6473fa759bab2d3a0fe87403502
       - path: practices/authoring/explain-the-direct-causal-reason.md
         source_digest: sha256:3895f0ec8d48078b384bcd2b2762656683f035a0b705042ac6977c63a12325aa
       - path: practices/authoring/give-anti-pattern-and-example-distinct-jobs.md
@@ -23,12 +25,16 @@ locales:
         source_digest: sha256:57598f987fd2d0f870f88a86af4f3d9cc4c37aa728df1f4ebcb3790dc650d173
       - path: practices/authoring/write-specific-exceptions-and-boundaries.md
         source_digest: sha256:1ba7a23bf1540a576021dcf02ea875761876b34b2a4cdeb14b2062a88ab3ab27
+      - path: practices/design/compose-inherited-project-layers.md
+        source_digest: sha256:e614aeb6dcfe13b70c25f642645a92dc0f952fff6a451964cdf87bd0da100908
       - path: practices/design/decompose-one-decision-per-practice.md
         source_digest: sha256:4f522a6364c03ff0ed5324b2f4db266df638d04af12f5562f4a2acdf1ad91df0
       - path: practices/design/keep-each-practice-standalone.md
         source_digest: sha256:e73470155ce8ef883ac11a08d867a177a5a7607278d691a3a3b42430e959060c
       - path: practices/design/separate-neighboring-triggers.md
         source_digest: sha256:adbdffce8cfdfef5eb2939697f9e065fc53222f86cb8e2fd9e3f0b66d15e5a48
+      - path: practices/discovery/choose-project-local-or-registry-release.md
+        source_digest: sha256:598602203a34ea39843933484bbf7f1b617555d67216774969def08a269d74df
       - path: practices/discovery/define-pack-decision-outcome.md
         source_digest: sha256:238ab2b9edd46f14e063448f8895136cb06814482b63b38726091a309af4e1fa
       - path: practices/discovery/ground-content-in-sources-and-observed-needs.md
@@ -39,6 +45,8 @@ locales:
         source_digest: sha256:a552b0aeacead97df3cd7e1b0ac87515abaf4c2da818b544e962877d71baacd8
       - path: practices/evaluation/test-retrieval-with-contrasting-queries.md
         source_digest: sha256:c147e47c8c9696078edf9dc0fabe81b2bfb3d113e1758785502454b8706c7347
+      - path: practices/evaluation/verify-project-local-pack-activation.md
+        source_digest: sha256:605dde68693bccc25bf6d2c016f62152dc63a63ca8bf35c64d5349f3dd9858e5
       - path: practices/evaluation/verify-resource-integrity-without-overclaiming.md
         source_digest: sha256:5b846f6e8c2f48eade3aba7c6beb3902b3ec261524c2aa913edd8b3c89d7e40b
       - path: practices/localization/localize-for-human-review-without-forking-runtime.md

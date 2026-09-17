@@ -171,3 +171,35 @@ workflows:
           - "The release records whether resource bytes changed, creates a new immutable version/ref, and obtains a fresh locator through the supported install path before reading a representative resource."
         forbidden_behavior:
           - "Claim installation, script safety, retrieval quality, or Agent success from one local validation or execution result."
+
+  - id: repository-local-pack-overlay
+    scenario: A monorepo root contains deployment and logging guidance, while `services/payments/` needs a stricter deployment rule tied to its own approval process. The team wants the guidance to travel with the repository without globally installing a mutable Pack or committing derived indexes.
+    authoritative_facts:
+      - A `.lorelum` ProjectContext works in ordinary directories and does not require Git metadata.
+      - Parent layers inherit by default; a child same-ID Practice wins while parent-only Practices remain active.
+      - Keyword query, context status, and get can verify current source activation without preparing a model.
+    distractors:
+      - Installing the Pack globally looks quicker because it already has a version.
+      - Copying the root Pack into `services/payments/` avoids thinking about precedence.
+      - A passing standalone Pack validation appears sufficient to prove the child winner.
+    phases:
+      - id: choose-and-create-local-source
+        trigger: The repository owns the source material and only this monorepo should receive it during development.
+        expected_practices:
+          - pack-creator.discovery.choose-project-local-or-registry-release
+          - pack-creator.authoring.create-a-project-local-pack
+        correctness_assertions:
+          - The author creates `.lorelum/packs/` source after `lore init`, validates it with authoring commands, and keeps cache/model/index state out of Git.
+          - Registry publication and `lore pack install` are excluded unless the Pack later becomes a separately versioned cross-repository artifact.
+        forbidden_behavior:
+          - Treat a local directory as an implicit Registry release or make a user Store the repository's canonical source.
+      - id: overlay-and-verify
+        trigger: The payments directory must replace the root deployment Practice without losing root logging guidance.
+        expected_practices:
+          - pack-creator.design.compose-inherited-project-layers
+          - pack-creator.evaluation.verify-project-local-pack-activation
+        correctness_assertions:
+          - The child contains only the same-ID deployment replacement; parent-only logging remains active.
+          - Validation, context status, keyword query, and get run from the payments directory establish the current winner before any semantic claim.
+        forbidden_behavior:
+          - Copy the whole parent Pack, use `inherit: false` for one override, or report one old semantic result as current-context proof.

@@ -31,8 +31,8 @@ repeated diagnostic should be run with named inputs and expected output. Use the
 than a sibling-relative path: `[matrix](resource:references/api-matrix.md)`.
 
 Stop when a cold reader can make the current decision from the Practice, can tell whether the linked
-material is needed, and can resolve it from the selected Pack root without guessing a directory.
-For the full resource contract and review prompts, see the
+material is needed, and can resolve it from the selected Pack root without guessing a directory. For
+the full resource contract and review prompts, see the
 [resource authoring guide](resource:references/pack-resources.md).
 
 ## Anti-pattern
@@ -54,15 +54,15 @@ the retrievable unit.
 
 Not every Pack file needs a direct link: scripts can use adjacent helpers and an asset set can be
 copied together. Do not manufacture links merely to make every file appear in a Practice. Normal web
-links and ordinary Markdown relative links remain useful for external sources or document navigation;
-use `resource:` only for a same-Pack resource. A resource link is not a file-access allowlist and it
-does not authorize executing a script.
+links and ordinary Markdown relative links remain useful for external sources or document
+navigation; use `resource:` only for a same-Pack resource. A resource link is not a file-access
+allowlist and it does not authorize executing a script.
 
 ## Example
 
 An API-review Pack includes a field matrix and a review-report skeleton. Its Practice states the
 breaking-change condition and the checks that decide whether a compatibility review is necessary.
-Only after that action it links the matrix with `resource:references/public-api-matrix.md`; after the
-review decision, it links `resource:assets/api-review-report.md` and tells the reader to copy it to
-the working directory. The Practice remains usable without opening either file, while the reader
+Only after that action it links the matrix with `resource:references/public-api-matrix.md`; after
+the review decision, it links `resource:assets/api-review-report.md` and tells the reader to copy it
+to the working directory. The Practice remains usable without opening either file, while the reader
 knows exactly when both become useful.

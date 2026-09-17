@@ -1,6 +1,6 @@
 fixture_set: pack-creator-practice-catalog
 evaluation_only: true
-description: Retrieval and content hypotheses for the 23 pack-creator Practices; not a runtime schema or proof of content, retrieval, or downstream quality.
+description: Retrieval and content hypotheses for the 27 pack-creator Practices; not a runtime schema or proof of content, retrieval, or downstream quality.
 entries:
   - id: pack-creator.discovery.define-pack-decision-outcome
     positive_trigger: A security Pack has forty authentication documents, and the author must decide whether the collection should cover those topics or improve concrete credential-storage, rotation, and validation decisions.
@@ -185,3 +185,35 @@ entries:
     nearest_neighbor: pack-creator.evaluation.separate-structural-and-semantic-evidence
     expected_behavior: Record structural validation, supported install/readback, explicit script execution, retrieval selection, and downstream behavior as separate observations and claims.
     forbidden_behavior: Report a local directory pass, file count, or one script run as proof that a published Pack routes and safely automates the task.
+
+  - id: pack-creator.discovery.choose-project-local-or-registry-release
+    positive_trigger: A service team wants its deployment rules to follow one repository, but the author is considering a global installation because the Pack already has a name and version.
+    paraphrase: Guidance depends on one codebase's ownership map and generated files; decide whether it should be committed beside that source or released for unrelated repositories.
+    near_miss: The Pack is already accepted as a cross-repository product, and the only remaining decision is how to prove its immutable Registry release installs.
+    nearest_neighbor: pack-creator.release.verify-the-supported-install-path-before-claiming-release
+    expected_behavior: Choose `.lorelum/packs/` for repository-owned source, reserve Registry publication for independently versioned distribution, and state the boundary.
+    forbidden_behavior: Treat local queryability or a valid `pack.yaml` as a reason to install into every user's Store or publish a mutable worktree.
+
+  - id: pack-creator.design.compose-inherited-project-layers
+    positive_trigger: A payments child directory needs a stricter deployment Practice while the root layer already provides valid logging and database guidance.
+    paraphrase: A monorepo service changes one parent rule and the author must avoid copying all of the organization Pack into the child folder.
+    near_miss: A new local Pack has no parent layer yet, so the author must create its initial Pack root and canonical Practice files.
+    nearest_neighbor: pack-creator.authoring.create-a-project-local-pack
+    expected_behavior: Keep parent guidance active, add only child-specific or same-ID replacement Practices, and use isolation only when every parent layer must be excluded.
+    forbidden_behavior: "Copy a whole parent Pack or set `inherit: false` merely to make one child override win."
+
+  - id: pack-creator.authoring.create-a-project-local-pack
+    positive_trigger: A repository needs review guidance available from its root without installing it globally or committing an index.
+    paraphrase: The author has chosen a project layer and needs the exact `.lorelum/packs/<name>/pack.yaml` plus `practices/` source layout and local validation commands.
+    near_miss: A child layer already exists and the open decision is whether one same-ID Practice should override its inherited parent neighbor.
+    nearest_neighbor: pack-creator.design.compose-inherited-project-layers
+    expected_behavior: Initialize the layer once, add a normal Pack root and canonical Practice files, validate from source, and leave derived cache/model state outside the repository.
+    forbidden_behavior: Use `lore pack install` as the authoring path, write an index under `.lorelum`, or assume a README alone is a discoverable Pack.
+
+  - id: pack-creator.evaluation.verify-project-local-pack-activation
+    positive_trigger: A nested local Pack validates, and the maintainer must prove that queries from the actual service directory return the child winner while parent-only guidance remains available.
+    paraphrase: A repository layer passed schema checks but no one has inspected context status, keyword query, get, or the Store-only escape hatch in the working directory.
+    near_miss: The local Pack is not yet structurally valid, so the immediate action is to format and repair its source before testing context precedence.
+    nearest_neighbor: pack-creator.authoring.create-a-project-local-pack
+    expected_behavior: Separate structural validation from context activation, test child winner and inherited neighbor where applicable, and report untested semantic behavior narrowly.
+    forbidden_behavior: Report one isolated validation or stale semantic result as proof that the current working directory activates the intended Pack.
