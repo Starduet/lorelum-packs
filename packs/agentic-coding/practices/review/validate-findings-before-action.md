@@ -21,10 +21,14 @@ on it. If only the finding's supporting evidence may be stale, evaluate evidence
 
 ## Guidance
 
-Compare the finding with the current request or specification, current artifact, claimed contract,
-and observations. Mark it confirmed, unconfirmed, or requiring an authority decision. Choose only
-the route that status permits: local fix, more evidence, or return to requirements. Do not edit
-while it is unconfirmed or would change accepted behavior.
+1. Compare the finding with the current request or specification: does the requested behavior
+   actually conflict with, or require, this change?
+2. Check the current artifact on the branch — the finding may cite an older diff.
+3. Mark the finding confirmed, unconfirmed, or requiring an authority decision.
+4. Choose only the route that status permits: local fix, gather more evidence, or return to
+   requirements.
+
+Do not edit while the finding is unconfirmed or the change would alter accepted behavior.
 
 ## Anti-pattern
 

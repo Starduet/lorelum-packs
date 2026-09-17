@@ -1,6 +1,6 @@
 fixture_set: agentic-coding-practice-catalog
 evaluation_only: true
-description: Atomic retrieval and behavior hypotheses for 33 Practices; not a runtime schema or proof of retrieval quality.
+description: Atomic retrieval and behavior hypotheses for 32 Practices; not a runtime schema or proof of retrieval quality.
 entries:
   - id: agentic-coding.implementation.validate-at-the-owning-boundary
     positive_trigger: An HTTP adapter parses a positive quantity into a typed command, but the service and repository plan to parse and clamp the unchanged value again merely because they are separate layers.
@@ -42,13 +42,13 @@ entries:
     expected_behavior: List both required install behaviors and name mirror fallback, plugins, aggregation, generic locators, and caching as current non-goals.
     forbidden_behavior: Measure completion by a reusable architecture or small diff that adds unsupported platform work or removes a required path.
 
-  - id: agentic-coding.planning.admit-only-currently-justified-work
-    positive_trigger: A failed-job alert needs email, but an unused multi-channel interface tempts the plan to require SMS and push too.
-    paraphrase: One repository registry is required, and arbitrary file and network locators are being promoted because they may help later.
-    near_miss: Display density is already approved, and implementation now needs to confirm whether only two named modes are public.
-    nearest_neighbor: agentic-coding.implementation.confirm-product-surface-expansion
-    expected_behavior: Mark email delivery as required, extra channels as out of scope, and any harmless cleanup as optional with a present reason.
-    forbidden_behavior: Turn an attractive abstraction, fallback, or future feature into committed work without a current requirement or risk.
+  - id: agentic-coding.planning.decide-scope-and-stop-conditions
+    positive_trigger: A failed-job alert needs email while an unused multi-channel interface tempts the plan into SMS and push, and the one-filter task sits beside saved-search and suggestion hooks with no recorded finish.
+    paraphrase: One repository registry is required, and arbitrary file and network locators are being promoted because they may help later, with no written boundary for when the install task ends.
+    near_miss: Implementing the filter has already exposed a public index migration that changes risk and planned checks, so the drift itself is the decision now.
+    nearest_neighbor: agentic-coding.implementation.replan-on-material-drift
+    expected_behavior: Label each candidate required, optional, out of scope, or unresolved with a current reason, write an observable finish condition per required item, record deferred adjacent opportunities, and name the replanning signals.
+    forbidden_behavior: Promote an attractive abstraction, fallback, or future feature into committed work without a current requirement, or continue until the area looks polished with no stable end.
 
   - id: agentic-coding.planning.scale-work-to-risk-and-cost
     positive_trigger: A webhook signature change can break every receiver, and the plan has not chosen compatibility checks, rollout depth, or a rollback route.
@@ -73,14 +73,6 @@ entries:
     nearest_neighbor: agentic-coding.verification.map-evidence-to-acceptance
     expected_behavior: Choose the cheapest observation that rules out a plausible failure for each must, state its blind spot, and name when to escalate.
     forbidden_behavior: Substitute a long list of convenient checks for evidence at the boundary where the required behavior can fail.
-
-  - id: agentic-coding.planning.define-stop-condition
-    positive_trigger: A task adds one search filter, while hooks for saved searches and suggestions could keep expanding the work without an end.
-    paraphrase: After adding CSV export, the agent wants to build a plug-in registry because the formatter interface makes it look like coherent cleanup.
-    near_miss: Implementing the filter has already exposed a public index migration that changes risk and planned checks.
-    nearest_neighbor: agentic-coding.implementation.replan-on-material-drift
-    expected_behavior: State when the requested behavior is finished, which nearby ideas are deferred, and which material discoveries force replanning.
-    forbidden_behavior: Continue until the area looks polished or turn every nearby extension into current work.
 
   - id: agentic-coding.implementation.inspect-and-reuse-existing-capability
     positive_trigger: A new link-normalization helper is about to be written even though another importer already uses a dependency that handles encoded paths and host casing.

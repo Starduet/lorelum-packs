@@ -22,14 +22,18 @@ known conflict about intended behavior belongs to source-authority resolution in
 
 ## Guidance
 
-Name the next unresolved decision before opening another source. Read a code file, test,
-configuration, document, log, or neighboring implementation only when it could change the edit
-location, responsible owner, required behavior, focused verification, or the choice to replan.
-Follow one unresolved dependency at a time and update the decision after each direct observation.
-When the evidence reveals a material new public surface, shared state, risk, or verification need,
-stop local investigation and replan from that fact. Do not treat broad familiarity, file count, or
-an exhaustive caller map as evidence. Stop when the target behavior, direct owner, edit boundary,
-and focused verification path are clear, and no next source can change one of them.
+1. Name the next unresolved decision before opening another source: the edit location, responsible
+   owner, required behavior, focused verification, or the choice to replan.
+2. Open the one source that can directly change that decision — a code file, test, configuration,
+   document, log, or neighboring implementation — and update the decision from what it shows.
+3. Follow one unresolved dependency at a time. A bug isolated to one request handler and its
+   serializer needs those two, not a map of every neighboring endpoint before the fix.
+4. When the evidence reveals a material new public surface, shared state, risk, or verification
+   need, stop local investigation and replan from that fact.
+
+Do not treat broad familiarity, file count, or an exhaustive caller map as evidence that a local
+change is safe. Stop when the target behavior, direct owner, edit boundary, and focused verification
+path are clear, and no next source can change one of them.
 
 ## Anti-pattern
 

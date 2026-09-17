@@ -22,14 +22,20 @@ or compatibility requirements, there is no design-size choice to make.
 
 ## Guidance
 
-List the required behavior and rules that must stay true, such as authorization, compatibility, or
-data integrity. Discard any option that misses them. From the rest, choose the design that adds the
-fewest responsibilities and is easiest to reverse in the current code. Require a present reason for
-every extra layer, stored state, fallback, or data pass. Stop with one design and why it fully meets
-the task. Count data passes and failure branches as complexity too: a direct typed call can be
-smaller than a short chain of validation wrappers, reparsing, and fallback defaults. A more
-defensive option is not automatically sufficient if it rejects supported input or hides an actual
-failure.
+1. List the required behavior and the rules that must stay true — authorization, compatibility, data
+   integrity, required errors and limits. Discard any option that misses one.
+2. Count what each remaining option adds: new state, indirection, layers, fallbacks, and data passes
+   (failure branches count too), rather than lines.
+3. Choose the design that adds the fewest responsibilities and is easiest to reverse in the current
+   code. Require a present reason for every extra layer, stored state, fallback, or data pass.
+4. If a larger option seems necessary, name the concrete condition — security isolation, migration
+   safety, published compatibility, measured performance limits, or an approved near-term
+   requirement.
+
+Stop with one design and one sentence on why it fully meets the task. A more defensive option is not
+automatically sufficient if it rejects supported input or hides an actual failure, and a smaller
+diff is not success by itself. A direct typed call can be smaller than a short chain of validation
+wrappers, reparsing, and fallback defaults.
 
 ## Anti-pattern
 
@@ -41,21 +47,17 @@ rule, so the new contracts and failure modes add maintenance without serving the
 ## Why
 
 New structure creates interactions, failure modes, and maintenance commitments. Choosing less
-structure reduces that cost only after every required behavior and protection is preserved; a
-smaller diff is not success by itself.
+structure reduces that cost only after every required behavior and protection is preserved.
 
 ## Exceptions and boundaries
 
-Security isolation, migration safety, published compatibility, measured performance limits, or an
-approved near-term requirement may make the larger option the smallest sufficient design. Do not
-remove meaningful behavior or protection to reduce line count. Name the concrete condition that
-requires the larger option; a general desire for robustness is insufficient. If the options place a
-rule in different components, decide which component owns that rule before comparing internal
-designs.
+Do not remove meaningful behavior or protection to reduce line count. If the options place a rule in
+different components, decide which component owns that rule before comparing internal designs.
 
 ## Example
 
-The user asks for one thumbnail in a supported image format. The current image operation preserves
-metadata and reports decode failures correctly. A small adapter and a transform graph could both
-work, but only the adapter avoids a new configuration model. The agent chooses it and keeps the
-existing protections; a graph can wait until configurable, composable transforms are accepted.
+The user asks for one thumbnail in a supported image format. Two viable designs remain: a small
+adapter around the current image operation, and a transform graph. Both satisfy the request, but
+only the adapter avoids a new configuration model and extra data passes. The agent chooses the
+adapter and keeps the existing metadata preservation and decode-failure reporting; a graph can wait
+until configurable, composable transforms are accepted.

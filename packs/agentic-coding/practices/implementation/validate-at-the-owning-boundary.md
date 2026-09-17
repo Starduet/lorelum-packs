@@ -21,18 +21,21 @@ Choosing what to do after a known failure is a separate recovery decision.
 
 ## Guidance
 
-Trace only the relevant input and handoffs. Name the fact each check establishes, where it first
-becomes trustworthy, and the component responsible for keeping it true. Validate external shape at
-ingress, apply business rules where their state is owned, and pass the established result through
-ordinary internal calls. Normalize into the agreed representation once at its owning conversion. An
-internal type should express that result where practical; a cast alone establishes nothing.
+1. Trace the relevant input and its handoffs only. Name the fact each existing check establishes,
+   where it first becomes trustworthy, and the component responsible for keeping it true.
+2. Assign each check to its owning boundary: validate external shape at ingress, apply business
+   rules where their state is owned, normalize into the agreed representation once at its owning
+   conversion, and pass the established result through ordinary internal calls. An internal type
+   should express that result where practical; a cast alone establishes nothing.
+3. Before adding another check, identify what could invalidate the earlier result at this location:
+   another entry point, untrusted deserialization, a transformation, concurrent mutation, expired
+   authorization, or an independently required protection. Keep the check only when such a condition
+   exists — a new function, layer, or package name is not itself a new boundary.
+4. Compare the extra rejection, maintenance, latency, and recovery cost with the distinct failure
+   the check prevents.
 
-Before adding another check, identify what could invalidate the earlier result: another entry point,
-untrusted deserialization, a transformation, concurrent mutation, expired authorization, or an
-independently required protection. Keep the check that covers that condition. A new function, layer,
-or package name is not itself a new boundary. Compare the extra rejection, maintenance, latency, and
-recovery cost with the distinct failure it prevents. Stop with a clear owner and only the checks
-needed by the actual path; a short explanation in the existing design or review is enough.
+Stop with a clear owner per fact and only the checks the actual path needs; a short explanation in
+the existing design or review is enough.
 
 ## Anti-pattern
 

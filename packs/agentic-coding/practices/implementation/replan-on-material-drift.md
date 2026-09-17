@@ -23,10 +23,15 @@ the whole task.
 
 ## Guidance
 
-Pause the affected implementation. Compare the new fact with the accepted scope, risks, stopping
-condition, and planned checks. Choose one response: narrow the implementation back to the plan,
-update the plan and its checks, or ask for authorization before continuing. Stop with one current
-plan that says what will be built and verified, then resume from it.
+1. Pause the affected implementation; do not code through the discrepancy.
+2. Compare the new fact with the accepted scope, risks, stopping condition, and planned checks, and
+   name what changed — delivery, dependencies, failure modes, or verification needs.
+3. Choose one response: narrow the implementation back to the plan, update the plan and its checks,
+   or ask for authorization before continuing.
+4. Record the updated plan and resume from it.
+
+Stop when one current plan states what will be built and verified and matches the facts coding
+revealed.
 
 ## Anti-pattern
 

@@ -22,11 +22,17 @@ comment is also not a confirmed correction.
 
 ## Guidance
 
-Re-read the correction and the current request or specification. Identify the assumptions and
-artifacts whose only basis was the rejected interpretation, then remove or revise them. Preserve
-behavior and protection that have an independent requirement or risk basis. Stop with one current
-statement of the requested work that separates restored scope from any genuinely new scope
-introduced by the correction.
+1. Re-read the correction and the current request or specification, and state the corrected
+   direction in one sentence.
+2. Identify the assumptions and artifacts whose only basis was the rejected interpretation — goal
+   sentences, plan items, code, tests, documentation — and remove or revise them.
+3. Preserve behavior and protection that have an independent requirement or risk basis; a correction
+   is not permission to discard the entire implementation.
+4. Do not convert the rejection into a new permanent test, rule, or ban unless the authorized source
+   explicitly establishes one.
+
+Stop with one current statement of the requested work that separates restored scope from any
+genuinely new scope introduced by the correction.
 
 ## Anti-pattern
 
@@ -45,8 +51,7 @@ experiment into a lasting prohibition.
 
 A correction can establish a new durable contract when the authorized source explicitly says so.
 Safety, privacy, compliance, data integrity, or compatibility may also provide an independent reason
-for lasting protection. Preserve unaffected work; a correction is not permission to discard the
-entire implementation.
+for lasting protection.
 
 ## Example
 

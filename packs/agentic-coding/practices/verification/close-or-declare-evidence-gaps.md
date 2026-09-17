@@ -3,10 +3,10 @@ anti_patterns:
   - description: Treating an untested required behavior as proved because it shares code, UI, or a happy path with a passing check hides what is still unknown and leads to an overbroad completion report.
     id: agentic-coding.verification.gap-by-implication
     name: Untested behavior inferred from a nearby pass
-    severity: warn
+    severity: critical
 applies_when: comparison with the acceptance criteria shows that a required behavior has no adequate result, and the agent must decide whether to run another check, ask to reduce the promised scope, or report the work incomplete
 id: agentic-coding.verification.close-or-declare-evidence-gaps
-severity: warn
+severity: critical
 stage: verification
 tech_stack:
   - agentic-coding
@@ -21,13 +21,15 @@ first set of checks belongs to planning; writing the final completion statement 
 
 ## Guidance
 
-Name the exact behavior not yet proved and explain why the existing results stop short. Then choose
-one action: run the missing check, ask the person who owns the requirement to accept a smaller goal,
-or report that the work is incomplete and name what remains. Base the choice on the harm of being
-wrong, whether the requirement is mandatory, and whether the check can be performed. A must-have
-requirement cannot be silently reduced because its check is slow or inconvenient. Stop when every
-important missing result has one visible action; a nearby success never counts as a pass by
-implication.
+1. Name the exact behavior not yet proved, and explain why the existing results stop short.
+2. Choose one action: run the missing check, ask the person who owns the requirement to accept a
+   smaller goal, or report the work incomplete and name what remains.
+3. Base the choice on the harm of being wrong, whether the requirement is mandatory, and whether the
+   check can be performed. A must-have requirement cannot be silently reduced because its check is
+   slow or inconvenient.
+
+Stop when every important missing result has one visible action; a nearby success never counts as a
+pass by implication.
 
 ## Anti-pattern
 
@@ -52,8 +54,8 @@ permission to drop an explicit must-have requirement.
 
 ## Example
 
-The user asks for a backup that can restore a service after data loss. The repository’s backup job
+The user asks for a backup that can restore a service after data loss. The repository's backup job
 completes and the archive checksum passes, but no test restores it into a clean database. The
 checksum makes the archive look trustworthy, yet it cannot reveal missing tables or an unusable
 restore command. The agent performs the restore with representative data or reports recovery
-verification incomplete; it does not replace the required recovery goal with “backup file created.”
+verification incomplete; it does not replace the required recovery goal with "backup file created."

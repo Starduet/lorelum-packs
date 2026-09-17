@@ -24,13 +24,15 @@ problem instead.
 
 ## Guidance
 
-Reproduce the smallest relevant failure using a known commit, build, or generated file. Read the
-failed assertion or diagnostic, compare what happened with the current requirement, and check the
-environment, inputs, fixtures, and generated files that could change the result. Gather only enough
-evidence to distinguish the leading explanations. Record what is wrong and the fact that rules out
-the next most likely explanation, then stop. Choose the fix only after that. If the cause is still
-unclear, leave production code, tests, and configuration unchanged and report what remains uncertain
-instead of editing until something turns green.
+1. Reproduce the smallest relevant failure using a known commit, build, or generated file.
+2. Read the failed assertion or diagnostic, and compare what happened with the current requirement.
+3. Check the environment, inputs, fixtures, and generated files that could change the result, and
+   gather only enough evidence to distinguish the leading explanations.
+4. Record what is wrong together with the fact that rules out the next most likely explanation.
+
+Choose the fix only after the classification. If the cause is still unclear, leave production code,
+tests, and configuration unchanged, and report what remains uncertain instead of editing the red
+suite until something turns green.
 
 ## Anti-pattern
 
@@ -43,7 +45,7 @@ compared with the request.
 ## Why
 
 A failed check proves only that two states disagree. Correct classification prevents a product
-defect from being normalized into a new expectation, and prevents valid behavior from being “fixed”
+defect from being normalized into a new expectation, and prevents valid behavior from being "fixed"
 to satisfy a stale test. It also avoids mixing unrelated baseline failures into the current change.
 
 ## Exceptions and boundaries
@@ -51,8 +53,8 @@ to satisfy a stale test. It also avoids mixing unrelated baseline failures into 
 Contain an active security, data-loss, or production incident before full diagnosis when delay
 increases harm, while preserving evidence for follow-up. A directly confirmed infrastructure outage
 or corrupt generated file can be repaired without reconsidering every possible cause. An approved
-requirement change may make a test obsolete, but that approval—not the new implementation output—is
-the reason.
+requirement change may make a test obsolete, but that approval — not the new implementation output —
+is the reason.
 
 ## Example
 

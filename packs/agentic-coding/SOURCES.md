@@ -9,6 +9,7 @@ This Pack generalizes public Lorelum research and sanitized engineering retrospe
 - **Registry/install synthesis** means the Practice was generalized from a sanitized maintainer retrospective about Registry and installation implementation. The public Practice retains only transferable engineering judgment.
 - **Review-workflow synthesis** means the Practice was generalized from a redacted development-review workflow. Private artifacts and tool-specific procedures are intentionally not published.
 - **Delegation/Pack-authoring synthesis** means the Practice was generalized from a sanitized Pack-authoring workflow where delegated work repeated a rejected interpretation because the deciding conversation context was absent. Private prompts, identities, and repository-local operating details are not published.
+- **Defensive-complexity synthesis** means the Practice was generalized from sanitized maintainer feedback about agents adding repeated validation, normalization, authorization, or fallback behavior through ordinary development.
 
 Public issue sources:
 
@@ -24,11 +25,10 @@ Public issue sources:
 | `agentic-coding.requirements.ground-user-goal`                        | Issue-explicit: #28, #35                                     | Both issues make the intended user capability, rather than the implementation artifact, the baseline for later work.                                                            |
 | `agentic-coding.requirements.resolve-source-authority`                | Issue-explicit: #28, #32; Issue-derived synthesis: packs #9  | The issues distinguish current requirements from summaries, legacy code, external material, and agent assumptions; #9 informs the clarified roles of repository sources without requiring broad source discovery. |
 | `agentic-coding.requirements.define-acceptance-and-non-goals`         | Issue-explicit: #28, #35                                     | Observable acceptance and explicit scope boundaries are stated as defenses against partial completion and plan expansion.                                                       |
-| `agentic-coding.planning.admit-only-currently-justified-work`         | Issue-explicit: #35                                          | The issue explicitly separates required, optional, and out-of-scope work and rejects future value as sufficient current justification.                                          |
+| `agentic-coding.planning.decide-scope-and-stop-conditions`            | Issue-explicit: #35; Issue-derived synthesis: #35; Registry/install synthesis | The issue explicitly separates required, optional, and out-of-scope work and rejects future value as sufficient current justification; the finish, defer, and replan boundary generalizes preventing implementation opportunities from extending accepted work. Merges the former `admit-only-currently-justified-work` and `define-stop-condition` rows (0.5.0). |
 | `agentic-coding.planning.scale-work-to-risk-and-cost`                 | Issue-explicit: #35                                          | The issue compares simple, ordinary, and high-risk work and requires engineering effort to follow actual complexity and risk.                                                   |
 | `agentic-coding.planning.map-plan-to-user-capability`                 | Issue-explicit: #28                                          | The issue directly contrasts a list of technical tasks with coverage of the complete user capability.                                                                           |
 | `agentic-coding.planning.plan-sufficient-evidence`                    | Issue-derived synthesis: #28, #35; review-workflow synthesis | The issues require verification of real outcomes; the minimum-sufficient and escalation framing generalizes the redacted workflow's risk-sensitive evidence planning.           |
-| `agentic-coding.planning.define-stop-condition`                       | Issue-derived synthesis: #35; Registry/install synthesis     | The issue defines unauthorized expansion; the explicit stop and replanning boundary is generalized from preventing implementation opportunities from extending accepted work.   |
 | `agentic-coding.implementation.inspect-and-reuse-existing-capability` | Registry/install synthesis                                   | A sanitized retrospective showed that runtime, dependency, or local capabilities should be checked before duplicating behavior.                                                 |
 | `agentic-coding.implementation.limit-investigation-to-current-decision` | Issue-derived synthesis: packs #9; Delegation/Pack-authoring synthesis | #9 identifies context waste from indiscriminate loading; this Practice generalizes the boundary across code, tests, configuration, documents, and logs without prescribing a host or retrieval mechanism. |
 | `agentic-coding.implementation.surface-unconfirmed-assumptions`       | Issue-explicit: #28, #32                                     | Both issues explicitly require distinguishing unconfirmed assumptions from facts before those assumptions steer implementation or recovery.                                     |
@@ -36,6 +36,8 @@ Public issue sources:
 | `agentic-coding.implementation.choose-smallest-sufficient-design`     | Registry/install synthesis                                   | A sanitized retrospective supports choosing the smallest design that satisfies current requirements and invariants without duplicate layers or I/O.                             |
 | `agentic-coding.implementation.preserve-responsibility-boundaries`    | Issue-derived synthesis: #28                                 | The issue's domain-model failure demonstrates that technically valid code can violate the component or domain that owns the invariant.                                          |
 | `agentic-coding.implementation.replan-on-material-drift`              | Registry/install synthesis; review-workflow synthesis        | The replanning loop generalizes cases where new surfaces, I/O, files, risk, or evidence cost made the accepted plan stale during implementation.                                |
+| `agentic-coding.implementation.validate-at-the-owning-boundary`       | Defensive-complexity synthesis                               | Generalized from sanitized maintainer feedback about agents repeating validation, normalization, and authorization across layers; see synthesis boundary.                        |
+| `agentic-coding.implementation.make-recovery-behavior-explicit`       | Defensive-complexity synthesis                               | Generalized from sanitized maintainer feedback about unqualified retries and fallbacks turning failure into false success; see synthesis boundary.                               |
 | `agentic-coding.testing.anchor-tests-to-requirements`                 | Issue-explicit: #28, #35                                     | Both issues explicitly reject tests that protect the current implementation or agent-invented behavior instead of requirements.                                                 |
 | `agentic-coding.testing.assert-observable-behavior`                   | Issue-explicit: #28                                          | The issue calls for tests around observable scenarios and user capability rather than internal implementation structure.                                                        |
 | `agentic-coding.testing.classify-failure-before-changing-test`        | Issue-explicit: #28                                          | The issue explicitly identifies the moment when a failing test is about to be changed and requires first deciding what the failure means.                                       |
@@ -54,6 +56,16 @@ Public issue sources:
 | `agentic-coding.recovery.validate-handoff-before-continuation`        | Issue-explicit: #28, #32                                     | Multi-agent handoffs are explicitly identified as a boundary where conclusions must be checked against current authoritative state.                                             |
 
 ## Synthesis boundary
+
+The `0.5.0` revision (lorelum-packs #19) is editorial: knowledge sources are unchanged. Every
+Guidance was rewritten as an ordered decision procedure with an explicit stop, `applies_when` was
+reworded to discriminate neighbors using the #17 keyword baseline's confusion matrix, and examples
+were made self-contained for a cold reader. The former `admit-only-currently-justified-work` and
+`define-stop-condition` Practices were merged into `decide-scope-and-stop-conditions` because
+admission labeling and finish/defer/replan boundaries occur at the same pre-work scope decision;
+the merged provenance row above preserves both original labels. Severity was tiered for the first
+time — critical for evidence-and-delivery honesty, warn for scope and planning, info for
+conventions — which is author synthesis with no external source.
 
 The `0.4.0` additions `agentic-coding.implementation.validate-at-the-owning-boundary` and
 `agentic-coding.implementation.make-recovery-behavior-explicit` are **Defensive-complexity synthesis**:

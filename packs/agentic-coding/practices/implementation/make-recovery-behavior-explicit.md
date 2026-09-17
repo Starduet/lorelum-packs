@@ -21,21 +21,27 @@ is a different question; a valid input can still encounter an unavailable depend
 
 ## Guidance
 
-Start with the normal success and failure contract. Name the specific recoverable condition, the
-component that owns recovery, and the usable result or preserved state it can produce. Prefer
-propagating the established error when no accepted recovery exists. Do not invent success by
-replacing malformed data, denied access, or a failed write with an empty collection or default.
+1. Write down the normal success and failure contract first: what the caller receives when the
+   operation works and when it fails.
+2. Name the specific recoverable condition — which known failure can actually recover — and give
+   recovery one owning component.
+3. State the usable outcome or preserved state that recovery produces, and how callers learn any
+   material difference from fresh success.
+4. For a retry, establish why another attempt can succeed, whether replay can duplicate an effect,
+   and one total attempt or time budget. Check existing client, job, and caller retries before
+   adding any, and do not multiply their budgets.
+5. For a fallback, establish source equivalence or the explicitly accepted degradation and its
+   limit. Prefer propagating the established error when no accepted recovery exists, and never
+   replace malformed data, denied access, or a failed write with an empty collection or default.
 
-For a retry, establish why another attempt can succeed, whether replay can duplicate an effect, and
-one total attempt or time budget. Check existing client, job, and caller retries before adding any;
-avoid multiplying their budgets. For a fallback, establish source equivalence or the explicitly
-accepted degradation, its limit, and how callers learn any material difference. Ordinary defaults
-for absent optional input need no recovery framework when the contract already defines them.
+Keep error translation at the interface that owns it and preserve the actionable cause; let the
+recovery operation depend only on prerequisites needed to complete that operation safely. Ordinary
+defaults for absent optional input need no recovery framework when the contract already defines
+them.
 
-Keep error translation at the interface that owns it and preserve the actionable cause. Let the
-recovery operation depend only on prerequisites needed to complete that operation safely. Stop when
-one owner, eligible failures, a bounded recovery, and the final observable result are clear. If no
-recovery is required, retain the direct failure and a usable next step at the user-facing boundary.
+Stop when one owner, the eligible failures, a bounded recovery, and the final observable outcome are
+clear. If no recovery is required, retain the direct failure and a usable next step at the
+user-facing boundary.
 
 ## Anti-pattern
 
@@ -49,7 +55,7 @@ missing data, and an unrelated decoding bug is hidden by the same path.
 
 Recovery is additional product behavior with its own failure modes. An unqualified fallback can turn
 detectable failure into false success, while nested retries multiply delay and load. One explicit
-owner makes the result understandable and the budget enforceable.
+owner makes the outcome understandable and the budget enforceable.
 
 ## Exceptions and boundaries
 
@@ -63,7 +69,7 @@ a blind replay. A mandatory audit or integrity failure cannot become success thr
 
 A status page may show a snapshot up to five minutes old during a transport outage. Its data client
 owns one bounded retry; the page uses the timestamped cache only for that known failure and labels
-the stale result. Expired cache, permission errors, and invalid payloads remain explicit failures.
+the stale outcome. Expired cache, permission errors, and invalid payloads remain explicit failures.
 Separately, a local process-stop command must work when that process's business API is incompatible:
 it retains the identity checks needed to stop the intended process, but does not require a
 successful business query merely to enable recovery. Neither path needs a chain of general-purpose

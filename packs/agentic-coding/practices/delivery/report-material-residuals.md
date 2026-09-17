@@ -3,10 +3,10 @@ anti_patterns:
   - description: Including every explored path, harmless warning, and transient failure to demonstrate diligence, thereby burying the unresolved facts that could change the recipient's next action or release decision.
     id: agentic-coding.delivery.residual-log-dump
     name: Investigation log instead of decision-relevant issues
-    severity: warn
+    severity: critical
 applies_when: delivery or handoff is imminent, at least one known limitation, risk, plan deviation, or unfinished item could change the recipient's next decision, and the agent must decide what to report
 id: agentic-coding.delivery.report-material-residuals
-severity: warn
+severity: critical
 stage: delivery
 tech_stack:
   - agentic-coding
@@ -17,14 +17,19 @@ title: Report Only Remaining Issues That Matter
 
 Apply when something known but unresolved could change the recipient's next action, release
 decision, or recovery plan. This Practice reports what remains; it does not restate what the
-evidence already proves. If nothing important remains, do not invent an issues section.
+evidence already proves. If nothing important remains, do not invent an issues section — calibrate
+the completion wording instead.
 
 ## Guidance
 
-Select only unfinished work, risk, deviation, or untested behavior that can change the next
-decision. For each item, state its current impact and the smallest reproduction, mitigation, or
-rollback fact needed to act. Stop when the recipient can choose the next step without replaying the
-investigation.
+1. List the known but unresolved items: unfinished work, risks, plan deviations, untested behavior.
+2. Select only the ones that can change the recipient's next action, release decision, or recovery
+   plan.
+3. For each selected item, state its current impact and the smallest reproduction, mitigation, or
+   rollback fact needed to act.
+
+Stop when the recipient can choose the next step without replaying the investigation; omit the
+process history, harmless warnings, and dead ends.
 
 ## Anti-pattern
 

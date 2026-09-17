@@ -16,19 +16,21 @@ title: Check What Already Exists Before Building
 ## When to apply
 
 Apply immediately before creating a helper, adapter, parser, cache, retry policy, or similar
-mechanism that could plausibly exist nearby. Check only enough code and dependency documentation to
-decide whether suitable behavior already exists. If current evidence already shows that the behavior
-is intentionally new or that existing options fail a required constraint, stop searching and design
-the new code.
+mechanism that could plausibly exist nearby. If current evidence already shows that the behavior is
+intentionally new or that existing options fail a required constraint, stop searching and design the
+new code.
 
 ## Guidance
 
-Inspect the module where the behavior belongs and the closest candidate capability. Read a
-representative call site or test only when it can change whether that candidate preserves a required
-semantic, compatibility, or failure constraint. Then check only the runtime or declared dependency
-most likely to provide the behavior. Decide between direct reuse, a small adaptation, and a new
-implementation. Record the specific mismatch that rules out each closer option. Stop as soon as the
-evidence supports one choice; do not catalog every vaguely similar helper, caller, or test.
+1. Open the module where the behavior belongs and the closest candidate capability inside it.
+2. Read one representative caller or test of that candidate only if it can change whether the
+   candidate preserves a required semantic, compatibility, or failure constraint.
+3. Check the one declared dependency or runtime facility most likely to provide the behavior.
+4. Decide between direct reuse, a small adaptation, and a new implementation, and record the
+   specific mismatch that rules out each closer option.
+
+Stop as soon as the evidence supports one choice; do not catalog every vaguely similar helper,
+caller, or test.
 
 ## Anti-pattern
 
@@ -54,6 +56,6 @@ decision.
 ## Example
 
 A scheduling change needs to detect whether a new booking overlaps an existing one, including
-bookings that share an endpoint. Before adding a helper, the agent finds the scheduling module
-already has a tested overlap function with exactly those endpoint rules. The agent reuses it
-directly and adds no second definition of overlap.
+bookings that share an endpoint. Before writing its own function, the agent opens the scheduling
+module and finds a tested overlap function with exactly those endpoint rules, and reuses it
+directly. No second definition of overlap enters the repository.

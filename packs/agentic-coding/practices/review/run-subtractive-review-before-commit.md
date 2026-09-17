@@ -21,15 +21,20 @@ unvalidated finding.
 
 ## Guidance
 
-For each material addition, name the requirement, risk, contract, or dependency that justifies it.
-Remove additions with no present reason, merge duplicates, and reuse suitable existing code.
-Preserve required behavior, migration support, and safeguards. Stop with the smallest diff that
-still satisfies the request and its risks. If a deletion changes behavior, verify the revised state
-before commit. For a path touched by the diff, follow one representative value and one failure
-through its layers. Challenge repeated parsing, normalization, authorization, catch-and-default
-wrappers, and nested retries: each needs a distinct condition and owner. Check whether a shared
-guard unnecessarily blocks status, stop, upgrade, or repair. Limit this trace to the changed
-behavior; subtractive review is not an invitation to audit the entire repository.
+1. Walk the completed diff as a whole and list its material additions: files, abstractions,
+   fallbacks, interfaces, I/O, tests, and documents.
+2. For each addition, name the requirement, risk, contract, or dependency that justifies it. Remove
+   additions with no present reason, merge duplicates, and reuse suitable existing code.
+3. Preserve required behavior, migration support, and safeguards. Keep migration, compatibility,
+   security, audit, or rollback code when a current contract or rollout requires it.
+4. If a deletion changes behavior, verify the revised state before commit: follow one representative
+   value and one failure through the layers of a path the diff touches.
+5. Challenge repeated parsing, normalization, authorization, catch-and-default wrappers, and nested
+   retries — each needs a distinct condition and owner — and check whether a shared guard
+   unnecessarily blocks status, stop, upgrade, or repair.
+
+Limit the trace to the changed behavior; subtractive review is not an invitation to audit the entire
+repository. Stop with the smallest diff that still satisfies the request and its risks.
 
 ## Anti-pattern
 
@@ -45,9 +50,7 @@ removes unsupported maintenance cost without treating minimality as correctness.
 
 ## Exceptions and boundaries
 
-Keep migration, compatibility, security, audit, or rollback code when a current contract or rollout
-requires it. Ask the responsible authority before changing an accepted architecture or public
-contract.
+Ask the responsible authority before changing an accepted architecture or public contract.
 
 ## Example
 

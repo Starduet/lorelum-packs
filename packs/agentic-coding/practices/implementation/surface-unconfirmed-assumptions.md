@@ -23,10 +23,17 @@ a temporary assumption.
 
 ## Guidance
 
-Record the temporary interpretation, why it is reasonable, the exact code it affects, and what
-future answer or evidence will confirm or replace it. Keep dependent work inside that boundary and
-do not derive new requirements from the assumption. Stop when another engineer can find, review, and
-replace the choice without replaying the investigation.
+1. Record the temporary interpretation in one line at the point of choice: what you will assume for
+   now and why either reading is reasonable.
+2. Mark the exact code the choice affects — one serializer, one importer — and keep dependent work
+   inside that boundary without deriving new requirements from the assumption.
+3. Name the review condition: the source, owner answer, or observation that will confirm or replace
+   the choice.
+4. When new evidence disproves the assumption, change the bounded implementation instead of
+   preserving the guess as compatibility behavior.
+
+Stop when another engineer can find, review, and replace the choice without replaying the
+investigation.
 
 ## Anti-pattern
 
@@ -45,11 +52,12 @@ visible and limits how far it can spread while still allowing safe progress.
 
 Do not use this Practice to bypass conflicting requirements or a decision that needs product,
 security, legal, or operational approval. Details already settled by repository convention need no
-extra record. When new evidence disproves the assumption, change the bounded implementation instead
-of preserving the guess as compatibility behavior.
+extra record.
 
 ## Example
 
 Sample payloads omit whether an empty optional label should be absent or an empty string, and the
-current parser accepts both. The agent records "omit the field for now," limits the choice to one
-serializer, and names an accepted schema clarification as the review condition.
+current parser accepts both. The agent records "omit the field for now" next to the one serializer
+that reads it, explains that both forms currently pass, and names an accepted schema clarification
+from the schema owner as the review condition. No other serializer or test is changed to match the
+guess.

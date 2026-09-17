@@ -22,12 +22,15 @@ choose the least complex implementation inside that component.
 
 ## Guidance
 
-State the rule that must stay true and list the entry points that depend on it. Identify the
-component already responsible for the relevant data or policy and put the final decision there.
-Other layers may translate input, output, or presentation, but they should not redefine the rule.
-Stop with one responsible component and a clear instruction for callers. If no current component can
-own the rule honestly, pause for an architectural decision instead of choosing the easiest file to
-edit.
+1. State the rule that must stay true in one sentence — the no-overselling invariant, the rounding
+   rule for invoice totals.
+2. List every entry point that depends on it: screens, API paths, batch importers, other services.
+3. Put the final decision in the component already responsible for the relevant data or policy.
+   Other layers may translate input, output, or presentation, but they must not redefine the rule.
+4. If no current component can own the rule honestly, pause for an architectural decision instead of
+   choosing the easiest file to edit.
+
+Stop with one responsible component and a clear instruction for callers.
 
 ## Anti-pattern
 

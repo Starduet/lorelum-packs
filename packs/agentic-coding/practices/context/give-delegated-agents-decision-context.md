@@ -22,20 +22,24 @@ and output is a near miss and needs only those instructions.
 
 ## Guidance
 
-Send a compact context packet with the requested outcome, the user request or specification that
-controls it, relevant repository state, required constraints and non-goals, and the accepted or
-rejected decisions that shape the work. Include the reason for a rejection when the receiver might
-otherwise make the same locally reasonable choice. State the files or symbols in scope, the result
-to return, the checks the receiver owns, and which discoveries require escalation. Link to large
-sources instead of copying their full contents. Stop when the receiving agent can explain what it
-must decide, what it must preserve, and what it must not silently reinterpret.
+1. State the requested outcome and the user request or specification that controls it.
+2. List the repository facts the receiver cannot discover from the task name alone: relevant state,
+   required constraints, non-goals, and the accepted or rejected decisions that shape the work.
+   Include the reason for a rejection when the receiver might otherwise repeat that locally
+   reasonable choice.
+3. Define the boundary of the delegation: the files or symbols in scope, the result to return, the
+   checks the receiver owns, and which discoveries require escalation.
+4. Link to large sources instead of copying their full contents.
+
+Stop when the receiving agent can explain what it must decide, what it must preserve, and what it
+must not silently reinterpret.
 
 ## Anti-pattern
 
 The user and main agent agree that Pack examples must show mistakes a capable Agent could
 realistically make, and they explicitly reject a scheduler example as confusing and artificial. The
-main agent then delegates the rewrite with only “read the authoring plan and improve the
-requirements Practices.” The plan mentions realism but not the rejected example or why it failed.
+main agent then delegates the rewrite with only "read the authoring plan and improve the
+requirements Practices." The plan mentions realism but not the rejected example or why it failed.
 The delegated agent polishes the scheduler wording and returns schema-valid files, repeating the
 decision the user had already overturned.
 
@@ -55,9 +59,9 @@ packet as proof that the repository has not changed.
 
 ## Example
 
-Before delegating a CLI installer change, the main agent states: “Default installation must use the
+Before delegating a CLI installer change, the main agent states: "Default installation must use the
 official registry, and an explicit custom registry must also work. Reuse the existing Pack validator
 and materializer. Do not add arbitrary URL sources, automatic mirror fallback, an authentication
 plugin system, or a new cache. Preserve current input budgets and typed errors. Return the changed
-files, focused tests, and any contract change you believe is unavoidable.” The receiver has enough
+files, focused tests, and any contract change you believe is unavoidable." The receiver has enough
 context to keep required extensibility without inventing a general source platform.

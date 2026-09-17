@@ -3,10 +3,10 @@ anti_patterns:
   - description: Using a broad completion verb because the changed component and focused checks look finished, even though the evidence covers only one artifact state or technical slice of the user capability.
     id: agentic-coding.delivery.capability-inflation
     name: Technical slice inflated to capability
-    severity: warn
+    severity: critical
 applies_when: the agent is about to say that work is complete, fixed, accepted, deployed, pushed, or verified, and the available evidence may cover only a narrower artifact state or technical slice
 id: agentic-coding.delivery.claim-only-supported-outcome
-severity: warn
+severity: critical
 stage: delivery
 tech_stack:
   - agentic-coding
@@ -21,10 +21,14 @@ it does not choose which remaining risks belong in a handoff.
 
 ## Guidance
 
-Name the exact artifact state, behavior, environment, and scope that current evidence covers. Choose
-a verb and object no broader than those facts. If the work is one component or technical slice of a
-larger user capability, say so directly. Stop with one calibrated outcome statement; do not hide a
-broader implication behind words such as "likely" or "effectively."
+1. Name the exact artifact state, behavior, environment, and scope that the current evidence covers.
+2. Choose a verb and object no broader than those facts: "fixed," "complete," "verified," or
+   "deployed" must match what was actually demonstrated.
+3. If the work is one component or technical slice of a larger user capability, say so directly
+   rather than borrowing the surrounding feature's name.
+
+Stop with one calibrated outcome statement; do not hide a broader implication behind words such as
+"likely" or "effectively."
 
 ## Anti-pattern
 
@@ -49,5 +53,5 @@ state that plainly rather than weakening a supported result into vague language.
 ## Example
 
 The current index passes the accepted relevance cases, but no rollout or failover was performed. The
-agent reports, "Ranking behavior is verified on the current index," rather than "The search rollout
-is complete."
+agent reports "ranking behavior is verified on the current index" — naming the behavior and the
+scope — rather than "the search rollout is complete."

@@ -22,13 +22,18 @@ directly from a current requirement.
 
 ## Guidance
 
-State the failure the proposed test or gate would catch. Keep it only when there is a lasting
-reason: an explicit promise, a required absence such as “unauthorized requests never return data,” a
-reproduced bug that can realistically return through future changes, or a high-impact safety,
-privacy, compatibility, or data-integrity risk. Choose whether to keep, narrow, make temporary, or
-omit the protection. Observe the smallest stable behavior that catches recurrence without freezing
-today’s helper design. Record the reason and, for temporary protection, when it can be removed.
-“This just happened” is not enough.
+1. State the failure the proposed permanent test, negative assertion, lint rule, or gate would
+   catch.
+2. Keep it only with a lasting reason: an explicit promise, a required absence such as "unauthorized
+   requests never return data," a reproduced bug that can realistically return through future
+   changes, or a high-impact safety, privacy, compatibility, or data-integrity risk. "This just
+   happened" is not enough.
+3. Choose whether to keep, narrow, make temporary, or omit the protection; for temporary protection,
+   record when it can be removed.
+4. Observe the smallest stable behavior that catches recurrence without freezing today's helper
+   design.
+
+Stop with the reason recorded next to the protection.
 
 ## Anti-pattern
 
@@ -55,7 +60,7 @@ add it before an unresolved failure is classified.
 ## Example
 
 The user requires payment retries to produce at most one charge. A reproduced bug showed that the
-repository’s queue serializer dropped the request identifier before redelivery, allowing a duplicate
+repository's queue serializer dropped the request identifier before redelivery, allowing a duplicate
 charge. Because the public payment contract requires idempotency and the serializer is a likely
 future refactor point, the agent adds a permanent test that redelivers the saved job and observes
 one charge. It does not freeze the current queue helper sequence.

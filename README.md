@@ -10,7 +10,7 @@ This repository is the official public catalog for installable Lorelum Knowledge
   - [简体中文本地化](./packs/pack-creator/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `react-web-craft@0.1.0` — 24 Practices for React web application design and performance across component state, async data flow, code loading, rendering, and component composition.
   - [简体中文本地化](./packs/react-web-craft/i18n/zh-CN/README.md) is available as non-runtime companion content.
-- `agentic-coding@0.4.0` — unreleased candidate with 33 decision-focused Practices, including validation at responsible boundaries and explicit recovery behavior. The latest published release remains `0.3.1` until a new immutable ref and Registry entry exist.
+- `agentic-coding@0.5.0` — unreleased candidate with 32 decision-focused Practices rewritten as step-style decision procedures with severity tiers (critical/warn/info). The latest published release remains `0.3.1` until a new immutable ref and Registry entry exist.
   - [简体中文本地化](./packs/agentic-coding/i18n/zh-CN/README.md) is available as non-runtime companion content.
 
 ## Use Packs
@@ -84,7 +84,7 @@ Custom registries must expose `.lorelum/registry.yaml` from a supported public G
 
 ```sh
 # Isolated-store run against a registry release, writing a JSON artifact and Markdown report.
-python scripts/eval-queries --mode both --ensure-install agentic-coding@0.4.0 \
+python scripts/eval-queries --mode both --ensure-install agentic-coding@0.5.0 \
   --store-root tmp/eval-store --out run.json --report run.md
 
 # Compare a later run (for example a rewritten Practice set) against a recorded baseline.
@@ -109,7 +109,7 @@ The query set is a maintained fixture, not a generated one: it grows with the ca
 ```sh
 # Preflight for a change that touches Practices or queries.
 python scripts/eval-queries --mode keyword --require-coverage --check-discipline \
-  --ensure-install agentic-coding@0.4.0 --store-root tmp/eval-store \
+  --ensure-install agentic-coding@0.5.0 --store-root tmp/eval-store \
   --baseline fixtures/agentic-coding/baselines/<previous-release>.json
 ```
 

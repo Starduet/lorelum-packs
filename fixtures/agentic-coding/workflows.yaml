@@ -54,7 +54,7 @@ workflows:
       - Every helper needs a separate token exchange in case the network is hostile.
     expected_practices:
       - agentic-coding.implementation.validate-at-the-owning-boundary
-      - agentic-coding.planning.admit-only-currently-justified-work
+      - agentic-coding.planning.decide-scope-and-stop-conditions
     correctness_assertions:
       - Use the confirmed identity contract for ordinary private calls without inventing another authentication system.
       - Preserve the administration operation's independent tenant check because the caller path and protected resource differ.
@@ -95,9 +95,8 @@ workflows:
       - id: before-implementation
         trigger: The plan is about to commit arbitrary locators, duplicate parsing, and broad gates as required work.
         expected_practices:
-          - agentic-coding.planning.admit-only-currently-justified-work
+          - agentic-coding.planning.decide-scope-and-stop-conditions
           - agentic-coding.planning.scale-work-to-risk-and-cost
-          - agentic-coding.planning.define-stop-condition
           - agentic-coding.implementation.inspect-and-reuse-existing-capability
           - agentic-coding.implementation.choose-smallest-sufficient-design
         correctness_assertions:
@@ -176,10 +175,10 @@ workflows:
     authoritative_facts:
       - The fixtures must use ordinary, concrete language and show a capable Agent making a locally reasonable choice with a globally wrong result.
       - The user rejected the scheduler example because its causal chain was artificial, even though the authoring plan still says to prefer realistic scenarios in general.
-      - The work must preserve 31 canonical IDs and their nearest-neighbor boundaries; schema shape and entry count alone do not demonstrate useful retrieval behavior.
+      - The work must preserve 32 canonical IDs and their nearest-neighbor boundaries; schema shape and entry count alone do not demonstrate useful retrieval behavior.
     distractors:
       - The writer can read the general authoring plan and may infer the missing rejection reason.
-      - The returned YAML parses and contains all 31 IDs, so accepting it would be faster than reviewing the scenarios.
+      - The returned YAML parses and contains all 32 IDs, so accepting it would be faster than reviewing the scenarios.
       - Copying the full parent transcript would guarantee that no sentence is omitted.
     phases:
       - id: before-delegation
@@ -187,7 +186,7 @@ workflows:
         expected_practices:
           - agentic-coding.context.give-delegated-agents-decision-context
         correctness_assertions:
-          - The task packet states the concrete language and causal-chain requirements, the rejected scheduler example and why it failed, the 31-ID and nearest-neighbor constraints, the allowed files, the expected return, and the checks the writer owns.
+          - The task packet states the concrete language and causal-chain requirements, the rejected scheduler example and why it failed, the 32-ID and nearest-neighbor constraints, the allowed files, the expected return, and the checks the writer owns.
           - The packet links large sources and excludes raw logs, secrets, and unrelated conversation history.
         forbidden_behavior:
           - Delegate with only a task name, file path, or generic instruction to improve quality, or paste the entire transcript without highlighting decisions.
@@ -196,7 +195,7 @@ workflows:
         expected_practices:
           - agentic-coding.recovery.validate-handoff-before-continuation
         correctness_assertions:
-          - The receiver checks the current files, confirms the 31 IDs and neighbor links, and samples scenarios against the concrete failure-mechanism requirement before relying on the completion claim.
+          - The receiver checks the current files, confirms the 32 IDs and neighbor links, and samples scenarios against the concrete failure-mechanism requirement before relying on the completion claim.
           - Any schema or coverage result is limited to the exact artifact checked and is not treated as proof of semantic retrieval quality.
         forbidden_behavior:
           - Treat the original context packet or the writer's summary as proof that the returned scenarios preserve the decisions.

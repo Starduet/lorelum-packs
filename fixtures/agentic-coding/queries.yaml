@@ -1,7 +1,7 @@
 fixture_set: agentic-coding-queries
 evaluation_only: true
-description: Retrieval query hypotheses for the 33 agentic-coding Practices; each Practice contributes 3 positive queries and 2 neighbor queries that are worded near that Practice but expected to select its nearest neighbor (per agentic-coding-practice-catalog). Query wording avoids restating Practice titles, applies_when, or guidance so keyword hits are not quotation matches. Not a runtime input or proof of retrieval quality.
-target_pack: agentic-coding@0.4.0
+description: Retrieval query hypotheses for the 32 agentic-coding Practices; each Practice contributes 3 positive queries and 2 neighbor queries that are worded near that Practice but expected to select its nearest neighbor (per agentic-coding-practice-catalog). The merged planning.decide-scope-and-stop-conditions carries the query blocks of both predecessors (6 positive, 4 neighbor; two neighbors anchor its secondary neighbor implementation.confirm-product-surface-expansion). Query wording avoids restating Practice titles, applies_when, or guidance so keyword hits are not quotation matches. Not a runtime input or proof of retrieval quality.
+target_pack: agentic-coding@0.5.0
 top_k: 3
 min_top3: 0.90
 queries:
@@ -77,27 +77,27 @@ queries:
     expect: agentic-coding.requirements.ground-user-goal
     text: "the team keeps proposing polish around the request, but we still have not written one sentence about what the affected people need to be able to do afterward"
 
-  # planning.admit-only-currently-justified-work
+  # planning.decide-scope-and-stop-conditions (migrated from admit-only-currently-justified-work)
   - id: planning.admit-only-currently-justified-work.p1
     kind: positive
-    expect: agentic-coding.planning.admit-only-currently-justified-work
+    expect: agentic-coding.planning.decide-scope-and-stop-conditions
     text: "the alert only needs email delivery, but the plan now lists SMS and push adapters because the interface looks easy to generalize"
   - id: planning.admit-only-currently-justified-work.p2
     kind: positive
-    expect: agentic-coding.planning.admit-only-currently-justified-work
+    expect: agentic-coding.planning.decide-scope-and-stop-conditions
     text: "how do I stop nice-to-have refactors and future-proofing hooks from sneaking into the committed plan for a small registry addition"
   - id: planning.admit-only-currently-justified-work.p3
     kind: positive
-    expect: agentic-coding.planning.admit-only-currently-justified-work
+    expect: agentic-coding.planning.decide-scope-and-stop-conditions
     text: "a teammate wants to promote the file-locator abstraction from maybe-later to required work because it might help in six months"
   - id: planning.admit-only-currently-justified-work.n1
     kind: neighbor
-    resembles: agentic-coding.planning.admit-only-currently-justified-work
+    resembles: agentic-coding.planning.decide-scope-and-stop-conditions
     expect: agentic-coding.implementation.confirm-product-surface-expansion
     text: "the two display modes are approved, and I notice the component could trivially start accepting arbitrary spacing tokens that nobody asked for"
   - id: planning.admit-only-currently-justified-work.n2
     kind: neighbor
-    resembles: agentic-coding.planning.admit-only-currently-justified-work
+    resembles: agentic-coding.planning.decide-scope-and-stop-conditions
     expect: agentic-coding.implementation.confirm-product-surface-expansion
     text: "one order-shipped event got the green light, and the dispatcher sketch would let partners subscribe to any event name with custom headers"
 
@@ -173,27 +173,27 @@ queries:
     expect: agentic-coding.verification.map-evidence-to-acceptance
     text: "schema validation, a rendered-page screenshot, and a phone download have all been run; how do I match each result to the outcome it supports"
 
-  # planning.define-stop-condition
+  # planning.decide-scope-and-stop-conditions (migrated from define-stop-condition)
   - id: planning.define-stop-condition.p1
     kind: positive
-    expect: agentic-coding.planning.define-stop-condition
+    expect: agentic-coding.planning.decide-scope-and-stop-conditions
     text: "the task adds one search filter, but saved searches and suggestion hooks keep suggesting themselves and I do not know when the work is done"
   - id: planning.define-stop-condition.p2
     kind: positive
-    expect: agentic-coding.planning.define-stop-condition
+    expect: agentic-coding.planning.decide-scope-and-stop-conditions
     text: "after finishing the CSV export the formatter interface looks so clean that a plug-in registry feels like natural next work; where is the boundary"
   - id: planning.define-stop-condition.p3
     kind: positive
-    expect: agentic-coding.planning.define-stop-condition
+    expect: agentic-coding.planning.decide-scope-and-stop-conditions
     text: "what finished state and deferred list should I write down so this task can actually end instead of polishing the area forever"
   - id: planning.define-stop-condition.n1
     kind: neighbor
-    resembles: agentic-coding.planning.define-stop-condition
+    resembles: agentic-coding.planning.decide-scope-and-stop-conditions
     expect: agentic-coding.implementation.replan-on-material-drift
     text: "while implementing the filter I discovered a public index migration that changes the blast radius, and the finish line I wrote may no longer hold"
   - id: planning.define-stop-condition.n2
     kind: neighbor
-    resembles: agentic-coding.planning.define-stop-condition
+    resembles: agentic-coding.planning.decide-scope-and-stop-conditions
     expect: agentic-coding.implementation.replan-on-material-drift
     text: "new facts from coding changed what the work involves; do I keep the old boundary or revisit the whole plan"
 

@@ -23,11 +23,17 @@ exposes nothing new is only a design choice.
 
 ## Guidance
 
-Read the user request, accepted issue, or current specification that authorizes the feature. Compare
-the values and behaviors it names with what users, integrations, stored data, or downstream code
-could rely on after this change. Expose only what the source supports. Keep ambiguous variants
-private or ask for a decision. Stop with one explicit list of the public values or behaviors
-admitted now.
+1. Read the user request, accepted issue, or current specification that authorizes the feature, and
+   list the exact values and behaviors it names.
+2. Compare that list with what users, integrations, stored data, or downstream code could rely on
+   after this change — event names, headers, modes, tokens, configuration keys.
+3. Expose only what the source supports. Keep ambiguous variants private, or ask for a decision
+   before publishing them.
+4. Record the source of any broader obligation: an existing published contract, approved migration,
+   or explicit platform requirement may authorize more variants than the immediate feature needs.
+
+Stop with one explicit list of the public values or behaviors admitted now. Approval of one event,
+setting, or source type never authorizes arbitrary extensibility.
 
 ## Anti-pattern
 
@@ -44,9 +50,7 @@ implementation from silently defining product policy.
 
 ## Exceptions and boundaries
 
-An existing published contract, approved migration, or explicit platform requirement may authorize
-more variants than the immediate feature needs. Preserve that obligation and record its source. This
-Practice does not forbid a future-friendly internal design; it limits what becomes externally
+This Practice does not forbid a future-friendly internal design; it limits what becomes externally
 dependable now.
 
 ## Example

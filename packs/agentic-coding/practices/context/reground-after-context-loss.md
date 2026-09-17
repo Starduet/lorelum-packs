@@ -22,18 +22,22 @@ Agent or contributor, validate that handoff rather than using this same-session 
 
 ## Guidance
 
-Use the summary only to find the source material. Reopen the current user request, accepted issue or
-specification, relevant plan and decisions, current branch and diff, and recorded test or review
-results. Check every summary claim that the next action depends on against those items. Remove
-assumptions that are no longer valid, reduce any completion statement that lacks proof, and write
-down the current goal, what changes are allowed, the first required behavior still missing, which
-results still apply to the current files, and the next justified action. Stop when those facts are
-clear; do not reread the entire project when a smaller set answers the next decision.
+1. Treat the summary only as an index to find source material; treat none of its conclusions as
+   facts.
+2. Reopen the current user request, accepted issue or specification, relevant plan and decisions,
+   current branch and diff, and recorded test or review results.
+3. Check every summary claim the next action depends on against those items.
+4. Write down the current goal, what changes are allowed, the first required behavior still missing,
+   which results still apply to the current files, and the next justified action; reduce any
+   completion statement that lacks proof.
+
+Stop when those facts are clear; do not reread the entire project when a smaller set answers the
+next decision.
 
 ## Anti-pattern
 
 The user asks for installation from a real remote repository. After compaction, the summary says
-“installation is complete; only cleanup remains.” The repository has green unit tests, so starting a
+"installation is complete; only cleanup remains." The repository has green unit tests, so starting a
 refactor feels like useful progress. Reopening the accepted issue and current diff shows that only a
 fake transport was tested and the real remote path was never run. The summary has turned partial
 implementation into completion.
@@ -57,5 +61,5 @@ validation.
 The user asks the parser to reject bad tokens and recover after a truncated declaration. After
 resuming the refactor, the agent reopens that requirement, the current diff, and the recorded
 results. Valid syntax and bad-token rejection passed on the current commit, but no test truncates a
-declaration. The agent reports “core parsing verified; truncated-input recovery not checked” and
+declaration. The agent reports "core parsing verified; truncated-input recovery not checked" and
 runs that missing case next instead of starting cleanup.

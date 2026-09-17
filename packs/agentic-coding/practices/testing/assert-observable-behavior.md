@@ -3,10 +3,10 @@ anti_patterns:
   - description: Asserting convenient private state, call order, markup shape, or helper boundaries that are not contractual makes harmless refactoring look like a broken promise while the real outcome may remain untested.
     id: agentic-coding.testing.incidental-implementation-assertion
     name: Incidental implementation assertion
-    severity: warn
+    severity: info
 applies_when: a test already has a protected requirement or invariant, and the agent must choose an assertion boundary that distinguishes the promised outcome from incidental implementation details
 id: agentic-coding.testing.assert-observable-behavior
-severity: warn
+severity: info
 stage: testing
 tech_stack:
   - agentic-coding
@@ -22,18 +22,20 @@ decide whether the behavior deserves a test in the first place.
 
 ## Guidance
 
-Drive the behavior with a controlled input and inspect the smallest result that the real user or
-caller can rely on: a return value, saved record, protocol message, permission decision, file bytes,
-or another promised effect. Check enough detail to distinguish success from the likely failure, but
-do not reconstruct the private route taken to get there. If the result cannot currently be observed,
-expose the smallest legitimate read or test through the nearest stable interface. Stop when the
-assertion would still pass after an internal refactor that preserves the promised behavior. When
-changing validation or recovery, check the valid path still works and observe the distinct invalid
-or degraded outcome at its owning boundary. Assert that a denied request stays denied, stale data is
-identified when required, and exhausted retries return the defined failure. Do not require every
-internal layer to call the same validator or maintain tests for impossible internal states solely to
-justify defensive code. A promised attempt budget or non-duplication guarantee is observable
-behavior.
+1. Drive the behavior with a controlled input and inspect the smallest result the real user or
+   caller can rely on: a return value, saved record, protocol message, permission decision, or file
+   bytes.
+2. Check enough detail to distinguish success from the likely failure, but do not reconstruct the
+   private route taken to get there.
+3. Assert the distinct outcomes callers must see: a denied request stays denied, stale data is
+   identified when required, and exhausted retries return the defined failure.
+4. If the result cannot currently be observed, expose the smallest legitimate read or test through
+   the nearest stable interface instead of inspecting private state.
+
+Stop when the assertion would still pass after an internal refactor that preserves the promised
+behavior. A promised attempt budget or non-duplication guarantee is observable behavior; do not
+require every internal layer to call the same validator, or maintain tests for impossible internal
+states solely to justify defensive code.
 
 ## Anti-pattern
 
@@ -54,7 +56,7 @@ miss the user-visible defect, and produce evidence that is difficult to connect 
 Exact bytes, syntax trees, protocol fields, event order, timing bounds, or serialization shape
 should be asserted when those details are published, compatibility-sensitive, or safety-relevant.
 Focused unit tests may target an internal API that the project deliberately treats as stable.
-“Observable” does not mean vague: retain exactness whenever exactness is part of the promise.
+"Observable" does not mean vague: retain exactness whenever exactness is part of the promise.
 
 ## Example
 
