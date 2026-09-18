@@ -115,6 +115,27 @@ python scripts/eval-queries --mode keyword --require-coverage --check-discipline
 
 Existing queries double as canaries: re-running them against a new release with `--baseline` reports whether newly added Practices steal hits meant for existing ones.
 
+### Decision probes (lightweight behavior check)
+
+Retrieval evaluation proves a Practice is findable and distinguishable, not that it steers decisions well; the benchmark repository owns real-task behavioral proof. `scripts/eval-decisions` fills the gap with a per-change smoke test that reuses fixtures already required by the promotion flow — no new authoring:
+
+```sh
+# 1. Emit probes (practice-catalog entries or workflow phases) into tmp/probes.
+#    Injection content is the real top-1 lore query hit, so retrieval is exercised too.
+python scripts/eval-decisions --emit-dir tmp/probes --store-root tmp/eval-store \
+  [--fixtures fixtures/agentic-coding/practice-catalog.yaml] [--only <substr,substr>] [--limit N]
+
+# 2. A fresh answering session follows tmp/probes/protocol.md: answer all blind prompts
+#    first (no pack access), then all injected prompts, then score against the manifest
+#    rubric and write tmp/probes/answers/<id>.verdict.yaml with quoted evidence.
+
+# 3. Aggregate into a run artifact (record worthwhile runs under fixtures/.../baselines/).
+python scripts/eval-decisions --report-from tmp/probes \
+  --out tmp/probe-run.json --report tmp/probe-run.md [--fail-on-harmful]
+```
+
+Each probe is scored `moved-toward` (injection moved the decision toward the fixture's `expected_behavior` without triggering `forbidden_behavior`), `no-change` (blind answer already correct, or injection did not materially change it), or `harmful`. Probes are a directional smoke test, not behavioral proof: they cover single decisions, not multi-turn tasks, and scoring is judgment with quoted evidence rather than measurement. Benchmark runs stay reserved for release-level validation.
+
 ## Repository layout
 
 ```text

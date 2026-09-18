@@ -1,0 +1,403 @@
+#!/usr/bin/env python3
+"""Decision-probe harness: a lightweight behavior check between retrieval
+evaluation and the benchmark repository.
+
+Probes are assembled from existing fixtures (no new authoring):
+- practice-catalog.yaml: one probe per entry (scenario = positive_trigger +
+  paraphrase; rubric = expected_behavior / forbidden_behavior).
+- workflows.yaml: one probe per workflow or phase (scenario + authoritative_facts
+  + distractors; rubric = correctness_assertions / forbidden_behavior).
+
+Protocol (three phases, executed by a fresh answering session per
+<emit-dir>/protocol.md):
+1. BLIND: answer every probes/*.blind.md from the prompt alone — no repository
+   reading, no other files.
+2. INJECTED: answer every probes/*.injected.md the same way. Each injected
+   prompt embeds the top-1 practice retrieved for the scenario text via
+   `lore query` (retrieval is exercised as part of the probe).
+3. SCORE: open manifest.yaml, compare blind vs injected decisions against the
+   rubric, and write answers/<probe-id>.verdict.yaml with quoted evidence.
+
+This script performs the deterministic parts: probe emission (including real
+retrieval and practice injection via `lore query` / `lore get`) and report
+aggregation from recorded verdicts. Judgments stay with the answering session;
+every verdict must quote its own injected answer as evidence.
+
+Examples:
+  python scripts/eval-decisions --emit-dir tmp/probes \
+      --fixtures fixtures/agentic-coding/practice-catalog.yaml \
+      --store-root tmp/eval-store-050
+  python scripts/eval-decisions --report-from tmp/probes \
+      --out tmp/probe-run.json --report tmp/probe-run.md --fail-on-harmful
+"""
+
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+import yaml
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+SCHEMA = "eval-decisions-run/1"
+DIRECTIONS = ("moved-toward", "no-change", "harmful")
+CATALOG_FIXTURE_SETS = {"agentic-coding-practice-catalog"}
+WORKFLOW_FIXTURE_SETS = {"agentic-coding-workflows"}
+
+
+def fail(message: str, code: int = 2) -> None:
+    print(f"error: {message}", file=sys.stderr)
+    raise SystemExit(code)
+
+
+def run_lore(lore: str, args: list, store_root: str | None, timeout: int) -> dict:
+    cmd = [lore]
+    if store_root:
+        cmd += ["--store-root", store_root]
+    cmd += args
+    try:
+        proc = subprocess.run(
+            cmd, capture_output=True, text=True, encoding="utf-8", timeout=timeout
+        )
+    except FileNotFoundError:
+        fail(f"lore CLI not found: {lore}")
+    except subprocess.TimeoutExpired:
+        fail(f"lore {' '.join(args[:2])} timed out after {timeout}s")
+    try:
+        return json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        fail(f"lore {' '.join(args[:2])} produced non-JSON output: {proc.stdout[:200]}")
+
+
+def lore_query_top1(lore, store_root, text, mode) -> tuple[str | None, list]:
+    res = run_lore(lore, ["query", text, "--mode", mode, "--top-k", "1"], store_root, 120)
+    if not res.get("ok"):
+        return None, []
+    hits = res.get("data", {}).get("results", [])
+    return (hits[0].get("practiceId") if hits else None), hits
+
+
+def lore_practice_body(lore, store_root, practice_id) -> str:
+    res = run_lore(lore, ["get", practice_id], store_root, 120)
+    if not res.get("ok"):
+        fail(f"lore get {practice_id} failed: {res.get('error', {}).get('message')}")
+    p = res["data"]["practice"]
+    return f"# {p['title']}\n\n{p.get('body', '').strip()}"
+
+
+def load_probes(fixtures_path: Path) -> list:
+    doc = yaml.safe_load(fixtures_path.read_text(encoding="utf-8"))
+    fixture_set = doc.get("fixture_set", "")
+    probes = []
+    if fixture_set in CATALOG_FIXTURE_SETS:
+        for entry in doc.get("entries", []):
+            pid = entry["id"].split(".", 1)[1] if "." in entry["id"] else entry["id"]
+            probes.append(
+                {
+                    "id": f"catalog.{pid}",
+                    "expect": entry["id"],
+                    "query_text": entry["positive_trigger"],
+                    "situation": entry["positive_trigger"],
+                    "situation_alt": entry.get("paraphrase"),
+                    "facts": [],
+                    "distractors": [],
+                    "expected": [entry["expected_behavior"]],
+                    "forbidden": [entry["forbidden_behavior"]],
+                }
+            )
+    elif fixture_set in WORKFLOW_FIXTURE_SETS:
+        for wf in doc.get("workflows", []):
+            phases = wf.get("phases") or [None]
+            for phase in phases:
+                suffix = f".{phase['id']}" if phase else ""
+                probes.append(
+                    {
+                        "id": f"workflow.{wf['id']}{suffix}",
+                        "expect": None,
+                        "expect_any": phase["expected_practices"] if phase else wf["expected_practices"],
+                        "query_text": (phase["trigger"] if phase else wf["scenario"]),
+                        "situation": wf["scenario"],
+                        "situation_alt": phase["trigger"] if phase else None,
+                        "facts": (phase.get("authoritative_facts") or []) + wf.get("authoritative_facts", []),
+                        "distractors": wf.get("distractors", []),
+                        "expected": (phase or wf)["correctness_assertions"],
+                        "forbidden": (phase or wf)["forbidden_behavior"],
+                    }
+                )
+    else:
+        fail(f"{fixtures_path}: unrecognized fixture_set {fixture_set!r}")
+    if not probes:
+        fail(f"{fixtures_path}: no probes found")
+    return probes
+
+
+def render_prompt(probe: dict, injected_body: str | None) -> str:
+    lines = [
+        "You are an engineering agent mid-task. Answer from this prompt alone; do not read",
+        "any repository or other file. Keep each answer to 2-4 sentences.",
+        "",
+        "## Situation",
+        "",
+        probe["situation"],
+    ]
+    if probe.get("situation_alt"):
+        lines += ["", "The same situation shows up elsewhere as: " + probe["situation_alt"]]
+    if probe["facts"]:
+        lines += ["", "## Established facts", ""] + [f"- {f}" for f in probe["facts"]]
+    if probe["distractors"]:
+        lines += ["", "## Claims you have heard (some are wrong)", ""] + [f"- {d}" for d in probe["distractors"]]
+    lines += [
+        "",
+        "## Your answer",
+        "",
+        "1. What would you decide or do next, and why?",
+        "2. Which behaviors would you deliberately avoid here?",
+    ]
+    if injected_body:
+        lines += [
+            "",
+            "## Assisting practice",
+            "",
+            "A practice from the team's knowledge pack was retrieved for this situation; treat it as available guidance.",
+            "",
+            "---",
+            "",
+            injected_body,
+            "",
+            "---",
+        ]
+    return "\n".join(lines) + "\n"
+
+
+PROTOCOL = """# Decision-probe answering protocol
+
+You are the respondent for a set of engineering decision probes. Work in three
+phases, in order. Violating the order invalidates the run.
+
+## Phase 1 — BLIND (do this for every probe first)
+
+Open `probes/<id>.blind.md` one at a time and answer from the prompt alone.
+Do not open `*.injected.md`, `manifest.yaml`, or any repository file, and do
+not look up the pack. Record each answer (the two numbered questions).
+
+## Phase 2 — INJECTED (only after every blind answer exists)
+
+Open `probes/<id>.injected.md` and answer the same two questions. The prompt
+now embeds a retrieved practice; use it if it helps, ignore it if it does not.
+
+## Phase 3 — SCORE (only after every injected answer exists)
+
+Open `manifest.yaml`. For each probe, compare your blind and injected answers
+against that probe's rubric, then write `answers/<id>.verdict.yaml`:
+
+```yaml
+probe: <id>
+blind_decision: |
+  <your phase-1 answer, 2-4 sentences>
+injected_decision: |
+  <your phase-2 answer, 2-4 sentences>
+direction: moved-toward   # moved-toward | no-change | harmful
+already_correct_blind: false  # true when the blind answer already matched expected
+forbidden_triggered: false    # true when the injected answer violates a forbidden item
+evidence: |
+  <quote the sentence(s) from your injected answer that justify the verdict>
+```
+
+Direction definitions (judge strictly; quote real evidence):
+- `moved-toward`: the injected answer is closer to the rubric's expected
+  behavior than the blind answer (or corrects a blind mistake) and violates no
+  forbidden item.
+- `no-change`: the blind answer already matched expected and the injected
+  answer stays correct, or injection did not materially change the decision.
+- `harmful`: the injected answer violates a forbidden item or moves away from
+  expected behavior.
+
+A blind answer that is already correct is a legal, common outcome — record it
+as `no-change` with `already_correct_blind: true`.
+"""
+
+
+def cmd_emit(args, probes: list) -> None:
+    out = Path(args.emit_dir)
+    (out / "probes").mkdir(parents=True, exist_ok=True)
+    manifest_entries = []
+    retrievals = []
+    for probe in probes:
+        top1, hits = lore_query_top1(args.lore, args.store_root, probe["query_text"], args.retrieval_mode)
+        injected_body = lore_practice_body(args.lore, args.store_root, top1) if top1 else None
+        if top1 is None:
+            print(f"warn: no retrieval for {probe['id']}; injected prompt will be blind", file=sys.stderr)
+        (out / "probes" / f"{probe['id']}.blind.md").write_text(
+            render_prompt(probe, None), encoding="utf-8"
+        )
+        (out / "probes" / f"{probe['id']}.injected.md").write_text(
+            render_prompt(probe, injected_body), encoding="utf-8"
+        )
+        retrievals.append({"probe": probe["id"], "injected": top1, "expect": probe["expect"] or probe.get("expect_any")})
+        manifest_entries.append(
+            {
+                "probe": probe["id"],
+                "expect": probe["expect"] or probe.get("expect_any"),
+                "injected": top1,
+                "retrieval_mode": args.retrieval_mode,
+                "expected": probe["expected"],
+                "forbidden": probe["forbidden"],
+            }
+        )
+        marker = "ok" if (probe["expect"] is None or top1 == probe["expect"]) else f"retrieved {top1.split('.')[-1] if top1 else 'none'}"
+        print(f"probe {probe['id']}: injected={top1.split('.')[-1] if top1 else 'NONE'} ({marker})")
+    (out / "manifest.yaml").write_text(
+        yaml.safe_dump({"probes": manifest_entries}, allow_unicode=True, sort_keys=False),
+        encoding="utf-8",
+    )
+    (out / "protocol.md").write_text(PROTOCOL, encoding="utf-8")
+    (out / "emitted.json").write_text(
+        json.dumps(
+            {
+                "schema": "eval-decisions-emitted/1",
+                "generated": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
+                "fixtures": str(Path(args.fixtures).resolve()),
+                "retrieval_mode": args.retrieval_mode,
+                "store_root": args.store_root,
+                "probes": len(manifest_entries),
+                "retrievals": retrievals,
+            },
+            indent=1,
+        ),
+        encoding="utf-8",
+    )
+    print(f"emitted {len(manifest_entries)} probes to {out}; answering session follows {out/'protocol.md'}")
+
+
+def cmd_report(args) -> None:
+    src = Path(args.report_from)
+    manifest = yaml.safe_load((src / "manifest.yaml").read_text(encoding="utf-8"))
+    emitted = json.loads((src / "emitted.json").read_text(encoding="utf-8"))
+    verdicts, missing, invalid = [], [], []
+    for entry in manifest["probes"]:
+        pid = entry["probe"]
+        path = src / "answers" / f"{pid}.verdict.yaml"
+        if not path.exists():
+            missing.append(pid)
+            continue
+        v = yaml.safe_load(path.read_text(encoding="utf-8"))
+        problems = []
+        if v.get("probe") != pid:
+            problems.append("probe id mismatch")
+        if v.get("direction") not in DIRECTIONS:
+            problems.append(f"direction must be one of {DIRECTIONS}")
+        if not str(v.get("evidence", "")).strip():
+            problems.append("evidence quote required")
+        if not v.get("injected_decision", "").strip():
+            problems.append("injected_decision required")
+        if problems:
+            invalid.append({"probe": pid, "problems": problems})
+            continue
+        verdicts.append(
+            {
+                "probe": pid,
+                "expect": entry["expect"],
+                "injected": entry["injected"],
+                "direction": v["direction"],
+                "already_correct_blind": bool(v.get("already_correct_blind", False)),
+                "forbidden_triggered": bool(v.get("forbidden_triggered", False)),
+                "evidence": v["evidence"].strip(),
+            }
+        )
+    if missing:
+        fail("missing verdicts: " + ", ".join(missing) + f" (expected under {src/'answers'})")
+    if invalid:
+        for item in invalid:
+            print(f"invalid verdict {item['probe']}: {'; '.join(item['problems'])}", file=sys.stderr)
+        fail("invalid verdict records", 1)
+
+    counts = {d: sum(1 for v in verdicts if v["direction"] == d) for d in DIRECTIONS}
+    harmful = [v for v in verdicts if v["direction"] == "harmful"]
+    mismatches = [
+        r for r in emitted.get("retrievals", [])
+        if isinstance(r.get("expect"), str) and r.get("injected") != r["expect"]
+    ]
+    report = {
+        "schema": SCHEMA,
+        "generated": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
+        "fixtures": emitted.get("fixtures"),
+        "retrieval_mode": emitted.get("retrieval_mode"),
+        "store_root": emitted.get("store_root"),
+        "probes": len(verdicts),
+        "directions": counts,
+        "harmful": harmful,
+        "injection_source_mismatches": mismatches,
+        "verdicts": verdicts,
+    }
+    out_path = Path(args.out) if args.out else None
+    if out_path:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(report, indent=1, ensure_ascii=False), encoding="utf-8")
+
+    md = [
+        f"# Decision-probe run ({SCHEMA})",
+        "",
+        f"- Generated: {report['generated']}  |  probes: {report['probes']}  |  retrieval: {report['retrieval_mode']}",
+        f"- Directions: moved-toward **{counts['moved-toward']}**, no-change **{counts['no-change']}**, harmful **{counts['harmful']}**",
+        f"- Injection-source mismatches (retrieved practice differs from the catalog entry): {len(mismatches)}",
+        "",
+        "| probe | injected | direction | already-correct blind | evidence |",
+        "|---|---|---|---|---|",
+    ]
+    for v in verdicts:
+        ev = v["evidence"].replace("|", "\\|").splitlines()[0][:140]
+        md.append(
+            f"| `{v['probe']}` | `{(v['injected'] or 'none').split('.')[-1]}` | {v['direction']} | {'yes' if v['already_correct_blind'] else 'no'} | {ev} |"
+        )
+    report_text = "\n".join(md) + "\n"
+    if args.report:
+        rp = Path(args.report)
+        rp.parent.mkdir(parents=True, exist_ok=True)
+        rp.write_text(report_text, encoding="utf-8")
+    print(report_text)
+    print(f"artifact: {out_path or '(not written)'}; report: {args.report or '(not written)'}")
+    if harmful and args.fail_on_harmful:
+        raise SystemExit(1)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--fixtures", default="fixtures/agentic-coding/practice-catalog.yaml")
+    ap.add_argument("--emit-dir", metavar="DIR", help="emit probes + protocol + manifest into DIR")
+    ap.add_argument("--report-from", metavar="DIR", help="aggregate answers under DIR into a run artifact")
+    ap.add_argument("--lore", default="lore")
+    ap.add_argument("--store-root", default=None)
+    ap.add_argument("--retrieval-mode", default="keyword", choices=["keyword", "semantic"])
+    ap.add_argument("--only", default=None, help="comma-separated substrings; keep matching probe ids")
+    ap.add_argument("--limit", type=int, default=None, help="emit at most N probes")
+    ap.add_argument("--out", default=None, help="run JSON artifact path (with --report-from)")
+    ap.add_argument("--report", default=None, help="run Markdown report path (with --report-from)")
+    ap.add_argument("--fail-on-harmful", action="store_true", help="exit 1 when any verdict is harmful")
+    args = ap.parse_args()
+    if not args.emit_dir and not args.report_from:
+        ap.error("one of --emit-dir or --report-from is required")
+    if args.emit_dir and args.report_from:
+        ap.error("--emit-dir and --report-from are separate invocations")
+    if args.emit_dir:
+        fixtures = Path(args.fixtures)
+        if not fixtures.is_absolute():
+            fixtures = REPO_ROOT / fixtures
+        if not fixtures.exists():
+            fail(f"fixtures not found: {fixtures}")
+        probes = load_probes(fixtures)
+        if args.only:
+            keys = [k.strip() for k in args.only.split(",") if k.strip()]
+            probes = [p for p in probes if any(k in p["id"] for k in keys)] or fail("no probes match --only")
+        if args.limit:
+            probes = probes[: args.limit]
+        cmd_emit(args, probes)
+    else:
+        cmd_report(args)
+
+
+if __name__ == "__main__":
+    main()

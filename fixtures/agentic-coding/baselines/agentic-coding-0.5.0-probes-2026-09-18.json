@@ -1,0 +1,110 @@
+{
+ "schema": "eval-decisions-run/1",
+ "generated": "2026-09-18T15:25:31+08:00",
+ "fixtures": "E:\\lorelum-packs\\tmp\\catalog-050.yaml",
+ "retrieval_mode": "keyword",
+ "store_root": "tmp/eval-store-050",
+ "probes": 10,
+ "directions": {
+  "moved-toward": 2,
+  "no-change": 8,
+  "harmful": 0
+ },
+ "harmful": [],
+ "injection_source_mismatches": [],
+ "verdicts": [
+  {
+   "probe": "catalog.requirements.resolve-source-authority",
+   "expect": "agentic-coding.requirements.resolve-source-authority",
+   "injected": "agentic-coding.requirements.resolve-source-authority",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "\"The adopted seven-year policy is the controlling source for retention intent; the cleanup job and its green tests only show what exists today, so I would align the job and its tests with the seven-year policy and record the policy as controlling and the one-year code as outdated state.\"\n\"I would not treat the running job or its passing tests as authority over an adopted policy, nor pick the winner by recency, detail, or implementation convenience.\""
+  },
+  {
+   "probe": "catalog.planning.decide-scope-and-stop-conditions",
+   "expect": "agentic-coding.planning.decide-scope-and-stop-conditions",
+   "injected": "agentic-coding.planning.decide-scope-and-stop-conditions",
+   "direction": "moved-toward",
+   "already_correct_blind": false,
+   "forbidden_triggered": false,
+   "evidence": "\"I would commit only the failed-job email alert (and the one-filter task) with an observable finish condition — e.g., a failed job produces an email to the configured recipient, and the filter returns correct matches and empty results for the documented syntax — and label SMS, push, saved searches, and suggestion hooks out of scope on a named defer list, since nothing in the acceptance requires them.\"\n\"I would also write replanning signals, like the registry install becoming unverifiable or the filter forcing a public index migration, so genuine new facts can still reopen the plan.\""
+  },
+  {
+   "probe": "catalog.planning.plan-sufficient-evidence",
+   "expect": "agentic-coding.planning.plan-sufficient-evidence",
+   "injected": "agentic-coding.planning.plan-sufficient-evidence",
+   "direction": "moved-toward",
+   "already_correct_blind": false,
+   "forbidden_triggered": false,
+   "evidence": "\"Unit tests alone cannot distinguish a correct retry from a duplicate charge at the gateway boundary, so I would pair focused retry-state tests with one integration observation against a test payment endpoint for gateway idempotency, and record the blind spot — real gateway retry behavior — plus the trigger (a staging check) if that behavior differs.\"\n\"If no feasible evidence route exists, I would get the requirement owner's decision before implementing rather than proceed as if the must were verifiable.\""
+  },
+  {
+   "probe": "catalog.implementation.inspect-and-reuse-existing-capability",
+   "expect": "agentic-coding.implementation.inspect-and-reuse-existing-capability",
+   "injected": "agentic-coding.implementation.inspect-and-reuse-existing-capability",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "\"Before writing anything, I would open the dependency the other importer already uses and read its closest caller or test to confirm it preserves my constraints — encoded paths, host casing, platform-specific handling.\"\n\"If it does, I would reuse it directly or with a small adaptation and record the choice; only a demonstrated mismatch (a security boundary, semantic difference, or unsupported case) would justify new code.\""
+  },
+  {
+   "probe": "catalog.implementation.replan-on-material-drift",
+   "expect": "agentic-coding.implementation.replan-on-material-drift",
+   "injected": "agentic-coding.implementation.replan-on-material-drift",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "\"A fixture exceeding the response limit changes what is delivered (a synchronous response becomes temp files, retries, a queue, cleanup), how it can fail, and what must be checked, so I would pause the implementation and compare against the accepted plan instead of accreting fixes.\"\n\"I would avoid coding through the discrepancy one focused-test fix at a time until a sync endpoint quietly becomes a stateful background system the accepted plan never covered.\""
+  },
+  {
+   "probe": "catalog.testing.classify-failure-before-changing-test",
+   "expect": "agentic-coding.testing.classify-failure-before-changing-test",
+   "injected": "agentic-coding.testing.classify-failure-before-changing-test",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "\"Before touching the snapshot I would reproduce the failure and test the required keyboard navigation directly against the request, since the polished result may hide a removed behavior.\"\n\"Only if the change is confirmed cosmetic would I update the expectation — if the keyboard action is gone, that is a product defect to fix in the implementation, not a test to refresh.\""
+  },
+  {
+   "probe": "catalog.verification.map-evidence-to-acceptance",
+   "expect": "agentic-coding.verification.map-evidence-to-acceptance",
+   "injected": "agentic-coding.verification.map-evidence-to-acceptance",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "\"I would line every result up criterion-by-criterion: the calculation tests, build, static checks, and single submission cover their own criteria and act as gates, but the no-duplicate-on-retry row is \"not covered\" because no result retries a submission.\"\n\"I would then add a check that retries the booking request and observes exactly one reservation before claiming acceptance.\""
+  },
+  {
+   "probe": "catalog.review.run-subtractive-review-before-commit",
+   "expect": "agentic-coding.review.run-subtractive-review-before-commit",
+   "injected": "agentic-coding.review.run-subtractive-review-before-commit",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "\"I would remove the duplicate parser and wrapper, since nothing in the request justifies them, and reuse or merge into the existing capability.\"\n\"Before removing the service-level authorization and recovery marker, I would enumerate their callers and entry points and verify one path per trust boundary, because the upstream route guard does not protect direct callers and recovery protections have failure-path readers; then I would rerun the affected checks on the revised diff.\""
+  },
+  {
+   "probe": "catalog.delivery.claim-only-supported-outcome",
+   "expect": "agentic-coding.delivery.claim-only-supported-outcome",
+   "injected": "agentic-coding.delivery.claim-only-supported-outcome",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "\"I would claim exactly what was demonstrated: one queued edit now replays after reconnect with focused tests green — a repaired path within offline-sync, not \"offline sync complete,\" since conflict resolution and repeated reconnects were never exercised.\"\n\"The claim names the behavior, scope, and what remains untested.\""
+  },
+  {
+   "probe": "catalog.context.write-decision-dense-checkpoint",
+   "expect": "agentic-coding.context.write-decision-dense-checkpoint",
+   "injected": "agentic-coding.context.write-decision-dense-checkpoint",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "\"Before compaction I would record the controlling request — diagnosis only, implementation not authorized — the denial path as still unverified, the cache explanation labeled as an unconfirmed hypothesis, the results that still apply with their commits or files, and the next justified action (verifying the denial path, not coding the fix).\"\n\"I would avoid filling the checkpoint with recent command output, edited file names, and the promising fix because they feel concrete, letting an attractive hypothesis masquerade as a decision, or reconstructing the checkpoint from memory after context is already lost.\""
+  }
+ ],
+ "context": {
+  "note": "Pilot run against agentic-coding@0.5.0 @449da50 (PR #30 head, catalog fixture from that branch; store tmp/eval-store-050, fork Registry install). Answering sessions were fresh uncontaminated agent sessions per tmp protocol: blind phase, injected phase, scoring phase. 8/10 blind answers were already correct (strong-agent effect); the two moved-toward probes are the practices whose value is procedural detail; no injected answer triggered a forbidden behavior."
+ }
+}
