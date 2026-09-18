@@ -4,7 +4,7 @@ anti_patterns:
     id: agentic-coding.planning.uncapped-scope-promotion
     name: Uncapped scope promotion
     severity: warn
-applies_when: a plan is about to become committed work while some candidate items have no current reason, and adjacent improvements could extend execution without a recorded finish, defer, or replan boundary
+applies_when: committed work is about to begin and adjacent improvements could extend execution without a recorded finish, defer, or replan boundary, whether candidate items still lack admission reasons or the scope is already fixed
 id: agentic-coding.planning.decide-scope-and-stop-conditions
 severity: warn
 stage: planning
@@ -15,13 +15,13 @@ title: Decide Scope and Stop Conditions Before Work Begins
 
 ## When to apply
 
-Apply when candidate work items are about to become the committed plan. Admission labeling and stop
-conditions are two actions of the same pre-work scope decision: what is committed, what is deferred,
-and when execution stops are fixed together. If the committed scope is already fixed by the
-requester, accept those items as required and start at the finish conditions. If implementation has
-already revealed facts that change scope or risk, replan from the observed facts instead. This
-Practice does not decide how much validation depth a committed item deserves, or which values of an
-approved public surface may be exposed.
+Apply when candidate work items are about to become the committed plan, or when an already-fixed
+scope still lacks its execution boundary. Admission labeling and stop conditions are usually settled
+in one pass: what is committed, what is deferred, and when execution stops. If the committed scope
+is already fixed by the requester, accept those items as required and start at the finish
+conditions. If implementation has already revealed facts that change scope or risk, replan from the
+observed facts instead. This Practice does not decide how much validation depth a committed item
+deserves, or which values of an approved public surface may be exposed.
 
 ## Guidance
 

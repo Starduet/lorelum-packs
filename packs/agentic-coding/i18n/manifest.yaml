@@ -36,11 +36,11 @@ locales:
       - path: practices/implementation/validate-at-the-owning-boundary.md
         source_digest: sha256:856118e7aa6b5f45874a341ac08ad230f04ed2dc93c4a272ef63c457ae9bdb41
       - path: practices/planning/decide-scope-and-stop-conditions.md
-        source_digest: sha256:f5db938b8794321d4456d85e3f0c83ad135af915eedaaa20f7a4f1b2aec6cd17
+        source_digest: sha256:c4c6fe2b281a8751a740c33a0dac5f0a429fd8b75a584dc98d7cbc3eb84b8074
       - path: practices/planning/map-plan-to-user-capability.md
         source_digest: sha256:65cecda2dba123da62dbf01aa9bbef6a48737038a6068b5270b6990468bfc41f
       - path: practices/planning/plan-sufficient-evidence.md
-        source_digest: sha256:323f8ae443ca96a95dcfe1bacecf7db8ceefa09ea227ec1a7433f64290664232
+        source_digest: sha256:01b1fa10ac944da35fc4f97788f0e851fae754e79edfb81e385578bf888aafec
       - path: practices/planning/scale-work-to-risk-and-cost.md
         source_digest: sha256:162b2c9b390a2bdc5b3c9169ef618f5eb26626e375c505acba573610607790c1
       - path: practices/requirements/define-acceptance-and-non-goals.md

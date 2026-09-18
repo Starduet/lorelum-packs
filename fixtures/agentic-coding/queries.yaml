@@ -1,6 +1,6 @@
 fixture_set: agentic-coding-queries
 evaluation_only: true
-description: Retrieval query hypotheses for the 32 agentic-coding Practices; each Practice contributes 3 positive queries and 2 neighbor queries that are worded near that Practice but expected to select its nearest neighbor (per agentic-coding-practice-catalog). The merged planning.decide-scope-and-stop-conditions carries the query blocks of both predecessors (6 positive, 4 neighbor; two neighbors anchor its secondary neighbor implementation.confirm-product-surface-expansion). Query wording avoids restating Practice titles, applies_when, or guidance so keyword hits are not quotation matches. Not a runtime input or proof of retrieval quality.
+description: Retrieval query hypotheses for the 32 agentic-coding Practices; each Practice contributes 3 positive queries and 2 neighbor queries that are worded near that Practice but expected to select its nearest neighbor (per agentic-coding-practice-catalog). The merged planning.decide-scope-and-stop-conditions carries the query blocks of both predecessors plus one fixed-scope-entry positive (7 positive, 4 neighbor; two neighbors anchor its secondary neighbor implementation.confirm-product-surface-expansion). Query wording avoids restating Practice titles, applies_when, or guidance so keyword hits are not quotation matches. Not a runtime input or proof of retrieval quality.
 target_pack: agentic-coding@0.5.0
 top_k: 3
 min_top3: 0.90
@@ -186,6 +186,10 @@ queries:
     kind: positive
     expect: agentic-coding.planning.decide-scope-and-stop-conditions
     text: "what finished state and deferred list should I write down so this task can actually end instead of polishing the area forever"
+  - id: planning.decide-scope-and-stop-conditions.p4
+    kind: positive
+    expect: agentic-coding.planning.decide-scope-and-stop-conditions
+    text: "we already settled what this task includes with the requester; all I still need is to write down when it counts as done and which nearby ideas get deferred so it can actually end"
   - id: planning.define-stop-condition.n1
     kind: neighbor
     resembles: agentic-coding.planning.decide-scope-and-stop-conditions

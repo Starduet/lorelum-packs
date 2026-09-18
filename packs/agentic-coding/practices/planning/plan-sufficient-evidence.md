@@ -31,11 +31,14 @@ map the evidence instead.
 4. Use focused checks to reject bad approaches early; reserve integration, a representative
    environment, or human review for boundaries cheaper checks cannot represent.
 5. If no feasible evidence supports a must, get a decision from the requirement owner before
-   implementation begins: add the missing evidence route (for example a new environment), narrow the
-   must, or record it as explicitly unverifiable. Recording the gap alone does not authorize
-   implementing the must as if it could be verified.
+   implementation begins: add the missing evidence route (for example a new environment), narrow or
+   defer the must, remove it from the committed scope, or accept it as unverifiable with the risk
+   recorded. Recording the gap alone does not authorize implementing the must as if it could be
+   verified.
 
-Stop when every must has a sufficient evidence route or an explicitly declared gap.
+Stop when every must has a sufficient evidence route or a recorded owner decision — narrowed,
+deferred, de-committed, or accepted as unverifiable with its risk. A declared gap alone is not a
+stop.
 
 ## Anti-pattern
 
