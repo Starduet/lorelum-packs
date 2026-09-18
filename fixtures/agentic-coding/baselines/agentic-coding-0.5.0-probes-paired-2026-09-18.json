@@ -1,0 +1,110 @@
+{
+ "schema": "eval-decisions-run/1",
+ "generated": "2026-09-18T16:12:33+08:00",
+ "fixtures": "E:\\lorelum-packs\\tmp\\catalog-050.yaml",
+ "retrieval_mode": "keyword",
+ "store_root": "tmp/eval-store-050",
+ "probes": 10,
+ "directions": {
+  "moved-toward": 2,
+  "no-change": 8,
+  "harmful": 0
+ },
+ "harmful": [],
+ "injection_source_mismatches": [],
+ "verdicts": [
+  {
+   "probe": "catalog.implementation.validate-at-the-owning-boundary",
+   "expect": "agentic-coding.implementation.validate-at-the-owning-boundary",
+   "injected": "agentic-coding.implementation.validate-at-the-owning-boundary",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already identified the fact's owner and passed the established value through, retaining inner checks only for genuinely new boundaries; the injected answer stays correct and adds the retention conditions: \"An inner check stays only when something there could invalidate the earlier result (another entry point, untrusted deserialization, a transformation, concurrent mutation, expired authorization).\" It does not treat every function as a trust boundary or delete independent checks wholesale (\"removing existing checks without first establishing their callers and contract\" is explicitly avoided), so no forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.implementation.make-recovery-behavior-explicit",
+   "expect": "agentic-coding.implementation.make-recovery-behavior-explicit",
+   "injected": "agentic-coding.implementation.make-recovery-behavior-explicit",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already classified eligible failures, bounded the stale age to the accepted outage mode, and rejected empty-list substitution; the injected answer stays correct and names the single owner: \"the data client owns a single bounded retry, since the client already retries three times, the service must stop repeating whole client calls and multiplying the budget to nine requests\" and \"permission errors, decoding failures, and expired cache ... propagate as explicit failures with the actionable cause preserved.\" The accepted stale-read behavior is kept with its stated limit, so no forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.requirements.ground-user-goal",
+   "expect": "agentic-coding.requirements.ground-user-goal",
+   "injected": "agentic-coding.requirements.ground-user-goal",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already wrote the one-sentence result and used it to judge the work; the injected answer stays on the same decision and applies the sentence to both twins: \"The banner is the easiest nearby change, but it qualifies only if it produces the named result\" and \"adding a polished badge to the attractive dashboard while support staff still cannot search by the reference customers provide.\" No forbidden item is triggered (the easiest component is not treated as the requested result)."
+  },
+  {
+   "probe": "catalog.requirements.resolve-source-authority",
+   "expect": "agentic-coding.requirements.resolve-source-authority",
+   "injected": "agentic-coding.requirements.resolve-source-authority",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already recorded the controlling source and what the tests merely show; the injected answer (here the matched authority practice) stays correct and sharpens the mechanism: \"the adopted policy is the controlling source, while the cleanup job and its passing tests only show what exists today\" and \"if no rule resolved a material conflict, I would ask the responsible maintainer before coding.\" The decision itself is unchanged from blind, so this is no-change on an already-correct blind answer with no forbidden item triggered."
+  },
+  {
+   "probe": "catalog.requirements.define-acceptance-and-non-goals",
+   "expect": "agentic-coding.requirements.define-acceptance-and-non-goals",
+   "injected": "agentic-coding.requirements.define-acceptance-and-non-goals",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already listed both required install behaviors and excluded the platform extras; the injected answer stays correct with the explicit lists: \"an install with no override resolves the official registry; an install with an explicit repository override uses that custom registry registry\" with \"automatic mirror fallback, caching, authentication plugins, generic file/HTTP locators, multi-registry aggregation\" named as non-goals. Neither answer adds unsupported platform work or removes a required path, so no forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.planning.decide-scope-and-stop-conditions",
+   "expect": "agentic-coding.planning.decide-scope-and-stop-conditions",
+   "injected": "agentic-coding.planning.decide-scope-and-stop-conditions",
+   "direction": "moved-toward",
+   "already_correct_blind": false,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer got the scope decision and a finish condition but lacked the rubric's remaining expected elements; the injected answer adds them: \"record the deferred hooks by name on a defer list so discoveries during execution have a recorded place to go, and note the replanning signals that would legitimately reopen the plan,\" together with the explicit labeling \"required, optional, out of scope, or unresolved.\" The decision (email only, SMS/push and adjacent hooks out) is unchanged and no attractive abstraction is promoted into committed work, so no forbidden item is triggered — the movement is purely toward the expected stop-condition behavior."
+  },
+  {
+   "probe": "catalog.planning.scale-work-to-risk-and-cost",
+   "expect": "agentic-coding.planning.scale-work-to-risk-and-cost",
+   "injected": "agentic-coding.planning.scale-work-to-risk-and-cost",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already set validation and recovery effort from blast radius and reversibility in both directions; the injected answer stays on the same decision: \"the webhook signature change ... earns old-and-new compatibility checks, a representative consumer test, a staged cutover, and a rollback route\" while \"the reversible color fix in the same sprint needs only one focused check and review.\" No single familiar template is applied regardless of consequences, so no forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.planning.map-plan-to-user-capability",
+   "expect": "agentic-coding.planning.map-plan-to-user-capability",
+   "injected": "agentic-coding.planning.map-plan-to-user-capability",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already found the unowned steps and added them before coding; the injected answer performs the same actor-to-result walk and stays correct: \"The password-update and session-invalidation steps have no owner (screens and the API are stops on the path, not the destination), so I would add that missing work to the plan before coding.\" No forbidden item (calling completed screens/endpoints the complete capability) is triggered."
+  },
+  {
+   "probe": "catalog.planning.plan-sufficient-evidence",
+   "expect": "agentic-coding.planning.plan-sufficient-evidence",
+   "injected": "agentic-coding.planning.plan-sufficient-evidence",
+   "direction": "moved-toward",
+   "already_correct_blind": false,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer chose the right integration observation but never stated the blind spot or the escalation trigger; the injected answer adds all the expected elements: \"recording the blind spot — the real gateway's retry behavior — and escalating to a controlled staging check only if that behavior differs,\" plus the owner-decision route when no feasible evidence exists. No forbidden item is triggered — convenient checks are explicitly not accepted as evidence at the boundary where the required behavior can fail."
+  },
+  {
+   "probe": "catalog.implementation.inspect-and-reuse-existing-capability",
+   "expect": "agentic-coding.implementation.inspect-and-reuse-existing-capability",
+   "injected": "agentic-coding.implementation.inspect-and-reuse-existing-capability",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already inspected-before-building and chose reuse; the injected answer stays correct and bounds the search: \"read the caller or test closest to my intended use to decide whether it preserves my required constraint, and check the one declared dependency most likely to provide it\" with the stop rule \"avoid ... cataloging every vaguely similar helper past the point where the evidence supports one choice.\" No forbidden item (reimplementing under deadline pressure, or searching past the decision point) is triggered."
+  }
+ ],
+ "context": {
+  "note": "Paired half against agentic-coding@0.5.0 @449da50 (store tmp/eval-store-050). Methodology identical to agentic-coding-0.4.0-probes-2026-09-18.json; replaces the pilot's separate-responder comparison with a true paired design. Divergence from the 0.4.0 half is exactly one probe: catalog.planning.decide-scope-and-stop-conditions (no-change -> moved-toward)."
+ }
+}

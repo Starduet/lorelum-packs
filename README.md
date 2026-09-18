@@ -136,6 +136,8 @@ python scripts/eval-decisions --report-from tmp/probes \
 
 Each probe is scored `moved-toward` (injection moved the decision toward the fixture's `expected_behavior` without triggering `forbidden_behavior`), `no-change` (blind answer already correct, or injection did not materially change it), or `harmful`. Probes are a directional smoke test, not behavioral proof: they cover single decisions, not multi-turn tasks, and scoring is judgment with quoted evidence rather than measurement. Benchmark runs stay reserved for release-level validation.
 
+To compare two pack versions, emit the same fixtures twice (one `--store-root` per version) and have one fresh answering session answer the blind prompts once, then each version's injected prompts, then score both — blind prompts are byte-identical, so the responder drops out of the comparison. Recorded example: `fixtures/agentic-coding/baselines/agentic-coding-probes-paired-delta-2026-09-18.md`. Two calibrations from that run: advisory-mode `0 harmful` is weak evidence (a responder with a correct blind answer rejects even corrupted injections — verify sensitivity with a corrupted-body control), and re-asking with "a team practice you have decided to follow" (compliance framing) scores the content directly; a corrupted body comes out `harmful` only under that framing.
+
 ## Repository layout
 
 ```text

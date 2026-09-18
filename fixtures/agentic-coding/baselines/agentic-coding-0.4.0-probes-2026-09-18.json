@@ -1,0 +1,121 @@
+{
+ "schema": "eval-decisions-run/1",
+ "generated": "2026-09-18T16:12:33+08:00",
+ "fixtures": "E:\\lorelum-packs\\tmp\\catalog-050.yaml",
+ "retrieval_mode": "keyword",
+ "store_root": "tmp/eval-store-040",
+ "probes": 10,
+ "directions": {
+  "moved-toward": 1,
+  "no-change": 9,
+  "harmful": 0
+ },
+ "harmful": [],
+ "injection_source_mismatches": [
+  {
+   "probe": "catalog.requirements.resolve-source-authority",
+   "injected": "agentic-coding.review.run-subtractive-review-before-commit",
+   "expect": "agentic-coding.requirements.resolve-source-authority"
+  },
+  {
+   "probe": "catalog.planning.decide-scope-and-stop-conditions",
+   "injected": "agentic-coding.planning.admit-only-currently-justified-work",
+   "expect": "agentic-coding.planning.decide-scope-and-stop-conditions"
+  }
+ ],
+ "verdicts": [
+  {
+   "probe": "catalog.implementation.validate-at-the-owning-boundary",
+   "expect": "agentic-coding.implementation.validate-at-the-owning-boundary",
+   "injected": "agentic-coding.implementation.validate-at-the-owning-boundary",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already identified the fact's owner and passed the established value through, retaining inner checks only for genuinely new boundaries; the injected answer stays correct and adds the retention conditions: \"Inner checks stay only for a distinct condition the adapter cannot establish (business rules where state is owned, a database constraint against concurrent inserts, a new untrusted entry point).\" It does not treat every function as a trust boundary or delete independent checks wholesale (\"removing existing checks without first establishing their callers and contract\" is explicitly avoided), so no forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.implementation.make-recovery-behavior-explicit",
+   "expect": "agentic-coding.implementation.make-recovery-behavior-explicit",
+   "injected": "agentic-coding.implementation.make-recovery-behavior-explicit",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already classified eligible failures, bounded the stale age to the accepted outage mode, and rejected the empty-list substitution; the injected answer stays correct and names the single owner: \"the data client owns a single bounded retry ... the service must stop repeating the whole call and multiplying the budget to nine requests\" and \"permission denials, decoding failures, and expired cache remain explicit failures that propagate rather than becoming an empty list or fake-zero result.\" The accepted stale-read behavior is kept with its stated limit, so no forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.requirements.ground-user-goal",
+   "expect": "agentic-coding.requirements.ground-user-goal",
+   "injected": "agentic-coding.requirements.ground-user-goal",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already wrote the affected person's observable result as a sentence and used it to judge the banner change; the injected answer stays on the same decision: \"That sentence is the comparison point for every later decision, and it immediately shows that changing only the generic error banner would not advance the result.\" No forbidden item is triggered (the easiest component is explicitly not treated as the result)."
+  },
+  {
+   "probe": "catalog.requirements.resolve-source-authority",
+   "expect": "agentic-coding.requirements.resolve-source-authority",
+   "injected": "agentic-coding.review.run-subtractive-review-before-commit",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The injected practice was off-target (subtractive review, not source authority), and the answer kept the correct blind decision while explicitly declining to follow it: \"The retrieved practice ('Remove Unneeded Changes Before Commit') is about diff hygiene at commit time and does not really answer which source wins.\" The controlling source is still recorded (\"The adopted policy is the authoritative source here\") and no forbidden override by tests or cheaper code occurs, so this is no-change on an already-correct blind answer."
+  },
+  {
+   "probe": "catalog.requirements.define-acceptance-and-non-goals",
+   "expect": "agentic-coding.requirements.define-acceptance-and-non-goals",
+   "injected": "agentic-coding.requirements.define-acceptance-and-non-goals",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already listed both required install behaviors and named the platform extras as out of scope; the injected answer stays correct and merely makes the lists explicit: \"Done when an install with no override resolves the official registry, and an install with an explicit repository override uses that custom repository registry\" with \"automatic mirror fallback, caching, authentication hooks, generic file/HTTP locators, multi-registry aggregation\" as non-goals. Neither answer measures completion by reusable architecture or a small diff, so no forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.planning.decide-scope-and-stop-conditions",
+   "expect": "agentic-coding.planning.decide-scope-and-stop-conditions",
+   "injected": "agentic-coding.planning.admit-only-currently-justified-work",
+   "direction": "no-change",
+   "already_correct_blind": false,
+   "forbidden_triggered": false,
+   "evidence": "The injected answer formalizes the labels (\"failure detection, email delivery, and unsubscribe handling are required by the alert need; SMS and push are out of scope because an unused multi-channel interface is not a current requirement\") but the decision is the same as blind and the rubric's distinctive missing elements — deferred adjacent opportunities recorded on a defer list and named replanning signals — are still absent, so the injection did not materially change the decision. The blind answer was substantively right on scope and finish but lacked those elements, hence already_correct_blind: false under a strict reading. No forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.planning.scale-work-to-risk-and-cost",
+   "expect": "agentic-coding.planning.scale-work-to-risk-and-cost",
+   "injected": "agentic-coding.planning.scale-work-to-risk-and-cost",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already set validation and recovery effort from blast radius and reversibility in both directions; the injected answer stays on the same decision: \"the webhook signature change can break every existing receiver and block deliveries, so its plan gets old-and-new compatibility checks, a representative consumer test, a staged cutover, and a rollback route\" while \"the reversible color fix gets only the light focused test.\" No single familiar template is applied regardless of consequences, so no forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.planning.map-plan-to-user-capability",
+   "expect": "agentic-coding.planning.map-plan-to-user-capability",
+   "injected": "agentic-coding.planning.map-plan-to-user-capability",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already identified the unowned required steps (password update, session invalidation) and added them; the injected answer performs the same trace more explicitly and stays correct: \"Mapping each task to the step it enables shows the update and invalidation steps have no owner, so I would add that work before coding instead of calling the token service the whole capability.\" No forbidden item (calling completed endpoints the whole capability) is present."
+  },
+  {
+   "probe": "catalog.planning.plan-sufficient-evidence",
+   "expect": "agentic-coding.planning.plan-sufficient-evidence",
+   "injected": "agentic-coding.planning.plan-sufficient-evidence",
+   "direction": "moved-toward",
+   "already_correct_blind": false,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer chose the right integration observation but never stated the blind spot or the trigger for stronger evidence; the injected answer adds both expected elements: \"one integration observation against a test payment endpoint that exercises the gateway's idempotency behavior on a retried request, escalating to a controlled staging check only if the real gateway's retry behavior differs from the test endpoint,\" plus the explicit rule that \"convenient checks\" cannot substitute for evidence at the boundary where the behavior can fail. No forbidden item is triggered."
+  },
+  {
+   "probe": "catalog.implementation.inspect-and-reuse-existing-capability",
+   "expect": "agentic-coding.implementation.inspect-and-reuse-existing-capability",
+   "injected": "agentic-coding.implementation.inspect-and-reuse-existing-capability",
+   "direction": "no-change",
+   "already_correct_blind": true,
+   "forbidden_triggered": false,
+   "evidence": "The blind answer already inspected-before-building and chose reuse; the injected answer stays correct and adds the bounded-search discipline: \"read one representative call site or test only if it could change whether that dependency preserves the required semantics\" and \"I would avoid ... cataloging every vaguely similar helper.\" No forbidden item (reimplementing under deadline pressure, or continuing to search after the evidence supports a decision) is triggered."
+  }
+ ],
+ "context": {
+  "note": "Paired half against agentic-coding@0.4.0 (store tmp/eval-store-040), same 10 probes and byte-identical blind prompts as the 0.5.0 paired run (agentic-coding-0.5.0-probes-paired-2026-09-18.json); a single fresh answering agent answered blind once, then all 0.4.0 injected prompts, then all 0.5.0 injected prompts, then scored both against the same manifest rubrics. Two injections differ from the 0.5.0 run by design (see paired-delta note)."
+ }
+}
