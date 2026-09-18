@@ -1,7 +1,7 @@
 {
  "schema": "eval-queries-run/1",
  "note": "Evaluation-only evidence: observed retrieval selection for the fixture queries on one machine and one Pack revision. It is not a claim about content quality, other queries, other modes that were unavailable, or downstream Agent behavior.",
- "generated": "2026-09-17T08:10:55+00:00",
+ "generated": "2026-09-18T02:42:57+00:00",
  "fixture_set": "agentic-coding-queries",
  "fixtures_path": "fixtures\\agentic-coding\\queries.yaml",
  "pack": {
@@ -18,7 +18,7 @@
  "fetch_k": 5,
  "limit": null,
  "totals": {
-  "runnable": 165,
+  "runnable": 166,
   "skipped": 0
  },
  "skipped": [],
@@ -40,8 +40,8 @@
    "state": "ok",
    "metrics": {
     "positive": {
-     "n": 99,
-     "top1_rate": 0.9596,
+     "n": 100,
+     "top1_rate": 0.96,
      "top3_rate": 1.0
     },
     "neighbor": {
@@ -256,6 +256,7 @@
        3,
        1,
        2,
+       1,
        1
       ],
       "top1": true,
@@ -704,7 +705,7 @@
       "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability",
       "agentic-coding.review.run-subtractive-review-before-commit",
-      "agentic-coding.implementation.choose-smallest-sufficient-design"
+      "agentic-coding.planning.plan-sufficient-evidence"
      ],
      "hit_rank": 1,
      "error": null
@@ -781,8 +782,8 @@
      "text": "how do I stop nice-to-have refactors and future-proofing hooks from sneaking into the committed plan for a small registry addition",
      "hits": [
       "agentic-coding.planning.decide-scope-and-stop-conditions",
-      "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.requirements.define-acceptance-and-non-goals",
+      "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.implementation.replan-on-material-drift",
       "agentic-coding.implementation.choose-smallest-sufficient-design"
      ],
@@ -814,8 +815,8 @@
      "hits": [
       "agentic-coding.implementation.confirm-product-surface-expansion",
       "agentic-coding.implementation.choose-smallest-sufficient-design",
-      "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.planning.map-plan-to-user-capability",
+      "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.implementation.replan-on-material-drift"
      ],
      "hit_rank": 1,
@@ -1126,6 +1127,22 @@
      "error": null
     },
     {
+     "id": "planning.decide-scope-and-stop-conditions.p4",
+     "kind": "positive",
+     "expect": "agentic-coding.planning.decide-scope-and-stop-conditions",
+     "resembles": null,
+     "text": "we already settled what this task includes with the requester; all I still need is to write down when it counts as done and which nearby ideas get deferred so it can actually end",
+     "hits": [
+      "agentic-coding.planning.decide-scope-and-stop-conditions",
+      "agentic-coding.requirements.ground-user-goal",
+      "agentic-coding.verification.map-evidence-to-acceptance",
+      "agentic-coding.planning.plan-sufficient-evidence",
+      "agentic-coding.planning.map-plan-to-user-capability"
+     ],
+     "hit_rank": 1,
+     "error": null
+    },
+    {
      "id": "planning.define-stop-condition.n1",
      "kind": "neighbor",
      "expect": "agentic-coding.implementation.replan-on-material-drift",
@@ -1325,8 +1342,8 @@
      "text": "the importer must treat a missing description as absent or empty and both currently pass; I will pick one locally, so how should I record that choice",
      "hits": [
       "agentic-coding.implementation.surface-unconfirmed-assumptions",
-      "agentic-coding.implementation.preserve-responsibility-boundaries",
       "agentic-coding.implementation.replan-on-material-drift",
+      "agentic-coding.implementation.preserve-responsibility-boundaries",
       "agentic-coding.implementation.make-recovery-behavior-explicit",
       "agentic-coding.implementation.choose-smallest-sufficient-design"
      ],
@@ -1392,7 +1409,7 @@
       "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.implementation.surface-unconfirmed-assumptions",
       "agentic-coding.implementation.replan-on-material-drift",
-      "agentic-coding.verification.close-or-declare-evidence-gaps"
+      "agentic-coding.implementation.choose-smallest-sufficient-design"
      ],
      "hit_rank": 1,
      "error": null
@@ -1408,7 +1425,7 @@
       "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.testing.assert-observable-behavior",
       "agentic-coding.context.give-delegated-agents-decision-context",
-      "agentic-coding.requirements.define-acceptance-and-non-goals"
+      "agentic-coding.requirements.resolve-source-authority"
      ],
      "hit_rank": 1,
      "error": null
@@ -1518,8 +1535,8 @@
      "hits": [
       "agentic-coding.implementation.choose-smallest-sufficient-design",
       "agentic-coding.review.run-subtractive-review-before-commit",
-      "agentic-coding.implementation.replan-on-material-drift",
       "agentic-coding.testing.classify-failure-before-changing-test",
+      "agentic-coding.implementation.replan-on-material-drift",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability"
      ],
      "hit_rank": 1,
@@ -1791,8 +1808,8 @@
       "agentic-coding.implementation.choose-smallest-sufficient-design",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability",
       "agentic-coding.implementation.make-recovery-behavior-explicit",
-      "agentic-coding.implementation.surface-unconfirmed-assumptions",
-      "agentic-coding.implementation.validate-at-the-owning-boundary"
+      "agentic-coding.implementation.validate-at-the-owning-boundary",
+      "agentic-coding.implementation.surface-unconfirmed-assumptions"
      ],
      "hit_rank": 1,
      "error": null
@@ -2173,8 +2190,8 @@
      "text": "the failing test has not been reproduced or sorted by cause yet, so the durable behavior and recurrence risk are still unknown",
      "hits": [
       "agentic-coding.testing.justify-regression-protection",
-      "agentic-coding.planning.scale-work-to-risk-and-cost",
       "agentic-coding.delivery.report-material-residuals",
+      "agentic-coding.planning.scale-work-to-risk-and-cost",
       "agentic-coding.testing.classify-failure-before-changing-test",
       "agentic-coding.implementation.inspect-and-reuse-existing-capability"
      ],
@@ -2383,8 +2400,8 @@
       "agentic-coding.verification.close-or-declare-evidence-gaps",
       "agentic-coding.testing.classify-failure-before-changing-test",
       "agentic-coding.requirements.define-acceptance-and-non-goals",
-      "agentic-coding.verification.bind-evidence-to-artifact-state",
-      "agentic-coding.planning.decide-scope-and-stop-conditions"
+      "agentic-coding.planning.decide-scope-and-stop-conditions",
+      "agentic-coding.verification.bind-evidence-to-artifact-state"
      ],
      "hit_rank": 1,
      "error": null
@@ -2447,8 +2464,8 @@
       "agentic-coding.review.validate-findings-before-action",
       "agentic-coding.requirements.resolve-source-authority",
       "agentic-coding.testing.classify-failure-before-changing-test",
-      "agentic-coding.implementation.choose-smallest-sufficient-design",
-      "agentic-coding.implementation.confirm-product-surface-expansion"
+      "agentic-coding.implementation.confirm-product-surface-expansion",
+      "agentic-coding.implementation.choose-smallest-sufficient-design"
      ],
      "hit_rank": 1,
      "error": null
@@ -2512,7 +2529,7 @@
       "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.recovery.reground-after-context-loss",
       "agentic-coding.verification.bind-evidence-to-artifact-state",
-      "agentic-coding.verification.close-or-declare-evidence-gaps"
+      "agentic-coding.recovery.validate-handoff-before-continuation"
      ],
      "hit_rank": 4,
      "error": null
@@ -2688,7 +2705,7 @@
       "agentic-coding.planning.decide-scope-and-stop-conditions",
       "agentic-coding.implementation.make-recovery-behavior-explicit",
       "agentic-coding.planning.scale-work-to-risk-and-cost",
-      "agentic-coding.planning.plan-sufficient-evidence"
+      "agentic-coding.implementation.limit-investigation-to-current-decision"
      ],
      "hit_rank": 1,
      "error": null
@@ -3136,7 +3153,7 @@
       "agentic-coding.delivery.claim-only-supported-outcome",
       "agentic-coding.review.run-subtractive-review-before-commit",
       "agentic-coding.recovery.reground-after-context-loss",
-      "agentic-coding.planning.plan-sufficient-evidence"
+      "agentic-coding.planning.map-plan-to-user-capability"
      ],
      "hit_rank": 1,
      "error": null

@@ -1,12 +1,12 @@
 # Retrieval evaluation: agentic-coding-queries vs agentic-coding@0.5.0
 
-- Generated: 2026-09-17T08:10:55+00:00  |  lore 0.1.0-alpha.2  |  mode(s): keyword  |  top-k threshold: 3
-- Store: tmp\eval-store-050  |  Queries: 165 runnable, 0 skipped
-- Install source: `Starduet/lorelum-packs` fork Registry (pre-merge evaluation), ref `agentic-coding-v0.5.0` @ `2053c44`, tree identical to the PR branch
+- Generated: 2026-09-18T02:42:57+00:00  |  lore 0.1.0-alpha.2  |  mode(s): keyword  |  top-k threshold: 3
+- Store: tmp\eval-store-050  |  Queries: 166 runnable, 0 skipped
+- Install source: `Starduet/lorelum-packs` fork Registry (pre-merge evaluation), ref `agentic-coding-v0.5.0` @ `449da50`, tree identical to the PR branch
 
 ## keyword — gate PASSED (positive top-3 100.0% vs fixture minimum 90.0%)
 
-- Positive queries: top-1 96.0% (99 queries), top-3 100.0%
+- Positive queries: top-1 96.0% (100 queries), top-3 100.0%
 - Neighbor queries: expected selected top-1 62.1% (66 queries), in top-3 90.9%, trap top-1 (query selects the Practice it resembles) 19.7%
 
 Most confused neighbor selections (queries worded near 'resembles' that selected 'actual top-1' instead of the expected neighbor):
