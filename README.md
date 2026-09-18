@@ -10,7 +10,7 @@ This repository is the official public catalog for installable Lorelum Knowledge
   - [简体中文本地化](./packs/pack-creator/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `react-web-craft@0.1.0` — 24 Practices for React web application design and performance across component state, async data flow, code loading, rendering, and component composition.
   - [简体中文本地化](./packs/react-web-craft/i18n/zh-CN/README.md) is available as non-runtime companion content.
-- `agentic-coding@0.5.0` — unreleased candidate with 32 decision-focused Practices rewritten as step-style decision procedures with severity tiers (critical/warn/info). The latest published release remains `0.3.1` until a new immutable ref and Registry entry exist.
+- `agentic-coding@0.5.0` — unreleased candidate with 32 decision-focused Practices rewritten as step-style decision procedures with severity tiers (critical/warn/info). The latest published release is `0.4.0` (tag `agentic-coding-v0.4.0` + Registry entry); `0.5.0` publishes when its tag is cut at the reviewed merge commit and its Registry entry lands in the follow-up chore PR.
   - [简体中文本地化](./packs/agentic-coding/i18n/zh-CN/README.md) is available as non-runtime companion content.
 
 ## Use Packs
@@ -44,10 +44,10 @@ lore pack install agentic-coding
 # Use `@version` to select an exact release.
 lore pack install <pack>
 lore pack install <pack>@<version>
-lore pack install agentic-coding@0.3.1
+lore pack install agentic-coding@0.4.0
 lore pack update <pack>
 lore pack update <pack>@<version>
-lore pack update agentic-coding@0.3.1
+lore pack update agentic-coding@0.4.0
 ```
 
 Omit `@version` to resolve the Registry's latest stable release. `install` is for a new Pack; use
@@ -66,7 +66,7 @@ lore pack remove agentic-coding
 Another public GitHub repository can expose the same layout and be selected explicitly:
 
 ```sh
-lore pack install agentic-coding@0.3.1 --registry owner/repository
+lore pack install agentic-coding@0.4.0 --registry owner/repository
 lore pack update agentic-coding --registry owner/repository
 
 # The global --store-root option can appear before or after the Pack command.

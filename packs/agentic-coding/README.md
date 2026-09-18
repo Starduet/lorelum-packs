@@ -35,8 +35,8 @@ This Pack is not a workflow engine, task manager, test framework, compactor, aut
 
 ## Release history
 
-- `0.5.0` is an unreleased candidate rewriting every Practice as a step-style decision procedure with an explicit stop, merging the two pre-work scope Practices into `decide-scope-and-stop-conditions` (33 to 32 entries), tiering severity into critical/warn/info, and retuning `applies_when` against the #17 keyword retrieval baseline. Publishing still requires an immutable release ref and Registry entry; this source version is not an installability claim.
-- `0.4.0` is an unreleased candidate adding two independent validation and recovery Practices and refining seven existing entries against unnecessary defensive complexity.
+- `0.5.0` is an unreleased candidate rewriting every Practice as a step-style decision procedure with an explicit stop, merging the two pre-work scope Practices into `decide-scope-and-stop-conditions` (33 to 32 entries), tiering severity into critical/warn/info, and retuning `applies_when` against the #17 keyword retrieval baseline. Publishing still requires the immutable release ref (`agentic-coding-v0.5.0`) and the Registry entry, which land separately after this change is merged; this source version is not an installability claim.
+- `0.4.0` adds two independent validation and recovery Practices and refines seven existing entries against unnecessary defensive complexity (tag `agentic-coding-v0.4.0` + Registry entry).
 - `0.3.1` adds a Practice that limits repository investigation to sources that can change the current decision and clarifies source roles without making broad reading a default.
 - `0.3.0` rewrites the Pack for clearer standalone retrieval and adds a Practice for giving delegated Agents the decisions they need to preserve scope and quality.
 - `0.2.0` is the immutable first complete 29-Practice release.
