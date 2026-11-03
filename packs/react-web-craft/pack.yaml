@@ -1,5 +1,5 @@
 name: react-web-craft
-version: 0.1.0
+version: 0.1.1
 description: Practices for React web application design and performance across component state, async data flow, loading, rendering, and component composition.
 author:
   name: Lorelum

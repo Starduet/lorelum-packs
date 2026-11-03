@@ -1,6 +1,6 @@
 # Pack Creator
 
-`pack-creator@0.2.0` is a published, domain-neutral Knowledge Pack for creating Lorelum Packs whose Practices can be retrieved independently, understood by humans, used as repository-local project layers or versioned releases, evaluated without confusing format success with semantic or behavioral quality, and supplemented with safely routed Pack-native resources.
+`pack-creator@0.2.1` is a domain-neutral Knowledge Pack for creating Lorelum Packs whose Practices can be retrieved independently, understood by humans, used as repository-local project layers or versioned releases, evaluated without confusing format success with semantic or behavioral quality, and supplemented with safely routed Pack-native resources.
 
 Canonical English · [简体中文 companion](./i18n/zh-CN/README.md)
 
@@ -36,6 +36,7 @@ Read [the project-local Pack guide](resource:references/project-local-packs.md) 
 
 - `0.1.0` is the published first release.
 - `0.2.0` is the immutable release at `pack-creator-v0.2.0`, available through the official Registry after the canonical content, localization, fixtures, and local-layer evidence were reviewed.
+- `0.2.1` revises the guidance for readability and completes the project-local starter and resource checklist.
 
 ## Release evidence status
 

@@ -1,6 +1,6 @@
 # `agentic-coding` 简体中文阅读版
 
-这里是未发布工作树 `agentic-coding@0.8.0` 的 39 条 Practice 中文阅读版。本次新增工程结论汇报与具体表达两条；已发布的 `0.7.0` 仍是原有 37 条，不可变发布内容没有改写。中文内容不参与安装、检索或运行时注入。ID、元数据、反模式 ID 和运行时行为仍以 [`../../practices`](../../practices/) 中的英文 canonical 文件为唯一真源；中英文有冲突时，以英文为准。
+这里是 `agentic-coding@0.8.0` 的 39 条 Practice 中文阅读版。本版新增工程结论汇报与具体表达两条；`0.7.0` 仍是原有 37 条，不可变发布内容没有改写。中文内容不参与安装、检索或运行时注入。ID、元数据、反模式 ID 和运行时行为仍以 [`../../practices`](../../practices/) 中的英文 canonical 文件为唯一真源；中英文有冲突时，以英文为准。
 
 ## Pack 简介
 
@@ -12,7 +12,7 @@
 
 `agentic-coding-v0.5.0` 已作为不可变 ref 通过官方 Registry 发布。2026 年 9 月 21 日已用官方安装路径解析该 ref、完成 Pack 解码并读回 34 条 Practice；这只证明安装与物化链路，不证明检索效果或下游 Agent 行为。`agentic-coding-v0.5.1` 为仅元数据发布：目录描述改写以点名 0.5.0 新增的两条规划校准 Practice 的触发时刻，Practice 内容不变；2026 年 9 月 21 日已用官方安装路径解析该 ref（`954324c`）、完成解码并回读 34 条 Practice ID。
 
-## 未发布 0.8.0：向开发者讲清工程结论
+## 0.8.0：向开发者讲清工程结论
 
 - [先把工程结论告诉开发者](practices/delivery/lead-with-engineering-conclusion.md)：先说排查结论、方案建议、实现结果或实际进度，把决定下一步的重要限制放在旁边，再给理由和证据。
 - [用具体动作讲清工程工作](practices/delivery/explain-engineering-work-plainly.md)：说出组件做了什么、为什么有用，不用“机制落地”“生命周期闭环”等标签代替解释；保留准确术语、原文和不确定性。
@@ -20,8 +20,6 @@
 领域仅限软件工程协作，不是生活问答。已有的完成声明与遗留问题规则仍分别决定“可以声称什么”和“哪些问题必须报告”，这两条不替代它们，也不强制每次回复套模板。
 
 先看[中文工程改写对照](../../references/engineering-communication.md)，包括并发刷新、索引取舍、未确认的超时原因和一句话范围答复。示例事实均为构造；[首批效果记录](../../../../fixtures/agentic-coding/baselines/engineering-communication-2026-11-02.md)另列当时实际生成的回答及限制，不代表后续全库改稿的效果。
-
-当前内容只可按本地路径安装到隔离 Store 后读取，未新增 Registry 或 tag；下文的官方安装命令仍对应已发布 `0.7.0`。
 
 ## 0.7.0：把工作经验落到具体判断
 
@@ -32,7 +30,7 @@
 
 [内容采用记录](../../../../fixtures/agentic-coding/baselines/agentic-coding-0.7.0-content-2026-10-30.md)区分维护者经验、作者综合和实际验证。有限实现与报告探针可用，但未测出优于对照指导或公开 Skill 的效果。不宣称市场范围的新颖性、模型更新后的频率增长、无损交接、稳定自动触发或普遍领先。
 
-新安装执行 `lore pack install agentic-coding@0.7.0`，已有安装执行 `lore pack update agentic-coding`，Registry 默认选择最新稳定版本。
+新安装执行 `lore pack install agentic-coding@0.8.0`，已有安装执行 `lore pack update agentic-coding`，Registry 默认选择最新稳定版本。
 [0.7.0 正式发布验证](../../../../fixtures/agentic-coding/baselines/agentic-coding-0.7.0-release-2026-10-30.md)记录官方 Registry 精确安装、从 `0.6.0` 的默认更新、37 条 ID 回读和两条新正文一致性；首次下载失败也保留记录。分发成功不证明稳定触发或下游效果改善。
 
 ## 校验与恢复决策

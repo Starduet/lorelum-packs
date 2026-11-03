@@ -1,6 +1,6 @@
 # Issue and Pull Request Etiquette
 
-`issue-pr-etiquette@0.1.0` is a domain-neutral Knowledge Pack for contributors and Agents who file issues, open pull requests, and take part in reviews on GitHub-hosted engineering repositories. Each Practice captures one recurring decision: what a single issue owns, what evidence justifies it, how a PR body is made verifiable, and how review feedback and AI assistance are communicated honestly.
+`issue-pr-etiquette@0.1.1` is a domain-neutral Knowledge Pack for contributors and Agents who file issues, open pull requests, and take part in reviews on GitHub-hosted engineering repositories. Each Practice captures one recurring decision: what a single issue owns, what evidence justifies it, how a PR body is made verifiable, and how review feedback and AI assistance are communicated honestly.
 
 Canonical English · [简体中文 companion](./i18n/zh-CN/README.md)
 
@@ -17,5 +17,6 @@ This Pack is not a GitHub tutorial, a replacement for a repository's own contrib
 ## Release history
 
 - `0.1.0` is the first release. Its tag is created only after canonical content, localization, and fixtures are verified; installability is claimed only after that tag succeeds through the official Registry path.
+- `0.1.1` revises the English and Chinese guidance for readability; the first release remains unchanged.
 
 See [SOURCES.md](./SOURCES.md) for provenance and synthesis boundaries.

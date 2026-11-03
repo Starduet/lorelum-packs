@@ -1,6 +1,6 @@
 # Issue 与 Pull Request 礼仪
 
-`issue-pr-etiquette@0.1.0` 是一个面向贡献者和 Agent 的领域中立知识包，使用场景是在 GitHub 托管的工程仓库中提 issue、开 pull request 和参与评审。每条 Practice 固化一个反复出现的决策：一个 issue 应当只拥有什么问题、什么证据能支撑它、PR 正文如何写得可验证、评审反馈与 AI 辅助如何诚实地沟通。
+`issue-pr-etiquette@0.1.1` 是一个面向贡献者和 Agent 的领域中立知识包，使用场景是在 GitHub 托管的工程仓库中提 issue、开 pull request 和参与评审。每条 Practice 固化一个反复出现的决策：一个 issue 应当只拥有什么问题、什么证据能支撑它、PR 正文如何写得可验证、评审反馈与 AI 辅助如何诚实地沟通。
 
 Canonical English · 当前为简体中文配套阅读版
 
@@ -17,5 +17,6 @@ Canonical English · 当前为简体中文配套阅读版
 ## 发布历史
 
 - `0.1.0` 为首个版本。只有在 canonical 内容、本地化与 fixtures 均验证通过后才创建 tag；只有该 tag 通过官方 Registry 路径安装成功后，才声称可安装。
+- `0.1.1` 优化中英文指导的可读性；首个发布版本保持不变。
 
 溯源与综合边界见 [SOURCES.md](../../../SOURCES.md)。

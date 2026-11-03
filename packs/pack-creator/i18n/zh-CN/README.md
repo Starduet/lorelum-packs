@@ -1,6 +1,6 @@
 # `pack-creator` 简体中文审阅版
 
-这里是 `pack-creator@0.2.0` 已发布版本 27 条 canonical Practice 的中文 companion，供中文读者审查这套 Pack 的写作判断是否清楚、具体且适用于不同领域。`pack-creator-v0.2.0` 是官方 Registry 中的不可变 ref；2026 年 9 月 21 日已用官方安装路径解析、解码并读回全部 27 条 Practice。它不是另一套运行时 Pack，也不会参与召回。
+这里是 `pack-creator@0.2.1` 的 27 条 canonical Practice 中文 companion，供中文读者审查这套 Pack 的写作判断是否清楚、具体且适用于不同领域。`0.2.0` 是此前已验证的不可变发布版本。中文不是另一套运行时 Pack，也不会参与召回。
 
 [`../../practices`](../../practices/) 中的英文 canonical 文件是运行时权威：Practice ID、anti-pattern ID、trigger、动作、例外和发布含义都由英文文件控制。中文文件通过相同相对路径与 canonical 对应，不复制 runtime frontmatter。若中英文意义冲突，应先修正 canonical，再重新同步译文，不能只在中文中另写规则。
 

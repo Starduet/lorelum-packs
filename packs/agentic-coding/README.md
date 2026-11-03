@@ -1,6 +1,6 @@
 # Agentic Coding
 
-The `agentic-coding@0.8.0` working tree contains 39 decision-focused Practices for AI agents doing software engineering. Its two unreleased additions address clear engineering conclusions and concrete explanations to developers. The published `0.7.0` release remains the immutable 37-Practice artifact.
+The `agentic-coding@0.8.0` Pack contains 39 decision-focused Practices for AI agents doing software engineering. Its two additions address clear engineering conclusions and concrete explanations to developers. The `0.7.0` release remains the immutable 37-Practice artifact.
 
 Canonical English · [简体中文](./i18n/zh-CN/README.md)
 
@@ -17,14 +17,14 @@ Distribution success does not establish stable triggering or downstream improvem
 
 ```sh
 # New installation:
-lore pack install agentic-coding@0.7.0
+lore pack install agentic-coding@0.8.0
 # Existing installation; the Registry selects the latest stable release:
 lore pack update agentic-coding
 ```
 
 The Practices cover requirements, planning, implementation, testing, verification, review, delivery, correction, and context recovery. Each entry targets one decision point and is intended to remain useful when retrieved alone; consumers should retrieve only the few entries relevant to the current work and moment.
 
-## Unreleased 0.8.0: explain engineering work clearly
+## 0.8.0: explain engineering work clearly
 
 - [Give the Developer the Conclusion First](./practices/delivery/lead-with-engineering-conclusion.md)
   puts the diagnosis, recommendation, result, or actual progress before the investigation history,
@@ -43,11 +43,6 @@ Start with the [Chinese before-and-after examples](./references/engineering-comm
 token-refresh results, an index tradeoff, an unconfirmed timeout cause, and a one-line change-scope
 answer. Their facts are constructed. The [effect record](../../fixtures/agentic-coding/baselines/engineering-communication-2026-11-02.md)
 shows actual generated engineering replies and keeps usability observations separate from search.
-
-This content has not been released or added to the Registry. For local use, install
-`--path ./packs/agentic-coding` into a new isolated `--store-root`, then use `lore get` with either
-full ID. The Registry commands above still select published `0.7.0`; they do not fetch `0.8.0`.
-No change to the host's instructions, automatic routing, or existing global Store is implied.
 
 ## Scope
 
@@ -178,6 +173,7 @@ This Pack is not a workflow engine, task manager, test framework, compactor, aut
 
 ## Release history
 
+- `0.8.0` adds two engineering communication Practices and revises existing guidance for readability. The earlier `0.7.0` artifact remains unchanged.
 - `0.7.0` adds `context.recommend-session-handoff` and `planning.organize-work-around-the-solution`, with Chinese companions, source attribution, and retrieval fixtures. It preserves the 35-Practice `0.6.0` artifact and separates experience-derived content value from unproven causal gains.
 - `0.6.0` adds `implementation.justify-added-checks` before deciding to add or strengthen safeguards, separates necessity from ownership and combined-path decisions, and carries the validation/evidence/product-surface refinements from PR #38. It contains 35 Practices at `agentic-coding-v0.6.0`. Limited keyword and controlled-session evidence is linked above; semantic quality, stable automatic triggering, and causal decision improvement are not established. Unmerged PR #36 is not included.
 - `0.5.1` is the immutable release at `agentic-coding-v0.5.1`, available through the official Registry. It is a metadata-only retune: the `pack.yaml` description — the routing surface agents see in the session-start pack catalog — now names the two planning-calibration moments added in `0.5.0` (decision-bearing sets growing past what they must decide; validation, permission, or confirmation checks blocking the acceptance path) and tracks the `decide-scope-and-stop-conditions` merge. No Practice content changes. A representative official Registry install on September 21, 2026 resolved this ref (`954324c`), decoded the Pack, and read back all 34 Practice IDs including both planning-calibration entries; that verifies the supported materialization path, not retrieval quality or downstream Agent behavior. It rewrites every Practice as a step-style decision procedure with an explicit stop, merges the two pre-work scope Practices into `decide-scope-and-stop-conditions`, adds two planning-calibration Practices (`derive-committed-set-from-concerns`, `keep-acceptance-path-completable`; 33 to 34 entries), tiers severity into critical/warn/info, and retunes `applies_when` against the #17 keyword retrieval baseline. A representative official Registry install on September 21, 2026 resolved this ref, decoded the Pack, and read back all 34 Practice IDs; that verifies the supported materialization path, not retrieval quality or downstream Agent behavior.
