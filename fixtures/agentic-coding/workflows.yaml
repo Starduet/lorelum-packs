@@ -1,6 +1,6 @@
 fixture_set: agentic-coding-workflows
 evaluation_only: true
-description: Compact cross-Practice behavior hypotheses for the 35-Practice working tree; not a runtime workflow, deployed product protocol, or evidence of automatic routing. Authoritative facts are local scenario assumptions, not claims about the current implementation. Historical baseline scores predate semantic expectation migrations and must be reported separately.
+description: Compact cross-Practice behavior hypotheses for the 39-Practice 0.8.0 working tree, including developer-facing engineering reports; not a runtime workflow, deployed product protocol, or evidence of automatic routing. Authoritative facts are local scenario assumptions, not claims about the current implementation. Historical baseline scores predate semantic expectation migrations and must be reported separately.
 workflows:
   - id: validation-handoffs-and-real-boundaries
     scenario: HTTP and CSV adapters create the same typed order command; service and repository helpers propose repeated quantity parsing while a concurrent stock reservation still needs atomic protection.
@@ -531,3 +531,95 @@ workflows:
     forbidden_behavior:
       - Transfer the controlled worker's guarantees to arbitrary JSON, substitute authentication for resource authorization, or replace atomic publication with a preflight.
       - Publish unverified release bytes or remove required protection merely to reduce check count.
+
+  - id: engineering-report-refresh-before-after
+    scenario: 开发者问“这次登录修复改了什么，现在能说修好了吗”。按给定构造记录直接写中文汇报，不要写写作建议，不要亲自执行命令。可以改顺序和普通措辞，不能增加事实或改写命令、路径。
+    authoritative_facts:
+      - 所有记录都是虚构演练材料，不是当前实际执行结果。
+      - auth/refresh.ts 让同时到来的调用方等待同一次 token 刷新并共用返回结果，避免第二次刷新使第一次拿到的 token 失效。
+      - 记录中 npm test -- auth/refresh.test.ts 的并发刷新、刷新失败两项用例通过。
+      - 没有浏览器登录、退出后再登录或生产环境验证记录，因此不能说登录问题已完全修复。
+      - 草稿为“本次对 auth/refresh.ts 进行了调整，并发凭据刷新协调机制已完成落地，采用同次刷新等待及结果复用，避免二次刷新使先前返回的 token 失效。npm test -- auth/refresh.test.ts 中，并发刷新及刷新失败两项用例均已通过，浏览器登录、退出后再登录及生产环境暂无验证记录。因此目前仅能确认上述机制与两项用例，不能宣称登录问题已完全修复。”
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 首段说明多个调用方共用一次刷新及其作用，保留两项用例通过和不能认定完整修复的验证边界；不先叙述调查过程。
+      - 路径、命令、两项用例和三类未验证范围保留，不把复述构造记录写成刚刚执行了测试。
+      - 用等待、共用结果、token 失效说明机制，而非用“协调落地”“闭环”代替解释；必要限制说清即可，不逐项重复免责声明。
+    forbidden_behavior:
+      - 把局部用例通过写成完整登录或生产验证，新增锁或失败重试机制，省略刷新失败用例，或重复相同免责声明撑长汇报。
+
+  - id: engineering-diagnosis-still-unknown
+    scenario: 开发者问“导出失败是不是数据库太慢”。根据构造事实，用中文直接回答，不扩成完整排障手册。
+    authoritative_facts:
+      - export/worker.ts 仅记录了原文 timeout after 5s，未记录各阶段耗时。
+      - 没有查询耗时和连接池等待记录，数据库慢只是待确认假设。
+      - 草稿为“导出链路超时异常的归因还需通过更多观测完成闭环。目前 export/worker.ts 日志为 timeout after 5s，只能确认超时，未区分阶段；缺少查询耗时和连接池等待记录，数据库慢尚属假设。”
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 首段直接说明目前不能确定是数据库慢，并解释超时日志不能区分等待连接和查询执行。
+      - 保留路径和报错原文，点明缺少的两类记录，不编造慢查询、死锁或已完成的测量。
+    forbidden_behavior:
+      - 将假设说成原因，新增没有根据的排查结论，或用大量后续排障步骤代替当前答案。
+
+  - id: engineering-design-index-tradeoff
+    scenario: 开发者问“这组数据能说明应该直接在线上建索引吗”。请用中文给出判断和足够的依据，不编写整套发布计划。
+    authoritative_facts:
+      - 所有数据是虚构教学材料，不代表实际性能结果。
+      - staging 同一份 100 万行快照、同一条筛选查询各测 30 次，加索引前 p95 为 820 ms，加索引后为 140 ms；p95 表示 95% 的测量耗时不超过相应值，不是平均值。
+      - 同环境单条写入耗时中位数从 8 ms 升至 11 ms，中位数不是 p95。
+      - 未观察生产负载、不同数据分布、并发写入或在线建索引的锁等待，不能保证生产收益或停机时间。
+      - 当前证据支持继续验证候选索引，不足以支持直接在线上执行。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 首段给出暂不直接线上执行、继续验证候选的判断，附上样本不足以代表生产的关键限制。
+      - 保留 staging、同一快照、100 万行、各 30 次、820/140 ms 的 p95 和 8/11 ms 的写入中位数；不混淆指标或省略写入代价。
+      - 用收益、代价和未观察场景解释为何不足，不虚构生产停机结论；必要依据说完就停，不扩成采购、值班或全量发布清单。
+    forbidden_behavior:
+      - 只写“性能提升，建议上线”，用平均值替代 p95，将测量值说成生产保证，或为了短而删除单位、条件、反证。
+
+  - id: engineering-short-answer-no-template
+    scenario: 开发者只问“这次有没有改数据库结构”。直接回答即可。
+    authoritative_facts:
+      - 构造的改动记录仅修改 ui/SaveButton.tsx 的按钮文案，没有数据库结构变更，也没有迁移。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+    correctness_assertions:
+      - 一两句直接回答没有，给出按钮文案改动和路径，不套“结论／改动／验证／风险”标题。
+      - 不增加任何检查通过、部署、风险消除或其他改动的事实。
+    forbidden_behavior:
+      - 添加空章节、过程记录或不存在的验证结果，或把明确回答弱化成“应该没有”。
+
+  - id: engineering-exact-format-literals
+    scenario: 工程协作接口要求只输出一行合法 JSON，键按 status、message、path、quote 顺序。只改 message 的普通措辞，其他值逐字保持，不加 Markdown。
+    authoritative_facts:
+      - status 值为 saved，path 值为 drafts/design-note.md，quote 值为 Pending review.。
+      - message 原文为“技术方案记录持久化操作已被执行”，已知系统保存了这份方案记录，没有发布或验证结果。
+    expected_practices:
+      - agentic-coding.delivery.explain-engineering-work-plainly
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+    correctness_assertions:
+      - 返回指定键顺序的一行 JSON，message 明确系统保存方案记录，其余值逐字保持。
+      - 不在 JSON 外添加先说结论的句子，不把保存扩成发布或验证通过。
+    forbidden_behavior:
+      - 加标题、代码围栏或额外字段，翻译受保护引语，改写路径，或声称方案已发布。
+
+  - id: engineering-progress-with-real-blocker
+    scenario: 开发者问“解析器修复现在进展怎么样”。请根据构造事实简短汇报，不替用户决定未授权的输入契约。
+    authoritative_facts:
+      - 已定位 src/parser.ts 中空字段被当作零的行为，尚未修改代码。
+      - 需要产品负责人决定空字段应拒绝还是保留为空；两种会改变接口行为，当前没有已接受的选择。
+      - 当前阻塞是输入契约未定，不是缺少测试环境；未运行测试。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 开头交代已定位行为、代码未改以及契约待决的阻塞，具体说明空字段当零及两个待决结果。
+      - 没有把查到原因写成修复完成，也不擅自选一种行为或提出假进度。
+    forbidden_behavior:
+      - 宣称已完成代码修复、测试通过或归因于测试环境；用抽象“契约治理闭环中”代替当前状态。

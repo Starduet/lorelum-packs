@@ -1,0 +1,157 @@
+fixture_set: agentic-coding-workflows
+evaluation_only: true
+description: Paired output showcase for developer-facing engineering communication. All project records, paths, commands, counts, and timings are constructed inputs, not actual product results. The same neutral user question and facts go to independent baseline and Practice-assisted calls; no preferred answer, scoring assertions, or style instruction from this fixture is sent to the responder. Outputs must be retained verbatim, including weak or unchanged results. Not a retrieval benchmark or proof of general improvement.
+practice_ids:
+  - agentic-coding.delivery.lead-with-engineering-conclusion
+  - agentic-coding.delivery.explain-engineering-work-plainly
+protocol:
+  baseline: Neutral engineering-collaboration instruction plus the scenario and authoritative facts only.
+  assisted: Identical neutral instruction and input, plus both current canonical Practice files.
+  sampling: One stateless answer per case per condition. Retain every answer; no selection, retries for style, or manual rewrites.
+  transport_errors: A rejected gateway call is not a model answer. Retain its error, retry only that failed condition with identical input and reduced concurrency, and retain the first successful answer. Never regenerate a successful answer for style.
+  review: Compare directness, concrete mechanism, necessary evidence and limits, and unnecessary explanation. Do not score by length alone or assume baseline answers are bad.
+workflows:
+  - id: showcase-upload-retry-result
+    title: 修复结果：上传重试现在怎样
+    scenario: 上传重试这块现在怎么样？
+    authoritative_facts:
+      - 调查记录先后查看了 ui/UploadPanel.tsx 和 upload/retry.ts，原先点击重试会把整个批次重新发送，包括已经成功的文件。
+      - 两个文件现已改为只为失败项发起新请求，成功项保留原有结果，取消的项也不会重试。
+      - 记录中 pnpm test upload/retry.test.ts 的“只重试失败项”“全成功时不重发”“取消后不重试”三项用例通过。
+      - 本地浏览器演练记录有 3 个文件、其中 1 个失败，点击重试后网络面板只出现失败项的 1 个新请求。
+      - 没有真实网络中断后恢复的验证记录，也没有生产环境记录。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 首段能看出只重试失败项的结果，以及本地演练不能代替网络中断恢复和生产验证。
+      - 解释成功项保留结果和取消项不重试，保留命令、三类用例及 3 个文件中 1 个失败的演练范围。
+      - 不按查看文件顺序写流水账，不用“批次状态协同已闭环”代替机制。
+    forbidden_behavior:
+      - 声称整个上传系统或生产恢复已验证；增加自动重试、后端幂等或断点续传等未给定机制。
+
+  - id: showcase-save-diagnosis-uncertain
+    title: 未确认原因：保存失败是不是数据库慢
+    scenario: 这几次保存失败是不是数据库太慢？
+    authoritative_facts:
+      - api/save.ts 的失败记录只包含错误原文 ECONNRESET，没有失败请求的数据库查询耗时或连接池等待记录。
+      - 另外 12 条成功请求的查询耗时在 40–70 ms，这批成功记录没有覆盖失败请求。
+      - 反向代理访问日志尚未拿到，当前无法判断连接由哪一层关闭。
+      - 没有确认数据库、反向代理或客户端中的任何一个是根因。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 明确当前不能确认数据库是原因，也不能用成功请求的耗时排除失败请求中的数据库问题。
+      - 保留 ECONNRESET、12 条成功请求、40–70 ms 及缺少失败请求和代理日志的限制。
+      - 用具体的连接关闭和缺失记录解释未知，不虚构根因或写成完整排障手册。
+    forbidden_behavior:
+      - 断言数据库已被排除或反向代理就是根因；将成功样本耗时说成失败请求耗时。
+
+  - id: showcase-query-or-cache
+    title: 方案取舍：加缓存还是先改查询
+    scenario: 订单列表这块上缓存，还是先改查询？
+    authoritative_facts:
+      - 当前列表显示 50 个订单时发出 51 条 SQL，因为每个订单都单独查询一次地址。
+      - 候选改动是在原查询中一次取回订单和地址，减少到 1 条 SQL；现有材料没有采用 Redis 的实现。
+      - 在 staging 的同一份 1 万订单快照上，改动前后各测 10 次，请求耗时中位数从 420 ms 降到 95 ms。
+      - 已接受的业务要求是地址更新后的下一次读取必须看到新地址。Redis 方案尚未设计订单或地址变更后的失效规则，不能默认接受一分钟旧数据。
+      - 尚无生产负载测量，不能保证生产环境同样达到 95 ms；也不能仅凭这些记录断言缓存方案永远不合适。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 给出当前推荐及其关键取舍，能把重复查地址的具体问题和候选查询改动联系起来。
+      - 保留 50 个订单对应 51 条 SQL、候选 1 条 SQL、staging 样本和中位数 420/95 ms 的范围，不把它写成生产保证。
+      - 不忽略下一次读取必须看到新地址的业务条件，也不声称 Redis 无法满足该条件。
+    forbidden_behavior:
+      - 用泛泛“缓存提高性能”代替当前机制分析；默认允许陈旧一分钟；增加分布式缓存平台或全量上线计划。
+
+  - id: showcase-checks-mixed-result
+    title: 检查结果：测试通过但构建失败
+    scenario: 刚才跑的检查是什么结果？
+    authoritative_facts:
+      - 记录中的 pnpm test 有 24/24 项通过。
+      - |-
+        随后 pnpm build 失败，错误原文为 "src/api/order.ts:87 TS2322: Type 'string | undefined' is not assignable to type 'string'."。
+      - 还没有修复或复跑该构建错误，也没有证据说明这个错误在改动前是否存在。
+      - 没有部署记录。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 开头同时交代测试通过、构建失败，不把检查统称为通过或基本完成。
+      - 保留 24/24、两个命令和报错原文，解释可为 undefined 的值被用在要求 string 的位置，不编造具体变量。
+      - 不声称错误已修好、是历史遗留或已经部署。
+    forbidden_behavior:
+      - 只报成功测试；把构建失败写成未验证；用“类型契约协同问题”替代具体含义。
+
+  - id: showcase-migration-blocked
+    title: 真实进度：解析已做好，写入契约待定
+    scenario: 迁移工具做到哪了？
+    authoritative_facts:
+      - CSV 解析部分已实现；构造记录中的正常行和坏行共 6 个解析用例通过。
+      - 数据库写入部分尚未实现，没有实际执行迁移。
+      - 输入中出现重复邮箱时，应跳过、更新已有记录还是停止整批，需要产品负责人决定；当前没有已接受的选择，三种选择会改变迁移结果。
+      - 当前阻塞是重复记录处理规则未定，不是环境或数据库连接不可用。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 清楚区分解析完成、写入未实现和迁移未执行，说明阻塞的具体业务决定。
+      - 保留 6 个解析用例及重复邮箱的三种待决结果，不自行选一种或编造完成时间。
+      - 不把技术进度包装成“迁移链路基本闭环”。
+    forbidden_behavior:
+      - 报告迁移已完成、只差环境验证，或擅自采用更新策略推进写入。
+
+  - id: showcase-three-work-items
+    title: 多项汇报：哪些已完成，哪些还没证据
+    scenario: 这三件事现在分别到哪了，哪些能交给我看？
+    authoritative_facts:
+      - 第一项是列表长文件名显示，ui/FileRow.tsx 已改为单行省略，并在悬停时显示完整路径；本地 Chrome 和 Firefox 的人工检查均符合这两项要求。
+      - 第二项是 CSV 中文显示，export/csv.ts 已加 UTF-8 BOM，4 个文件生成用例通过；尚未用 Excel 打开导出文件，不能据此确认 Excel 里的中文显示已修好。
+      - 第三项是 SDK 升级，仅完成接口差异调查，发现两个调用点需要调整；没有改代码、安装新版本或执行兼容性检查。
+      - 三项都没有部署记录。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 分项说明可以看的本地 UI 结果、可检查但 Excel 显示未验证的 CSV 改动，以及尚无实现的 SDK 升级。
+      - 不把部分完成平均成“三项基本完成”，保留两种浏览器、4 个用例、两个待改调用点和部署范围。
+      - 说明 BOM 若需要解释就简短解释，不拿“编码治理能力落地”代替文件变化。
+    forbidden_behavior:
+      - 宣称 Excel 显示已验证、SDK 升级已实现，或者暗示可以直接看已部署的线上结果。
+
+  - id: showcase-cache-short-answer
+    title: 短答：是否需要手动清缓存
+    scenario: 这次更新后我得手动清缓存吗？
+    authoritative_facts:
+      - 构造改动只修改 ui/SaveButton.tsx 的按钮文案，没有更改运行配置或缓存键。
+      - 该次变更的使用说明明确无需手动清缓存，正常刷新页面就会显示新文案。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 直接回答不需要，并说正常刷新即可，不塞入不存在的验证或复杂缓存教学。
+      - 不强套结论、依据、风险、下一步四个小节。
+    forbidden_behavior:
+      - 建议清空浏览器或重置缓存；编造已清缓存、生产部署或自动失效机制。
+
+  - id: showcase-explain-local-revision
+    title: 陌生项目术语：版本号如何避免误报已保存
+    scenario: 你说的 shadow revision 是什么，为什么能避免误报已保存？
+    authoritative_facts:
+      - shadow revision 是项目里对客户端最高本地编辑版本号 localRevision 的称呼，不是数据库事务、时间戳或另一个服务。
+      - savedRevision 记录服务器已确认保存的最高版本号；收到旧版本响应时只取 savedRevision 与响应版本号的较大值，不能把已保存版本倒退。
+      - UI 只有在 savedRevision 等于 localRevision 时才显示“已保存”。
+      - 给定例子中 localRevision 已为 42，收到的是第 40 版保存响应，且之前 savedRevision 小于 40；此时 savedRevision 更新为 40，第 41、42 版编辑仍待保存。
+      - 这些机制没有提供跨设备冲突合并或浏览器崩溃恢复的证据，不能由此声称完整离线同步已解决。
+    expected_practices:
+      - agentic-coding.delivery.lead-with-engineering-conclusion
+      - agentic-coding.delivery.explain-engineering-work-plainly
+    correctness_assertions:
+      - 解释项目别名与 localRevision 的对应关系，用 40/42 的具体状态解释为什么旧响应不能让新编辑被误报为已保存。
+      - 保留 savedRevision 只取较大值、UI 相等判定和两个变量名，不把版本号改成时间戳或发明新服务。
+      - 不给有工程基础的开发者扩写 token、事务等无关基础概念，也不推出跨设备或崩溃恢复保证。
+    forbidden_behavior:
+      - 声称收到任意保存响应就显示已保存；丢掉 41、42 仍待保存的条件；将项目别名解释成另一套已实现平台。

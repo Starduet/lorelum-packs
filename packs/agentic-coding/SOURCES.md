@@ -57,6 +57,8 @@ Public issue sources:
 | `agentic-coding.review.run-subtractive-review-before-commit`          | Registry/install synthesis                                   | A sanitized subtractive review removed unsupported duplication while preserving required capabilities and protections.                                                          |
 | `agentic-coding.delivery.claim-only-supported-outcome`                | Issue-explicit: #28                                          | The issue directly documents a technical slice being misreported as a completed user capability and requires claim scope to match evidence.                                     |
 | `agentic-coding.delivery.report-material-residuals`                   | Issue-explicit: #28                                          | The issue explicitly requires delivery to preserve remaining work, risk, evidence limits, and handoff information.                                                              |
+| `agentic-coding.delivery.lead-with-engineering-conclusion` | Engineering-communication maintainer synthesis; [packs #40](https://github.com/lorelum/lorelum-packs/issues/40); ste-zh and humanizer | The maintainer clarified software engineering collaboration as the target domain. The Practice orders an already supportable diagnosis, recommendation, result, or progress report; it does not decide truth scope or mandatory residual disclosure. See the dated source and license record below. |
+| `agentic-coding.delivery.explain-engineering-work-plainly` | Engineering-communication maintainer synthesis; [packs #40](https://github.com/lorelum/lorelum-packs/issues/40); ste-zh and humanizer | The Practice replaces engineering labels with component actions and effects while retaining specialist terms, exact literals, and uncertainty. Examples are constructed, not actual project measurements. |
 | `agentic-coding.correction.restore-authoritative-baseline`            | Issue-explicit: #28, #35                                     | Both issues require a correction to return to authoritative requirements without converting a rejected agent choice into a new rule.                                            |
 | `agentic-coding.context.write-decision-dense-checkpoint`              | Issue-explicit: #32                                          | The issue directly identifies what compaction should preserve, summarize, mark uncertain, or stop carrying forward.                                                             |
 | `agentic-coding.context.recommend-session-handoff`                    | Session-handoff maintainer synthesis; Issue-derived early motivation: #32 | #32 motivates preserving useful context across boundaries. Maintainer observations and the accepted fifteenth revision supply the fresh-session recommendation, compact action record, clause mapping, and path/status preservation guidance. Early trigger observations concern earlier bodies; current content observations are recorded separately below. |
@@ -293,3 +295,74 @@ records 37-ID installation, matching new bodies, and default update from `0.6.0`
 failure and GitHub API transport failures remain disclosed. Runtime artifact identity binds the
 existing keyword results without duplicating the full evaluation. Index readiness and finite
 keyword selection do not establish semantic quality, stable host triggering, or causal benefit.
+
+## November 2, 2026: clear reports in software engineering collaboration
+
+The maintainer requested clearer language and conclusion-first reports in [packs #40](https://github.com/lorelum/lorelum-packs/issues/40),
+then explicitly selected **software engineering collaboration** as the domain. The earlier
+generic-communication interpretation and everyday examples were rejected and removed. The two
+new entries belong in `agentic-coding`; they do not establish a separate communication Pack,
+extend to unrelated everyday advice, or implement #41's repository-wide summaries.
+
+The source screenshots motivate expression and ordering only. Their financial figures and causal
+claims were not verified or adopted. The concrete engineering mechanisms, stop conditions,
+neighbor boundaries, and Chinese examples in this revision are author synthesis, not quotations
+or recovered execution traces. The [worked examples](./references/engineering-communication.md)
+and evaluation fixtures label their facts as constructed. The
+[engineering effect record](../../fixtures/agentic-coding/baselines/engineering-communication-2026-11-02.md)
+separates actual generated replies from illustrative rewrites and search observations.
+
+### Reviewed external material
+
+- [dualface/ste-zh `SKILL.md`](https://github.com/dualface/ste-zh/blob/22f868ec3ab77e902571379ad1eaccee4c38fdac/SKILL.md),
+  revision `22f868ec3ab77e902571379ad1eaccee4c38fdac`: necessary term explanations and concrete
+  actions (R2–R4, R6, R12), key information first (R18), distinct work and verification scope,
+  locatable evidence, and uncertainty (R20–R22, R24–R25). Its
+  [MIT license](https://github.com/dualface/ste-zh/blob/22f868ec3ab77e902571379ad1eaccee4c38fdac/LICENSE)
+  was checked. This Pack does not adopt explicit activation, fixed status vocabulary, sentence
+  limits, or mandatory output templates, and does not claim ASD-STE100 compliance.
+- [blader/humanizer `SKILL.md`](https://github.com/blader/humanizer/blob/0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0/SKILL.md),
+  revision `0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0`: preserve source claims when rewriting
+  (How to work, steps 2–3), remove staged openings and inflated language, name concrete actors,
+  and match the reader rather than repeat their background. Its
+  [MIT license](https://github.com/blader/humanizer/blob/0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0/LICENSE)
+  was checked. It was discovered through [skills.sh](https://skills.sh/blader/humanizer/humanizer)
+  and reviewed at the upstream source. No punctuation blacklist, forced personality,
+  draft/critique/final protocol, upstream quality claim, or AI-detector goal is adopted.
+
+The split is by decision, not by source: `lead-with-engineering-conclusion` decides what the
+developer reads first; `explain-engineering-work-plainly` decides how the mechanism is expressed.
+They arrange and explain justified content. The existing `claim-only-supported-outcome` still
+decides what evidence supports, and `report-material-residuals` still selects important unresolved
+facts. Editing a reusable Practice remains the Pack-authoring neighbor's responsibility.
+
+Version `0.8.0` names unreleased working-tree content with 39 IDs. Registry and immutable
+`agentic-coding-v0.7.0` content remain unchanged. Content examples, actual body-assisted replies,
+retrieval selection, and autonomous host triggering are separate evidence layers; none proves
+general superiority or stable behavior.
+
+### MIT notices for the reviewed material and adaptations
+
+MIT License
+
+Copyright (c) 2026 dualface
+
+Copyright (c) 2025 Siqi Chen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
