@@ -15,22 +15,26 @@ title: Write the PR Body for a Cold Reviewer
 
 ## When to apply
 
-Apply when opening any PR, and again when its body needs updating after significant changes. The
-decision is what the body contains so that review starts from verification rather than
-reconstruction. Start from the [pull request template](resource:assets/pull-request-template.md)
-when the repository provides none.
+When opening a PR, explain what changed and how to check it for someone who has not followed your
+work. Update that explanation when the change itself changes significantly. If the repository has no
+template, start from the [pull request template](resource:assets/pull-request-template.md).
 
 ## Guidance
 
 Write for a reviewer who has not read the issue thread, the chat discussion, or your local attempts.
-Include: a summary saying what changed and what deliberately did not change; the linked issue the PR
-resolves; the type of change, naming the breaking surface when there is one; how it was tested — the
-verbatim commands you ran plus the named scenarios you exercised, not a summary adjective like
-"tested locally"; the checklist the repository's template asks for; and notes for reviewers stating
-design intent and what was deliberately deferred. For a direct-fix PR with no issue, the body
-additionally carries the root cause, the fix boundary, and the verification — those duties cannot be
-delegated to a linked discussion. Stop when a cold reader can answer "what does this claim to do,
-and how do I check it" from the body alone.
+Include:
+
+- A summary of what changed and what deliberately did not change.
+- The linked issue the PR resolves.
+- The type of change, naming any interface or behavior that breaks compatibility.
+- How you tested it: the exact commands you ran and the named scenarios you checked, not just
+  "tested locally".
+- The checklist required by the repository's template.
+- Notes explaining design intent and what was deliberately deferred.
+
+If you are submitting a direct fix without an issue, explain the root cause, exactly what the fix
+covers, and how you verified it in the body itself; a link to a discussion is not enough. A reviewer
+with no prior context should be able to tell what you claim the PR does and how to check that claim.
 
 ## Anti-pattern
 
@@ -42,9 +46,9 @@ reviewer's reconstruction — not the author's intent.
 ## Why
 
 A reviewer's first questions are what the change claims and how to verify it. A self-contained body
-converts review from archaeology into checking stated claims against a diff, catches scope
-misunderstanding before approval rather than after merge, and preserves the verification evidence
-for the future reader who finds this PR from the history.
+lets them compare those claims with the diff instead of reconstructing the author's intent. It
+exposes scope misunderstandings before approval and preserves verification evidence for future
+readers who find the PR through the history.
 
 ## Exceptions and boundaries
 

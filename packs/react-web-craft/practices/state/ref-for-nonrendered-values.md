@@ -15,9 +15,9 @@ title: Use Refs for Non-Rendered Per-Instance Bookkeeping
 
 ## When to apply
 
-Apply when a later event or imperative operation needs bookkeeping that survives renders. Decide
-whether the value itself belongs in rendered output or is private per-instance memory that the UI
-does not need to display.
+An event handler may need to remember a value, such as the last accepted click time, across renders.
+If a later event or imperative operation needs that per-instance value, decide whether the UI must
+display it or whether it can stay private to the component.
 
 ## Guidance
 
@@ -29,10 +29,12 @@ by itself keep visible output in sync.
 Choose by the value's role, not only its update frequency. A frequently changing value that drives
 what users see still needs an update mechanism that produces the intended UI. Do not switch it to a
 ref merely to suppress renders, and do not write DOM styles from an event handler as a substitute
-for deciding how the interface should render. Do not replace a state flag with a ref just to make an
-Effect run: ref mutation schedules no render for the Effect to observe. A command caused by a user
-event belongs in that event handler; render-driven external synchronization needs a render-visible
-input.
+for deciding how the interface should render.
+
+Do not replace a state flag with a ref to trigger an Effect: ref mutation schedules no render for
+the Effect to observe. Put commands caused by user events in those event handlers. External
+synchronization driven by rendering needs an input React can observe changing, such as props or
+state.
 
 ## Anti-pattern
 

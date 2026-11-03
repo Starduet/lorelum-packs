@@ -15,24 +15,25 @@ title: Reset the Work After a Confirmed Correction
 
 ## When to apply
 
-Apply after an authorized person or accepted specification has corrected the current direction.
-Remove the old interpretation wherever it still shapes the goal, plan, code, tests, or
-documentation. If sources still conflict, first resolve which source controls. An unverified review
-comment is also not a confirmed correction.
+An authorized person or accepted specification has corrected the direction, changed the agreed
+scope, or rejected something you added without being asked. Before continuing, remove the old
+interpretation from the goal, plan, code, tests, and documentation wherever it still affects the
+work. First resolve any disagreement about which source to follow. An unverified review comment is
+not a confirmed correction either.
 
 ## Guidance
 
 1. Re-read the correction and the current request or specification, and state the corrected
    direction in one sentence.
-2. Identify the assumptions and artifacts whose only basis was the rejected interpretation — goal
-   sentences, plan items, code, tests, documentation — and remove or revise them.
+2. Find the goal statements, plan items, code, tests, documentation, and assumptions that depended
+   only on the rejected interpretation. Remove or revise them.
 3. Preserve behavior and protection that have an independent requirement or risk basis; a correction
    is not permission to discard the entire implementation.
 4. Do not convert the rejection into a new permanent test, rule, or ban unless the authorized source
    explicitly establishes one.
 
-Stop with one current statement of the requested work that separates restored scope from any
-genuinely new scope introduced by the correction.
+Stop when the current description of the work makes clear what returns to the original scope and
+what, if anything, the correction newly adds.
 
 ## Anti-pattern
 

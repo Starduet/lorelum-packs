@@ -15,17 +15,17 @@ title: Decompose Guidance into One Decision per Practice
 
 ## When to apply
 
-Apply while turning candidate guidance into Practice files, when one draft changes more than one
-decision. Decide whether the actions always arise together or should be independently retrievable.
-After separate files exist, a different review checks whether their triggers still collide.
+If one draft tells readers to make several choices, ask whether they will always need those actions
+together. Split choices that can arise separately so readers can find each on its own. Once the
+files are separate, check whether their triggers still compete for the same request.
 
 ## Guidance
 
-Underline the decision verbs in the draft. If a reader could reasonably need one action without the
-others, give each decision its own trigger, guidance, failure mechanism, and boundary. Keep shared
-evidence in provenance or links instead of using a source chapter as the file boundary. Recombine
-pieces that make no independent choice and only repeat setup. Stop when each Practice can change one
-decision without requiring unrelated guidance to be retrieved with it.
+Look at what the draft asks the reader to decide or do. If they could reasonably need one action
+without the others, give each decision its own trigger, guidance, explanation of what can go wrong,
+and limits. Keep shared evidence in provenance or links; a source chapter need not become one file.
+Put pieces back together if they offer no independent choice and merely repeat setup. Stop when each
+Practice helps with one decision without bringing along unrelated guidance.
 
 ## Anti-pattern
 
@@ -39,9 +39,9 @@ guide as provenance.
 
 ## Why
 
-Atomic Practices give retrieval a clear target and let readers act without carrying unrelated
-instructions. Source structure describes how knowledge was documented, not necessarily how decisions
-arise.
+Practices that each answer one question give retrieval a clear target and let readers act without
+unrelated instructions. Source structure describes how knowledge was documented, not necessarily how
+decisions arise.
 
 ## Exceptions and boundaries
 

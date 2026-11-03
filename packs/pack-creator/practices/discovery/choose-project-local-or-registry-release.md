@@ -16,17 +16,17 @@ title: Choose a Project Layer or a Registry Release
 ## When to apply
 
 Apply before creating a Pack when the guidance may be useful to more than one person, but it is not
-yet clear whether it belongs to one repository or should be installed independently. This decision
-selects the distribution boundary. Creating the local files and choosing parent/child precedence
-come later.
+yet clear whether it belongs to one repository or should be installed independently. Decide how the
+guidance will reach its readers. Creating the local files and choosing parent/child precedence come
+later.
 
 ## Guidance
 
-Use a project-local Pack when its authority, vocabulary, source files, or review boundary belongs to
-one source tree and should travel with that tree. Put it under `.lorelum/packs/<pack-name>/` in the
-directory where the guidance should begin to apply. It is source content: do not run
-`lore pack install`, create a Registry release, or commit index/cache files merely to make it
-queryable.
+Use a project-local Pack when the guidance belongs to one source tree: what makes it authoritative,
+its terminology, source files, or responsibility for review need to stay with that tree. Put it
+under `.lorelum/packs/<pack-name>/` in the directory where the guidance should begin to apply. It is
+source content: do not run `lore pack install`, create a Registry release, or commit index/cache
+files merely to make it queryable.
 
 Use a versioned Registry release when the same reviewed Pack must be installed into unrelated
 repositories or retained as a reproducible public artifact. That is a separate distribution step:
@@ -34,10 +34,10 @@ prepare a version, immutable ref, Registry entry, and supported installation evi
 can later be promoted, but copy its reviewed canonical files into a new release candidate instead of
 treating one mutable working tree as a Registry artifact.
 
-State the chosen audience and lifecycle in the Pack README or contribution guidance. Stop when a
-reader can tell whether editing the repository files changes the intended source of truth, and
-whether a Registry release is deliberately out of scope. For the local starter layout and commands,
-see [the project-local Pack guide](resource:references/project-local-packs.md).
+State who should use the Pack and how it will be maintained in its README or contribution guidance.
+Stop when readers can tell whether editing repository files changes the rules they should follow,
+and whether a Registry release is deliberately out of scope. For the local starter layout and
+commands, see [the project-local Pack guide](resource:references/project-local-packs.md).
 
 ## Anti-pattern
 

@@ -15,15 +15,15 @@ title: Limit Investigation to the Current Decision
 
 ## When to apply
 
-Apply after the Agent has located the target file, symbol, or behavior and is considering more
-repository exploration for general familiarity. Use it before opening another source whose result is
-not tied to a concrete choice. Locating an unknown target is a near miss: find the target first. A
-known conflict about intended behavior belongs to source-authority resolution instead.
+You have found the file, symbol, or behavior to change, but are about to keep reading just to feel
+more familiar with the repository. Before opening another source, ask what concrete choice it could
+change. If you have not found the target, locate it first. If known sources disagree about intended
+behavior, resolve which source to follow instead.
 
 ## Guidance
 
-1. Name the next unresolved decision before opening another source: the edit location, responsible
-   owner, required behavior, focused verification, or the choice to replan.
+1. Say what you still need to decide before opening another source: where to edit, which component
+   is responsible, what must happen, which focused check to use, or whether to replan.
 2. Open the one source that can directly change that decision — a code file, test, configuration,
    document, log, or neighboring implementation — and update the decision from what it shows.
 3. Follow one unresolved dependency at a time. A bug isolated to one request handler and its
@@ -31,9 +31,9 @@ known conflict about intended behavior belongs to source-authority resolution in
 4. When the evidence reveals a material new public surface, shared state, risk, or verification
    need, stop local investigation and replan from that fact.
 
-Do not treat broad familiarity, file count, or an exhaustive caller map as evidence that a local
-change is safe. Stop when the target behavior, direct owner, edit boundary, and focused verification
-path are clear, and no next source can change one of them.
+Broad familiarity, a high file count, or a complete caller map does not prove a local change safe.
+Stop when you know the required behavior, who owns it, where to edit, and how to check it, and no
+further source could change one of those answers.
 
 ## Anti-pattern
 

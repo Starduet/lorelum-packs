@@ -15,9 +15,9 @@ title: Run Cheap Checks Before Starting Async Work
 
 ## When to apply
 
-Apply when an async function both can skip work based on cheap local data — props, already-loaded
-records, request metadata, configuration booleans — and awaits I/O for other conditions. Decide the
-order in which guards and awaits run.
+An async function may be able to return early using props, already-loaded records, request metadata,
+or configuration booleans. Check those local values before starting I/O that is needed only if the
+function continues.
 
 ## Guidance
 
@@ -29,9 +29,9 @@ Default order: cheap and synchronous first, awaited last. Two shapes cover most 
 - Early returns: check local states — an already-closed ticket, a disabled feature, missing request
   metadata — before fetching the permissions, configuration, or flags used only past those checks.
 
-Defer each await into the branch that consumes its value. An await at the top of a function body
-runs for every caller even when the only consumer is a branch most callers never enter; deferring
-removes that cost from every path that exits earlier.
+Start each request, and await its result, inside the branch that needs it. A request started at the
+top of a function runs even for callers that return before using its result. Moving only the
+`await`, without moving the request's start, does not remove that I/O.
 
 Keep the original order when reordering would change behavior: when the "cheap" condition is itself
 expensive or I/O-bound; when the condition is computed from the awaited value; or when side effects
@@ -46,10 +46,10 @@ discarded on the dominant path; only the rare open-ticket path ever reads it.
 
 ## Why
 
-I/O started on a path that discards it is pure latency on that path and pure load on the remote
-service. Guards that are local and synchronous cost nanoseconds; placing them first removes the I/O
-from every path they fail on, which matters most when the skipped branch is the common one or the
-deferred operation is expensive.
+I/O started on a path that discards it adds latency to that path and load to the remote service.
+Local synchronous checks need no network round trip. Placing them first removes the I/O from paths
+that exit at those checks, which matters most when those paths are common or the deferred operation
+is expensive.
 
 ## Exceptions and boundaries
 

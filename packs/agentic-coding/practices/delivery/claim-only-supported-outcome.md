@@ -15,20 +15,21 @@ title: Claim Only What the Evidence Proves
 
 ## When to apply
 
-Apply when writing a completion or status claim from evidence already collected. This Practice
-controls what the proven result may be called. It does not decide how to close a missing check, and
-it does not choose which remaining risks belong in a handoff.
+Before saying that work is complete, check exactly what you have demonstrated. A fix to one
+component or a passing check in one environment may not prove that the whole feature works. This
+rule is about how to report the result, not how to fill gaps in testing or which remaining risks to
+hand over.
 
 ## Guidance
 
-1. Name the exact artifact state, behavior, environment, and scope that the current evidence covers.
-2. Choose a verb and object no broader than those facts: "fixed," "complete," "verified," or
-   "deployed" must match what was actually demonstrated.
-3. If the work is one component or technical slice of a larger user capability, say so directly
-   rather than borrowing the surrounding feature's name.
+1. Identify what was checked, the state of the code or output, what it did, and the environment in
+   which it ran.
+2. Use "fixed," "complete," "verified," or "deployed" only for the result you actually demonstrated.
+   If the checks cover one component or part of a feature, name that part rather than claiming the
+   whole feature.
 
-Stop with one calibrated outcome statement; do not hide a broader implication behind words such as
-"likely" or "effectively."
+Once you have an accurate statement of that result, stop refining the claim. Adding "likely" or
+"effectively" does not justify implying that more work is complete than the evidence shows.
 
 ## Anti-pattern
 
@@ -40,15 +41,14 @@ proof of one repaired path into proof of the whole capability.
 
 ## Why
 
-Recipients use completion language to decide whether to merge, release, or stop investigating.
-Matching the statement to the evidence prevents a true local result from authorizing decisions that
-assume untested behavior.
+People may merge, release, or stop investigating based on this report. If a local fix is described
+as a completed feature, they may rely on behavior that nobody checked.
 
 ## Exceptions and boundaries
 
-Use the project's formal completion vocabulary when its gates are satisfied, but say when a gate was
-not run or covered a different artifact state. When current evidence does cover the full capability,
-state that plainly rather than weakening a supported result into vague language.
+Use the project's own completion terms when their conditions have been met. Mention any check that
+was not run or ran against a different version or state. If the evidence proves that the full
+feature works, say so directly; there is no need to make a supported result sound uncertain.
 
 ## Example
 

@@ -15,26 +15,26 @@ title: Resolve Authority Across Conflicting Sources
 
 ## When to apply
 
-Apply when two or more already relevant sources imply different intended behavior and the next
-decision needs one baseline: the current request, an applicable repository instruction, an adopted
-spec or active contract, a decision record with a stated status, a README, a plan, code and tests,
-history, or a conversation summary. Do not search the repository for possible disagreement. If the
-known sources already agree and the open question is reuse of existing code, inspect the
-implementation instead.
+The request says one thing, but a specification, README, plan, or test says another. Before choosing
+which behavior to implement, find out which source is meant to decide it. Relevant sources can also
+include repository instructions, active contracts, decision records, code, history, and conversation
+summaries. Work from disagreements you already know about; do not search the repository for possible
+ones. If those sources agree and you only need to know whether existing code is reusable, inspect
+that implementation instead.
 
 ## Guidance
 
-1. Isolate the disputed behavior to one sentence, for example how long order records are kept.
-2. State each known source's role from its declared status, not its file type: defines current
-   behavior, records an accepted constraint, proposes future work, preserves history, or only shows
-   the current artifact. An adopted spec or active contract controls — including a README the
-   repository has explicitly adopted as its contract; an unadopted README or passing tests only show
-   what exists today; a plan or prototype describes work that may not be accepted.
-3. Decide which source wins from status, not from detail, recency, or implementation convenience:
-   use the repository's stated authority rules, explicit adoption or supersession, and authorized
-   corrections.
-4. Record the controlling source and what the other sources still prove, so a reviewer can retrace
-   the decision.
+1. Describe the disputed behavior in one sentence, for example how long order records are kept.
+2. Read each known source's declared status to find out what it tells you: what should happen now,
+   which constraint was accepted, what is only proposed, what happened in the past, or what the code
+   currently does. File type alone does not decide this. Follow an adopted spec or active contract,
+   including a README explicitly adopted as the repository's contract. An unadopted README or
+   passing tests only show what exists today; a plan or prototype may describe unaccepted work.
+3. Use the repository's authority rules, explicit adoption or replacement of earlier decisions, and
+   authorized corrections to resolve the disagreement. More detail, a newer date, or easier
+   implementation does not give a source priority.
+4. Record which source decides the behavior and what the others still establish, so a reviewer can
+   retrace the choice.
 
 If no rule resolves a material conflict — the suite asserts one behavior, the decision record says
 another, and a maintainer comment disagrees with both — ask the user or responsible maintainer
@@ -50,9 +50,9 @@ outweigh an adopted policy about intended retention.
 
 ## Why
 
-Sources serve different roles. Separating authority from proposal, navigation, history, and
-observation prevents a convenient existing artifact or a detailed explanation from becoming the
-target without approval.
+A proposal, a historical note, and a test of existing code do not necessarily tell you what the
+product should do. Checking their status prevents a convenient implementation or detailed
+explanation from becoming a requirement without approval.
 
 ## Exceptions and boundaries
 

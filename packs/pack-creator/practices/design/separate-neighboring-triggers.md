@@ -15,19 +15,19 @@ title: Separate Practices That Compete for the Same Query
 
 ## When to apply
 
-Apply after guidance has been split into atomic Practice drafts and two entries still seem
-appropriate for the same request. Compare the exact decision each entry changes, not only its title
-or domain. This Practice resolves competition between files; it does not decide the earlier question
-of whether one draft contains several decisions.
+When two separate Practice drafts both look like answers to the same request, compare what each
+would tell the reader to do. Titles and subject areas are not enough to distinguish them. This is
+the check to make after splitting a draft that covered several independently useful decisions.
 
 ## Guidance
 
-Write one realistic positive query and one paraphrase for each draft, then use each other's positive
-query as a near miss. State the different fact that selects one action over the other. Revise the
-trigger, title, and guidance until a cold reader can route the cases. If no meaningful boundary
-exists, merge the drafts or redefine the decisions instead of relying on subtle wording. Stop when
-overlap means both decisions genuinely apply, not that either Practice could answer the same
-question.
+Write a realistic request and a paraphrase for each draft. Try the first draft's request against the
+second: it should be a close but unsuitable match, and vice versa. Explain what fact changes which
+action is appropriate. Revise the trigger, title, and guidance until someone reading them for the
+first time can choose the right Practice for each case. If there is no meaningful difference, merge
+the drafts or reconsider what each should answer instead of relying on subtle wording. Stop when
+both are selected only because both decisions really need attention, not because either could answer
+the same question.
 
 ## Anti-pattern
 
@@ -42,8 +42,9 @@ cannot sustain that boundary.
 
 ## Why
 
-Atomic files can still be poor retrieval targets when their selection conditions are
-indistinguishable. A visible near-miss boundary reduces noisy retrieval and conflicting action.
+Even files that each answer one question can be poor retrieval targets when their selection
+conditions are indistinguishable. Naming when one applies but its neighbor does not reduces
+irrelevant retrieval and conflicting actions.
 
 ## Exceptions and boundaries
 

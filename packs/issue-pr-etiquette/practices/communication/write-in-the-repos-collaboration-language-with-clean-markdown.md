@@ -15,21 +15,20 @@ title: Write in the Repository's Collaboration Language with Clean Markdown
 
 ## When to apply
 
-Apply when composing any collaborator-facing post on a repository that declares a working language
-in its contributing guide or governing documents. The decision is which language the prose uses and
-how the post is structured for a cold reader. Do not apply to content whose language is fixed by the
-artifact itself, such as quoted log output, code, or upstream documents.
+When writing an issue, PR body, review comment, or important status comment, check whether the
+repository declares a working language in its contributing guide or governing documents. Use that
+language for your explanation so collaborators can read it without translating. Quoted logs, code,
+and upstream documents keep their original language.
 
 ## Guidance
 
 Write the prose in the repository's declared collaboration language — for example, a repository
 whose contributing guide says collaborator-facing posts default to Chinese unless the user requests
 otherwise. Keep file paths, commands, code identifiers, error messages, and untranslatable proper
-nouns in their original form instead of translating them. Structure the post with Markdown headings,
-paragraphs, and lists so a reviewer can scan sections and quote a specific line; one dense wall of
-text is a structure choice, and usually the wrong one. Stop when a native reader of the declared
-language can locate any section of the post in seconds and every identifier remains searchable in
-its original spelling.
+nouns in their original form instead of translating them. Break longer posts into Markdown headings,
+paragraphs, and lists where they help reviewers find a section or quote a specific line. A short
+comment can stay short. The post is ready when readers fluent in the declared language can find its
+sections quickly and search every identifier in its original spelling.
 
 ## Anti-pattern
 
@@ -41,8 +40,8 @@ search for the Chinese term everyone used in discussion finds nothing.
 ## Why
 
 The declared language is the one the whole team reads fluently; writing in it lowers the cost of
-every review that follows. Identifiers kept in their original spelling stay greppable in code and
-docs, while translated identifiers silently break search, blame, and cross-referencing.
+every review that follows. Keeping identifiers in their original spelling lets readers search for
+them in code and docs, inspect their history, and follow references without translating them back.
 
 ## Exceptions and boundaries
 

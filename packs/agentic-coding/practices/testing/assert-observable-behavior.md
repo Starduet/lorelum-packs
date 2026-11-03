@@ -15,10 +15,9 @@ title: Assert Observable or Stable Behavior
 
 ## When to apply
 
-Apply after the reason for a test is known and before choosing what it will inspect. Identify who or
-what relies on the protected behavior: a user, API caller, persisted reader, external consumer, or
-intentionally stable internal interface. This Practice selects the observation boundary; it does not
-decide whether the behavior deserves a test in the first place.
+You know why a test is needed, but still need to choose what it should inspect. Check the result
+relied on by a user, API caller, reader of saved data, external consumer, or deliberately stable
+internal interface. This is about where to observe the behavior, not whether it deserves a test.
 
 ## Guidance
 
@@ -29,13 +28,13 @@ decide whether the behavior deserves a test in the first place.
    private route taken to get there.
 3. Assert the distinct outcomes callers must see: a denied request stays denied, stale data is
    identified when required, and exhausted retries return the defined failure.
-4. If the result cannot currently be observed, expose the smallest legitimate read or test through
-   the nearest stable interface instead of inspecting private state.
+4. If there is no way to observe the result yet, add the smallest legitimate way to read it or test
+   it through the nearest stable interface, rather than inspecting private state.
 
-Stop when the assertion would still pass after an internal refactor that preserves the promised
-behavior. A promised attempt budget or non-duplication guarantee is observable behavior; do not
-require every internal layer to call the same validator, or maintain tests for impossible internal
-states solely to justify defensive code.
+Stop when changing the internals without changing the promised behavior would leave the assertion
+passing. A promised limit on attempts or a guarantee against duplicate work is observable behavior
+too. Do not require every internal layer to call the same validator, or test impossible internal
+states merely to justify defensive code.
 
 ## Anti-pattern
 
@@ -47,9 +46,9 @@ fail if a later design removes the cache while correctly denying access.
 
 ## Why
 
-An assertion is useful when its failure means the protected promise may be broken. Stable
-observations provide that signal. Incidental assertions spend maintenance effort on code shape, can
-miss the user-visible defect, and produce evidence that is difficult to connect to acceptance.
+When a useful assertion fails, it means the promised behavior may be broken. Checking stable results
+gives that signal. Checking incidental implementation details can miss the real defect and make
+harmless refactors expensive, while proving little about the acceptance criteria.
 
 ## Exceptions and boundaries
 

@@ -16,9 +16,9 @@ title: Prefer Explicit Component Variants to Boolean Mode Flags
 
 ## When to apply
 
-Apply when a component is asked to support a new mode — create, edit, forward, reply — and the
-proposed change is another boolean prop plus the branches it needs. Decide whether the modes should
-be separate named components sharing parts.
+Before adding another boolean prop to support create, edit, forward, or reply mode, look at what
+each mode needs. If the modes need different data and component arrangements, consider separate
+named components that share their common parts.
 
 ## Guidance
 
@@ -51,13 +51,12 @@ The shared parts stay shared — a frame, an input, an action row — while each
 documents what it does and requires. The reader of a call site sees `<EditComposer messageId=... />`
 instead of reverse-engineering a truth table.
 
-Two boundaries keep this from becoming dogma. First, splitting is not the only honest shape: when
-the modes are genuinely variations of one public surface, a discriminated-union props contract gives
-the same per-mode data checking inside one component — see
-`react.composition.model-mutually-exclusive-props` for that contract. The split decision is about
-composition and data, the union decision about a retained single API. Second, independent options
-are not modes: `disabled`, `compact`, or `showAvatar` are facets that combine freely and belong as
-props; only mutually exclusive modes earn variants.
+Separate components are not the only option. If the modes still belong in one public component API,
+a discriminated union can require the right data for each mode; see
+`react.composition.model-mutually-exclusive-props`. Choose variants when the modes need different
+composition and data; use a union to enforce per-mode props when retaining one component.
+Independent options are not modes: `disabled`, `compact`, and `showAvatar` can combine freely and
+can remain separate props. Reserve variants for mutually exclusive modes.
 
 ## Anti-pattern
 
@@ -67,10 +66,9 @@ flag, and adding "schedule for later" mode means touching all of them.
 
 ## Why
 
-Variants push the mode choice to the type level and the call site, where wrong combinations fail to
-compile or fail to be written at all; booleans push it into runtime branches where every combination
-is representable. Shared parts keep the variants from forking into copies, so the split costs
-composition, not duplication.
+Named variants make the caller choose a mode explicitly, and each variant's props require that
+mode's data. Separate booleans instead allow combinations that the component must interpret or
+reject at runtime. Reusing the common parts avoids copying their implementation into every variant.
 
 ## Exceptions and boundaries
 
@@ -80,8 +78,8 @@ composition, not duplication.
   copy-paste, which is worse than flags.
 - Cross-variant state that outlives one variant's mount (drafts, selections) is a state-ownership
   decision — see `react.state.share-one-owner` — not a props shape.
-- This Practice does not prescribe the shared-parts mechanism (compound parts, context provider,
-  plain props); choose the simplest one that keeps the variants honest.
+- This Practice does not prescribe how to share parts (compound parts, context provider, or plain
+  props); use the simplest mechanism that avoids duplication while preserving each mode's needs.
 
 ## Example
 

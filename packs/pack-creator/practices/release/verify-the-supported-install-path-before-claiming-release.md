@@ -15,22 +15,22 @@ title: Verify the Supported Install Path before Claiming Release
 
 ## When to apply
 
-Apply after an immutable release candidate and Registry entry exist, before saying the Pack is
-published, installable, or available through the supported command. The decision is whether the
-complete supported distribution chain works for that exact version. Content quality, retrieval
-behavior, and downstream usefulness require separate evidence.
+Once an immutable release candidate and Registry entry exist, try the path users are told to use
+before calling the Pack published, installable, or available through the supported command. Check
+the whole path for that exact version. Content quality, retrieval behavior, and downstream
+usefulness still need separate evidence.
 
 ## Guidance
 
 Use an isolated destination and the same public install path users are told to use. Resolve the Pack
-through the intended Registry repository, confirm the selected version and release ref, materialize
-only the supported Pack files, pass the Pack decoder and validation gate, install into the intended
-store, and read back the installed Pack identity and expected Practice IDs. Record the resolved
-commit, version, command or API path, environment, and result. Fail the release claim when the
-Registry points to a missing or movable ref, the remote source differs from the reviewed candidate,
-materialization omits files, decoding fails, or the installed identity is wrong. Stop after one
-representative supported path succeeds for the exact release, plus any additional platform checks
-the release policy requires; do not turn repeated installs into a semantic-quality score.
+through the intended Registry repository and confirm the selected version and release ref. Fetch
+only the supported Pack files from that source, pass the Pack decoder and validation gate, install
+into the intended store, and read back the installed Pack identity and expected Practice IDs. Record
+the resolved commit, version, command or API path, environment, and result. Do not claim the release
+works if the Registry points to a missing or movable ref, the remote source differs from the
+reviewed candidate, files are omitted, decoding fails, or the installed identity is wrong. Stop
+after one representative supported path succeeds for the exact release, plus any additional platform
+checks the release policy requires; repeated installs are not a semantic-quality score.
 
 When the release contains Pack-native resources, retrieve one Practice that links a representative
 file and resolve that target from its returned Pack root. Record the target and observed file bytes

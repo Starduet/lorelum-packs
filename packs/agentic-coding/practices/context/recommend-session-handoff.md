@@ -15,52 +15,65 @@ title: Recommend a Fresh Session When History Adds Little Value
 
 ## When to apply
 
-Apply when most history adds little value to ongoing work or the user's next phase, even before
-mistakes occur, or when old directions already compete with accepted decisions. Completed
-investigations, logs, and superseded plans can be left behind if a concise handoff preserves the
-needed context. If a session boundary is already decided and only what to record remains open, write
-a checkpoint.
+The conversation has moved on, but most of its history is about finished investigations, logs, or
+plans that no longer apply. Suggest a fresh session when a concise handoff could preserve what the
+ongoing work or agreed next phase needs. You need not wait for a mistake; old directions may already
+be competing with accepted decisions. If the move is already decided and you only need to choose
+what to record, write a checkpoint.
 
 ## Guidance
 
-1. Identify the intended continuation: remaining work and agreed next phases. Select the facts and
-   clauses that govern its inputs, promised behavior, data handling, conditional outcomes, and
-   planned or reused evidence. Preserve their qualifications and decision status, not a summary of
-   every topic. Leave unrelated or superseded history behind; correct known drift and keep an
-   unresolved next focus open.
-2. Recommend a move when a compact record can replace substantial irrelevant history or remove
-   interference. Do not wait for errors or use a turn-count threshold. Keep working when history
-   remains useful without interference, or the work is ending without a continuation.
-3. Map each selected source clause to its place in the handoff before writing the overview: brief
-   text inline, or a precise location to read before a specified action. Keep this drafting map out
-   of the handoff. Preserve independent obligations and conditional branches, not just topic
-   coverage; data-handling and credential-storage limits do not collapse into "privacy". Retain the
-   smallest complete clause with its conditions, exceptions, outcome, and decision status. Quote
-   when paraphrase could change a boundary, not whole rule groups. Keep accepted requirements,
-   proposals, and hypotheses distinct; "continue discussing" is not acceptance. When retaining
-   experimental evidence, map its method controls as well as results and caveats. A later procedure
-   may stay at a precise, accessible source location that preserves its rules and status; a document
-   name or whole-history link is insufficient. Without a usable reference, include necessary
-   clauses, not surrounding discussion. Redact sensitive values.
-4. Write one compact action record: goal, current state, decisions, evidence limits, next actions,
-   and necessary source pointers. Keep short constraints inline. Add an on-demand section only for
-   essential detail that cannot be referenced elsewhere, not a second summary of every topic. Each
-   fact appears once; the opener references the record. State unknown current facts without
-   replaying obsolete snapshots. Adjacent tasks need dependencies, not plans or an inventory of
-   omitted work. Keep a rejected option's reason only if it still constrains a choice. Leave out
-   historical numbers, directory inventories, and debugging chronology that change no next decision.
-5. Preserve historical paths as supplied. Use an absolute project root only when established for
-   that project by the source or an explicit check; the current working directory alone is not such
-   evidence. With an unknown root, retain the relative path and state that gap rather than guessing.
-   A newly created handoff's actual location is valid new information: distinguish it from
-   historical artifact locations and omit unrelated environment or test-harness details.
-6. Compare every clause in the drafting map with its written text or precise required-reading
-   location. Check input inclusions/exclusions, independent obligations, conditions, exceptions,
-   outcomes, and method controls with their original status. A topic label, "preserve the contract",
-   or an optional general source index does not cover an omitted rule. Remove material that changes
-   no continuation decision, required behavior, or usable starting action; do not remove a
-   controlling fact merely to shorten the file. At a stable boundary, explain the move and provide
-   the handoff plus a ready-to-paste opener.
+1. Establish what will continue: remaining work and agreed next phases. Select the facts and exact
+   requirements that determine its inputs, promised behavior, data handling, conditional outcomes,
+   and evidence to be collected or reused. Keep their qualifications and whether they were accepted,
+   proposed, or still uncertain. Do not summarize every topic. Leave unrelated and superseded
+   history behind, and correct known departures from the agreed direction. If the next focus has not
+   been chosen, say that; do not choose it through the handoff.
+2. Recommend moving when a short record can replace substantial irrelevant history or stop old
+   directions interfering. Do not wait for errors or count turns. Keep working if the history is
+   still useful and causes no interference, or if the work is ending with nothing to continue.
+3. Before writing the overview, make a drafting list showing where each selected source clause will
+   go: directly in the handoff, or at an exact source location to read before a specified action. Do
+   not include this drafting list in the handoff itself.
+
+   Account for each independent obligation and each conditional branch, not just the topics.
+   Data-handling rules and credential-storage limits cannot both disappear into the word "privacy."
+   Keep the smallest complete clause, including its conditions, exceptions, outcome, and decision
+   status. Quote it if paraphrasing could change what it requires or permits; do not quote whole
+   groups of rules. Distinguish accepted requirements, proposals, and hypotheses: agreeing to
+   "continue discussing" something does not approve it.
+
+   For experimental evidence, include the controls on how the experiment was run as well as its
+   results and caveats in the drafting list. A procedure needed later can remain at a precise,
+   accessible source location, provided that location preserves its rules and status. A document
+   name or a link to the whole history is not enough. If no usable reference exists, include the
+   necessary clauses without the surrounding discussion. Redact sensitive values.
+
+4. Write one compact record of the goal, current state, decisions, limits of the evidence, next
+   actions, and necessary source references. Keep short constraints in the main text. Add detail to
+   consult on demand only when it is essential and cannot be referenced elsewhere; do not create
+   another summary for every topic. State each fact once and have the opener refer to this record.
+
+   Say when current facts are unknown rather than repeating outdated snapshots. For adjacent tasks,
+   retain dependencies, not plans or an inventory of what you left out. Keep a rejected option's
+   reason only if it still limits a choice. Omit historical numbers, directory inventories, and
+   debugging chronology that would not change the next decision.
+
+5. Keep historical paths exactly as supplied. Use an absolute project root only if the source or an
+   explicit check established it for that project; your current working directory is not evidence.
+   If the root is unknown, keep the relative path and say the root is unknown instead of guessing.
+   The actual location of a handoff you just created is valid new information. Distinguish that
+   location from historical artifact locations, and leave out unrelated environment or test-harness
+   details.
+6. Compare every source clause in your drafting list with the written handoff or its exact required
+   reading location. Check included and excluded inputs, independent obligations, conditions,
+   exceptions, outcomes, and experimental method controls, with their original decision status. A
+   topic label, "preserve the contract," or an optional general source index does not preserve a
+   missing rule.
+
+   Remove material that changes no continuation decision, required behavior, or usable first action.
+   Do not cut a fact that controls the work just to shorten the file. At a stable point in the work,
+   explain why moving helps and provide the handoff and a ready-to-paste opener.
 
 Stop when the user can resume from the record. If the user stays in the current session, continue
 working; suggest a move again only after a material change.

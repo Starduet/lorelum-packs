@@ -15,9 +15,9 @@ title: Keep Coordinated State at One Shared Owner
 
 ## When to apply
 
-Apply when two or more components must make decisions from the same changing UI value—for example,
-one edits a filter while another displays or clears that filter. Decide whether the value can remain
-local, needs one shared owner, and how consumers should reach that owner.
+If one component edits a filter while another displays or clears it, they need to read and update
+the same value. Choose one component to own that state and a clear way for the others to use it,
+rather than keeping copies synchronized. Leave the value local when only one component needs it.
 
 ## Guidance
 
@@ -26,11 +26,10 @@ components must read or update the same value, move its single source of truth t
 React owner that can coordinate them. Pass the value and update callback through props when the path
 is direct and understandable.
 
-Use Context or a provider only when the consumers are separated by enough unrelated layers that prop
-threading becomes a real cost, or when the component contract intentionally exposes a shared
-provider boundary. Context changes how a value is reached; it does not make duplicate copies safe or
-make the provider's state global. Avoid moving state to an application root just to make it
-available to one nearby sibling.
+Use Context or a provider when passing props through many unrelated layers becomes a real cost, or
+when the component API deliberately offers a shared provider. Context changes how components reach
+the value; it does not make duplicate copies safe or turn provider state into global state. Do not
+move state to the application root just so one nearby sibling can use it.
 
 Do not copy the value into each consumer and synchronize those copies with Effects, and do not reach
 into another component through a ref. If the value belongs to a server, URL, or external store
@@ -45,10 +44,10 @@ either side changes, and the extra synchronization creates a second owner for on
 
 ## Why
 
-One mutable UI concept needs one authority. Placing that authority at the lowest owner shared by the
-components lets them observe the same render value and send updates through an explicit path.
-Lifting farther than necessary broadens who must render in response; duplicating the value creates
-competing versions that require synchronization.
+When several components must share a changing UI value, storing it once in their nearest common
+owner lets them read the same value and update it through one callback path. Moving it farther up
+can cause more of the tree to render when it changes. Keeping editable copies in each consumer
+instead creates values that can disagree and must be synchronized.
 
 ## Exceptions and boundaries
 

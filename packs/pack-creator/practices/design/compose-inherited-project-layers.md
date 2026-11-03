@@ -15,25 +15,25 @@ title: Compose Project Layers as Incremental Overlays
 
 ## When to apply
 
-Apply when a monorepo, nested component, generated subproject, or local experiment needs its own
-`.lorelum` directory while an ancestor already supplies guidance. This Practice decides precedence
-and scope between layers. It does not decide whether the Pack should be local or released through a
-Registry.
+If a monorepo component, nested project, generated subproject, or local experiment needs its own
+`.lorelum` directory and a parent directory already supplies guidance, decide which rules should
+carry through and which the child should replace. Whether to keep the Pack local or publish it
+through a Registry is a separate choice.
 
 ## Guidance
 
 Keep broadly applicable repository guidance in the nearest useful parent layer. Add only the
-child-specific Pack files or same-ID Practice replacements in the child layer. Lorelum folds layers
-from parent to child: a child Practice with the same ID wins, while parent Practices the child does
-not replace remain active. A child Pack with the same name is therefore an incremental overlay, not
-a whole-Pack replacement.
+child-specific Pack files or same-ID Practice replacements in the child layer. Lorelum combines
+layers from parent to child: a child Practice with the same ID wins, while parent Practices the
+child does not replace remain active. A child Pack with the same name therefore adds to or changes
+individual parent Practices; it does not replace the whole Pack.
 
 Let omitted config fields inherit. Use `packs.<name>.enabled` or `priority` only for an explicit
 Pack-level decision, and use `base: none` only when the child must exclude the selected user Store.
 Set `inherit: false` only for a genuinely isolated subtree; it removes every parent layer rather
-than merely choosing one child Practice. Write down the expected winner for every same-ID override
-and test it from the child directory. Stop when the child contains only its own decisions, the
-parent still supplies unaffected Practices, and an operator can explain why each winner applies.
+than merely choosing one child Practice. Write down which file should take effect for every same-ID
+override and test it from the child directory. Stop when the child holds only its specific changes,
+unaffected parent Practices still apply, and an operator can explain why each rule takes effect.
 
 ## Anti-pattern
 
@@ -46,9 +46,9 @@ replacement Practice; the parent remains the source for the other decisions.
 
 ## Why
 
-Incremental overlays preserve the useful baseline while making a local exception visible at the
-Practice that actually changes. Whole-Pack shadowing turns a small local decision into a duplicated
-maintenance surface and makes ordinary source edits more fragile.
+Replacing only the changed Practices keeps the useful parent guidance and makes each local exception
+visible. Copying or hiding the whole Pack means maintaining duplicated files and risks losing valid
+parent guidance during ordinary edits.
 
 ## Exceptions and boundaries
 

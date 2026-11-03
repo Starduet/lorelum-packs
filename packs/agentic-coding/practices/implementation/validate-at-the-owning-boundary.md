@@ -15,50 +15,52 @@ title: Validate at the Boundary That Owns the Fact
 
 ## When to apply
 
-Apply when assigning a needed check to its owner or deciding whether a fact must be re-established
-at a later handoff. Trace the actual path, not every package. Whether a proposed precaution supplies
-enough added protection to justify its costs is the separate `justify-added-checks` decision.
-Choosing a retry or fallback after a known failure is a recovery decision.
+The same input passes through an adapter, service, and storage layer, and you need to decide where
+to check it — or whether to check it again later. Follow that actual path, not every package.
+Deciding whether a proposed check adds enough protection for its cost belongs to
+`justify-added-checks`. Choosing a retry or fallback after a known failure is a recovery decision.
 
 ## Guidance
 
-1. Trace the relevant input or state and its handoffs only. Name the reachable failure or mandatory
-   contract each check addresses, the fact it establishes, where that fact first becomes trustworthy,
-   and the component responsible for keeping it true.
-2. Assign each check to its owning boundary: validate external shape at ingress, apply business
-   rules where their state is owned, normalize into the agreed representation once at its owning
-   conversion, and pass the established result through ordinary internal calls. An internal type
-   should express that result where practical; a cast alone establishes nothing.
-3. Before adding another check, identify what could invalidate the earlier result at this location:
-   another entry point, untrusted deserialization, a transformation, concurrent mutation, expired
-   authorization, or an independently required protection. Keep the check only when such a condition
-   exists — a new function, layer, or package name is not itself a new boundary.
-4. Pass established facts through unchanged calls and keep checks at genuinely distinct boundaries.
-   Remove duplicate internal work rather than adding caches, trusted flags, or locks to preserve it.
+1. Follow only the relevant input or state through its handoffs. For each check, explain what
+   failure can happen there or which mandatory contract requires it, what the check proves, where
+   you can first trust that result, and which component must keep it valid.
+2. Check external input shape at entry. Apply business rules in the component that owns the relevant
+   state. Convert to the agreed representation once, where that conversion belongs, then pass the
+   result through ordinary internal calls. Use an internal type to express what has been checked
+   where practical; a cast alone proves nothing.
+3. Before checking again, identify what could make the earlier result invalid here: another entry
+   point, untrusted deserialization, a transformation, concurrent mutation, expired authorization,
+   or independently required protection. Keep the check only if such a condition exists. A new
+   function, layer, or package name does not by itself create a new boundary.
+4. Pass already-checked results through calls that do not change them, and retain checks at
+   genuinely different boundaries. Remove duplicate internal work; do not add caches, trusted flags,
+   or locks just to keep doing it.
 
-Stop with a clear owner per fact and only the checks the actual path needs; a short explanation in
-the existing design or review is enough.
+Stop when it is clear who is responsible for each guarantee and only the checks needed on the actual
+path remain. A short explanation in the existing design or review is enough.
 
-For a controlled internal producer, trust the postconditions its contract and real production path
-establish. A process hop or local HTTP call alone does not make the payload independently
-untrusted. Keep decoding, authentication, protocol matching, and request–response correlation where
-needed; they do not imply repeating the complete business schema. A representation conversion
-justifies checks for failures it introduces, not every failure imaginable for an arbitrary object.
+When an internal producer is controlled, rely on what its contract and actual production path
+guarantee about its output. Crossing a process boundary or making a local HTTP call does not alone
+make that output untrusted. Keep decoding, authentication, protocol matching, and request–response
+correlation where needed, without treating them as reasons to repeat the full business-schema check.
+A representation conversion needs checks for failures it can introduce, not every problem an
+arbitrary object could have.
 
-Do not make protection against another internal implementation violating its types and contract a
-default production responsibility. Prefer types, producer contract tests, and necessary development
-assertions. A mock that invents an output the producer cannot emit does not justify a downstream
-guard. Preserve tests for reachable external input, real corruption, and supported recovery.
+Do not make the production path guard by default against other internal code violating its own types
+and contract. Prefer types, producer contract tests, and necessary development assertions. A mock
+that invents output the producer cannot emit does not justify a downstream guard. Preserve tests for
+reachable external input, real corruption, and supported recovery.
 
-Once JSON has been decoded and validated without introducing new values, checking for cycles,
-Symbols, or arbitrary object prototypes establishes no new fact. Retain adapters that own a real
-conversion or lifecycle; distinct boundaries need not share one validator. Earlier verification
-does not cover later file changes or a new caller that can bypass the verified path.
+After JSON has been decoded and validated, if no new values have been introduced, checking for
+cycles, Symbols, or arbitrary object prototypes adds no guarantee. Keep adapters that actually
+handle a conversion or lifecycle; different boundaries need not share one validator. An earlier
+check does not cover later file changes or a new caller that can bypass the checked path.
 
 Preserve external input validation, model/native integration quality checks, publication integrity,
-transaction and snapshot consistency, authentication, process ownership, and regeneration of
-corrupt derived caches. Change an accepted checking contract through its normal change process
-before removing its required checks.
+transaction and snapshot consistency, authentication, process ownership, and regeneration of corrupt
+derived caches. Change an accepted checking contract through its normal change process before
+removing its required checks.
 
 ## Anti-pattern
 

@@ -15,9 +15,8 @@ title: Make Render Conditions Actually Boolean
 
 ## When to apply
 
-Apply while writing or reviewing a conditional render of the form `{value && <Thing />}`. Decide
-whether the left operand's falsy domain contains only `false` and `undefined`, or also values JSX
-would render as content.
+Apply while writing or reviewing `{value && <Thing />}`. Check what happens when `value` is falsy:
+does React receive a value it ignores, such as `false`, or a number it displays, such as `0`?
 
 ## Guidance
 
@@ -29,15 +28,13 @@ it to one first:
 {error.code > 0 && <ErrorBanner code={error.code} />}
 ```
 
-An explicit comparison, `Boolean(...)`, or a ternary with an explicit `null` branch all work; the
-decision is that the author stated what the zero case means instead of leaving it to coercion. Empty
-strings and `NaN` follow the same rule: `NaN` renders as text, and an empty string renders an empty
-text node where `null` renders nothing at all.
+Use an explicit comparison, `Boolean(...)`, or a ternary with a `null` branch to state when the
+element should appear. Handle `NaN` and empty strings deliberately too; in particular, `NaN`, like
+`0`, can appear as text if passed through as the left operand.
 
-Do not blanket-ban `&&`: when the left operand is already boolean — a flag, a comparison, a
-predicate call — `{isOpen && <Panel />}` is idiomatic and correct. The reviewable question is only
-"can this expression be a falsy value that renders?", which is a type question first and a style
-question never.
+Keep `&&` when the left operand is already boolean — a flag, comparison, or predicate call.
+`{isOpen && <Panel />}` is idiomatic and correct. Check whether a falsy result could be displayed
+instead of hidden; this is about the expression's type, not a preference for one JSX style.
 
 ## Anti-pattern
 
@@ -47,10 +44,9 @@ because zero is falsy but still a number JSX displays.
 
 ## Why
 
-JSX renders any child it is given, and `&&` passes the left operand through when it is falsy.
-Numbers and strings therefore leak into the tree as content. Collapsing the condition to a real
-boolean makes the render decision and the displayed value independent, so the zero case renders
-nothing rather than rendering zero.
+When the left operand is falsy, `&&` returns that operand, not necessarily `false`. React displays
+numbers such as `0` and `NaN`, but ignores boolean children. A boolean condition therefore separates
+the decision to show the element from the value that should be displayed.
 
 ## Exceptions and boundaries
 

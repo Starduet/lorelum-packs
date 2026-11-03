@@ -15,48 +15,45 @@ title: Plan the Minimum Sufficient Evidence
 
 ## When to apply
 
-Apply after acceptance is clear and the task's overall engineering depth has been chosen, but before
-coding starts. Decide how each must will be demonstrated and where cheap evidence stops being
-representative. If checks have already run and their coverage is being reconciled with acceptance,
-map the evidence instead.
+Once the acceptance requirements and overall amount of engineering work are clear, decide how you
+will tell whether each required behavior works, before coding starts. Choose checks that can catch
+the failures that matter, and know when a cheap check stops representing real use. If checks have
+already run, compare their results with the requirements instead of starting a new evidence plan.
 
 ## Guidance
 
-1. List each acceptance must next to the plausible failure an implementer could ship while believing
-   it works: a duplicate charge, an archive the independent consumer cannot open.
-2. For each must, choose the lowest-cost observation that actually distinguishes success from that
-   failure: which check, run where, watching which boundary.
-3. Record each observation's scope and blind spot, and the trigger that would demand stronger
-   evidence.
-4. Use focused checks to reject bad approaches early; reserve integration, a representative
-   environment, or human review for boundaries cheaper checks cannot represent.
-5. If no feasible evidence supports a must, get a decision from the requirement owner before
-   implementation begins: add the missing evidence route (for example a new environment), narrow or
-   defer the must, remove it from the committed scope, or accept it as unverifiable with the risk
-   recorded. Recording the gap alone does not authorize implementing the must as if it could be
-   verified.
+1. For each required behavior, describe a plausible mistake that could survive implementation:
+   charging twice, for example, or exporting an archive that the intended consumer cannot open.
+2. Choose the least expensive check that can tell correct behavior from that mistake. Say which
+   check to run, where to run it, and what behavior to observe.
+3. Note what the check does not cover and what would make a stronger check necessary.
+4. Use focused checks to rule out bad approaches early. Use integration checks, a representative
+   environment, or human review when cheaper checks cannot show what happens there.
+5. If there is no feasible way to verify a requirement, get its owner's decision before coding. They
+   may provide a way to gather the evidence, narrow or defer the requirement, remove it from scope,
+   or accept that it cannot be verified and record the risk. Merely noting the gap does not let you
+   proceed as though the requirement can be verified.
 
-Stop when every must has a sufficient evidence route or a recorded owner decision — narrowed,
-deferred, de-committed, or accepted as unverifiable with its risk. A declared gap alone is not a
-stop.
+Planning is complete when each requirement has a sufficient check or a recorded owner decision about
+its limits. Writing "not verified" without that decision is not enough.
 
-When refining the plan after a change, add checks for new risks and unresolved evidence gaps;
-reuse earlier results that still apply to the current artifact and environment. Do not require a
-full rerun, benchmark, or formal risk report for every edit. Extra work in a hot path warrants
-checking its actual cost at a scale that can change the decision; a mandatory benchmark ritual is
-not a substitute for that judgment. Tests for impossible producer outputs do not supply evidence
-about reachable failures. More checks or defensive branches alone do not establish higher quality.
+When updating a plan, add checks for new risks and unresolved gaps. Reuse earlier results that still
+apply to the current code or output and environment. An edit does not automatically require the
+whole suite, a benchmark, or a formal risk report. If a frequently executed operation now does more
+work, measure at a scale that can show whether its cost matters; do not run a benchmark just to
+complete a checklist. Testing inputs the producer cannot generate says nothing about failures that
+can actually occur. More checks or defensive branches do not, by themselves, prove better quality.
 
 ## Anti-pattern
 
-An export plan lists unit tests, static checks, and manual file inspection. They are convenient and
-all can pass, but none opens the archive in the independent consumer named by the compatibility
-requirement. Check volume substitutes for evidence at the only boundary that matters.
+An export plan includes unit tests, static checks, and opening the files by hand. All are convenient
+and can pass, but nobody tries the archive in the independent consumer required to support it. The
+plan counts checks without checking compatibility where it can fail.
 
 ## Why
 
-Evidence tied to a plausible failure shows what a pass rules out. The cheapest sufficient route
-avoids ceremony while preserving stronger checks where they can change the decision.
+A useful check rules out a mistake that could really happen. Choosing the cheapest check that does
+so avoids unnecessary work without dropping stronger checks when they can change the decision.
 
 ## Exceptions and boundaries
 

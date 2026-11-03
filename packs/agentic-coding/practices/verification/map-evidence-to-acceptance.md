@@ -15,10 +15,11 @@ title: Map Evidence to Acceptance Criteria
 
 ## When to apply
 
-Apply after checks or observations exist and before deciding that acceptance has been demonstrated.
-The decision is which current criterion each result actually supports. Planning future evidence
-happens before implementation; checking whether a result is still fresh is a separate state-binding
-decision; resolving a row left uncovered happens after this map exposes it.
+The checks have run and you need to decide whether they prove what the user asked for. Match each
+result to the acceptance criterion it actually supports before calling the work accepted. This uses
+results already collected, not a plan for future checks. Whether an old result still applies to
+current files and conditions is a separate question; decide what to do about uncovered criteria
+after you have identified them.
 
 ## Guidance
 
@@ -44,9 +45,9 @@ disappears behind the activity summary.
 
 ## Why
 
-Verification results have narrower meaning than their command names suggest. Mapping makes that
-meaning explicit, exposes silent gaps, and lets reviewers challenge a particular criterion-to-result
-relationship instead of interpreting a dense log as a general proof.
+A command can pass without checking everything its name seems to promise. Showing which result
+proves which requirement makes the limits and gaps visible. Reviewers can then question that
+specific connection instead of trying to infer acceptance from a long log.
 
 ## Exceptions and boundaries
 
@@ -58,8 +59,8 @@ produces the map, not the final delivery wording.
 ## Example
 
 The user asks for a report with required fields, readable pages, and a file that opens on the target
-phone. The repository has a schema test, rendered page images, a successful phone download, and a
-green build. The agent lines the results up against the criteria: the schema result covers required
-fields, the image inspection covers readability, and the phone observation covers delivery and
-opening; the build is recorded only as a required gate. Because no check interrupted and resumed a
-download, offline retry remains explicitly uncovered.
+phone. The repository has a schema test, rendered page images, a successful phone download and
+opening, and a green build. The agent lines the results up against the criteria: the schema result
+covers required fields, the image inspection covers readability, and the phone observation covers
+delivery and opening; the build is recorded only as a required gate. Because no check interrupted
+and resumed a download, offline retry remains explicitly uncovered.

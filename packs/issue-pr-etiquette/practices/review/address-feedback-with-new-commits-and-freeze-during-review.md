@@ -15,34 +15,35 @@ title: Address Feedback with New Commits and Freeze During Review
 
 ## When to apply
 
-Apply whenever responding to review feedback on a PR others are reviewing, and whenever a formal or
-independent review round is running against the branch. The decision is how changes reach the branch
-and when. Do not apply to a branch nobody has been asked to review yet.
+Once others have been asked to review your PR, preserve the history they are reading when you
+respond to feedback. If a formal or independent review round is running, also wait until it ends
+before changing the branch. A branch nobody has been asked to review yet can still be rewritten.
 
 ## Guidance
 
-Respond to feedback by adding commits to the branch, not by rewriting the history reviewers have
-already read; each commit should state which finding it addresses. Keep a review-requested fix and
-any unrelated improvement in separate commits, and prefer separate PRs for the unrelated ones. When
-the repository runs a formal review round — an automated pass, an independent reviewer, a scheduled
-session — freeze code changes on the branch until the round concludes: record findings and queue
-fixes instead of pushing them mid-round. Rebase or squash only when the reviewer asks for it or at
-the repository's defined checkpoint. Stop when every finding has either a commit that addresses it
-or a written reply saying why not.
+Address feedback with new commits rather than rewriting commits reviewers have already read. Explain
+in each commit which finding it addresses. Keep review-requested fixes separate from unrelated
+improvements, and preferably put those improvements in separate PRs.
+
+During a formal review round — an automated pass, an independent review, or a scheduled session —
+leave the branch's code unchanged until the round ends. Record findings and queue the fixes instead
+of pushing them while the review is running. Rebase or squash only when a reviewer asks or at the
+checkpoint the repository defines. Every finding needs either a commit that addresses it or a
+written reply explaining why you are not making that change.
 
 ## Anti-pattern
 
 Midway through a two-round review, the author force-pushes a "cleaned up" history. Every inline
-comment from round one is orphaned, pointing at lines that no longer exist; the independent reviewer
-restarts from zero, and one of the orphaned findings — a real race condition — is lost in the
-rewrite. The final merge carries a defect the review process had already caught.
+comment from round one now points at lines missing from the new history. The independent reviewer
+must start again, and a finding about a real race condition is lost with its original context. The
+final merge carries a defect the review process had already caught.
 
 ## Why
 
-Review evidence attaches to the commit state reviewers read. New commits extend that record so each
-finding stays traceable to its fix; rewriting destroys the mapping, and mid-round changes invalidate
-the round's conclusions, so the process pays for review it cannot use. The cost compounds when
-multiple independent rounds must agree on one frozen state.
+Reviewers base findings on a specific commit. Adding commits preserves that version and shows which
+fix addresses each finding. Rewriting history removes those references; pushing mid-round means
+reviewers may reach conclusions about different versions. Multiple independent rounds need the same
+unchanged version if their conclusions are to be compared.
 
 ## Exceptions and boundaries
 

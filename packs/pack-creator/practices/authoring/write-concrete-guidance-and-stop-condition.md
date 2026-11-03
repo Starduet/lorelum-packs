@@ -15,16 +15,16 @@ title: Give Concrete Actions and a Clear Stop
 
 ## When to apply
 
-Apply while writing Guidance for a Practice whose trigger and single decision are already settled.
-This Practice controls the action and its stopping point. It does not decide when the Practice
-should be retrieved or whether the failure scenario is realistic.
+Once you know what question a Practice answers and when readers need it, write Guidance that tells
+them what to do and how to know they have done enough. Do not use this section to reconsider when
+the entry should be found or whether its failure scenario is realistic.
 
 ## Guidance
 
-Use concrete verbs that name what to inspect, compare, choose, record, or change. Identify the
-minimum facts needed, the output of the decision, and a condition that ends further research or
-expansion. Remove advice that cannot change the output. Stop when a reader can follow the Guidance
-and show one observable result without inventing an extra workflow.
+Tell readers what to inspect, compare, choose, record, or change. Explain which facts they need,
+what they should have decided or produced at the end, and when they can stop investigating or
+expanding the work. Remove advice that would not change that result. Stop when a reader can follow
+the Guidance and show an observable result without inventing an extra workflow.
 
 ## Anti-pattern
 
@@ -36,16 +36,16 @@ investigation expands while the inconsistent setting remains.
 
 ## Why
 
-Guidance changes behavior only when it leads from the trigger to a bounded output. Without a
-stopping point, even relevant advice can produce delay, unnecessary scope, or incompatible
-interpretations.
+Guidance changes behavior only when it tells the reader what result completes the decision. Without
+a stopping point, even relevant advice can delay action, expand the work unnecessarily, or lead
+readers to do different things.
 
 ## Exceptions and boundaries
 
-Exploratory Practices may end with a bounded evidence gap or an explicit request for a decision
-rather than a technical choice. Safety and incident response may require immediate containment
-before full analysis. In both cases, name the observable handoff or containment state that ends this
-Practice.
+An exploratory Practice may end by naming the evidence still missing or asking someone to make a
+decision rather than choosing a technical solution. Safety and incident response may require
+immediate containment before full analysis. In either case, say what must be handed over or brought
+under control before the reader stops following this Practice.
 
 ## Example
 

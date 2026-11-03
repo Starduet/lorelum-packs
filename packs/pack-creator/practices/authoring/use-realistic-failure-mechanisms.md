@@ -15,19 +15,19 @@ title: Use a Mistake a Capable Practitioner Could Make
 
 ## When to apply
 
-Apply when selecting or reviewing the failure mechanism for an Anti-pattern. Ask whether a capable
-Pack user could make the wrong choice while responding to real pressure or repository evidence. This
-Practice judges credibility; a separate review decides whether the scenario includes enough
-background to understand it.
+When writing an Anti-pattern, ask whether a capable user could make this mistake under real pressure
+or because of what they see in the repository. Show why the wrong choice would seem reasonable.
+Check that the mistake is believable here; whether the scenario gives enough background to
+understand it is a separate review.
 
 ## Guidance
 
-Start from an observed incident, a documented near miss, or a faithful composite. Name the locally
-attractive choice, the evidence or incentive supporting it, and the worse result that survives
-superficial review. Preserve that causal mechanism when details must be anonymized. Reject scenarios
-that require ignoring an explicit rule or making a beginner-level mistake. Stop when a reviewer can
-explain why a competent person might choose the wrong path and how the Practice changes that
-decision.
+Start from an observed incident, a documented near miss, or a combination that preserves the facts
+and causes of those cases. Name the choice that seems attractive in that situation, the evidence or
+incentive supporting it, and the failure a superficial review would miss. Preserve that cause and
+effect when details must be anonymized. Reject scenarios that require ignoring an explicit rule or
+making a beginner-level mistake. Stop when a reviewer can explain why a competent person might
+choose the wrong path and how the Practice changes that decision.
 
 ## Anti-pattern
 
@@ -47,8 +47,8 @@ look safe.
 
 Foundational Packs may address novice mistakes, but the scenario still needs a believable cause and
 a decision the guidance can change. Do not invent dramatic consequences unsupported by the sources.
-When no recurring or plausible failure exists, reconsider whether the Practice adds discriminating
-knowledge.
+When no recurring or plausible failure exists, reconsider whether the Practice helps readers make a
+choice they could otherwise get wrong.
 
 ## Example
 

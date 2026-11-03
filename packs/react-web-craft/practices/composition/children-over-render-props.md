@@ -15,15 +15,15 @@ title: Compose with Children; Reserve Render Props for Data-Bound Slots
 
 ## When to apply
 
-Apply when designing a component others will fill with content — a frame, a card, a toolbar, a
-dialog. Decide which parts of its API are structure the caller already has, and which are slots the
-component must fill with its own data.
+When callers fill a frame, card, toolbar, or dialog with content, they can often pass the elements
+directly. Use this distinction to design its slots: does the caller already have what it needs to
+render them, or must the component supply data first?
 
 ## Guidance
 
-Structure passes as children. What the caller can write as elements at the call site — headers,
-actions, sections — should travel as `children` or named slot props containing elements, not as
-functions the component calls:
+Accept headers, actions, and sections as `children` or named slot props containing elements when the
+caller can write them directly at the call site. There is no need to wrap those elements in
+functions for the component to call:
 
 ```tsx
 <Card>
@@ -35,19 +35,18 @@ functions the component calls:
 </Card>
 ```
 
-Render functions earn their indirection only when the slot is data-bound: the component holds
-information the caller needs to render with — each row of a table, each item of a virtualized list,
-measured dimensions — and the callback is the delivery mechanism:
+Use a render function when the component must supply data for the caller to render the slot: each
+row of a table, each item of a virtualized list, or measured dimensions. The callback receives that
+data as an argument:
 
 ```tsx
 <DataTable rows={invoices} renderRow={(invoice) => <InvoiceRow key={invoice.id} invoice={invoice} />} />
 ```
 
-The reviewable question per prop: does the caller need anything from inside the component to render
-this? If no, take an element. A `renderHeader?: () => ReactNode` whose result never touches internal
-state is a callback impersonating a prop, and it costs readability and inlining for nothing. Naming
-follows the split — slot props are element props; data-bound ones are `render*` taking the data as a
-parameter, not zero-argument thunks.
+For each prop, ask whether the caller needs data from inside the component to render the slot. If
+not, accept an element. A `renderHeader?: () => ReactNode` that receives no internal data requires
+the caller to wrap an element in a function without gaining anything. Name data-receiving callbacks
+`render*` and include the data in their parameters; use element props for the other slots.
 
 ## Anti-pattern
 
@@ -77,8 +76,8 @@ structure", render props say "I will call you with my data".
 
 ## Example
 
-A page header takes structure as elements and leaves one data-bound slot for what only the table
-knows. The declared `Button` and `FilterInput` stand in for real components.
+A page header accepts its actions and filter input as elements, since neither needs data from inside
+the header. `Button` and `FilterInput` stand in for real components.
 
 ```tsx
 function PageHeader({ title, actions, children }: {

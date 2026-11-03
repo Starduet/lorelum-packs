@@ -15,10 +15,10 @@ title: Make Every Practice Usable on Its Own
 
 ## When to apply
 
-Apply after a Practice has its own decision and boundary, by reviewing it as though retrieval
-returned only that file. Check the whole Practice for hidden sequence, definitions, constraints, or
-conclusions. A separate authoring review asks whether one Example contains enough facts; this
-Practice asks whether the entire entry is usable without unseen neighbors.
+Read a Practice as if it were the only file returned for a request. Would the reader need an earlier
+step, an unexplained term, a constraint, or a conclusion from elsewhere before acting? Do this once
+the Practice has a clear question to answer and limits on its use. Check the whole entry here, not
+just whether its Example supplies enough facts.
 
 ## Guidance
 

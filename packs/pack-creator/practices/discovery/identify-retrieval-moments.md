@@ -15,20 +15,19 @@ title: Identify When the Pack Should Be Retrieved
 
 ## When to apply
 
-Apply after the Pack's decision outcome is clear and before turning source material into individual
-Practices. Identify the recurring moments when the target reader is about to choose, approve,
-diagnose, or report something and timely guidance could change the result. A later authoring
-decision writes the trigger for one Practice; this Practice maps collection-level opportunities for
-help.
+Once you know which decisions the Pack should improve, look for the points in the reader's work
+where help could change a choice, approval, diagnosis, or report. Do this before turning sources
+into individual Practices. You are finding when readers need help, not yet writing each Practice's
+exact trigger.
 
 ## Guidance
 
-Trace the work in which the target decisions occur and list concrete moments in the form "when the
-reader is about to decide or act on X under Y condition." Use observed questions, review comments,
-incidents, and near misses to find moments that a source outline may hide. Merge synonyms, remove
-moments that do not support the Pack outcome, and note high-consequence gaps. Do not force the list
-into one fixed lifecycle. Stop when the map covers the important decisions without prescribing the
-exact Practice files that will implement it.
+Follow the work where those decisions arise. List the points where a reader is about to decide or
+act, including the conditions that make help useful. Questions, review comments, incidents, and near
+misses often reveal needs that a source's table of contents misses. Merge entries that describe the
+same situation, remove ones that do not serve the Pack's purpose, and flag important decisions where
+guidance is missing and mistakes would have serious consequences. Do not force the work into a fixed
+lifecycle. Stop when the important decisions are covered, without deciding the exact files yet.
 
 ## Anti-pattern
 

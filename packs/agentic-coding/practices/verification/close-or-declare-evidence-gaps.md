@@ -15,22 +15,22 @@ title: Resolve Missing Verification Results
 
 ## When to apply
 
-Apply only after a criterion-by-criterion review has identified one specific behavior with no result
-or only a partial result. Decide what to do about that missing proof before delivery. Choosing the
-first set of checks belongs to planning; writing the final completion statement belongs to delivery.
+You have compared the results with each acceptance criterion and found a required behavior that was
+not checked, or was checked only in part. Decide what to do about that gap before delivery. This is
+not choosing the first checks in the plan or writing the final completion report.
 
 ## Guidance
 
-1. Name the exact uncovered behavior that remains unproved, and explain why the existing results
-   stop short.
-2. Choose one action: run the missing check, narrow the promise with the person who owns the
-   requirement, or mark the item explicitly unfinished and name what remains.
-3. Base the choice on the harm of being wrong, whether the requirement is mandatory, and whether the
-   check can be performed. A must-have requirement cannot be silently reduced because its check is
-   slow or inconvenient.
+1. Say exactly which required behavior has not been proved and why the existing results do not prove
+   it.
+2. Run the missing check, agree on a narrower promise with the person responsible for the
+   requirement, or explicitly mark the item unfinished and say what remains.
+3. Choose based on the harm if the behavior is wrong, whether the requirement is mandatory, and
+   whether the check is possible. A slow or inconvenient check does not let you silently reduce a
+   must-have requirement.
 
-Stop when every important missing result has one visible action; a nearby success never counts as a
-pass by implication.
+Stop when it is clear what you will do about every important missing result. A nearby check passing
+does not prove the untested behavior.
 
 ## Anti-pattern
 

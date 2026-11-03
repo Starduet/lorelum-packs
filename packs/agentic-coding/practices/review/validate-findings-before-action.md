@@ -15,20 +15,22 @@ title: Validate Findings Before Taking Action
 
 ## When to apply
 
-Apply before an external finding drives a code, test, document, or plan change. Decide whether that
-finding is true for the current requirement and artifact. If the defect is already reproduced, act
-on it. If only the finding's supporting evidence may be stale, evaluate evidence freshness instead.
+A reviewer, another agent, or an analyzer says something is wrong. Before changing code, tests,
+documents, or the plan, check whether that claim holds for the current requirement and files. If the
+defect is already reproduced, act on it. If only the supporting evidence may be outdated, check
+whether that evidence still applies instead.
 
 ## Guidance
 
-1. Compare the finding with the current request or specification: does the requested behavior
-   actually conflict with, or require, this change?
-2. Check the current artifact on the branch — the finding may cite an older diff.
-3. Mark the finding confirmed, unconfirmed, or requiring an authority decision.
-4. Choose only the route that status permits: local fix, gather more evidence, or return to
-   requirements.
+1. Compare the claim with the current request or specification. Does the requested behavior require
+   this change, or would the proposed change conflict with it?
+2. Check the current files on the branch; the review may refer to an older diff.
+3. Record whether the problem is confirmed, still unconfirmed, or needs a decision from someone
+   authorized to change the requirement.
+4. Fix a confirmed local problem, gather more evidence for an unconfirmed one, or return to
+   requirements for a decision.
 
-Do not edit while the finding is unconfirmed or the change would alter accepted behavior.
+Do not edit while the claim is unconfirmed or the change would alter accepted behavior.
 
 ## Anti-pattern
 

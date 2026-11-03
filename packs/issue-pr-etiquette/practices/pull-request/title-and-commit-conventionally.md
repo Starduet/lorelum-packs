@@ -15,19 +15,21 @@ title: Title and Commit Conventionally
 
 ## When to apply
 
-Apply when writing any commit message or PR title on a repository that declares a commit convention
-— most often Conventional Commits. The decision is the exact form of the subject line and what
-belongs in the body instead. Do not apply where the repository explicitly follows a different naming
-style, and then follow that style.
+When naming a commit or PR in a repository that uses a typed commit format, follow that format
+instead of inventing a title style. Check the contributing guide and existing history; Conventional
+Commits is common, but the repository's own naming rules take precedence.
 
 ## Guidance
 
-Follow the declared convention exactly: type, optional scope, colon, then an imperative, lowercase
-subject within the convention's length budget — commonly seventy-two characters — stating what the
-change does, not the story of making it. One logical change per commit; put the why, the trade-offs,
-and links to issues in the commit body or the PR body, not the subject. When the repository
-squash-merges, the PR title becomes the commit, so the same rule governs it. Stop when
-`log --oneline` reads as a changelog of what changed, without opening a single diff.
+Use the declared convention exactly. The usual form is a type, optional scope, colon, and an
+imperative, lowercase subject saying what the change does. Stay within its length limit, commonly
+seventy-two characters. Follow the repository's variant if it specifies a different form.
+
+Keep one logical change per commit. Put the reasons, trade-offs, and issue links in the commit body
+or PR body, not in the subject; the subject should describe the change rather than the process of
+making it. If the repository squash-merges, write the PR title to the same standard because it will
+become the commit subject. Readers of `log --oneline` should be able to see what changed without
+opening a diff.
 
 ## Anti-pattern
 
@@ -38,9 +40,9 @@ describe half the repository.
 
 ## Why
 
-History is a search interface. Typed, imperative, scoped subjects let people and tooling find
-changes by kind and area, generate release notes, and read a repository's evolution without opening
-diffs; improvised subjects erase that index at zero benefit to the author.
+People and tools search commit subjects to find changes, generate release notes, and understand the
+history without opening diffs. A type, an optional scope, and an imperative subject make those
+searches useful; vague subjects leave readers unable to distinguish one change from another.
 
 ## Exceptions and boundaries
 
@@ -56,4 +58,4 @@ A PR adding a resource protocol to a pack engine is titled
 `feat(pack): add resource protocol support` — type, scope, imperative lowercase subject, forty-one
 characters. Its body carries the design rationale and the linked issue. A sibling typo fix lands as
 `docs(readme): fix install command flag`, and a year later both are found by
-`git log --grep 'resource support'`.
+`git log --grep 'resource protocol' --grep 'install command'`.

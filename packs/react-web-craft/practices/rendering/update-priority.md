@@ -15,13 +15,13 @@ title: Split Urgent Input Updates from Slow Follow-Up Renders
 
 ## When to apply
 
-Apply when a single interaction updates a control the user watches — text input, a slider, a
-selected tab — and also drives work too expensive to finish within one frame. Decide which part of
-the update is urgent and which part may lag.
+Typing, dragging a slider, or selecting a tab may also trigger work that cannot finish within one
+frame. Keep the control's visible update immediate, and decide which follow-up content can safely
+lag behind.
 
 ## Guidance
 
-Two mechanisms express the split, and the choice follows the shape of the lag:
+Choose based on whether you are deferring a derived value or scheduling a state update:
 
 - The lag is in rendering a derived view of an input value (filtering a large list, re-rendering an
   expensive chart): defer the value. The control keeps its own immediate state, and the deferred
@@ -41,12 +41,11 @@ Two mechanisms express the split, and the choice follows the shape of the lag:
   is heavy, navigating): wrap the update in `startTransition`, or use `useTransition` when the UI
   should show that the follow-up is in flight.
 
-Mark the lag with something honest — dimming the stale results, a subtle pending indicator on the
-tab — so the split is visible instead of looking broken. Do not reach for these tools outside the
-split: a transition does not make high-frequency updates cheap and is not a scroll throttle; a
-deferred value is not a network debounce and does not cancel a fetch; and transition `isPending`
-describes the deferred update's own lifecycle, so error handling and races for async follow-ups
-remain their own decisions.
+Show when the result is stale or pending, for example by dimming old results or adding a pending
+indicator to the tab. This tells users that the control has updated but the content has not caught
+up. A transition does not make high-frequency updates cheap and is not a scroll throttle.
+`useDeferredValue` is not a network debounce and does not cancel a fetch. Transition `isPending`
+tracks the transition's lifecycle; async follow-ups still need their own error and race handling.
 
 ## Anti-pattern
 
@@ -57,10 +56,9 @@ behind.
 
 ## Why
 
-Concurrent rendering lets React interrupt low-priority work, but only if the code says which updates
-can wait. Declaring the input update urgent and the derived work deferred keeps the watched control
-at full frame rate while the expensive part settles, and the stale marker tells the user the lag is
-deliberate.
+Concurrent rendering lets React interrupt lower-priority rendering, but the code must identify which
+updates can wait. Keeping the control's update urgent lets React prioritize it over the derived
+view. A stale or pending indicator explains why that view still shows older content.
 
 ## Exceptions and boundaries
 
@@ -105,6 +103,6 @@ function PriceExplorer({ products }: { products: Product[] }) {
 }
 ```
 
-The thumb tracks the pointer at full frame rate because its update never waits for the grid. The
-grid settles a frame or two behind, and the dimmed state tells the user the lag is deliberate
-filtering, not a freeze.
+The slider's value updates urgently, while the grid uses the deferred value. React can prioritize
+the control over the lower-priority render. Dimming the old results shows that the grid has not
+caught up yet, rather than leaving users to guess whether the interaction was ignored.

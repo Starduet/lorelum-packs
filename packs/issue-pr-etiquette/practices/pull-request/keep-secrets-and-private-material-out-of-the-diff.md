@@ -15,10 +15,9 @@ title: Keep Secrets and Private Material out of the Diff
 
 ## When to apply
 
-Apply as the final check before requesting review on any PR, and while drafting any public post that
-quotes logs or data. The decision is whether the diff and quoted material are publishable as
-written. Suspicion alone is enough to apply — verifying a suspicion belongs to the fix, not the
-check.
+Before requesting review on any PR, check that the diff contains nothing private. Do the same before
+publishing a post that quotes logs or data. Even if you only suspect a value might be private, find
+out before publishing it.
 
 ## Guidance
 
@@ -28,8 +27,8 @@ example output, which leak as easily as config. Replace real values with synthet
 (`internal.example`, `user-1234`, `ssh-key-ed25519-REPLACED`) and load secrets from the environment
 or the platform's secret store. If a secret has already been pushed anywhere public, treat it as
 leaked: rotate it first, then follow the repository's removal process — rewriting history does not
-unpublish what crawlers already copied. Stop when you can explain each suspicious-looking string in
-the diff as synthetic or public.
+unpublish what crawlers already copied. Finish the check only when you can explain why each
+suspicious-looking string in the diff is synthetic or already public.
 
 ## Anti-pattern
 
@@ -40,10 +39,10 @@ forever, and the incident costs more goodwill than the test ever saved.
 
 ## Why
 
-A published diff is copied immediately and permanently by crawlers, mirrors, and forks — deletion
-and force-push do not recall it. Sanitization also protects the people in the data: customer
-identifiers and personal records in fixtures outlive the bug they illustrated. The final-line check
-is cheap; every downstream consequence is not.
+A published diff can remain in crawlers, mirrors, and forks after deletion or force-push. Removing
+sensitive values before posting also protects the people in the data: customer identifiers and
+personal records can outlive the bug they illustrated. Checking the diff before publication avoids
+exposure that later removal cannot undo.
 
 ## Exceptions and boundaries
 

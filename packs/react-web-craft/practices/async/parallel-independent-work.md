@@ -15,15 +15,15 @@ title: Start Independent Async Work Together
 
 ## When to apply
 
-Apply while writing or reviewing an async function that performs more than one request or other I/O
-operation. Decide, operation by operation, whether its input depends on another operation's result,
-and sequence only true dependents.
+When an async function makes several requests or performs other I/O, check what each operation needs
+as input. If it does not need another operation's result, it can start without waiting for that
+operation to finish.
 
 ## Guidance
 
-Classify before sequencing. An operation is dependent only if it consumes another operation's result
-as input; everything else is independent and can start immediately. Independent operations start
-together with `Promise.all`. The settled results come back in call order, not completion order.
+Start independent operations together with `Promise.all`. An operation that needs another
+operation's result as input must wait for that result. The returned results stay in call order, not
+completion order.
 
 `Promise.all` is all-or-nothing: it rejects as soon as one input rejects, and the batch's other
 results are dropped. When the caller can make use of partial results, use `Promise.allSettled` and
@@ -47,26 +47,26 @@ const [customer, taxRegion, template, paymentMethods] = await Promise.all([
 ]);
 ```
 
-The dependent lane costs only its own extra leg; the independent lanes run alongside it.
+The payment-methods request waits only for the customer; the tax-region and template requests run
+while that dependent pair completes.
 
-Keep fan-out bounded. For per-item work over a long list, cap concurrency instead of starting every
-request at once; "together" means together per lane, not unbounded. `Promise.all` overlaps waiting
-on I/O; it does not parallelize CPU work, and requests that share one connection pool or
-single-threaded resource may serialize anyway. Treat the win as likely for independent network
-requests, not as a universal multiplier.
+For per-item work over a long list, cap the number of requests running at once instead of starting
+every request together. `Promise.all` overlaps waiting on I/O; it does not parallelize CPU work, and
+requests that share one connection pool or single-threaded resource may serialize anyway. Expect a
+benefit for independent network requests, not an equal speedup for every kind of work.
 
 ## Anti-pattern
 
-An invoice builder awaits the customer, then the tax region, then the invoice template, then the
-payment methods in sequence. No result depends on an earlier one, so total latency is the sum of
-four round trips where the same data costs the slowest single lane.
+In an invoice builder where all four requests already have their inputs, the code still awaits
+customer, tax region, template, and payment methods one by one. None needs an earlier result in this
+version. Serial execution adds four round trips instead of waiting for the slowest independent
+request. If payment methods need the customer result, that pair must instead stay chained as above.
 
 ## Why
 
-Each `await` placed before unrelated work is a barrier those operations wait behind. Starting
-independent operations together collapses the wall-clock time of the group to its slowest member,
-and starting a dependent operation at its input's resolution keeps chains from becoming full
-barriers.
+An `await` before an unrelated request delays that request's start. Starting independent requests
+together lets them wait on I/O at the same time. Start a dependent request as soon as its own input
+resolves, rather than waiting for unrelated results too.
 
 ## Exceptions and boundaries
 
@@ -83,8 +83,8 @@ barriers.
 ## Example
 
 An invoice assembly service needs the customer, the tax region for the request, and the default
-template independently; payment methods depend on the customer. The chained promise starts the
-moment the customer resolves, so the payment-methods lane adds only its own leg. The declared
+template independently; payment methods depend on the customer. The payment-methods request starts
+as soon as the customer resolves, without waiting for the tax region or template. The declared
 helpers stand in for the data layer.
 
 ```ts
@@ -115,7 +115,7 @@ export async function buildInvoiceSummary(customerId: string, countryCode: strin
 }
 ```
 
-Wall-clock cost is now the slowest single lane —
-`max(customer + paymentMethods, taxRegion, template)` — instead of the sum of four legs. If a
-partial invoice were still renderable when one lane fails, the final await would become
+Elapsed time is now the longest dependency chain —
+`max(customer + paymentMethods, taxRegion, template)` — instead of the sum of four request times. If
+a partial invoice were still renderable when one request fails, the final await would become
 `Promise.allSettled` over the same four promises.

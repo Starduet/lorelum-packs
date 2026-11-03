@@ -10,17 +10,17 @@ severity: warn
 stage: testing
 tech_stack:
   - agentic-coding
-title: Classify Failures Before Changing Tests
+title: Diagnose Failed Checks Before Editing Code or Tests
 ---
 
 ## When to apply
 
-Apply when a check has produced a concrete failure and more than one explanation is plausible. Pause
-before editing the implementation, expectation, fixture, generated output, or tool configuration.
-Decide whether the problem is in the product, an obsolete or incorrect test, the environment or
-nondeterministic behavior, a generated file built from different source, or an unrelated failure
-that already existed. An external review comment without a reproduced check is a review-finding
-problem instead.
+A test, lint, type check, build, or validation has failed, and there is more than one plausible
+reason. Before changing the implementation, expected result, fixture, generated output, or tool
+configuration, find out which is wrong. It may be the product, an obsolete or incorrect test, the
+environment or nondeterministic behavior, a generated file built from different source, or an
+unrelated failure that already existed. An external review comment without a reproduced check needs
+review-finding validation instead.
 
 ## Guidance
 
@@ -28,11 +28,11 @@ problem instead.
 2. Read the failed assertion or diagnostic, and compare what happened with the current requirement.
 3. Check the environment, inputs, fixtures, and generated files that could change the result, and
    gather only enough evidence to distinguish the leading explanations.
-4. Record what is wrong together with the fact that rules out the next most likely explanation.
+4. Record the cause and the fact that rules out the next most likely explanation.
 
-Choose the fix only after the classification. If the cause is still unclear, leave production code,
-tests, and configuration unchanged, and report what remains uncertain instead of editing the red
-suite until something turns green.
+Choose the fix after diagnosing the failure. If the cause is still unclear, leave production code,
+tests, and configuration unchanged and report what remains uncertain. Do not keep editing until the
+suite turns green.
 
 ## Anti-pattern
 
@@ -44,9 +44,9 @@ compared with the request.
 
 ## Why
 
-A failed check proves only that two states disagree. Correct classification prevents a product
-defect from being normalized into a new expectation, and prevents valid behavior from being "fixed"
-to satisfy a stale test. It also avoids mixing unrelated baseline failures into the current change.
+A failed check shows a disagreement, not which side is right. Diagnose it so you do not accept a
+product bug as the new expected result or change correct behavior to satisfy an outdated test. This
+also keeps unrelated failures that already existed out of the current change.
 
 ## Exceptions and boundaries
 

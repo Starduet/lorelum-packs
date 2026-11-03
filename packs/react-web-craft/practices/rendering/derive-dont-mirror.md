@@ -15,9 +15,9 @@ title: Derive Render Values; Do Not Mirror Props into State
 
 ## When to apply
 
-Apply when you catch a component storing a value in state that is fully determined by current props
-or state — and typically re-writing it from an effect. Decide whether the value has an independent
-life of its own or is just a calculation wearing a state coat.
+If a displayed total, label, or other value always follows from current props and state, there is
+usually no need to store it separately and refresh it in an effect. First check whether the user or
+an external system can change it independently; if not, calculate it from its current inputs.
 
 ## Guidance
 
@@ -28,36 +28,35 @@ state and the effect:
 const totalWithTax = subtotal + subtotal * taxRate;
 ```
 
-The stored version is worse in every direction: it renders once behind the change (the effect runs
-after paint), it can drift when a code path updates the inputs without re-running the mirror, and it
-doubles the state to keep in sync.
+The stored copy can be stale in the render before the effect updates it. It can also stay stale if
+the effect misses an input change. Computing the value during render avoids maintaining a second
+copy and scheduling another state update.
 
-Three cases do look like mirroring but are not, and each has its own decision:
+Keep these different cases separate:
 
 - The value starts from a prop but the user edits it: that is an editable draft with its own
   lifecycle; initialize from the prop and own it thereafter.
 - The value must reset when an identity changes (a form bound to a different record): reset
   explicitly with a `key` at the identity boundary, not by watching props in an effect.
-- The computation is expensive: derive anyway and memoize the calculation if measurement says so —
-  memoization is an optimization on a correct shape, never the fix for a wrong one.
+- The computation is expensive: still derive the value, and memoize the calculation if measurement
+  justifies it. Caching does not fix the problem of maintaining a second copy.
 
-The same test applies to effects that "react" to prop changes by setting state: an effect may
-synchronize with external systems, but the props-to-state direction inside one render tree is what
-this Practice removes.
+Apply the same test to an effect that sets state whenever a prop changes. Effects may synchronize
+with external systems; what should go is an effect that merely copies or recalculates a value from
+props inside the same render tree.
 
 ## Anti-pattern
 
-An invoice editor keeps `total` in state and an effect recomputes it from line items and tax rate on
-every change. Toggling a line item paints the old total for one frame; a second developer adds a
-bulk-import path that sets the items without firing the effect, and the displayed total silently
-diverges from the items it summarizes.
+An invoice editor keeps `total` in state and recomputes it in an effect after line items or tax rate
+change. Changing an item first renders the old total, then the effect schedules another render. If
+the effect's dependencies omit an input changed by bulk import, the total can remain out of sync
+with the imported items.
 
 ## Why
 
-A stored derived value creates a second authority for one fact, and the effect that maintains it
-runs after the render the user sees. Deriving during render keeps a single authority, makes the
-value impossible to drift from its inputs, and removes the extra render — the state that remains is
-exactly the state the user or an external system owns.
+A derived value stored in state is a second copy of a calculation. Its effect cannot update that
+copy until after the render that used the changed inputs. Calculating during render uses the current
+inputs immediately, so there is no copy to synchronize and no extra state update for that value.
 
 ## Exceptions and boundaries
 
@@ -65,8 +64,8 @@ exactly the state the user or an external system owns.
   shrink state, it removes duplicated state.
 - Deriving values during render must stay pure: no side effects, no writes, even for expensive
   derivations.
-- Memoizing a derivation with `useMemo` trades memory and dependency hygiene for computation;
-  whether that trade pays is a measured, Compiler-aware decision outside this Practice.
+- Memoizing a derivation with `useMemo` uses memory and requires correct dependencies to save
+  computation. Decide whether that pays off through measurement, taking React Compiler into account.
 - Reading and adjusting DOM in effects for layouts React cannot express is external-system
   synchronization, not value mirroring.
 

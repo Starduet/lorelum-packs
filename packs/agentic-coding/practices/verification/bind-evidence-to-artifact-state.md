@@ -15,10 +15,10 @@ title: Reuse Evidence Only When It Still Applies
 
 ## When to apply
 
-Apply whenever the agent wants to cite an earlier pass after the code, configuration, dependencies,
-built package, runtime environment, or relevant outside service may have changed. Decide whether the
-old result still describes what will be delivered now. Mapping evidence to acceptance asks which
-requirement a result covers; closing a gap asks what to do when there is no adequate result.
+A check passed earlier, but the code, configuration, dependencies, built package, runtime
+environment, or relevant outside service may have changed since then. Before citing that pass,
+decide whether it still describes what you will deliver. Which requirement it covers is a separate
+question, as is what to do when an adequate result is missing.
 
 ## Guidance
 
@@ -26,12 +26,13 @@ requirement a result covers; closing a gap asks what to do when there is no adeq
    the built or generated file, relevant configuration and dependency versions, the machine or
    service when it matters, the observation time for changing outside facts, and the behavior
    exercised.
-2. Compare those details with the current deliverable, change by change.
-3. Mark each result usable now, outdated, or unaffected by the later change, and say why.
-4. Re-run only the checks whose conclusion could change; rebuild and recheck when the file being
-   delivered changed.
+2. Compare what was tested with what you will deliver, considering each later change.
+3. For each result, say whether you can use it now, it is outdated, or the later change leaves it
+   unaffected. Give the reason.
+4. Rerun only checks whose conclusions could change. If the file being delivered changed, rebuild
+   and check that file again.
 
-Stop when every earlier result you plan to cite has this decision.
+Stop when you have decided this for every earlier result you intend to cite.
 
 ## Anti-pattern
 

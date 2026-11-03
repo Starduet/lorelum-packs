@@ -15,10 +15,9 @@ title: Anchor Each Test to a Contract
 
 ## When to apply
 
-Apply before adding or substantially changing a test, while its purpose is still being chosen. Ask
-what promise would be broken if the test failed. This Practice ends once the test has one explicit
-contract to protect. Choosing how to observe that contract belongs to assertion design; deciding
-whether a past bug deserves a permanent regression test belongs to regression-protection judgment.
+You are deciding which test to add or substantially change. First ask which promised behavior might
+be broken if the test fails. Once that purpose is explicit, choose how to observe the behavior.
+Whether a past bug needs a permanent regression test is a separate decision.
 
 ## Guidance
 
@@ -43,18 +42,17 @@ submit it twice.
 
 ## Why
 
-Tests outlive the implementation choice that created them. When their purpose comes from current
-code structure, they can preserve the wrong design and still look thorough. A test-to-contract
-mapping keeps maintenance cost and future failures tied to behavior the project has actually
-promised.
+Tests often stay after the implementation that prompted them has changed. If they only protect
+today's code structure, they can preserve the wrong design and still look thorough. Explain which
+promised behavior each test protects, so future failures and maintenance work have a clear reason.
 
 ## Exceptions and boundaries
 
-Exploratory probes and temporary characterization tests can reveal unknown behavior without
-declaring it correct; label them and later retire or promote them deliberately. Safety,
-compatibility, and data-integrity invariants may justify coverage even when product prose does not
-mention them. Mechanical updates that preserve an already clear mapping need not repeat this
-analysis.
+Exploratory probes and temporary characterization tests can show how code currently behaves without
+claiming that behavior is correct. Label them, then deliberately remove them or turn them into
+lasting tests. Safety, compatibility, and data-integrity rules may need tests even when product
+prose does not mention them. Mechanical updates need not repeat this analysis if the test's purpose
+is already clear and unchanged.
 
 ## Example
 

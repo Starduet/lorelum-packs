@@ -15,21 +15,21 @@ title: Report Only Remaining Issues That Matter
 
 ## When to apply
 
-Apply when something known but unresolved could change the recipient's next action, release
-decision, or recovery plan. This Practice reports what remains; it does not restate what the
-evidence already proves. If nothing important remains, do not invent an issues section — calibrate
-the completion wording instead.
+Before a delivery or handoff, decide which known, unresolved issues could change what the recipient
+does next, whether they release, or how they recover. Explain those issues rather than repeating the
+results already proved. If nothing important remains, do not invent an issues section; just describe
+the completed work accurately.
 
 ## Guidance
 
-1. List the known but unresolved items: unfinished work, risks, plan deviations, untested behavior.
-2. Select only the ones that can change the recipient's next action, release decision, or recovery
-   plan.
-3. For each selected item, state its current impact and the smallest reproduction, mitigation, or
-   rollback fact needed to act.
+1. Gather the known work still unfinished, risks, departures from the plan, and behavior not yet
+   checked.
+2. Keep the items that could change the recipient's next action, release decision, or recovery plan.
+3. For each, explain the current effect and enough about reproduction, mitigation, or rollback for
+   someone to act.
 
-Stop when the recipient can choose the next step without replaying the investigation; omit the
-process history, harmless warnings, and dead ends.
+Once the recipient can choose the next step without retracing your investigation, stop. Leave out
+the process history, harmless warnings, and discarded approaches.
 
 ## Anti-pattern
 
@@ -41,9 +41,9 @@ process history.
 
 ## Why
 
-Decision-relevant issues preserve continuity between owners. Process history consumes attention and
-can hide the actual blocker, while a concise impact and recovery note lets the next owner act
-without mistaking verbosity for completeness.
+The next person needs to know what still matters, not everything that happened. A long work log can
+hide the release blocker. A short explanation of the impact and recovery option helps them continue
+without mistaking a detailed history for complete work.
 
 ## Exceptions and boundaries
 

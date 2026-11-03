@@ -15,11 +15,10 @@ title: Ground Content in Sources and Observed Needs
 
 ## When to apply
 
-Apply when deciding whether a candidate rule has enough basis to enter the Pack. The basis may be an
-authoritative standard, product contract, documented platform behavior, or a recurring failure
-observed in reviews or incidents. This Practice establishes why the content is credible; it does not
-claim that a synthesized Practice has been empirically proven to improve retrieval or downstream
-behavior.
+Before adding a rule to the Pack, ask what supports it: an authoritative standard, a product
+contract, documented platform behavior, or failures that recur in reviews or incidents. Make that
+basis clear. A rule built from those sources is not, by that fact alone, proven to improve retrieval
+or downstream behavior.
 
 ## Guidance
 
@@ -42,9 +41,9 @@ and mark any wider retry policy as unconfirmed synthesis.
 
 ## Why
 
-Traceable grounding lets reviewers distinguish a requirement, an observed pattern, and an author's
-generalization. Without that distinction, a plausible local lesson can acquire more authority than
-its sources justify.
+Recording the basis of a rule lets reviewers distinguish a requirement, an observed pattern, and an
+author's generalization. Without that distinction, a plausible local lesson can appear more
+authoritative than its sources justify.
 
 ## Exceptions and boundaries
 

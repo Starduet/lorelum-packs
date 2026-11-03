@@ -15,24 +15,23 @@ title: Give Delegated Agents the Context They Need to Decide
 
 ## When to apply
 
-Apply before delegating work that requires the receiving agent to make the same scope or quality
-judgments as the sender. Use it when decisive information lives in conversation, earlier review, or
-several sources the receiver would not know to inspect. A mechanical task with fully specified input
-and output is a near miss and needs only those instructions.
+You are handing work to another agent, but some decisions it needs are only in your conversation or
+an earlier review. Explain those decisions before it has to judge scope or quality for itself.
+Include decisive information from sources it would not know to inspect. A mechanical task with fully
+specified input and output needs only those instructions, not an extra brief.
 
 ## Guidance
 
-1. State the requested outcome and the user request or specification that controls it.
-2. List the repository facts the receiver cannot discover from the task name alone: relevant state,
-   required constraints, non-goals, and the accepted or rejected decisions that shape the work.
-   Include the reason for a rejection when the receiver might otherwise repeat that locally
-   reasonable choice.
-3. Define the boundary of the delegation: the files or symbols in scope, the result to return, the
-   checks the receiver owns, and which discoveries require escalation.
-4. Link to large sources instead of copying their full contents.
+1. Say what result is needed and which user request or specification defines it.
+2. Explain the repository facts the task name will not tell the receiver: relevant current state,
+   required constraints, non-goals, and decisions already accepted or rejected. If a rejected choice
+   would still look sensible to the receiver, include why it was rejected.
+3. Specify the files or symbols it may work on, what it should return, which checks it owns, and
+   which discoveries it must bring back to you.
+4. Link to large sources instead of copying them in full.
 
-Stop when the receiving agent can explain what it must decide, what it must preserve, and what it
-must not silently reinterpret.
+Stop when the receiving agent can tell what it must decide, what it must preserve, and what it
+cannot silently reinterpret.
 
 ## Anti-pattern
 
@@ -45,9 +44,9 @@ decision the user had already overturned.
 
 ## Why
 
-Delegation removes conversation history to save time and context, but judgment depends on more than
-the task name. A decision-focused packet preserves the reasons that distinguish an acceptable result
-from a plausible wrong one without making every agent replay the full parent task.
+Another agent usually does not receive your conversation history. Without the reasons behind earlier
+decisions, it can do careful work and still repeat a choice the user rejected. Give it those reasons
+without making it read the whole parent task.
 
 ## Exceptions and boundaries
 

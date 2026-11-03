@@ -16,9 +16,9 @@ title: Represent Mutually Exclusive UI Modes with One State
 
 ## When to apply
 
-Apply when several booleans or optional fields jointly describe one workflow phase—for example, a
-save can be idle, in progress, complete, or failed. Decide whether these values may truly coexist or
-whether the current state shape permits impossible combinations.
+A save operation can be idle, in progress, complete, or failed, but not all at once. If separate
+booleans or optional fields allow contradictory phases, check which combinations the UI actually
+supports and represent the mutually exclusive ones as one state.
 
 ## Guidance
 
@@ -27,9 +27,9 @@ discriminated union can attach data that belongs only to a particular mode, such
 to the failed variant. Transition by replacing the whole state value so the next mode and its
 associated data change together.
 
-Keep independent facts separate when they can be true at the same time and have different owners or
-lifetimes. Do not merge unrelated toggles merely to reduce the number of state variables, and do not
-use this Practice to decide whether a value can be derived from other state.
+Keep values separate when they really can be true at the same time and are managed independently or
+have different lifetimes. Do not combine unrelated toggles just to use fewer state variables.
+Whether a value can be derived from other state is a separate question.
 
 ## Anti-pattern
 

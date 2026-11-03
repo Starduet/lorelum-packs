@@ -15,10 +15,9 @@ title: Remove Content That Does Not Change a Decision
 
 ## When to apply
 
-Apply after the draft covers its intended decisions and before localization or release makes weak
-content more expensive to change. Review what each sentence and Practice changes for the reader.
-This is a subtraction decision, not a target for the smallest possible Pack: separate guidance
-should remain separate when the trigger, action, exception, or failure consequence differs.
+Once the draft covers the decisions you intended, remove what does not help readers choose or act,
+before translation and release make revisions more costly. Do not aim for the fewest files. Guidance
+still needs to stay separate when its trigger, action, exception, or consequence of failure differs.
 
 ## Guidance
 
@@ -28,8 +27,8 @@ good engineering, examples that hide the relevant relationships, repeated warnin
 more specifically elsewhere, and tool ceremony that the decision does not require. Compare
 neighboring Practices before merging them: keep both when a realistic query should select one but
 not the other, and sharpen that difference in their `applies_when` and Guidance. Stop when every
-remaining part changes a decision and every remaining Practice has a distinct retrieval job; do not
-continue deleting to optimize word or file counts.
+remaining part affects a decision and every Practice answers a different need when retrieved. Do not
+keep deleting just to reduce word or file counts.
 
 ## Anti-pattern
 

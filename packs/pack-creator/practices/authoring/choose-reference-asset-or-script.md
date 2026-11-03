@@ -15,9 +15,9 @@ title: Choose a Resource Kind by the Reader's Next Action
 
 ## When to apply
 
-Apply after deciding that a file belongs beside a Practice, before choosing its Pack directory. The
-decision is what the next reader should do with the file: read it for conditional detail, copy it
-into a deliverable, or explicitly run it as a bounded operation.
+You have decided to include a supporting file with a Practice. Before choosing its directory, ask
+what the reader should do with it: read more detail when needed, copy it into their work, or
+explicitly run it for a specific task with a clear stopping point.
 
 ## Guidance
 
@@ -43,7 +43,8 @@ task authorizes that inspection.
 An incident-response Pack stores its report template, a long severity table, and a Python checker in
 one `references/` folder. The Practice says "use the incident resources." A reader opens the wrong
 file, edits the installed template in place, and assumes the Python file ran during installation.
-Renaming the folder without stating the script inputs does not fix the missing consumption boundary.
+Renaming the folder still does not tell the reader what to do with each file or what inputs the
+script needs.
 
 ## Why
 

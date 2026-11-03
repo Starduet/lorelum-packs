@@ -15,21 +15,20 @@ title: Test Retrieval with Queries That Should and Should Not Match
 
 ## When to apply
 
-Apply when the canonical Practices are stable enough to test selection behavior. The decision is
-whether the queries distinguish one Practice from plausible alternatives. Structural catalog
-coverage and content review are separate checks; this Practice requires observations from the
-retrieval system being evaluated.
+Once the canonical Practices are stable enough to try, check whether the retrieval system picks the
+right one when several look relevant. Run queries and observe what that system actually returns.
+Catalog coverage and human content review cannot answer this question on their own.
 
 ## Guidance
 
-For each important Practice, prepare a small contrasting set: a direct query for its decision, a
-natural paraphrase without copied title words, a near-miss that should not select it, and a query
-aimed at the closest neighboring Practice. State the expected selection or non-selection before
-running the queries. Use realistic wording from the people or Agents expected to retrieve the Pack,
-then inspect both missing results and convincing wrong results. Revise triggers or split/merge
-content only when the observed confusion reflects the Practice design rather than a known
-retrieval-system defect. Stop when the important neighbors are distinguishable on representative
-contrasts; adding many easy positive queries does not strengthen the conclusion.
+For each important Practice, try a direct request for the decision it helps with, a natural
+paraphrase that does not copy its title, a similar request it should not answer, and a request for
+the closest alternative Practice. Write down what should and should not be selected before running
+them. Use wording the intended readers or Agents would use. Inspect missing results and wrong
+results that look convincing. Change triggers or split or merge content only when the observed
+confusion comes from the Practice design, not a known retrieval-system defect. Stop when
+representative comparisons distinguish the important alternatives; many easy matching queries do not
+make that conclusion stronger.
 
 ## Anti-pattern
 

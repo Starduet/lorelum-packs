@@ -15,17 +15,21 @@ title: Use Plain Words for Concrete Things
 
 ## When to apply
 
-Apply during sentence-level review when a cold reader may not know what an abstract term refers to.
-This Practice controls wording. It does not decide whether the Why section contains the right causal
-reason or whether an Example includes enough scenario facts.
+If a first-time reader would have to decode your wording before knowing what to do, revise the
+sentence. Check not only unfamiliar terms but also passages that classify the problem or compare
+other Practices before explaining the reader's situation. This review concerns how you explain the
+guidance; whether its reason is correct and its Example has enough facts are separate questions.
 
 ## Guidance
 
-Underline nouns and verbs that could refer to several things. Replace them with the actual actor,
-artifact, action, or observable state. When a technical term is necessary, define its concrete
-referent on first use and then use it consistently. Prefer one ordinary sentence over a coined label
-plus explanation. Stop when a reader and translator can point to what changes without inventing a
-local definition.
+Start with the situation the reader can recognize and the action that helps. Say who needs to do
+what, to which file, data, or system, and what result they should look for. A category label may
+help index content, but it does not replace that explanation. Keep distinctions between related
+Practices where they affect the choice, after explaining the useful action. If a necessary technical
+term would be unfamiliar, clarify it where it appears, then use it consistently. Prefer an ordinary
+sentence to a coined label followed by a definition; no separate introduction or summary is
+required. Stop when readers and translators can understand the situation, action, and expected
+result without guessing what the words refer to.
 
 ## Anti-pattern
 
@@ -37,8 +41,8 @@ preserving the same impressive words.
 
 ## Why
 
-Concrete language ties guidance to an observable decision. Abstract language hides competing
-interpretations, which weakens both retrieval matching and human review across languages.
+Readers can act on a description of their situation and what to do about it. Abstract labels can
+hide different interpretations, weakening both retrieval matching and human review across languages.
 
 ## Exceptions and boundaries
 
@@ -51,4 +55,4 @@ it governs. Do not replace precise technical language with a longer but equally 
 A compliance Pack helps reviewers decide whether an exception is auditable. Its source requires the
 request, approver, and governing policy version to be recorded. Instead of "retain sufficient
 exception provenance," the author writes, "Record who requested and approved the exception and which
-policy version allowed it." Each referent is reviewable, and no new compliance rule was invented.
+policy version allowed it." Reviewers can check each fact, and no new compliance rule was invented.

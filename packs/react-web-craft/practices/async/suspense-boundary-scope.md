@@ -16,21 +16,22 @@ title: Put Slow Subtrees Behind Their Own Suspense Boundaries
 
 ## When to apply
 
-Apply when one server component's data need is much slower than the rest of a page's. Decide which
-part of the interface that data feeds and where the Suspense boundary that isolates it belongs.
+If one server component needs data that is much slower than the rest of the page's, avoid making
+unrelated content wait for it. Find the subtree that uses that data and place its Suspense boundary
+there.
 
 ## Guidance
 
-An await in an async component delays everything its output feeds; an await at the top of a page
-delays the whole shell. Move the slow fetch into the child that needs it and wrap that child in
-`<Suspense>`. The shell renders immediately — and, under a streaming setup such as the Next.js App
-Router, streams to the client — while the slow child shows its fallback until its data lands.
+An async component cannot return its JSX until its await completes. If the page awaits a slow
+request before returning, even unrelated parts of the shell must wait. Move the slow fetch into the
+child that needs it and wrap that child in `<Suspense>`. The shell can render — and, with a
+streaming setup such as the Next.js App Router, stream to the client — while the child shows its
+fallback until the data arrives.
 
-Boundary placement is the decision. A boundary around the whole page makes even fast content wait
-behind one fallback; a boundary per slow subtree lets each fallback resolve on its own schedule and
-keeps fast, critical content in the initial response. A page usually wants the second shape: fast,
-layout-critical, or SEO-relevant content stays unwrapped, and only genuinely slow subtrees sit
-behind boundaries.
+A boundary around the whole page makes even fast content wait behind one fallback. Give each slow
+subtree its own boundary so it can replace its fallback when ready, while fast, critical content
+stays in the initial response. Usually, fast, layout-critical, or SEO-relevant content should stay
+outside those boundaries; wrap only the genuinely slow subtrees.
 
 Not awaiting in the parent is also what starts sibling fetches concurrently — the component
 structure is the parallelism mechanism; there is no need for a parent-level `Promise.all` over
@@ -38,9 +39,9 @@ children the parent does not consume. When several consumers need the same data,
 once and read it with React 19's `use()` inside each consumer under one boundary, so the request
 happens once and they fall back together.
 
-Choose with the product, not only the profiler. A boundary buys a faster first paint at the cost of
-content arriving later inside a fallback, which can shift layout; that trade-off is a UX decision to
-make deliberately per surface, not a default.
+Consider how the page will feel to use, not just its profiling results. Showing the shell sooner
+means some content arrives later through a fallback, which can shift the layout. Make that trade-off
+deliberately for each part of the interface rather than adding boundaries by default.
 
 ## Anti-pattern
 
@@ -50,10 +51,10 @@ reviews resolve.
 
 ## Why
 
-A Suspense boundary converts "this subtree's data" into "this subtree's timing": the shell is no
-longer gated by the slowest fetch, and each wrapped subtree resolves independently. Keeping fast
-content outside boundaries preserves it in the initial response, which matters for perceived speed
-and for crawlers.
+When only the slow child sits behind Suspense, its data request no longer prevents the shell from
+rendering. Each separately wrapped subtree can replace its fallback when its own data arrives.
+Keeping fast content outside those boundaries preserves it in the initial response, which matters
+for perceived speed and for crawlers.
 
 ## Exceptions and boundaries
 

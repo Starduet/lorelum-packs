@@ -15,9 +15,9 @@ title: Define Acceptance and Explicit Non-goals
 
 ## When to apply
 
-Apply once the outcome sentence is agreed and before implementation work is chosen. State both what
-must work and the most plausible adjacent work that is not required. If the requested result is
-still unclear, define the user goal first.
+You know what result the user wants, but have not yet chosen the implementation work. Write down
+what must work at the end and which likely extras are not part of the task. If the result itself is
+still unclear, clarify the user goal first.
 
 ## Guidance
 
@@ -48,9 +48,9 @@ optimize the shape of the implementation instead of the required install behavio
 
 ## Why
 
-Without an explicit behavior boundary, "more reusable" and "smaller diff" can both look like
-quality. Completion conditions protect required capability; non-goals keep attractive platform work
-from becoming a current commitment.
+Both a more reusable design and a smaller diff can look like improvements while missing the task.
+Completion conditions keep required behavior from being cut; explicit non-goals keep attractive
+extra features from becoming promises you now have to deliver.
 
 ## Exceptions and boundaries
 

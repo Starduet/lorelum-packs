@@ -16,13 +16,13 @@ title: Match Resource Hints and Script Loading to Real Need
 
 ## When to apply
 
-Apply when a page or layout declares resource hints (`preload`, `preconnect`, DNS hints) or loads
-scripts that are not part of the framework bundle. Decide, per resource, how early the browser
-should start working on it.
+When adding a resource hint (`preload`, `preconnect`, or a DNS hint) or a script outside the
+framework bundle, check when the page will actually need it. Use that timing to decide how early the
+browser should prepare a connection, fetch the resource, or execute the script.
 
 ## Guidance
 
-Hints are a ladder, and each rung costs more — spend the higher rungs only on certainty:
+Choose a hint by the work it starts and how certain you are that the page needs that work:
 
 - `prefetchDNS` for a domain you will probably contact; `preconnect` for one you will certainly
   contact soon (an API origin, a font CDN). Browsers keep only a few connections warm, so a head
@@ -41,8 +41,8 @@ independent counters and tags take `async`. In Next.js, use the framework's scri
 strategies (`afterInteractive` for most third-party tags, `lazyOnload` for anything that can wait
 for idle) instead of raw tags, because the framework coordinates them with hydration.
 
-Every hint is a request to jump the queue, and queues are shared: review them when the page's
-critical path changes, and delete hints for resources that are no longer critical.
+Hints can make resources compete with the page's critical downloads. Review them when the critical
+path changes, and remove hints for resources that no longer need early loading.
 
 ## Anti-pattern
 
@@ -53,11 +53,10 @@ actually waits for — first paint — waits for a tag that needed `async`.
 
 ## Why
 
-The browser starts working on resources only when it learns about them, and it serializes
-speculative work per origin. Hints exist to move certainty earlier; scripts' `defer`/`async` exist
-to stop independent code from standing in front of content. Matching each resource to the rung its
-certainty earns is what makes first paint fast; over-hinting is how a page pays for guesses and
-still blocks.
+The browser can start preparing a connection or fetching a resource only after learning about it.
+Hints can start that work before normal discovery, while `defer` and `async` keep suitable scripts
+from blocking parsing. Unneeded hints consume connection capacity and bandwidth that critical
+resources also need, so earlier loading helps only when it matches the page's actual priorities.
 
 ## Exceptions and boundaries
 

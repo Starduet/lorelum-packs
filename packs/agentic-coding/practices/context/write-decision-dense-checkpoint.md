@@ -15,25 +15,23 @@ title: Write a Checkpoint That Preserves Decisions
 
 ## When to apply
 
-Apply before a known context reduction, long pause, or session boundary when future work will need a
-short recovery record. Decide which facts must survive the boundary. Stop before compaction or
-interruption with a checkpoint stored somewhere the resumed task can read. After context is already
-lost, do not reconstruct the checkpoint from memory; reopen the request, files, and results instead.
+You know a context reduction, long pause, or session change is coming, and the work will need to
+resume afterward. Before that interruption, save a short record where the resumed task can read it,
+choosing the facts it will need. If context has already been lost, do not reconstruct a checkpoint
+from memory; reopen the request, files, and results instead.
 
 ## Guidance
 
-1. Record the controlling sources: the current user goal and the exact request, accepted issue,
-   specification, or plan that controls the work.
-2. Record the accepted decisions and how they limit the next step, and reduce rejected options to
-   the reason they must not be repeated.
-3. Record the first required behavior that is not done, the test or review results that still apply
-   — including the commit or file they checked — and the risks, blockers, and unconfirmed
-   assumptions that remain.
-4. Record the next justified action, and link to changed files and full logs instead of copying
-   them.
+1. Record the current user goal and exactly which request, accepted issue, specification, or plan
+   defines the work.
+2. Record accepted decisions and what they mean for the next step. For rejected options, keep the
+   reason they must not be tried again rather than the whole discussion.
+3. Record the first required behavior still unfinished, test or review results that still apply and
+   the commit or file they checked, and remaining risks, blockers, and unconfirmed assumptions.
+4. Say what to do next and why. Link to changed files and full logs instead of copying them.
 
-Stop when a cold reader can tell what to reopen, what is finished, what is not, what must not be
-assumed, and where to resume without replaying the conversation.
+Stop when someone who has not read the conversation can tell what to reopen, what is finished, what
+is not, what they must not assume, and where to resume.
 
 ## Anti-pattern
 

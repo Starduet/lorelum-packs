@@ -15,25 +15,25 @@ title: Validate Handoffs Before Continuing
 
 ## When to apply
 
-Apply when receiving conclusions, test results, or completion status from another Agent,
-contributor, delegated task, or workstream and the next action depends on them. Check only the
-statements needed for that action, not every exploratory detail. Same-Agent recovery after context
-loss requires re-grounding instead; a suggestion that will not affect the next decision may remain
-clearly tentative.
+Another agent, contributor, delegated task, or workstream reports a conclusion, test result, or
+completion status that you need for your next action. Check the statements that action depends on,
+not every exploratory detail. If you are recovering your own work after losing context, recheck the
+original sources instead. A suggestion that does not affect the next decision can remain clearly
+tentative.
 
 ## Guidance
 
-1. List the handoff statements that would change your plan, code edit, approval, or completion
+1. List the statements in the handoff that would change your plan, edit, approval, or completion
    report.
-2. For each one, check the current user request, accepted issue, or specification; confirm the
-   branch, file, commit, or environment the sender used; and inspect the cited result closely enough
-   for the risk.
-3. Check for changes made after the sender finished.
-4. Decide for each statement: usable as written, usable only for a smaller scope, unsupported, or
-   blocked on a decision from the person who owns the requirement. Update the next action
-   accordingly.
+2. For each, compare it with the current user request, accepted issue, or specification. Confirm
+   which branch, file, commit, or environment the sender used, and inspect the cited result as
+   closely as the risk requires.
+3. Check what changed after the sender finished.
+4. Decide whether each statement is usable as written, true only for a narrower scope, unsupported,
+   or waiting for a decision from the person responsible for the requirement. Adjust your next
+   action to match.
 
-Stop there; do not repeat the sender's entire task unless the risk requires it.
+Stop there. Do not repeat the sender's entire task unless the risk requires it.
 
 ## Anti-pattern
 
@@ -45,9 +45,9 @@ handoff omitted both limits.
 
 ## Why
 
-Handoffs shorten evidence, assumptions, and unknowns so work can be divided. The receiver still owns
-the next decision. Checking only the statements that decision depends on preserves most of the speed
-while catching omitted scope, old commits, and unsupported confidence.
+Handoffs summarize evidence, assumptions, and unknowns so work can be divided. The receiver still
+owns the next decision. Checking only the statements that decision depends on preserves most of the
+speed while catching omitted scope, old commits, and unsupported confidence.
 
 ## Exceptions and boundaries
 

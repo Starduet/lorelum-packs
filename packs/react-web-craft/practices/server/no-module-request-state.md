@@ -16,9 +16,9 @@ title: Keep Request Data Out of Module Scope
 
 ## When to apply
 
-Apply when writing or reviewing server-side code — server components, SSR'd client components, route
-handlers, server actions — that shares a value such as the current user, a request ID, or a locale
-across parts of one request. Decide where that value lives.
+When several parts of one request need the current user, request ID, or locale, keep that data
+separate from other requests. This applies to server components, SSR'd client components, route
+handlers, and server actions; choose a place to store the value that preserves that separation.
 
 ## Guidance
 
@@ -38,12 +38,10 @@ export default async function OrderPage({ orderId }: { orderId: string }) {
 }
 ```
 
-Keep an explicit allowlist for what may live at module scope: immutable configuration read once,
-constants, and shared caches designed for cross-request reuse with correct keys and size bounds. The
-test is not "is it a global?" but "can this value ever differ between two concurrent requests?" — if
-it can, it does not belong in module scope. Framework request objects and request-scoped storage
-exist precisely to carry per-request context; use the framework's facility rather than hand-rolled
-globals.
+Reserve module scope for immutable configuration read once, constants, and caches deliberately
+designed for cross-request reuse with correct keys and size bounds. For any request context, ask
+whether two concurrent requests could need different values. If so, one shared variable cannot hold
+it safely. Use framework request objects or request-scoped storage rather than hand-rolled globals.
 
 ## Anti-pattern
 
@@ -53,10 +51,9 @@ request A's assignment and A's render of the nested component, and A's page show
 
 ## Why
 
-Request isolation is the server's most basic correctness boundary. Module state silently dissolves
-it because every request shares the module instance; the bug appears only under concurrency, in
-production, and as another user's data — the most expensive kind of defect to reproduce and the
-worst kind to ship.
+Concurrent requests can share the same module instance. If one request replaces a module-level value
+before another request reads it, the second request can render the wrong user's data. Keeping each
+request's values separate prevents that interleaving from changing its response.
 
 ## Exceptions and boundaries
 

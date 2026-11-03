@@ -15,19 +15,20 @@ title: Write a Trigger That Selects One Practice
 
 ## When to apply
 
-Apply after one Practice decision is defined and before treating its `applies_when` as finished. The
-question is when this specific decision arises, not which broad topic the Practice discusses.
-Pack-wide retrieval moments belong in Pack design, while the actions and stopping point after
-retrieval belong in Guidance.
+Before finishing `applies_when`, ask what would be happening when a reader needs this particular
+Practice. Its question should already be clear. Describe that situation, not just the broad topic.
+Finding useful situations across the whole Pack comes earlier; what to do after finding this entry
+and when to stop belong in Guidance.
 
 ## Guidance
 
-Name the event or choice facing the reader, the affected object, and the fact that makes this
-Practice relevant now. When a neighboring Practice could match, record a near-miss in the retrieval
-fixture or authoring notes, then put only the fact that distinguishes the two decisions into
-`applies_when`. Remove domain labels that do not narrow the decision. Stop with a trigger that lets
-a cold reader explain both when to retrieve this Practice and when to retrieve its nearest neighbor
-instead.
+Describe what the reader is about to decide or do, what it affects, and the condition that makes
+this Practice useful. Keep `applies_when` focused on that condition. Use the existing When to apply
+section for necessary context, without adding a summary or introduction. If another Practice could
+match the same request, record a similar but unsuitable request in the retrieval fixture or
+authoring notes. Put only the fact that changes which Practice to use into `applies_when`. Remove
+topic labels that do not narrow its use. Stop when someone reading the Practice for the first time
+can tell when to choose it and when to choose the closest alternative.
 
 ## Anti-pattern
 

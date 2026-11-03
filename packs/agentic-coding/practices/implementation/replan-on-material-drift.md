@@ -15,23 +15,23 @@ title: Replan When New Facts Change the Work
 
 ## When to apply
 
-Apply when a discovery during coding changes what will be delivered, who may depend on it, how
-failure can occur, or what must be checked. A renamed helper, routine file split, or local
-adjustment covered by the same scope and risk is a near miss. If the plan already authorizes a kind
-of public behavior and only its exact values are unclear, confirm those values instead of reopening
-the whole task.
+While coding, you discover an unplanned dependency, public behavior, stored state, I/O path, risk,
+or verification need. Revisit the plan if this changes what you will deliver, who may depend on it,
+how it can fail, or what must be checked. A helper rename, routine file split, or local adjustment
+with the same scope and risk does not need replanning. If the plan already approves a kind of public
+behavior and only its exact values are unclear, confirm those values instead.
 
 ## Guidance
 
-1. Pause the affected implementation; do not code through the discrepancy.
-2. Compare the new fact with the accepted scope, risks, stopping condition, and planned checks, and
-   name what changed — delivery, dependencies, failure modes, or verification needs.
-3. Choose one response: narrow the implementation back to the plan, update the plan and its checks,
-   or ask for authorization before continuing.
-4. Record the updated plan and resume from it.
+1. Pause the affected implementation instead of continuing as if nothing had changed.
+2. Compare the discovery with the agreed scope, risks, stopping condition, and planned checks.
+   Explain what changes in the delivery, dependencies, possible failures, or verification.
+3. Choose one response: bring the implementation back within the plan, update the plan and its
+   checks, or ask for authorization before continuing.
+4. Record the revised plan and use it when you resume.
 
-Stop when one current plan states what will be built and verified and matches the facts coding
-revealed.
+Stop replanning when one current plan says what you will build and verify, and accounts for what you
+discovered while coding.
 
 ## Anti-pattern
 

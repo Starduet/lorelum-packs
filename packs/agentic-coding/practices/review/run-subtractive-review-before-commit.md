@@ -15,27 +15,27 @@ title: Remove Unneeded Changes Before Commit
 
 ## When to apply
 
-Apply when the completed diff can be judged as a whole, immediately before commit or handoff. This
-checks necessity across the diff; it does not choose the original design or respond to an
-unvalidated finding.
+The implementation is finished and you are about to commit or hand it off. Read the whole diff and
+ask which additions the task actually needs. This final review does not replace choosing the
+original design or checking whether a reported finding is true.
 
 ## Guidance
 
-1. Walk the completed diff as a whole and list its material additions: files, abstractions,
+1. Read the completed diff as a whole and list its substantial additions: files, abstractions,
    fallbacks, interfaces, I/O, tests, and documents.
-2. For each addition, name the requirement, risk, contract, or dependency that justifies it. Remove
-   additions with no present reason, merge duplicates, and reuse suitable existing code.
+2. Explain which requirement, risk, contract, or dependency makes each addition necessary now.
+   Remove those without a reason, merge duplicates, and reuse suitable existing code.
 3. Preserve required behavior, migration support, and safeguards. Keep migration, compatibility,
    security, audit, or rollback code when a current contract or rollout requires it.
 4. If a deletion changes behavior, verify the revised state before commit: follow one representative
    value and one failure through the layers of a path the diff touches.
-5. Challenge repeated parsing, normalization, authorization, catch-and-default wrappers, and nested
-   retries — each needs a distinct condition and owner — and check whether a shared guard
-   unnecessarily blocks status, stop, upgrade, or repair.
-6. Before removing a shared guard, authorization, migration, or recovery protection, enumerate its
-   current callers and entry points and verify one path per distinct trust boundary (see Validate at
-   the Boundary That Owns the Fact); a single representative path is not enough for a check that
-   other entrances depend on.
+5. Look closely at repeated parsing, normalization, authorization, catch-and-default wrappers, and
+   nested retries. Each needs its own condition that can occur and a responsible component. Check
+   whether a shared guard needlessly blocks status, stop, upgrade, or repair.
+6. Before removing a shared guard, authorization, migration, or recovery protection, list its
+   current callers and entry points. Verify one path per distinct trust boundary (see Validate at
+   the Boundary That Owns the Fact). One representative path is not enough when other entrances
+   depend on the check.
 
 Limit the trace to the changed behavior; subtractive review is not an invitation to audit the entire
 repository. Stop with the smallest diff that still satisfies the request and its risks.
@@ -49,8 +49,8 @@ can reach the service directly and interrupted work can no longer recover.
 
 ## Why
 
-Locally reasonable additions are easier to judge together in the final diff. Subtractive review
-removes unsupported maintenance cost without treating minimality as correctness.
+An addition that seemed useful in one file may be unnecessary when you see the whole change. Remove
+that maintenance work, but do not mistake a smaller diff for a correct one.
 
 ## Exceptions and boundaries
 

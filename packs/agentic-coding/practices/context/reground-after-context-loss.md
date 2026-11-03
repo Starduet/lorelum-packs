@@ -10,29 +10,29 @@ severity: warn
 stage: recovery
 tech_stack:
   - agentic-coding
-title: Reground After Context Loss
+title: Recheck Original Sources After Context Loss
 ---
 
 ## When to apply
 
-Apply when the same task or Agent resumes after compaction, interruption, or a long pause and only a
-summary or partial memory remains. Do this before editing, expanding the plan, or reporting
-progress. Before a known pause, write a checkpoint instead. When the conclusions came from another
-Agent or contributor, validate that handoff rather than using this same-session recovery rule.
+You return to the same task after compaction, an interruption, or a long pause, with only a summary
+or partial memory of the work. Recheck the sources before editing, expanding the plan, or reporting
+progress. If the pause is still ahead, write a checkpoint instead. If the conclusions came from
+another agent or contributor, validate that handoff rather than treating this as same-session
+recovery.
 
 ## Guidance
 
-1. Treat the summary only as an index to find source material; treat none of its conclusions as
-   facts.
+1. Use the summary to find the original material, not as proof that its conclusions are true.
 2. Reopen the current user request, accepted issue or specification, relevant plan and decisions,
    current branch and diff, and recorded test or review results.
-3. Check every summary claim the next action depends on against those items.
-4. Write down the current goal, what changes are allowed, the first required behavior still missing,
-   which results still apply to the current files, and the next justified action; reduce any
-   completion statement that lacks proof.
+3. Check each statement in the summary that your next action depends on against those sources.
+4. Write down the current goal, allowed changes, first required behavior still missing, which
+   results still apply to the current files, and what to do next. Correct any completion statement
+   that claims more than the evidence proves.
 
-Stop when those facts are clear; do not reread the entire project when a smaller set answers the
-next decision.
+Stop when those facts are clear. If a few sources answer the next question, do not reread the entire
+project.
 
 ## Anti-pattern
 

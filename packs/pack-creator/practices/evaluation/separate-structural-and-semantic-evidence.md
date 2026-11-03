@@ -15,22 +15,21 @@ title: Keep Different Kinds of Pack Evidence Separate
 
 ## When to apply
 
-Apply whenever several validation or evaluation results are being combined into a readiness
-judgment. Decide the claim supported by each result before summarizing them. The four common layers
-are structural validity, human judgment of the content, observed retrieval selection, and behavior
-after an Agent receives the Practice.
+Before saying a Pack is ready because several checks passed, ask what each check actually showed. A
+valid file, a domain reviewer's approval, the right Practice appearing in a query, and an Agent
+using it well are different results. Keep those differences visible when reporting them together.
 
 ## Guidance
 
-Record evidence in separate groups. Structural evidence covers facts such as valid frontmatter, safe
-paths, unique IDs, and catalog coverage. Semantic review covers whether a human reviewer finds the
-trigger, action, failure mechanism, exception, and example correct for the domain. Retrieval
-evidence covers which Practices a particular system selected for stated queries. Downstream evidence
-covers whether representative Agents made better decisions after receiving them. For every
-conclusion, name the group, the Pack revision, and the exact observation. Use narrow wording when a
-stronger layer was not tested. Stop when every readiness claim points to evidence from the layer
-that can support it; do not average the groups into one quality score unless a separate evaluation
-contract defines that score.
+Keep the results in separate groups. Structural checks can show that frontmatter is valid, paths are
+safe, IDs are unique, and the catalog is covered. Human content review asks whether the trigger,
+action, failure mechanism, exception, and example are correct for the domain. Retrieval runs show
+which Practices a particular system selected for stated queries. Downstream exercises show whether
+representative Agents made better decisions after receiving them. For each conclusion, say which
+kind of result supports it, which Pack revision was used, and exactly what was observed. If a
+stronger claim was not tested, keep the wording narrow. Stop when every claim that the Pack is ready
+has the kind of evidence it needs. Do not average these groups into a quality score unless a
+separate evaluation contract defines that score.
 
 ## Anti-pattern
 

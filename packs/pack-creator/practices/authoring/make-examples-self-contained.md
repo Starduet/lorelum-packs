@@ -15,18 +15,18 @@ title: Make Each Example Understandable on Its Own
 
 ## When to apply
 
-Apply while drafting or cold-reading the Example section. The Example must carry the facts needed to
-understand one correct application without access to meetings, source documents, or earlier
-Practices. Whole-Practice independence is a design concern; this Practice focuses only on the
-scenario inside Example.
+A reader should understand the Example without attending the original meetings or opening source
+documents and earlier Practices. While writing or rereading it, supply the facts needed to follow
+one correct application. Check this scenario on its own; the rest of the Practice must also be
+reviewed for hidden dependencies.
 
 ## Guidance
 
 State the Pack goal relevant to the scenario, the source or system facts that constrain the choice,
 the plausible alternative, and why the selected action is better. Replace unexplained internal names
-with their functional relationship. Include only facts that change the decision. Stop when a cold
-reader can retell the request, constraint, choice, and result without asking what a local acronym or
-past incident means.
+with what each person or system does and how they relate to the choice. Include only facts that
+change the decision. Stop when a reader seeing the Example for the first time can retell the
+request, constraint, choice, and result without asking what a local acronym or past incident means.
 
 ## Anti-pattern
 

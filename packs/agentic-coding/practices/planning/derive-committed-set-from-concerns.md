@@ -10,64 +10,67 @@ severity: warn
 stage: planning
 tech_stack:
   - agentic-coding
-title: Derive the Committed Set from Concerns
+title: Build Plans and Criteria from the Decisions They Must Support
 ---
 
 ## When to apply
 
-Apply while any set that will settle future judgments is under construction: a plan's committed
-tasks, acceptance or definition-of-done lists, review standards, test batteries, validation or
-permission rules, or scoring dimensions. The test is function, not name: if consulting the set will
-decide pass or fail, build or defer, allow or deny, or a score, this Practice applies. It applies at
-the first proposed item, again at any later addition or removal, and when inheriting an
-already-grown set, by reconstructing its concerns first. Lists that only record or explore — notes,
-inventories, outlines — do not trigger it. It includes the situations teams describe colloquially: a
-checklist that keeps growing until it blocks everything, a definition of done someone keeps adding
-to, a rubric whose overlapping entries each carry too little weight, or a plan whose task list no
-longer shows what is actually required.
+Use this when deciding what belongs in a plan, acceptance checklist, review standard, test suite,
+validation or permission rules, or scoring rubric. These lists determine what gets built, what
+passes, what is allowed, or how candidates score.
+
+Before adding the first item, changing an existing list, or taking over one that has grown over
+time, work out what problems and requirements its items must address. Notes, inventories, and
+outlines that only record or explore ideas do not need this treatment until they will be used to
+make those decisions.
 
 ## Guidance
 
-Before proposing items, write the concerns the set must serve: the outcomes current acceptance must
-distinguish, failures with reachable evidence, and expansions someone with authority has named.
-Items exist only as derivations from concerns. Admit a candidate through three questions: which
-uncovered concern does it serve; which judgment would differ with it present — build or defer for
-plans, accept or reject for checks, two plausible candidates told apart for scoring; and does an
-existing item already measure the same thing. Merge overlaps instead of keeping both. Record the
-operating points chosen for the named tensions: coverage against parsimony, present requirements
-against named expansions, protection against usability. When a discussion proposes an item, convert
-it to a concern first; one that changes no judgment is parked, not added. On inheriting a grown set,
-reconstruct concerns backwards from its items, then re-derive and drop what no concern owns. Stop
-when every concern has an item, every item changes some judgment, no overlap remains unmerged, and
-each item's failure semantics are chosen; after that freeze, a new item requires a new concern. For
-a change too small to plan, the concern set is the goal sentence plus acceptance, and derivation is
-trivial.
+1. Start with what the list needs to settle: which outcomes acceptance must distinguish, which
+   failures the evidence shows can occur, and which extensions an authorized person has requested.
+   Propose items only to address those needs.
+2. For each item, ask what it adds. Does it cover a problem still missing from the list? Would it
+   change whether you build or defer work, accept or reject a result, or give two plausible
+   candidates different scores? If another item already covers the same thing, merge them.
+3. Record the tradeoffs: enough coverage without an unmanageable list, current requirements versus
+   requested extensions, and protection without making the work unusable. When someone proposes an
+   item, ask which problem it solves before deciding to include it. Leave out items that change no
+   decision.
+4. For a list inherited from earlier work, first identify why each item was added. Rebuild it from
+   those problems and requirements, removing items that have no such basis.
+
+The list is ready when it covers every identified need, each item affects a decision, duplicates
+have been merged, and you know what happens if an item fails. Settle the list then; adding more
+requires a new problem or requirement. For a change too small to need a plan, the goal and
+acceptance conditions are enough to work from. There is no need for an elaborate exercise.
 
 ## Anti-pattern
 
-A team's review standard for data migrations starts as three checks. Each incident adds one more
-reasonable-sounding criterion, until every migration is blocked by something and weeks are lost
-arguing exceptions. A purge follows, and the standard now misses the failures that started it. The
-count was adjusted in both directions while the concern set behind it was never written.
+A team's migration reviews start with three checks. Each incident adds another reasonable-sounding
+check, until every migration gets blocked and reviewers spend weeks arguing about exceptions. The
+team then cuts the list down and loses checks for the failures that started it. Both times, they
+change the length of the list without recording which problems it needs to prevent.
 
 ## Why
 
-Every addition is locally justified and every removal is locally costly, so unmanaged sets grow
-until size itself fails. Item count is a derived quantity: fixing unfairness means adding a concern,
-fixing dilution means merging one, and adjusting items directly produces the oscillation.
+It is easy to justify one more check, and hard to remove a check without seeming to lose protection.
+That lets a list grow until people can no longer use it. Work from the problems instead: add a
+missing requirement when something important is untested, and combine overlapping criteria when they
+split the weight of the same issue. Cutting or adding items by count alone repeats the cycle.
 
 ## Exceptions and boundaries
 
-A governing contract, policy, or compliance requirement can force an item that serves no locally
-statable concern; cite the source and keep it. Exploratory lists may stay uncommitted scratch until
-a decision-bearing set is needed. This Practice forms the set; whether an assembled plan's path
-stays completable is decided by walking it, and whether work has a current reason is decided at
-admission.
+Keep requirements imposed by an applicable contract, policy, or regulation even if you cannot
+explain their purpose locally; cite the source. A list of ideas can remain a draft until it will be
+used to make decisions.
+
+This rule helps choose the list's contents. You still need to walk through a planned workflow to
+check that it can finish, and decide whether each proposed task belongs in the current scope.
 
 ## Example
 
-A team defines what a release must pass before a schema migration ships. Concerns: the change must
-be reversible, live data must survive it, and failure must be observable. Four items derive: a
-tested rollback path, an integrity check on migrated rows, an alert on write failures during
-cutover, and a stop condition for aborting. A reviewer proposes a fifth — a style check on migration
-files — and it is parked: no concern owns it, and it changes no build-or-abort judgment.
+A team is deciding when a schema migration is ready to ship. They need to be able to reverse the
+change, preserve existing data, and detect failures. That leads to four checks: a tested rollback
+path, an integrity check on migrated rows, an alert on write failures during cutover, and a
+condition for aborting. A reviewer suggests checking the migration files' style too. The team sets
+it aside: it addresses none of the identified needs and would not change whether they ship or abort.
