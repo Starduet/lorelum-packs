@@ -3,7 +3,7 @@ name: lorelum-official
 description: Official Knowledge Packs maintained by the Lorelum project.
 packs:
   - name: agentic-coding
-    description: "Decision-focused Practices for AI agents doing software engineering. Before continuing a long discussion or starting its next phase, consider whether accumulated history still serves the intended work; when completed investigations, unrelated tasks, or superseded plans dominate, query session-handoff guidance to decide whether a fresh conversation would help. When safeguards, coordination rules, or internal metrics displace a concrete way to solve the task, retrieve guidance on organizing work around a working solution. Clarify goals, authority, acceptance, and non-goals; control scope and stop conditions; keep plans and standards from growing past what they must decide; justify new validation, preflight checks, permission confirmations, integrity scans, and startup or repair prerequisites BEFORE deciding to implement them, including precautions an agent proposes during ordinary backend and local-service tasks; assign checks to their owning boundaries and keep combined acceptance paths completable without weakening security, consistency, or contracts; review subtractively before commit; and handle handoffs, delegation, delivery, recovery, and context loss with trustworthy evidence."
+    description: "Decision-focused Practices for AI agents doing software engineering. When reporting a diagnosis, design choice, implementation result, or progress to a developer, put the engineering conclusion and its important limits first; explain component actions and their effects instead of process logs, abstract labels, or unexplained project jargon. Before continuing a long discussion or starting its next phase, consider whether accumulated history still serves the intended work; when completed investigations, unrelated tasks, or superseded plans dominate, query session-handoff guidance to decide whether a fresh conversation would help. When safeguards, coordination rules, or internal metrics displace a concrete way to solve the task, retrieve guidance on organizing work around a working solution. Clarify goals, authority, acceptance, and non-goals; control scope and stop conditions; keep plans and standards from growing past what they must decide; justify new validation, preflight checks, permission confirmations, integrity scans, and startup or repair prerequisites BEFORE deciding to implement them, including precautions an agent proposes during ordinary backend and local-service tasks; assign checks to their owning boundaries and keep combined acceptance paths completable without weakening security, consistency, or contracts; review subtractively before commit; and handle handoffs, delegation, delivery, recovery, and context loss with trustworthy evidence."
     releases:
       - version: 0.1.0
         ref: agentic-coding-v0.1.0
@@ -32,6 +32,9 @@ packs:
       - version: 0.7.0
         ref: agentic-coding-v0.7.0
         path: packs/agentic-coding
+      - version: 0.8.0
+        ref: agentic-coding-v0.8.0
+        path: packs/agentic-coding
   - name: pack-creator
     description: Practices for creating atomic, retrievable, reviewable Lorelum Knowledge Packs, including repository-local project layers and verifiable Registry releases.
     releases:
@@ -41,15 +44,24 @@ packs:
       - version: 0.2.0
         ref: pack-creator-v0.2.0
         path: packs/pack-creator
+      - version: 0.2.1
+        ref: pack-creator-v0.2.1
+        path: packs/pack-creator
   - name: react-web-craft
     description: Practices for React web application design and performance across component state, async data flow, loading, rendering, and component composition.
     releases:
       - version: 0.1.0
         ref: react-web-craft-v0.1.0
         path: packs/react-web-craft
+      - version: 0.1.1
+        ref: react-web-craft-v0.1.1
+        path: packs/react-web-craft
   - name: issue-pr-etiquette
     description: "Practices for filing single-problem issues and single-scope pull requests that reviewers can verify: evidence-grounded proposals, self-contained PR bodies, disciplined review communication, and honest AI-assistance disclosure."
     releases:
       - version: 0.1.0
         ref: issue-pr-etiquette-v0.1.0
+        path: packs/issue-pr-etiquette
+      - version: 0.1.1
+        ref: issue-pr-etiquette-v0.1.1
         path: packs/issue-pr-etiquette

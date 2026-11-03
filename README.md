@@ -4,17 +4,16 @@ This repository is the official public catalog for installable Lorelum Knowledge
 
 ## Catalog
 
-- `issue-pr-etiquette@0.1.0` — 12 repository-neutral Practices for filing issues, opening pull requests, and taking part in reviews: single-problem convergence with testable acceptance criteria, cited evidence, gate classification, single declared scope, conventional titles, cold-reviewer PR bodies, diff hygiene, review discipline, and honest AI-assistance disclosure. Bundles issue and PR skeleton templates as `assets/` resources.
+- `issue-pr-etiquette@0.1.1` — 12 repository-neutral Practices for filing issues, opening pull requests, and taking part in reviews: single-problem convergence with testable acceptance criteria, cited evidence, gate classification, single declared scope, conventional titles, cold-reviewer PR bodies, diff hygiene, review discipline, and honest AI-assistance disclosure. Bundles issue and PR skeleton templates as `assets/` resources.
   - [简体中文本地化](./packs/issue-pr-etiquette/i18n/zh-CN/README.md) is available as non-runtime companion content.
-- `pack-creator@0.2.0` — published release with 27 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Packs, including repository-local project layers. The official Registry resolves the immutable `pack-creator-v0.2.0` ref.
+- `pack-creator@0.2.1` — 27 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Packs, including repository-local project layers. The official Registry resolves the immutable `pack-creator-v0.2.1` ref.
   - [简体中文本地化](./packs/pack-creator/i18n/zh-CN/README.md) is available as non-runtime companion content.
-- `react-web-craft@0.1.0` — 24 Practices for React web application design and performance across component state, async data flow, code loading, rendering, and component composition.
+- `react-web-craft@0.1.1` — 24 Practices for React web application design and performance across component state, async data flow, code loading, rendering, and component composition.
   - [简体中文本地化](./packs/react-web-craft/i18n/zh-CN/README.md) is available as non-runtime companion content.
-- `agentic-coding@0.7.0` — 37 decision-focused Practices, adding [useful session handoffs](./packs/agentic-coding/practices/context/recommend-session-handoff.md) and [solution-oriented work](./packs/agentic-coding/practices/planning/organize-work-around-the-solution.md). Immutable release ref: `agentic-coding-v0.7.0`; the older `0.6.0` artifact retains 35.
+- `agentic-coding@0.8.0` — 39 decision-focused Practices, including [engineering conclusion reporting and concrete explanations](./packs/agentic-coding/README.md#080-explain-engineering-work-clearly). Immutable release ref: `agentic-coding-v0.8.0`; the older `0.7.0` artifact retains 37.
   - [Content adoption and retrieval observations](./fixtures/agentic-coding/baselines/agentic-coding-0.7.0-content-2026-10-30.md) include known misses and distinguish finite evidence from stable triggering or comparative superiority.
   - [Official 0.7.0 release verification](./fixtures/agentic-coding/baselines/agentic-coding-0.7.0-release-2026-10-30.md) records exact-version installation, default update from `0.6.0`, 37-ID readback, and unchanged evidence limits.
   - [简体中文本地化](./packs/agentic-coding/i18n/zh-CN/README.md) is available as non-runtime companion content.
-  - The unreleased `0.8.0` working tree has 39 Practices, adding [engineering conclusion reporting and concrete explanations](./packs/agentic-coding/README.md#unreleased-080-explain-engineering-work-clearly), with [Chinese before/after examples](./packs/agentic-coding/references/engineering-communication.md). Registry releases remain unchanged.
 
 ## Use Packs
 
@@ -50,7 +49,7 @@ lore pack install agentic-coding
 # Use `@version` to select an exact release.
 lore pack install <pack>
 lore pack install <pack>@<version>
-lore pack install agentic-coding@0.7.0
+lore pack install agentic-coding@0.8.0
 lore pack update <pack>
 lore pack update <pack>@<version>
 lore pack update agentic-coding@0.6.0
