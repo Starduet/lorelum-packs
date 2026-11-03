@@ -16,12 +16,13 @@ title: Model Mutually Exclusive React Props with a Discriminated Union
 
 ## When to apply
 
-Apply when one public React TypeScript component API must represent mutually exclusive modes that
-require different props or callbacks, and boolean or optional fields let callers describe a
-combination the UI does not support. First confirm that one public component surface is still
-appropriate: the modes may require different data and behavior, but should not need independently
-owned state, separate providers, unrelated composition, or distinct extension points. If they do,
-expose named components instead of forcing both variants through one union.
+A component that offers single-date and date-range modes should not accept half a range or the wrong
+callback for the selected mode. When optional props or booleans allow those combinations, use a
+discriminated union to tie each mode to its required data.
+
+First confirm that the modes still belong in one public React TypeScript component. Different data
+and behavior can fit that API, but independently owned state, separate providers, unrelated
+composition, or distinct extension points call for separate named components instead.
 
 ## Guidance
 

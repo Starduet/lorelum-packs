@@ -15,9 +15,10 @@ title: Create a Project-Local Pack
 
 ## When to apply
 
-Apply after the local distribution boundary is settled and before the first repository-owned
-Practice is expected to appear in `lore query` or `lore get`. This Practice creates one Pack root;
-designing parent/child overlays and proving activation are separate decisions.
+If the guidance should live with one repository, create its Pack files there before expecting
+Practices to appear in `lore query` or `lore get`. This covers creating one Pack root. How parent
+and child directories combine, and whether the intended rules actually take effect, need separate
+attention.
 
 ## Guidance
 
@@ -51,9 +52,9 @@ user's cache remains disposable derived state.
 
 ## Why
 
-A project layer is source-owned content discovered from the working directory. Keeping its Pack root
-and canonical Practices with the repository makes review, branching, worktrees, and ordinary
-directory use predictable while avoiding global installation and generated-file cleanup.
+A project layer contains repository-owned guidance discovered from the working directory. Keeping
+the Pack root and canonical Practices in the repository lets ordinary review, branches, worktrees,
+and directory use work without a global install or generated files to clean up.
 
 ## Exceptions and boundaries
 

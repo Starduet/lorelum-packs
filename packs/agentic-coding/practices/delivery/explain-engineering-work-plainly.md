@@ -15,30 +15,36 @@ title: Explain Engineering Work with Concrete Actions
 
 ## When to apply
 
-Use this when explaining a diagnosis, design choice, implementation, or result to a developer and
-the words hide what actually happens. Name the component, action, affected state, and consequence.
-Keep technical terms that carry a real distinction, and explain unfamiliar project shorthand where
-it matters. Clear engineering language preserves the mechanism instead of replacing it with a
-slogan.
+Use this when a developer can read the report but still cannot tell what the code does, why the
+change helps, or what remains unknown. Explain which component acts, what it changes, and what
+happens as a result. Keep technical terms that express a useful distinction, explaining unfamiliar
+project shorthand where needed. A shorter slogan is not a clearer explanation.
 
 ## Guidance
 
-1. Replace labels such as "coordination landed" or "the lifecycle is closed" with what a component
-   actually reads, writes, waits for, rejects, or returns, and why that changes the observed
+1. Replace labels such as "coordination landed" or "the lifecycle is closed" with what actually
+   happens: which component reads, writes, waits for, rejects, or returns what, and how that changes
    behavior. Name the responsible component when it is known; do not invent a cause or owner.
-2. Match the developer's knowledge. Keep useful terms such as transaction, token, revision, or
-   rollback. Explain an unfamiliar abbreviation or local concept at first use, not every common
-   engineering term. Preserve exact code, paths, commands, quoted errors, and source destinations.
-3. Split sentences when several actions or conditions hide their relationship. Keep a condition
-   beside the effect it limits. Distinguish an observed result, a proposed mechanism, and an
-   untested hypothesis instead of letting a fluent causal sentence merge them.
-4. Compare the rewrite with the source facts. Preserve identifiers, quantities, units, environments,
-   comparison bases, exceptions, negations, and uncertainty. Remove padded verbs, inflated success
-   language, and repeated explanations. If the mechanism is not known, state the observation and the
-   unknown; do not fill the gap with plausible technical prose.
+2. Explain for this reader. Keep useful terms such as transaction, token, revision, or rollback.
+   Explain an unfamiliar abbreviation or project name where it first matters, without teaching a
+   specialist common basics. Keep code, paths, commands, quoted errors, and source destinations
+   exactly as given.
 
-Stop when the developer can explain what the component does differently and why it matters, or
-identify exactly what is not yet known. Fewer words alone are not proof of a better explanation.
+   If only part of a structured reply may change, copy the protected values unchanged and rewrite
+   only the permitted text. Before sending, compare those values and the requested output shape with
+   the source; do not translate them or add punctuation.
+
+3. Separate actions or conditions when putting them in one sentence hides their relationship. Keep
+   each condition beside the result it limits. Say whether a change is proposed, implemented, or
+   observed to work. A failed check is not merely an untested case. "Not yet shown to meet the
+   requirement" does not mean "cannot meet it." Clear prose must not turn an unknown into a fact.
+4. Compare the rewrite with the source facts. Keep identifiers, quantities, units, environments,
+   comparison bases, exceptions, negations, and uncertainty. Remove padded verbs, inflated success
+   claims, and repeated explanations, not facts needed to judge the result. If the mechanism is
+   unknown, describe the observation and what is missing rather than supplying a plausible story.
+
+You have explained enough when the reader understands what happens differently and why it matters,
+or exactly what remains unknown. Shorter wording alone is not a better explanation.
 
 ## Anti-pattern
 
@@ -50,9 +56,9 @@ boundary.
 
 ## Why
 
-A developer needs the mechanism to review correctness and make the next decision. Concrete component
-actions let them connect code changes to behavior; abstract labels can sound complete while
-concealing a wrong or unproven explanation.
+To judge correctness and choose the next step, a developer needs to know how the change works.
+Describing the component's actions connects the code to its behavior. An abstract label can sound
+convincing while hiding an explanation that is wrong or has not been checked.
 
 ## Exceptions and boundaries
 

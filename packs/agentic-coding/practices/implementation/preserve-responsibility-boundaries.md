@@ -15,20 +15,20 @@ title: Put Shared Rules in the Responsible Component
 
 ## When to apply
 
-Apply when the same rule must hold across multiple callers, interfaces, or layers and it is unclear
-where the rule belongs. A local detail inside the component already responsible for the rule is a
-near miss. This Practice chooses the responsible component; it does not redesign the architecture or
-choose the least complex implementation inside that component.
+Several callers, interfaces, or layers must obey the same rule, and you need to decide where to
+enforce it. If the component responsible for the rule is already clear and you are only changing its
+internals, there is no need to revisit that choice. Decide who is responsible here; choosing a new
+architecture or the simplest implementation inside that component is a separate task.
 
 ## Guidance
 
-1. State the rule that must stay true in one sentence — the no-overselling invariant, the rounding
-   rule for invoice totals.
+1. Describe the rule in one sentence, such as "reservations must not exceed available stock" or
+   "invoice totals use this rounding rule."
 2. List every entry point that depends on it: screens, API paths, batch importers, other services.
 3. Put the final decision in the component already responsible for the relevant data or policy.
    Other layers may translate input, output, or presentation, but they must not redefine the rule.
-4. If no current component can own the rule honestly, pause for an architectural decision instead of
-   choosing the easiest file to edit.
+4. If no existing component can reasonably take responsibility for the rule, pause for an
+   architectural decision rather than putting it in the easiest file to edit.
 
 Stop with one responsible component and a clear instruction for callers.
 
@@ -47,10 +47,10 @@ differently.
 
 ## Exceptions and boundaries
 
-Distinct input or trust boundaries may need checks of the same field, but each must establish a fact
-that can be false there and must reinforce rather than redefine the authoritative rule. Passing an
-unchanged validated value through another internal layer does not create that need. A database
-constraint guarding concurrent mutation can remain necessary after input validation.
+Different input or trust boundaries may need to check the same field. Each check must address
+something that could actually be wrong at that point and uphold, not redefine, the authoritative
+rule. Passing an unchanged validated value through another internal layer does not create that need.
+A database constraint can still be necessary to prevent concurrent changes after input validation.
 Performance-driven duplication needs evidence and a strategy for keeping results consistent. If the
 requirement intentionally moves ownership or splits a domain, treat that as an architectural change
 with migration consequences.

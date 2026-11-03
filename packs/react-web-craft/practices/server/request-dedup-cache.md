@@ -16,15 +16,15 @@ title: Deduplicate Request-Scoped Lookups with React cache
 
 ## When to apply
 
-Apply when a server render needs the same request-scoped value — the authenticated user, a tenant
-setting, a record that several components display — and more than one component or helper fetches it
-independently. Decide where the single per-request lookup lives.
+A layout, page, and sidebar may each look up the same authenticated user during one server render.
+When several components or helpers independently fetch the same request-scoped user, tenant setting,
+or record, share that lookup within the request.
 
 ## Guidance
 
-Wrap the lookup in React's `cache()`. Within one server request, every call to the cached function
-shares one execution and one result; the cache lives exactly for the request and nothing survives
-it:
+Wrap the lookup in React's `cache()`. Within one server request, calls to the same cached function
+with matching arguments share one execution and result. The cached results are not reused by the
+next request:
 
 ```ts
 import { cache } from "react";
@@ -35,9 +35,9 @@ export const getCurrentUser = cache(async (token: string | null) => {
 });
 ```
 
-Match the arguments to the cache's equality. `cache()` compares arguments with `Object.is`:
-primitives hit, freshly built object literals always miss. Pass primitive keys, or pass one stable
-reference around if an object argument is unavoidable.
+`cache()` compares each argument with `Object.is`. Matching primitive values reuse the result; fresh
+object literals do not, even if their contents match. Pass primitive keys, or reuse one stable
+reference across calls when an object argument is unavoidable.
 
 Do not reach for `cache()` where the framework already deduplicates: in Next.js, identical `fetch`
 calls in one request are memoized automatically, so `cache()` earns its keep on non-fetch work —
@@ -54,19 +54,17 @@ queries; under load, that multiplies backend work by component count.
 
 ## Why
 
-A server render is one logical unit of work, but its component tree is many independently written
-pieces; without a per-request memo, each piece re-derives shared inputs. `cache()` scopes the memo
-to the request precisely so sharing happens inside the request and isolation is preserved across
-requests and users.
+Several components can need the same user or record during one server render. Without request-scoped
+memoization, each component repeats the lookup. `cache()` reuses matching lookups within that
+request without sharing their results with another request or user.
 
 ## Exceptions and boundaries
 
-- If the lookup runs exactly once per request anyway, `cache()` adds ceremony without benefit; this
-  is a cost boundary.
+- If the lookup already runs exactly once per request, `cache()` cannot remove any duplicate work.
 - Arguments that cannot be expressed as primitives or stable references defeat the cache; reshape
   the signature rather than passing fresh object literals.
-- Cached values are frozen for the request's lifetime: use it for data the request treats as
-  constant, not for values a later mutation must immediately re-read.
+- Matching calls reuse the cached result for the request's lifetime. Use this for data the request
+  treats as constant, not for a value that must be fetched again immediately after a mutation.
 - Module-level or cross-request caching is a separate decision with its own invalidation, tenancy,
   and memory design; see `react.server.no-module-request-state` for the isolation boundary that
   motivates keeping per-request data out of module scope.

@@ -15,10 +15,10 @@ title: Choose the Least Complex Design That Fully Works
 
 ## When to apply
 
-Apply after viable options are understood and before choosing a structure. This Practice compares
-designs that can all meet the requirement. It does not decide whether the repository, a dependency,
-or the runtime already provides the needed behavior. If only one option meets the behavior, safety,
-or compatibility requirements, there is no design-size choice to make.
+Two or more designs would meet the requirement, and you need to choose between them. Compare the
+complexity they add before committing to a structure. First establish whether existing repository,
+dependency, or runtime code already does the job; that is a separate question. If only one design
+meets the behavior, safety, and compatibility requirements, there is no choice of size to make.
 
 ## Guidance
 
@@ -27,7 +27,8 @@ or compatibility requirements, there is no design-size choice to make.
 2. Count what each remaining option adds: new state, indirection, layers, fallbacks, and data passes
    (failure branches count too), rather than lines.
 3. Choose the design that adds the fewest responsibilities and is easiest to reverse in the current
-   code. Require a present reason for every extra layer, stored state, fallback, or data pass.
+   code. For every extra layer, stored state, fallback, or data pass, explain why this task needs
+   it.
 4. If a larger option seems necessary, name the concrete condition — security isolation, migration
    safety, published compatibility, measured performance limits, or an approved near-term
    requirement.

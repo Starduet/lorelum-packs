@@ -2,20 +2,25 @@
 
 ## 适用场景
 
-一个公开的 React
-TypeScript 组件 API 必须表达需要不同 props 或回调的互斥模式，而布尔或可选字段让调用者得以描述 UI 无法支持的组合时应用。先确认保留单一公开组件面仍然合适：各模式可以需要不同的数据与行为，但不应需要独立所有的 state、单独的 provider、无关的组合方式或不同的扩展点；若需要，应改为暴露命名组件，而不是把两个变体硬塞进一个联合。
+一个组件同时提供单日和日期范围等互斥模式时，不应允许调用者只传一个范围端点，或传入与所选模式不匹配的回调。如果 React
+TypeScript 组件的可选 props 或布尔值允许这类组合，可以用判别联合把每种模式与必需的数据绑定起来。
+
+先确认是否仍应保留单个公开组件。各模式可以需要不同的数据和行为；但如果需要分别管理 state、使用独立的 provider、采用无关的组合方式或提供不同的扩展点，就应暴露多个命名组件，不要强行放进一个联合。
 
 ## 具体指导
 
-给每个模式一个字面量判别器，如 `mode: "single"` 或
-`mode: "range"`。每个模式定义一个联合成员，并要求该模式的输入与回调。对已知的跨模式 prop 用
-`?: never` 拒绝传入的值，包括经类型化对象展开进来的值。用穷举 `switch`
-按判别器收窄；只共享真正属于两个模式的渲染。`disabled` 之类的独立选项放在模式联合之外。
+给每个模式一个字面量判别字段，如 `mode: "single"` 或
+`mode: "range"`。每种模式对应一个联合成员，列出它必需的输入和回调。已知只属于其他模式的 prop 写成
+`?: never`，以拒绝传入的值，包括通过有类型的对象展开传入的值。用穷举 `switch`
+根据判别字段收窄 props，只共享两个模式确实共用的渲染。`disabled`
+等可独立组合的选项放在模式联合之外。
 
-`?: never` 是编译期约束，不是运行时校验。开启 `strictNullChecks` 且未开启
-`exactOptionalPropertyTypes` 时，可选的 `never` 属性仍接受显式传入的 `undefined`；非 `undefined`
-的冲突值会被拒绝，但属性缺席并不被保证。`exactOptionalPropertyTypes` 要求
-`strictNullChecks`，且只在 tsconfig 开启它的项目里收紧赋值；可复用组件库无法要求消费者使用该选项。运行时的模式信号以判别器为准。若运行时行为依赖冲突属性缺席，就在边界校验或规范化输入，不要信任类型。
+`?: never` 是编译期约束，不是运行时校验。开启 `strictNullChecks`、未开启
+`exactOptionalPropertyTypes` 时，可选的 `never` 属性仍接受显式传入的 `undefined`。它能拒绝非
+`undefined` 的冲突值，却不能保证该属性没有被传入。
+
+`exactOptionalPropertyTypes` 要求开启
+`strictNullChecks`，并且只在 tsconfig 启用它的项目中收紧赋值规则；可复用组件库不能要求使用者都开启它。运行时应根据判别器决定模式。如果行为要求冲突属性完全不存在，就在输入边界校验或规范化这些属性，不要只依赖类型。
 
 假定使用自动 JSX 运行时（`jsx: "react-jsx"`) 与相应的 React
 JSX 类型声明；使用经典转换时按项目要求引入 React。
@@ -77,8 +82,8 @@ export function DateSelection(props: DateSelectionProps) {
 ```
 
 `mode`
-字段为每个分支收窄 props。single 变体给不出可用的范围；range 变体要求两个端点和它的范围回调。`switch`
-让新增联合成员成为类型检查问题；固定的 fallback 错误只是对绕过 TypeScript 契约的值的防御性失败，不能替代对外部输入的校验。
+字段让 TypeScript 确定每个分支可用的 props。single 变体不能传入可用的日期范围；range 变体必须有两个端点和范围回调。新增联合成员后，类型检查会要求
+`switch` 处理它。固定的 fallback 错误只是防御绕过 TypeScript 约束的值，不能替代外部输入校验。
 
 ## 反模式
 
@@ -99,4 +104,4 @@ export function DateSelection(props: DateSelectionProps) {
 
 ## 示例
 
-排期界面通过同一张日历面提供单日选择与日期范围选择。两个变体共享日历的公开组件边界，但各自需要不同的选择数据与回调。上面的代码是紧凑的 prop 契约示例；生产级日历仍需实现日期导航、选择与校验。
+排期界面通过同一个日历组件提供单日选择和日期范围选择。两个变体共用一个公开组件，但需要不同的选择数据与回调。上面的代码只演示 props 约束；生产级日历仍需实现日期导航、选择与校验。

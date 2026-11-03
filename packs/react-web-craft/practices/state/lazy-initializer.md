@@ -15,10 +15,9 @@ title: Lazy-Initialize Expensive Mount-Time State
 
 ## When to apply
 
-Apply when a component needs an editable local copy initialized from a stable input, and producing
-that initial value requires meaningful parsing, normalization, indexing, or other pure work. Decide
-whether the work is truly mount-time initialization or whether the state should instead follow
-changing inputs.
+An editor may need to parse, normalize, or index a stable input to create its initial editable
+state. If that pure calculation costs enough to matter, avoid repeating it on ordinary renders.
+First confirm that this is a mount-time snapshot, not a value that should follow changing inputs.
 
 ## Guidance
 
@@ -38,12 +37,11 @@ being invoked exactly once. React Strict Mode may call an initializer twice in d
 expose impurities. Avoid the function form for cheap values such as a primitive or a small literal;
 lazy initialization is a cost boundary, not a default style rule.
 
-Treat the initializer's inputs as a snapshot for that component's state lifetime. A new prop value
-does not rerun the initializer. If the edited state belongs to a different document or entity, give
-the editor a stable identity boundary (for example, a `key`) or define an explicit
-state-transition/reset path. If the value must always reflect the current prop, do not copy it into
-local state just to use a lazy initializer; choose a controlled or reactive-override contract
-instead.
+The initializer's inputs are a snapshot for that component's state lifetime; a new prop value does
+not rerun it. When editing a different document or entity, use a stable identity such as a `key`, or
+explicitly transition or reset the state. If the value must always reflect the current prop, do not
+copy it into local state just to use lazy initialization. Use a controlled value, or track the
+source until a deliberate local override takes precedence, according to the required behavior.
 
 ## Anti-pattern
 

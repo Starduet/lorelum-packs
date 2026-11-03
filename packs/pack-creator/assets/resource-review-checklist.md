@@ -7,6 +7,9 @@ layers.
 ## Structure
 
 - [ ] `lore validate <pack-root>` completed and the result, Pack revision, and diagnostics are recorded.
+- [ ] Canonical Practice metadata has the runtime-required `id`, `title`, `stage`, `tech_stack`, and `applies_when`; any structured anti-pattern has `id`, `name`, `description`, and `severity`. Practice-level `severity` is optional in the format.
+- [ ] Each Practice follows this Pack's existing six-section authoring pattern: When to apply, Guidance, Anti-pattern, Why, Exceptions and boundaries, and Example. This is an authoring check, not a claim that all six headings are runtime-required.
+- [ ] The existing applicability field and section state the condition; no additional summary or introduction is required. Localized companions mirror the Practice paths without copying runtime YAML metadata.
 - [ ] Every linked `resource:` target is in `references/`, `assets/`, or `scripts/` and has a clear task-time purpose in its Practice.
 - [ ] The Practice still contains the immediate trigger, action, reason, exceptions, and stopping point.
 - [ ] Resource files and directories meet repository safety and size rules; any unlinked helper or grouped asset is intentional.

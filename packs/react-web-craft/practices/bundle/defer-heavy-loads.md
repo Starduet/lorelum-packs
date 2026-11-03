@@ -16,16 +16,15 @@ title: Defer Heavy Non-Critical Loads Until They Are Needed
 
 ## When to apply
 
-Apply when a module, component, or third-party library is large relative to the page and is not
-needed for the initial paint or first interaction — an editor, a charting library, a map widget, an
-export dialog, an analytics script. Decide what loads up front and what loads when its feature is
-actually reached.
+An editor, charting library, map widget, export dialog, or analytics script may be large relative to
+the page but unnecessary for its initial paint or first interaction. In that case, load it when the
+user reaches the feature rather than including it in the initial load.
 
 ## Guidance
 
-Defer two things at once: download cost and execution cost. A statically imported module joins the
-initial graph whether or not its feature renders; a dynamically imported one becomes a separate
-chunk fetched when first rendered or first called:
+Deferring a module postpones both downloading and executing it. A static import adds it to the
+initial dependency graph even if its feature never renders. A dynamic import puts it in a separate
+chunk, fetched when first rendered or called:
 
 ```tsx
 const ReportBuilder = dynamic(() => import("./report-builder"), {
@@ -36,10 +35,10 @@ const ReportBuilder = dynamic(() => import("./report-builder"), {
 Use the framework's component loader for components (in Next.js, `next/dynamic`), plain `import()`
 for data and non-component modules, and the framework's script-loading strategy for third-party
 scripts — analytics and chat widgets are usually scripts, not React components, and their loading
-strategy is separate from component code splitting. Note the trade-offs honestly: `ssr: false` keeps
-a component out of the server render (it must then be used from a client component in the App
-Router), so the delivered HTML will not contain it; that is usually right for widgets and wrong for
-content.
+strategy is separate from component code splitting. Be clear about what `ssr: false` changes: it
+keeps a component out of the server render, so the delivered HTML will not contain it. In the App
+Router, use that option from a client component. Omitting a widget from the HTML is usually
+appropriate; omitting content usually is not.
 
 Keep import paths statically analyzable. A bundler cannot split what it cannot see: prefer an
 explicit map of loader functions over composing a path string, and prefer literal file-system paths
@@ -67,10 +66,10 @@ parses the library before the page becomes interactive.
 
 ## Why
 
-The initial bundle competes with the user's first impression; deferrable code in it is paid by
-everyone for the benefit of few. A dynamic import turns that cost into a separate chunk fetched
-exactly when the feature is reached, and explicit loader maps keep the bundler's reachable set
-narrow instead of forcing conservative over-inclusion.
+Code in the initial bundle must be downloaded and parsed even by visitors who never use its feature.
+A dynamic import puts that code in a separate chunk, so conditional features can load it when they
+render or call it. Explicit loader maps tell the bundler which modules can be loaded, rather than
+requiring it to include a broader set of possible paths.
 
 ## Exceptions and boundaries
 
@@ -87,8 +86,9 @@ narrow instead of forcing conservative over-inclusion.
 
 ## Example
 
-A settings page renders an admin-only usage section; the charting library lives behind the dynamic
-boundary and is fetched only when an admin expands it. Most visitors never download it.
+A settings page renders a usage section only for admins. The charting library is in a separate
+chunk, so non-admin visitors do not need it. In this example, an admin renders `UsageCharts` even
+while `<details>` is closed; expanding the section is not what triggers the load.
 
 ```tsx
 "use client";

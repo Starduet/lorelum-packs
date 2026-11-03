@@ -15,33 +15,32 @@ title: Give Recovery One Owner and an Explicit Outcome
 
 ## When to apply
 
-Apply before adding or retaining a fallback, retry, or error-swallowing wrapper. Decide which known
-failure can recover and what the caller receives afterward. Deciding where to validate incoming data
-is a different question; a valid input can still encounter an unavailable dependency.
+Before adding or keeping retries, fallbacks, or code that catches an error and continues, decide
+which failures can actually recover and what the caller should receive. Validating incoming data is
+a separate question: even valid input can fail when a dependency is unavailable.
 
 ## Guidance
 
-1. Write down the normal success and failure contract first: what the caller receives when the
-   operation works and when it fails.
-2. Name the specific recoverable condition — which known failure can actually recover — and give
-   recovery one owning component.
-3. State the usable outcome or preserved state that recovery produces, and how callers learn any
-   material difference from fresh success.
-4. For a retry, establish why another attempt can succeed, whether replay can duplicate an effect,
-   and one total attempt or time budget. Check existing client, job, and caller retries before
-   adding any, and do not multiply their budgets.
-5. For a fallback, establish source equivalence or the explicitly accepted degradation and its
-   limit. Prefer propagating the established error when no accepted recovery exists, and never
-   replace malformed data, denied access, or a failed write with an empty collection or default.
+1. First say what the caller normally receives when the operation succeeds and when it fails.
+2. Identify the known failure that another attempt or fallback can resolve. Make one component
+   responsible for that recovery.
+3. Say which result or saved state remains usable afterward, and how callers will learn any
+   important difference from a successful operation returning fresh data.
+4. Before retrying, explain why another attempt may succeed and whether it could repeat a side
+   effect. Set one total limit on attempts or time. Check retries already made by the client, job,
+   and caller so that their limits do not multiply.
+5. Before falling back to another source, show that it gives an equivalent result or that the
+   reduced result and its limits have been explicitly accepted. Otherwise, return the established
+   error. Never disguise malformed data, denied access, or a failed write as an empty collection or
+   default value.
 
-Keep error translation at the interface that owns it and preserve the actionable cause; let the
-recovery operation depend only on prerequisites needed to complete that operation safely. Ordinary
-defaults for absent optional input need no recovery framework when the contract already defines
-them.
+Translate errors at the interface responsible for doing so, keeping the cause callers need in order
+to act. Require only the prerequisites needed to perform the recovery safely. A default already
+specified for missing optional input does not need a recovery framework.
 
-Stop when one owner, the eligible failures, a bounded recovery, and the final observable outcome are
-clear. If no recovery is required, retain the direct failure and a usable next step at the
-user-facing boundary.
+You are done when it is clear which component recovers which failures, how far it may retry or fall
+back, and what the caller will see. If recovery is not needed, report the failure directly at the
+user-facing interface and give a usable next step.
 
 ## Anti-pattern
 
@@ -53,17 +52,20 @@ missing data, and an unrelated decoding bug is hidden by the same path.
 
 ## Why
 
-Recovery is additional product behavior with its own failure modes. An unqualified fallback can turn
-detectable failure into false success, while nested retries multiply delay and load. One explicit
-owner makes the outcome understandable and the budget enforceable.
+A fallback changes what the product does when something fails, and can fail in its own right.
+Returning a default for every error can make a broken system look healthy. Retrying at several
+layers multiplies delay and load. Giving recovery one owner makes its result and limits clear.
 
 ## Exceptions and boundaries
 
-An accepted offline mode, stale-read policy, compatibility path, or default for an absent optional
-setting is useful behavior, not automatically excess. Keep its stated limits and verify its outcome.
-Independent retries can remain when they cover different operations and fit an established overall
-budget. A timeout after a possibly committed write needs idempotency or outcome reconciliation, not
-a blind replay. A mandatory audit or integrity failure cannot become success through fallback.
+Keep accepted offline behavior, older-data read policies, compatibility paths, and defaults for
+missing optional settings. They are not automatically unnecessary; preserve their limits and check
+their results. Separate retries may stay if they cover different operations and fit the total
+budget.
+
+If a write may already have committed before a timeout, do not blindly replay it. Use idempotency or
+reconcile what happened first. A required audit or integrity check that failed must remain a
+failure, not become success through fallback.
 
 ## Example
 

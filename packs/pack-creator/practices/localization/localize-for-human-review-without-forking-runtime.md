@@ -15,21 +15,21 @@ title: Localize for Human Review without Forking Runtime Meaning
 
 ## When to apply
 
-Apply when preparing or updating companion content in another language. The decision is how to make
-that reading version clear to human reviewers without turning it into a second canonical Pack. The
-canonical Practice IDs, runtime files, and intended decision remain the shared reference.
+When adding or updating a translation, make it easy for reviewers in that language to understand the
+same guidance. Do not let it become a second Pack with different rules: the canonical Practice IDs,
+files used at runtime, and intended decisions must remain the shared reference.
 
 ## Guidance
 
-Translate the decision, not the English word order. Preserve the Practice ID, anti-pattern ID,
-trigger conditions, required action, stopping point, exceptions, causal reason, and example
-relationships. Replace an idiom or unfamiliar term with natural language in the target language when
-the meaning stays the same. Keep localized files outside the canonical runtime input according to
-the repository’s localization layout, and record which canonical revision each translation
-represents. Have a target-language reviewer check both readability and meaning against the canonical
-file. Stop when every localized Practice is current, reviewable, and traceable to one canonical
-Practice; do not add language-specific runtime rules merely to make the translation feel more
-useful.
+Translate the decision, not the English word order. Preserve the Practice and anti-pattern
+identities, trigger conditions, required action, stopping point, exceptions, causal reason, and
+example relationships. Replace an idiom or unfamiliar term with natural language in the target
+language when the meaning stays the same. Follow the repository's localization layout: companions
+correspond to canonical IDs but do not need copies of runtime frontmatter. Keep them outside the
+canonical runtime input, and record which canonical revision each translation represents. Have a
+target-language reviewer check readability and meaning against the canonical file. Stop when every
+localized Practice is current, reviewable, and traceable to one canonical Practice; do not add
+language-specific runtime rules merely to make the translation feel more useful.
 
 ## Anti-pattern
 
@@ -42,9 +42,9 @@ contradict the canonical trigger for other users.
 
 ## Why
 
-Natural localization lets humans catch unclear guidance and domain mistakes. A runtime fork does the
-opposite: the same Practice ID would imply different decisions depending on which file a reader saw,
-and fixes would have no single source to update.
+Natural translation helps people spot unclear guidance and domain mistakes. If translated files
+instead supply their own runtime rules, the same Practice ID can tell readers to make different
+decisions, with no single source in which to fix them.
 
 ## Exceptions and boundaries
 

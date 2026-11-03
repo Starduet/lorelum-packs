@@ -15,14 +15,14 @@ title: Preserve a Reactive Default Until the User Overrides It
 
 ## When to apply
 
-Apply when an editable control starts from a parent or server-provided value that may change, while
-a user's local edit should take precedence after it is made. Decide whether the parent owns every
-value, the component only needs a mount-time initial value, or the component needs a local override
-that is absent until the user acts.
+A control may need to follow a changing parent or server default until the user makes a choice, then
+keep that choice when the default changes again. Distinguish this from a fully controlled value,
+where the parent always decides, and a mount-time initial value, where later source changes are
+intentionally ignored.
 
 ## Guidance
 
-Choose the ownership contract before choosing the state shape:
+Choose the behavior the control needs before deciding what to store:
 
 - If the parent must determine the displayed value on every render, use a controlled value and
   change callback; do not add a competing local copy.

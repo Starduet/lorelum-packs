@@ -15,40 +15,38 @@ title: Decide Scope and Stop Conditions Before Work Begins
 
 ## When to apply
 
-Apply when candidate work items are about to become the committed plan, or when an already-fixed
-scope still lacks its execution boundary. Admission labeling and stop conditions are usually settled
-in one pass: what is committed, what is deferred, and when execution stops. If the committed scope
-is already fixed by the requester, accept those items as required and start at the finish
-conditions. If implementation has already revealed facts that change scope or risk, replan from the
-observed facts instead. This Practice does not decide how much validation depth a committed item
-deserves, or which values of an approved public surface may be exposed.
+Before starting work, agree what must be done, what can wait, and how you will know the task is
+finished. This helps both when choosing tasks for a plan and when the requester has already fixed
+the scope. If the scope is fixed, treat those tasks as required and start with their finish
+conditions; do not reopen the decision about whether to include them.
+
+If implementation has uncovered facts that change the scope or risk, revisit the plan from those
+facts. Deciding how much verification a task needs, or which values an approved public interface
+should accept, are separate decisions.
 
 ## Guidance
 
-1. List every candidate work item, including ideas the repository makes look cheap: an unused
-   interface, a nearby hook, a nice-to-have refactor, or a generalization the loader already
-   accepts.
-2. Label each item required, optional, out of scope, or unresolved. Required work must support a
-   current acceptance item, an evidenced risk, behavior already promised to callers, or an approved
-   expansion. An item supported only by generic practice, possible future use, or visible output
-   stays optional or out of scope and cannot block the required path. If the authority to decide is
-   missing, mark the item unresolved and ask.
-3. Write one observable finish condition for each required item: the behavior another person could
-   check. If you cannot state it, return to the requirement instead of writing "until it looks
-   good."
-4. Record the deferred items by name in a defer list, so a nearby discovery made during execution
-   has a recorded place to go instead of becoming new work.
-5. Write the replanning signals: which changes in scope, risk, authority, cost, or evidence
-   feasibility force revisiting this plan. Ordinary implementation detail is not a signal.
+1. List the proposed work, including tempting additions that look cheap: an unused interface, a
+   nearby hook, a small refactor, or extra inputs the loader could already accept.
+2. Mark each item required, optional, out of scope, or unresolved. Required work must serve a
+   current acceptance requirement, a risk backed by evidence, a promise already made to callers, or
+   an approved extension. General advice, possible future use, or the chance to show more output is
+   not enough to make an item required. Keep such ideas optional or out of scope, and do not let
+   them block required work. If you lack authority to decide, mark the question unresolved and ask.
+3. For each required item, say what another person could check to confirm it is finished. If you
+   cannot say, clarify the requirement rather than writing "until it looks good."
+4. Record postponed ideas by name so that rediscovering one while coding does not silently add it to
+   this task.
+5. Say which new facts would require a new plan: changes to scope, risk, authority, cost, or whether
+   the planned verification is possible. Ordinary implementation details do not require replanning.
 
-Apply the same admission rule to validation, authorization, retry, and fallback items: name the
-reachable failure or explicit policy, the current protection, and the remaining gap. "Another layer
-of safety" alone is not a gap, and a brief explanation settles a small change better than a separate
-risk document.
+Use the same test before adding validation, authorization, retries, or fallbacks. Explain which
+failure can occur or which policy requires them, what protection already exists, and what remains
+unprotected. "Another layer of safety" does not identify a missing protection. For a small change, a
+brief explanation is enough; do not create a separate risk document just for this.
 
-Stop when every committed item carries a current reason and a finish condition, the defer list names
-the adjacent opportunities you noticed, and another person could decide finish, defer, or replan
-from what you recorded.
+Stop planning when every required item has a current reason and a checkable finish condition, the
+postponed ideas are recorded, and another person could tell when to finish, defer work, or replan.
 
 ## Anti-pattern
 
@@ -63,19 +61,20 @@ obligations that no current requirement supports.
 
 ## Why
 
-An optional idea is cheapest to defer while it is still a plan item; once code, tests, and consumers
-depend on it, removal becomes a compatibility decision. A recorded finish condition and defer list
-stop novelty and cleanup opportunities from redefining success, while explicit replanning signals
-keep genuine new facts able to change the plan.
+It is easier to postpone an idea before code, tests, and callers depend on it. After that, removing
+it may break compatibility. Recording the finish conditions and postponed ideas keeps discoveries
+and cleanup from moving the goalposts, while the stated reasons to replan leave room for genuine new
+facts.
 
 ## Exceptions and boundaries
 
-Incident response, safety containment, and research may use timeboxed or evidence-based stops, and
-immediate containment can precede replanning when delay increases harm. A governing contract or an
-evidenced security, privacy, data-integrity, compatibility, or compliance risk can require work the
-feature request does not name; explain the actual exposure and consequence, because the category
-label alone cannot promote hypothetical work into a requirement. Optional improvements may still be
-recorded without becoming commitments.
+Incidents, safety containment, and research may stop at a time limit or after collecting specified
+evidence. If waiting increases harm, contain it before revising the plan.
+
+An applicable contract or an evidenced security, privacy, data-integrity, compatibility, or
+compliance risk may require work the feature request did not mention. Explain the actual exposure
+and consequence; naming a risk category is not enough to make hypothetical work required. You can
+still record optional improvements without promising to implement them.
 
 ## Example
 

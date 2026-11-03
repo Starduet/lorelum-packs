@@ -15,9 +15,9 @@ title: Name Specific Exceptions and Boundaries
 
 ## When to apply
 
-Apply while writing Exceptions and boundaries for a Practice whose default action is already clear.
-The decision is which recognizable conditions alter that default and which neighboring concern takes
-over. This section does not broaden the trigger or rewrite Guidance with another workflow.
+Once the default action is clear, explain when readers should depart from it, limit it, or use
+another rule instead. Give them conditions they can recognize. Do not use Exceptions and boundaries
+to broaden the trigger or add a second workflow.
 
 ## Guidance
 
@@ -41,7 +41,7 @@ exception categories make the rule optional precisely when pressure makes a shor
 
 ## Exceptions and boundaries
 
-Some Practices have no known exception; say nothing rather than inventing one. A controlling law or
+Some Practices have no known exception; do not invent one to fill the section. A controlling law or
 published contract may define a broad category, but cite the concrete condition it imposes. If an
 exception creates a separate recurring decision, give it its own Practice instead of embedding a
 second rule here.

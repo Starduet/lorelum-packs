@@ -15,43 +15,43 @@ title: Disclose AI Assistance and Its Review Findings
 
 ## When to apply
 
-Apply when preparing a PR where an AI tool wrote or materially reshaped code, tests, or prose, or
-where an AI review pass ran over the change. The decision is what the PR records about that
-involvement. Do not apply to incidental spell-check or autocomplete below the threshold any relevant
-policy names.
+If AI wrote or substantially reshaped your code, tests, or prose, explain that contribution in the
+PR. If you ran an AI review, record what it found and how you responded. Incidental spell-check or
+autocomplete below the relevant policy's threshold does not need this disclosure.
 
 ## Guidance
 
-Declare the assistance where the repository asks for it — the template checkbox or section — and
-state its scope concretely: which parts the AI drafted, which it only polished. When an AI review
-ran, record in the PR body what it found and what this branch changed as a result; name the
-findings, including the ones you rejected and why. Do not offer "every line was reviewed" as
-evidence: verification claims state what was checked and how, and blanket assurance is not an
-acceptance criterion anywhere. Verify AI-suggested changes yourself before adopting them — the
-disclosure covers your judgment, not the tool's. Stop when a reader can tell what the AI
-contributed, what it found, and what you did about it.
+Use the repository's disclosure checkbox or section, and say which parts AI drafted and which it
+only polished. If an AI review ran, describe its findings in the PR body and what you changed in
+response. Include findings you rejected and explain why.
+
+Do not use "every line was reviewed" as evidence. Say what you checked and how so readers have
+something they can verify. Check AI-suggested changes yourself before adopting them; you remain
+responsible for the work. The PR should make clear what AI contributed, what it found, and what you
+did about it.
 
 ## Anti-pattern
 
 An Agent drafts a PR and checks no disclosure box, describing the body as fully hand-verified. After
 merge, a defect appears that matches, almost word for word, a finding in an AI review that was run
-and ignored. The repository learns its review evidence was mispriced, and every later claim from
-that contributor carries a discount.
+and ignored. Reviewers discover that the claimed verification omitted a known finding, and have less
+reason to trust the contributor's later claims.
 
 ## Why
 
-Reviewers weigh evidence by its provenance. Knowing which parts are AI-drafted tells them where to
-look hardest; recorded AI findings are actionable review signal, while blanket "reviewed" claims are
-unverifiable and — when contradicted by an ignored finding — destroy trust far beyond the one PR.
-Honest disclosure lets the repository calibrate its process instead of discovering its gaps in an
-incident.
+Reviewers need to know how the work and its evidence were produced. Knowing which parts are
+AI-drafted helps them decide where to inspect closely. Recorded findings give them specific problems
+and responses to check; "every line was reviewed" does not. An ignored finding that later causes a
+defect undermines trust in that claim. Honest disclosure lets maintainers adjust review before an
+incident reveals the gap.
 
 ## Exceptions and boundaries
 
 Incidental assistance below the policy's threshold — spelling, formatting, import completion — needs
 no disclosure. A repository without any AI policy still gets the substance: record material AI
-review findings in the body even where no checkbox exists. Disclosure describes provenance; it is
-not an apology and does not reduce the author's ownership of every merged line.
+review findings in the body even where no checkbox exists. Disclosure tells readers how the work was
+produced; it does not grant permission that repository policy withholds. It is not an apology and
+does not reduce the author's responsibility for every merged line.
 
 ## Example
 

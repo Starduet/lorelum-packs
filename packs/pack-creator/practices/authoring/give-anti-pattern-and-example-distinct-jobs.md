@@ -15,17 +15,18 @@ title: Give the Anti-Pattern and Example Different Jobs
 
 ## When to apply
 
-Apply after both sections have drafts. The Anti-pattern should expose the recurring wrong mechanism
-and its consequence; the Example should demonstrate a correct application in a concrete situation.
-This Practice checks their division of labor, not whether either scenario is realistic or
-self-contained.
+Once the Anti-pattern and Example are drafted, check whether they teach different things. The
+Anti-pattern should show why a recurring wrong choice fails; the Example should show how to apply
+the guidance correctly in a specific situation. Whether each case is believable and supplies enough
+facts still needs its own review.
 
 ## Guidance
 
 Summarize in one sentence what new information each section contributes. Keep the Anti-pattern
-centered on temptation, wrong mechanism, and failure. Use the Example to show the correct action,
-boundary, or output, preferably through a different situation that tests transfer. Remove repeated
-setup and mirrored sentences. Stop when deleting either section would remove a distinct lesson.
+centered on why the wrong choice is tempting, how it fails, and what happens. Use the Example to
+show the correct action, boundary, or output, preferably in a different situation so readers can
+apply the rule beyond the failure case. Remove repeated setup and mirrored sentences. Stop when
+deleting either section would remove a distinct lesson.
 
 ## Anti-pattern
 
@@ -37,9 +38,9 @@ elsewhere.
 
 ## Why
 
-Two sections that repeat one scenario consume retrieval context without adding another decision
-signal. Distinct roles let the reader recognize the failure and then transfer the correct action to
-a new case.
+Two sections that repeat one scenario take up retrieval context without helping the reader make
+another choice. Different roles let the reader recognize the failure and then apply the correct
+action to a new case.
 
 ## Exceptions and boundaries
 

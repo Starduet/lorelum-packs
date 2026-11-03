@@ -15,20 +15,21 @@ title: Match the Change to the Required Upstream Gate
 
 ## When to apply
 
-Apply before writing code, when the change's class is known: does it alter a contract, interface, or
-semantics that other work depends on, or is it a contained fix that does not. The decision is which
-upstream gate the repository's process demands for that class.
+Before writing code, check whether you can open a PR directly or need agreement in an issue or
+design document first. Follow the repository's process, especially when other work depends on the
+interface or behavior you plan to change.
 
 ## Guidance
 
-Check the repository's contributing guide for what triggers a prior issue or a design artifact.
-Changes that alter what other work depends on — public schemas, interfaces, evaluation semantics,
-protocols — get a converging issue first, and a design artifact where the process requires one,
-before implementation. Contained fixes that change no contract may go directly to a PR, but the
-direct route carries its own duty: the PR body must state the root cause, the fix boundary, and how
-the fix was verified. When the class is unclear, classify before writing code — asking in the issue
-tracker is cheaper than re-review. Stop once the change has one gate and the artifact that gate
-requires exists or is deliberately not required.
+Read the contributing guide before starting implementation. Changes to public schemas, interfaces,
+evaluation behavior, or protocols that other work depends on need an issue where the proposed change
+is agreed first. Prepare a design document before implementation too if the repository requires one.
+
+A contained fix that leaves those agreements unchanged may go directly to a PR. Its body must still
+explain the root cause, exactly what the fix covers, and how you verified it. If you are unsure
+whether an issue or design approval is needed, settle that before writing code; ask in the issue
+tracker if necessary. You can proceed once you have completed the required prior steps or
+established that the repository does not require them.
 
 ## Anti-pattern
 
@@ -40,10 +41,10 @@ contract changes.
 
 ## Why
 
-Gates are placed where downstream work depends on stability; skipping one moves the design debate
-into the most expensive venue, a diff review, and every reviewer re-litigates scope. Applying heavy
-gates to trivial fixes spends the same review capacity on nothing, which is how mandatory processes
-get quietly abandoned.
+Prior issue and design requirements let teams agree on changes before downstream work must adapt.
+Skipping them moves the design debate into diff review, where reviewers must reconsider scope
+alongside the code. Requiring the same process for trivial fixes wastes review time and encourages
+contributors to stop following it.
 
 ## Exceptions and boundaries
 
@@ -55,8 +56,7 @@ safe default.
 
 ## Example
 
-Before changing how a test harness scores results, a contributor classifies the change: scoring
-semantics is contract-class, so they first file an issue converging on the single behavior change
-and wait for the validated change artifact the process requires. A README typo the same day goes as
-a direct PR whose body states the root cause, the one-file fix boundary, and the rendered-docs check
-that verified it.
+Before changing how a test harness scores results, a contributor identifies that other work depends
+on the scoring behavior. They first file an issue focused on that behavior change and wait for the
+issue or design approval the process requires. A README typo the same day goes as a direct PR whose
+body states the root cause, the one-file fix boundary, and the rendered-docs check that verified it.

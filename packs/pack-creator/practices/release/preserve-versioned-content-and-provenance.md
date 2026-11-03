@@ -15,11 +15,10 @@ title: Publish Changed Content as a Traceable New Version
 
 ## When to apply
 
-Apply when accepted canonical content is ready to become a release, or when already released content
-needs correction. The decision is which immutable version will contain the exact files and how
-reviewers can trace each important rule to a public source, observed recurring need, or clearly
-labeled author synthesis. Whether the release can actually be installed is a separate verification
-step.
+When reviewed canonical content is ready to release, or a published version needs a correction,
+choose a new, unchanging version that identifies the exact files. Let reviewers trace important
+rules to public sources, recurring needs you have observed, or your own clearly labeled synthesis.
+Whether users can actually install that release still needs a separate check.
 
 ## Guidance
 
@@ -32,8 +31,8 @@ judgment; do not describe synthesis as measured effectiveness. Preserve source l
 boundary even when a correction changes only wording or resource bytes, because wording can change
 retrieval and a resource-only change still changes the selected artifact. Record whether a release
 changes canonical Practice content, only `references/`/`assets/`/`scripts/` bytes, or both. Stop
-when the version, commit, release ref, canonical files, resource tree, and provenance record
-identify one reproducible object. Installation proof comes next.
+when the version, commit, release ref, canonical files, resource tree, and provenance record all
+identify the same artifact so it can be reproduced. Installation proof comes next.
 
 ## Anti-pattern
 

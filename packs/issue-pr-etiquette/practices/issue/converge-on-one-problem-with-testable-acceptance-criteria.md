@@ -15,37 +15,37 @@ title: Converge on One Problem with Testable Acceptance Criteria
 
 ## When to apply
 
-Apply before submitting an issue that will be tracked, assigned, or scheduled. The decision is what
-single problem the issue owns, what sits outside it, and what observable result counts as resolved.
-Do not apply to untracked questions already routed to a discussion channel, or to changes small
-enough that the repository's process allows a direct pull request.
+Before filing a bug or feature issue that someone will track, assign, or schedule, make it clear
+which problem you want solved and how another person could tell it is fixed. Keep untracked
+questions in the discussion channel they were directed to. If the repository allows a direct PR for
+a small change, you do not need to create an issue just to follow this guidance.
 
 ## Guidance
 
-State one problem in the title and opening paragraph. Name its boundary (what is affected and what
-is explicitly not), its dependencies on other work, and the verification requirements a fix must
-satisfy. Write acceptance criteria as a checklist where each item is testable by someone who is not
-the author: a command that should succeed, a document that should exist, a behavior that should be
-observable. Split out anything that could be reviewed, merged, or reverted independently — file it
-as its own issue and link it. Start from the
-[feature issue template](resource:assets/issue-template-feature.md) or the
-[bug report template](resource:assets/issue-template-bug.md) and remove sections that do not serve
-the single problem. Stop when every criterion is objectively checkable and no paragraph of the body
-introduces a second deliverable.
+Use the title and opening paragraph to describe one problem. Explain what is affected, what you are
+leaving out, which other work it depends on, and how a fix must be verified. Write acceptance
+criteria as a checklist that someone other than you can test: a command that should succeed, a
+document that should exist, or a behavior they should be able to observe.
+
+If part of the work could be reviewed, merged, or reverted independently, give it its own issue and
+link it. Start from the [feature issue template](resource:assets/issue-template-feature.md) or the
+[bug report template](resource:assets/issue-template-bug.md), removing sections that do not help
+explain this problem. Before submitting, make sure every criterion can be checked objectively and
+that no paragraph introduces a second piece of work to deliver.
 
 ## Anti-pattern
 
 A team files "Improve search" covering ranking quality, the indexing pipeline, and the results UI,
 with "search works better" as the only completion wording. The ranking fix lands first, but the
 issue cannot close because the UI work never started. Two teams attach their own priorities, and the
-acceptance discussion restarts in every review because nobody agreed on what "better" observes.
+acceptance discussion restarts in every review because nobody agreed on how to check "better".
 
 ## Why
 
-An issue is the unit reviewers accept, schedulers sequence, and maintainers close. A single problem
-keeps that unit reviewable, and testable criteria make closure a check instead of a negotiation;
-mixed deliverables block partial progress and bury the acceptance question inside unrelated
-discussion.
+Reviewers accept an issue, teams schedule its work, and maintainers decide when to close it. Keeping
+it to one problem lets them make those decisions together. Testable criteria let maintainers check
+whether the work is done instead of negotiating what "done" means; unrelated deliverables can keep
+an otherwise resolved issue open and bury acceptance questions in unrelated discussion.
 
 ## Exceptions and boundaries
 
@@ -58,7 +58,7 @@ checklist itself must still be checkable from the issue.
 ## Example
 
 A contributor notices that real usage of a tool keeps exposing defects that fixtures never catch.
-Instead of filing "improve feedback", they file an issue owning one problem: there is no
+Instead of filing "improve feedback", they file an issue covering one problem: there is no
 privacy-safe channel from real usage back to the maintainers. The boundary excludes storage and
 schema choices, and the acceptance criteria are seven checkboxes — each naming a document that must
 exist or a distinction the workflow must make — that a maintainer can verify without asking the

@@ -15,9 +15,9 @@ title: Verify a Project-Local Pack in Its Real Context
 
 ## When to apply
 
-Apply after a local Pack or nested overlay is structurally valid and before saying it is ready for
-repository use. The question is whether the directory where developers work resolves the expected
-current winners. It is not a claim about semantic ranking quality or Registry installability.
+After a local Pack or a child directory's overrides pass structural checks, confirm that developers
+working in the intended directory get the current Practices you expect before calling it ready for
+use. This does not show that semantic search ranks them well or that a Registry release installs.
 
 ## Guidance
 
@@ -31,9 +31,9 @@ For a child overlay, test one same-ID Practice that must select the child and on
 Practice that must remain available. If Store fallback matters, repeat a focused check with
 `--no-project` to prove that it deliberately selects Store-only behavior rather than silently mixing
 sources. Inspect the repository before completion: `.lorelum/` should contain the authored config
-and Pack source, not derived cache, vector, model, or operation files. Stop when each claim is named
-precisely: Pack structure passed, the target directory activated the expected winner, and any
-retrieval or model behavior not exercised remains unclaimed.
+and Pack source, not derived cache, vector, model, or operation files. Stop when you can say
+precisely that Pack structure passed and the target directory used the expected Practice, without
+claiming anything about retrieval or model behavior you did not exercise.
 
 ## Anti-pattern
 
@@ -46,9 +46,10 @@ from `services/payments/`, then verifies both the child winner and the inherited
 
 ## Why
 
-Validation proves Pack structure, while ProjectContext activation depends on the working directory,
-layer fold, winner precedence, and current source bytes. Keeping those observations separate catches
-the mistakes that a valid standalone Pack directory cannot reveal.
+Validation proves Pack structure. Which Practices become active also depends on the working
+directory, how parent and child layers combine, which source takes precedence, and the current
+source contents. Checking those facts separately catches mistakes a valid Pack directory cannot
+reveal on its own.
 
 ## Exceptions and boundaries
 
@@ -60,10 +61,10 @@ the local Pack's contract.
 
 ## Example
 
-A repository root supplies `platform.logging`, while `services/billing/` supplies a stricter same-ID
-logging Practice and one billing-only Practice. The maintainer validates both Pack roots, then runs
-`lore context status`, a keyword query, and `lore get platform.logging` from `services/billing/`.
-The returned Practice is the billing winner; a query for the root-only deployment Practice still
-finds the inherited source. A separate `--no-project` check returns only the selected Store
-baseline. The report records context activation as passed and does not claim a semantic benchmark
-was run.
+A repository root supplies `platform.logging` and a deployment Practice, while `services/billing/`
+supplies a stricter same-ID logging Practice and one billing-only Practice. The maintainer validates
+both Pack roots, then runs `lore context status`, a keyword query, and `lore get platform.logging`
+from `services/billing/`. The returned logging Practice is the child version; a query for the
+root-only deployment Practice still finds the inherited source. A separate `--no-project` check
+returns only the selected Store baseline. The report records that the expected Practices are active
+and does not claim a semantic benchmark was run.

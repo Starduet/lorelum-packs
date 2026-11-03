@@ -15,22 +15,23 @@ title: Map the Plan to User Capability
 
 ## When to apply
 
-Apply when a plan spans interfaces, services, storage, policies, or other boundaries and may miss
-part of the requested path. For an internal refactor, map the behavior that must remain unchanged.
-If implementation is finished and collected results must be compared with acceptance, map evidence
-instead.
+Before finalizing a plan that crosses interfaces, services, storage, policies, or other boundaries,
+check whether its tasks cover the whole operation the user asked for. An internal refactor needs the
+same check for behavior that must stay unchanged. If implementation is already finished, compare the
+collected evidence with acceptance instead.
 
 ## Guidance
 
-1. Name the initiating action and the observable result the requester described, then read the task
-   list as a path from one to the other, end to end.
-2. Walk each step of that path: entry point, service handoffs, state changes, policies, and the
-   result the user observes. Screens and the API are stops on the path, not the destination.
-3. Assign each step to a task in the plan, and list required steps that no task covers.
-4. For every uncovered step, add the missing responsibility to the plan, or narrow the promised
-   capability explicitly. Layer completion does not prove the path is whole.
+1. Start with the action the requester described and the result they expect to see. Follow the task
+   list from one to the other.
+2. Walk through the entry point, service handoffs, state changes, and applicable rules until you
+   reach that result. Building the screen or API alone does not finish the operation.
+3. Match each step to a task in the plan. Identify required steps that nobody has planned to do.
+4. Add the missing work, or explicitly say that the promised delivery covers less. Finishing each
+   listed component does not prove that all the necessary work was listed.
 
-Stop when the map joins up with no unexplained required gap between the action and the result.
+You are done when the plan connects the starting action to the result, with no unexplained missing
+step that the promised behavior requires.
 
 ## Anti-pattern
 
@@ -41,14 +42,15 @@ oversell the same stock.
 
 ## Why
 
-Technical task lists reward local completion. An actor-to-result map exposes missing handoffs before
-partial implementation makes them expensive to repair.
+A task list can make each component look complete while leaving the handoffs between them unbuilt.
+Walking the whole operation reveals those gaps before an incomplete implementation makes them
+expensive to fix.
 
 ## Exceptions and boundaries
 
-A planned partial delivery may cover only part of the capability when that limit is explicit.
-Infrastructure and refactoring work should map to the operational behavior they preserve rather than
-inventing a fictional user.
+A partial delivery can cover less than the full operation if that limit is explicit. For
+infrastructure or refactoring, follow the operational behavior that must be preserved; do not invent
+a user just to fit the exercise.
 
 ## Example
 

@@ -16,17 +16,17 @@ title: Preload Deferred Code When User Intent Signals It
 
 ## When to apply
 
-Apply when a feature's code lives behind a dynamic import and users reach it through a visible,
-predictable step — a button, a tab, a wizard's next stage. Decide whether the chunk should start
-loading at some signal before the click, and which signal earns that head start.
+If users open a dynamically imported feature through a button, tab, or predictable wizard step,
+their actions may give you time to load its code before they need it. Choose which actions justify
+starting that download before the click.
 
 ## Guidance
 
-Rank signals by strength and cost. An explicit step toward the feature (a key press, completing the
-previous wizard stage, a feature flag known to enable it) is the strongest; pointer and focus intent
-(`onMouseEnter`, `onFocus`) buys a small head start cheaply; unconditional preload on mount is the
-weakest and usually wrong. Preload the few chunks the current surface actually leads to, not a
-catalog:
+Use how clearly an action points to the feature, and the cost of a wrong guess, to choose a signal.
+An explicit step toward it — a key press, completing the previous wizard stage, or a feature flag
+known to enable it — is strongest. Hover and focus (`onMouseEnter`, `onFocus`) offer a small,
+inexpensive head start. Preloading unconditionally on mount is the weakest signal and usually wrong.
+Preload only the few chunks the current interface leads to, not the whole catalog:
 
 ```tsx
 const preloadCheckout = () => {
@@ -46,9 +46,9 @@ export function CheckoutEntry() {
 }
 ```
 
-The preload call is free of bookkeeping: a module's `import()` promise is cached, so the click-time
-call and the earlier preload share one in-flight or completed fetch. Give the click handler its own
-`import()` call rather than stashing shared state.
+Repeated `import()` calls for the same module reuse its loading and module cache. The click handler
+can call `import()` again to use the in-flight or already loaded module; it does not need a shared
+state variable to track the preload.
 
 Know what the framework already does. Next.js prefetches linked routes (production `<Link>`
 prefetches on viewport entry), so intent-based preloading earns its keep mainly for dynamically
@@ -64,9 +64,9 @@ data fetching; the panels most users open are no faster than without preloading.
 
 ## Why
 
-Deferral moves cost from everyone to the feature's users; preloading on intent gives those users the
-download back while they are still deciding, so the click resolves against an already-arrived chunk.
-The signal, not the mount event, is what separates a head start from a tax.
+Deferral avoids downloading a feature for visitors who never use it. Preloading on intent starts
+that download before the click, reducing the remaining wait if the user proceeds. Preloading on
+every mount instead spends bandwidth even when the user shows no interest in the feature.
 
 ## Exceptions and boundaries
 
@@ -106,6 +106,6 @@ export function CheckoutWizard({ stage }: { stage: "address" | "review" | "payme
 }
 ```
 
-While the user fills the address form, the review chunk is already arriving; crossing to the next
-stage renders against a warm chunk instead of a spinner. The preloads stay bounded — one chunk per
-step, triggered by the step the user is actually on.
+While the user fills the address form, the review chunk is already loading. If it finishes before
+the next stage, that stage need not wait for the download. Only one next-stage chunk is preloaded
+per step, based on the user's current stage.

@@ -15,10 +15,10 @@ title: Require Evidence for Regression Protection
 
 ## When to apply
 
-Apply after the failure or correction is understood, before converting it into a permanent test or
-gate. The decision is whether recurrence prevention deserves long-term maintenance. It is not the
-earlier decision about what caused the failure, and it is not ordinary positive coverage selected
-directly from a current requirement.
+You have understood a failure or accepted a correction and are considering a permanent test, rule,
+or gate to prevent it happening again. Decide whether that protection has a lasting reason before
+adding maintenance work. Diagnose the failure first. Ordinary tests taken directly from current
+requirements do not need this separate regression decision.
 
 ## Guidance
 
@@ -28,12 +28,12 @@ directly from a current requirement.
    requests never return data," a reproduced bug that can realistically return through future
    changes, or a high-impact safety, privacy, compatibility, or data-integrity risk. "This just
    happened" is not enough.
-3. Choose whether to keep, narrow, make temporary, or omit the protection; for temporary protection,
-   record when it can be removed.
-4. Observe the smallest stable behavior that catches recurrence without freezing today's helper
-   design.
+3. Keep, narrow, make temporary, or omit the protection. If it is temporary, record when it can be
+   removed.
+4. Check the smallest stable behavior that would catch the bug returning, without requiring today's
+   helper design to stay the same.
 
-Stop with the reason recorded next to the protection.
+Stop when the reason is recorded next to the protection.
 
 ## Anti-pattern
 

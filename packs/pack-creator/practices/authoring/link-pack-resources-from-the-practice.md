@@ -15,20 +15,20 @@ title: Route Supplementary Material from the Practice
 
 ## When to apply
 
-Apply when a Practice is already clear enough to make its immediate decision, but a reader may need
-a detailed matrix, evidence record, starter file, or repeatable diagnostic afterwards. The decision
-is whether the material belongs in the Pack and how to make its purpose clear when Lorelum returns
-only this Practice.
+Sometimes a Practice already gives readers enough to make the immediate decision, but they may then
+need a detailed matrix, evidence record, starter file, or repeatable diagnostic. Decide whether to
+include that material in the Pack and explain when to use it. Readers must be able to tell even if
+Lorelum returns only this Practice.
 
 ## Guidance
 
 Keep the trigger, action, direct reason, material exception, and stopping point in the Practice.
 Place only the supplementary file in `references/`, `assets/`, or `scripts/`, then use a normal
 Markdown link with a Pack-root-relative `resource:` target. State the reader's condition for using
-the material, not just its filename. For example, write that a public API change requires the
-compatibility matrix, that a completed review should begin from a report template, or that a
-repeated diagnostic should be run with named inputs and expected output. Use the exact target rather
-than a sibling-relative path: `[matrix](resource:references/api-matrix.md)`.
+the material, not just its filename. For example, say to read the compatibility matrix after
+identifying a public API change, copy the report template after the review decision, or run a
+repeated diagnostic with named inputs and expected output when the task authorizes it. Use the exact
+target rather than a sibling-relative path: `[matrix](resource:references/api-matrix.md)`.
 
 Stop when a cold reader can make the current decision from the Practice, can tell whether the linked
 material is needed, and can resolve it from the selected Pack root without guessing a directory. For
@@ -47,8 +47,8 @@ the irreversible-migration condition into the note still leaves the immediate de
 ## Why
 
 Selective retrieval does not carry a directory listing or Pack order with it. An explicit resource
-link gives supplemental material a task-level purpose while leaving the judgement that selects it in
-the retrievable unit.
+link tells readers when supplementary material is useful, while the Practice itself still explains
+how to decide whether they need it.
 
 ## Exceptions and boundaries
 

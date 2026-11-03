@@ -15,24 +15,24 @@ title: Make Safe Temporary Assumptions Explicit
 
 ## When to apply
 
-Apply when one concrete detail is not settled, but either reasonable choice is safe, local, and easy
-to replace. The uncertainty must not change user-visible product meaning, a public contract, a
-security boundary, or an irreversible operation. Those higher-impact choices require confirmation
-before coding. If authoritative sources disagree, resolve which source controls instead of recording
-a temporary assumption.
+An implementation detail is still unanswered, but either reasonable choice would be safe, local, and
+easy to replace. You can proceed with a clearly recorded temporary choice. Do not do this if the
+choice changes user-visible product meaning, a public contract, a security boundary, or an
+irreversible operation; confirm those decisions before coding. If authoritative sources disagree,
+resolve which source to follow rather than writing down an assumption.
 
 ## Guidance
 
 1. Record the temporary interpretation in one line at the point of choice: what you will assume for
    now and why either reading is reasonable.
-2. Mark the exact code the choice affects — one serializer, one importer — and keep dependent work
-   inside that boundary without deriving new requirements from the assumption.
-3. Name the review condition: the source, owner answer, or observation that will confirm or replace
-   the choice.
-4. When new evidence disproves the assumption, change the bounded implementation instead of
-   preserving the guess as compatibility behavior.
+2. Mark exactly which code it affects — one serializer or importer, for example. Keep work that
+   depends on the choice there, and do not turn the assumption into a new requirement.
+3. Say what will settle the question: a source, an answer from the responsible person, or an
+   observation that would confirm or replace the choice.
+4. If new evidence disproves it, change that local implementation. Do not keep the guess merely as
+   compatibility behavior.
 
-Stop when another engineer can find, review, and replace the choice without replaying the
+Stop when another engineer can find, review, and replace the choice without repeating your
 investigation.
 
 ## Anti-pattern

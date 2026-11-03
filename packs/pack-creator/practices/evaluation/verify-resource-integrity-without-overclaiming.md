@@ -15,9 +15,9 @@ title: Verify Resource Integrity as Its Own Evidence Chain
 
 ## When to apply
 
-Apply when canonical Pack resources or a Practice’s `resource:` link have changed. The decision is
-which observations prove file structure, selected-artifact preservation, routing, and downstream
-use, without promoting a cheap local check into a broader quality claim.
+When you change a Pack resource or a Practice's `resource:` link, check more than whether the local
+file exists. Are the paths valid, does the installed release preserve the selected files, does the
+link lead readers to useful material, and can they use it correctly? Each needs its own evidence.
 
 ## Guidance
 
@@ -29,11 +29,12 @@ reference or asset from the returned source root. Record the exact version, ref,
 observed bytes or file identity. Only run a script in a separately authorized task with stated
 inputs and expected output.
 
-Then review whether the Practice still carries its immediate decision and whether its link selects
-the material at the right moment. Test retrieval and downstream Agent behavior as separate
-exercises. Use the [resource review checklist](resource:assets/resource-review-checklist.md) to
-record which layers were observed. Stop when every claim says whether it covers structure,
-installation, content review, retrieval selection, script execution, or Agent behavior.
+Then check whether the Practice itself still lets readers make the immediate decision, and whether
+it tells them to use the linked file at the right time. Test which Practices are retrieved and how
+Agents use them in separate exercises. Use the
+[resource review checklist](resource:assets/resource-review-checklist.md) to record what was
+actually observed. Stop when every claim makes clear whether it covers structure, installation,
+content review, retrieval selection, script execution, or Agent behavior.
 
 ## Anti-pattern
 
@@ -45,10 +46,10 @@ the parser safely with production input.
 
 ## Why
 
-Resources add two facts beyond ordinary Practice text: the selected artifact must preserve the right
-bytes, and the Practice must route a reader to them at the right decision. Structural validation,
-remote materialization, retrieval, explicit script execution, and downstream behavior observe
-different parts of that chain.
+Resources add two requirements beyond ordinary Practice text: the installed release must contain the
+intended file contents, and the Practice must tell readers when those files are useful. Structural
+validation, installing from a remote release, retrieval, explicitly running a script, and downstream
+use each observe a different part of that process.
 
 ## Exceptions and boundaries
 

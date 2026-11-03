@@ -15,10 +15,10 @@ title: A Functional Updater Does Not Refresh Other Captures
 
 ## When to apply
 
-Apply while refactoring a `useCallback` to pass an updater function so the callback no longer reads
-the state value it updates. Decide whether other props, state, or render-local values read by that
-callback must remain dependencies. This Practice narrows one dependency decision; it is not a
-general guide to every stale-closure problem.
+Changing a `useCallback` to use a functional updater can remove its need to read the state being
+updated. It does not remove dependencies on other props, state, or render-local values the callback
+still reads. Use this rule when shortening that dependency list, rather than treating an updater as
+a general fix for stale closures.
 
 ## Guidance
 

@@ -2,40 +2,36 @@
 
 ## 适用场景
 
-monorepo、嵌套组件、生成的子项目或局部实验需要自己的 `.lorelum`
-目录，而祖先目录已提供指导时使用。这里决定 layer 之间的优先级和范围，不再判断 Pack 应局部存在还是通过 Registry 发布。
+一个仓库中的组件、嵌套项目、生成的子项目或局部实验需要自己的 `.lorelum`
+目录，而上级目录已经提供指导时，先决定哪些规则继续沿用、哪些由子目录替换。Pack 要留在项目里还是通过 Registry 发布，是另一件事。
 
 ## 具体指导
 
-把适用于整个仓库的指导放在最近且合适的父 layer。child
-layer 只增加它特有的 Pack 文件，或增加同 ID 的 Practice 替换。Lorelum 从父到子 fold
-layer：child 的同 ID Practice 获胜，child 未替换的 parent Practice 仍保持 active。因此同名 child
-Pack 是增量 overlay，不是整包替换。
+把适用于整个仓库的指导放在最近且合适的父层。子层只增加它特有的 Pack 文件，或增加同 ID 的 Practice 替换。Lorelum 从父到子合并各层：子层的同 ID
+Practice 优先生效，未被替换的父层 Practice 仍然有效。因此，同名子 Pack 是逐条补充或修改，不是整包替换。
 
-未声明的 config 字段继续继承。只有在确有 Pack 级决定时才使用 `packs.<name>.enabled` 或
-`priority`；只有 child 必须排除选中的用户 Store 时才设置 `base: none`。`inherit: false`
-只适用于真正需要隔离的子树，它会移除所有 parent layer，而不是只选择一个 child Practice。为每个同 ID
-override 写明预期 winner，并在 child 目录中验证。child 只保留自己的决定、parent 仍提供未受影响的 Practice、维护者能解释每个 winner 为什么生效时停止。
+未声明的配置字段继续继承。只有确有 Pack 级决定时才使用 `packs.<name>.enabled` 或
+`priority`；只有子层必须排除选中的用户 Store 时才设置 `base: none`。`inherit: false`
+只适用于真正需要隔离的子树，它会移除所有父层，而不是只选择一条子层 Practice。为每个同 ID 替换写明预期生效的文件，并在子目录中验证。子层只保留自身需要的改动，未受影响的父层 Practice 仍然生效，而且维护者能解释为什么采用每条规则时，就可以停止。
 
 ## 反模式
 
 仓库根目录的 `platform`
-Pack 包含发布、日志和数据库变更 Practice。某个服务需要更严格的同 ID 发布 Practice。作者为了避免处理继承关系，把整个根 Pack 复制到服务目录并只改一个文件。之后根目录的修正需要改两次，复制的无关 Practice 会漂移，半写 child
-copy 还可能遮住原本有效的 parent 指导。child 应只保存替换的那条 Practice，其他决定继续由 parent 提供。
+Pack 包含发布、日志和数据库变更 Practice。某个服务的受监管发布需要更严格的同 ID 发布 Practice。作者为了避免处理继承关系，把整个根 Pack 复制到服务目录并只改一个文件。之后根目录的修正需要改两次，复制的无关 Practice 会逐渐不一致，尚未写完的子层副本还可能遮住原本有效的父层指导。子层应只保存替换的那条 Practice，其他决定继续由父层提供。
 
 ## 原因
 
-增量 overlay 保留可复用的基线，同时把局部例外明确放在真正变化的 Practice 上。整包遮蔽会把一个小决定变成重复维护面，也让普通源码编辑更脆弱。
+只替换有变化的 Practice，既保留有用的父层指导，也让每项局部例外清晰可见。复制或遮住整包会带来重复文件的维护工作，还可能在普通编辑中丢失有效的父层指导。
 
 ## 例外与边界
 
-对 vendored、受监管或有意独立的子树，可以使用
-`inherit: false`，因为 parent 规则本就不应影响它。显式 priority 可以解决两个有效来源确实需要稳定排序的情况，但不能弥补不清晰或重复的 Practice
-ID。本条不改变 Store 内已安装 Pack 的冲突规则。
+对于从外部引入、受监管或有意独立的子树，如果父层规则本就不应影响它，可以使用
+`inherit: false`。两个有效来源确实需要稳定排序时，可以显式设置
+`priority`，但不能用它弥补不清晰或重复的 Practice ID。本条不改变 Store 内已安装 Pack 的冲突规则。
 
 ## 示例
 
 仓库根目录的 `.lorelum/packs/platform/` 包含 `platform.release`、`platform.logging` 和
 `platform.database`。`payments/` 目录新增同 ID 的
 `.lorelum/packs/platform/practices/platform.release.md`，其中包含卡组织审批条件。从 `payments/`
-查询时，得到 child 的发布规则以及 root 的日志、数据库规则；从 root 查询时，仍得到原发布规则。没有复制整包，未来 root 的日志修正仍会到达两个目录。
+查询时，得到子层发布规则以及根目录的日志、数据库规则；从根目录查询时，仍得到原发布规则。没有复制整包，未来根目录的日志修正仍会在两个目录生效。

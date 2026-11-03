@@ -16,15 +16,15 @@ title: Authorize Inside Every Server Action
 
 ## When to apply
 
-Apply when writing or reviewing any function marked `"use server"`. Decide where its authentication
-(who is calling) and authorization (may this caller act on this target) checks live.
+A function marked `"use server"` can be called directly without visiting its page. When writing or
+reviewing one, make sure it checks who is calling and whether that caller may act on the target.
 
 ## Guidance
 
-Treat every server action as a public endpoint, because it is one: the framework turns it into an
-addressable handler that any client can invoke with any arguments, regardless of what UI rendered
-it. Middleware, layout guards, and page-level checks protect rendering paths — they do not run for a
-directly posted action call. Each action therefore verifies its own contract before touching data:
+Treat every server action as a public endpoint: a client can invoke its handler directly with
+untrusted arguments, without using the UI that renders it. Do not assume middleware, layout guards,
+or page-level checks cover that call. Each action must check the caller, target permissions, and
+input before performing the protected operation:
 
 ```ts
 "use server";
@@ -45,11 +45,12 @@ export async function archiveProject(projectId: string) {
 }
 ```
 
-Three checks per action, in order: authenticate the caller; authorize this caller for this target —
-the target's own ownership or membership, not just a role; validate the input, because action
-arguments arrive from untrusted wire data no matter what types the client passed. Keep the checks
-inside the action itself rather than in a shared wrapper that some actions might bypass by accident;
-a wrapper is acceptable only when every mutation provably goes through it.
+Check in this order: authenticate the caller, authorize the caller for this specific target, then
+validate the input. Authorization must check the target's ownership or membership, not just the
+caller's role. Validate arguments because they arrive as untrusted wire data, regardless of the
+client's types. Keep these checks inside the action rather than relying on a shared wrapper that
+some actions might bypass. Authentication may use the guaranteed-coverage exception below;
+target-specific authorization still belongs in the action.
 
 Do not let the UI imply security that the action does not enforce: a hidden or disabled button is a
 convenience, not a boundary. And do not treat this as unique to destructive operations — reads that
@@ -63,10 +64,9 @@ a hand-crafted request, so any authenticated user archives any project.
 
 ## Why
 
-The action's handler is reachable independently of the page that rendered it; its security boundary
-is wherever its own first check sits, and nowhere earlier. Placing authentication, authorization,
-and validation inside each action keeps the enforcement point identical to the execution point,
-which is the only placement an attacker cannot route around.
+An attacker can call the action without loading its page. Checks enforced only while rendering that
+page therefore cannot protect the mutation. Checking the caller, target permissions, and input on
+the action's execution path prevents a direct call from bypassing those checks.
 
 ## Exceptions and boundaries
 
@@ -83,9 +83,9 @@ which is the only placement an attacker cannot route around.
 
 ## Example
 
-An invite action checks all three legs inside itself: who is calling, whether that caller
-administers this specific space, and whether the wire input is well-formed. The declared helpers
-stand in for the project's data layer.
+An invite action checks who is calling, whether that caller administers this specific space, and
+whether the submitted email is well-formed before inserting an invite. The declared helpers stand in
+for the project's data layer.
 
 ```ts
 "use server";

@@ -15,32 +15,32 @@ title: Give the Developer the Conclusion First
 
 ## When to apply
 
-Use this when deciding how to report engineering work to a developer. Say what the investigation
-found, which approach you recommend, what changed, or what is still blocking the work before
-recounting the details. Keep a limitation that changes that conclusion beside it. The reader should
-not have to reconstruct the answer from your work log.
+Use this when a developer asks what you found, what you recommend, what changed, or where the work
+stands. Answer that question before recounting the investigation. Put any limitation that changes
+the answer beside it, so the reader does not have to assemble the conclusion from your work log.
 
 ## Guidance
 
-1. Answer the developer's actual question in a short opening paragraph. Report a cause only when
-   established; otherwise state what is known and what remains unknown. For a design discussion,
-   give the recommendation and decisive tradeoff. For unfinished work, give the current result or
-   blocker rather than a premature completion claim.
-2. Keep the scope or unresolved condition that changes the next decision in that opening. A local
-   check, an untested browser flow, and a production result are not interchangeable. Use the
-   supported claim and material remaining issues already established for this task; do not add a
-   generic list of everything that was not tested.
-3. Follow with the reasons, changes, and evidence the developer needs to judge that answer. Connect
-   each important change to its effect. Name the relevant file, command, environment, observation,
-   or source when it makes the result checkable. Preserve conditions, comparison bases, units,
-   counterevidence, and uncertainty that affect the conclusion.
-4. Stop after the necessary explanation and actionable remaining work. Explain each limitation once
-   unless a different claim needs it repeated. Drop process chronology, internal labels, generic
-   disclaimers, and repeated conclusions. A one-line engineering answer needs no report headings; a
-   complex recommendation needs its reasons, not an unsolicited rollout plan.
+1. Start with the answer the developer needs. Give a cause only if it is established; otherwise say
+   what is known and what is not. For a design choice, recommend an approach and explain the
+   decisive tradeoff. For progress, say what is done and what is blocked. If several tasks are at
+   different stages, report them separately rather than calling the whole batch "mostly complete."
+2. Keep a limitation beside the claim it changes. A passing local check does not establish an
+   untested browser flow or production behavior. Use the supported result and important remaining
+   issues already established for the task; do not invent a list of everything that was not tested.
+3. Add the explanation and evidence needed to judge the answer. Say how the important change affects
+   behavior, and give the relevant file, command, environment, observation, or source when it helps
+   someone check it. If the opening already states the mechanism, later details should add evidence
+   or explain a necessary distinction, not describe the same mechanism again. Preserve conditions,
+   comparison bases, units, counterevidence, and uncertainty that affect the conclusion.
+4. Finish when the question is answered, its basis is clear, and any necessary action is stated. Do
+   not repeat the answer as a closing summary or add a rollout plan or next-step list that the
+   question does not need. Explain a limitation once unless another claim would otherwise mislead.
+   Leave out investigation chronology, internal labels, and generic disclaimers. Use headings only
+   when they help the reader find different parts of a longer answer; a one-line answer needs none.
 
-Stop when the first paragraph lets the developer understand the result and whether they can act, and
-the rest makes its basis and important limits easy to find.
+The report is ready when the reader can find the answer, the reason to believe it, and the limits
+that matter without piecing together or rereading the same information.
 
 ## Anti-pattern
 
@@ -53,8 +53,8 @@ yet establish readiness for the developer's intended use.
 ## Why
 
 Developers use the conclusion to decide whether to review, merge, release, investigate, or choose
-another approach. Putting the answer and its controlling limit first makes the engineering judgment
-visible without asking the reader to replay the investigation.
+another approach. Putting the answer and its important limitation first lets the reader judge the
+result without having to retrace the investigation.
 
 ## Exceptions and boundaries
 

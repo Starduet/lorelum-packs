@@ -15,10 +15,9 @@ title: Read Back Your Post before Requesting Review
 
 ## When to apply
 
-Apply immediately after creating an issue, opening or editing a PR body, or posting a significant
-status comment, and before requesting review, approval, or merge. The decision is whether the saved
-post still says what the draft said. A local draft or a live preview window is not the saved post;
-only the platform's rendered copy is.
+After creating an issue, opening or editing a PR body, or posting an important status comment, read
+the saved post before asking for review, approval, or merge. Check the platform's rendered copy, not
+just your local draft or a live preview: saving or pasting can change how the post appears.
 
 ## Guidance
 
@@ -27,8 +26,8 @@ as headings, lists kept their items and indentation, line breaks and blank lines
 checkboxes render as checkboxes, code blocks stayed fenced, and tables kept their columns. Check
 that nothing was flattened into one paragraph by a paste or an editor that stripped newlines. Fix
 defects in the platform editor, save, and read back again. Request review only after one pass shows
-the rendered post intact. Stop there — repeated stylistic re-editing after the post is accurate is
-not part of this decision.
+the rendered post intact. Once it accurately presents what you wrote, you do not need to keep
+re-editing its style.
 
 ## Anti-pattern
 
@@ -40,18 +39,18 @@ thread.
 
 ## Why
 
-The saved, rendered post is the artifact reviewers and future readers act on, and composition-time
-fidelity proves nothing about it. Formatting damage changes meaning silently: a checkbox that
-becomes prose stops being an acceptance criterion, and a heading that becomes text destroys the scan
-path. Reading back once closes the gap between what was written and what was published.
+Reviewers and future readers act on the saved, rendered post, not the draft. Formatting damage can
+hide requirements: a checkbox rendered as prose no longer marks a checklist item, and a heading
+rendered as body text makes its section harder to find. Reading back checks that the published post
+still presents what the author wrote.
 
 ## Exceptions and boundaries
 
 A one-line edit of an already-verified post needs only a spot check of the edited region. Platforms
 that render from an editable source the author re-reads in place may satisfy the read back within
-that view, as long as what is checked is the saved rendering. This Practice verifies transmission
-and rendering, not the quality of the argument — content review is the Practices about issue
-structure and PR bodies.
+that view, as long as what is checked is the saved rendering. This checks whether the post was saved
+and displayed correctly, not whether its argument is sound. For help with the content, use the
+Practices about issue structure and PR bodies.
 
 ## Example
 

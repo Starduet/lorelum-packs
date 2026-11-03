@@ -15,11 +15,11 @@ title: Confirm What Users Can Depend On
 
 ## When to apply
 
-Apply before making a new UI option, API value, configuration key, stored value, export, source
-type, or extension point dependable outside its implementation. The general kind of feature is
-already authorized; the exact public values or behaviors are not. A completely unplanned feature
-that changes scope, risk, or verification needs requires replanning. An internal abstraction that
-exposes nothing new is only a design choice.
+You are adding an approved feature, but the request does not say exactly which options or values to
+offer. Settle that before publishing a UI control, API value, configuration key, stored value,
+export, source type, or extension point that others will rely on. If the whole feature is unplanned
+and changes scope, risk, or required checks, replan instead. An internal abstraction that exposes
+nothing new is only a design choice.
 
 ## Guidance
 
@@ -35,13 +35,13 @@ exposes nothing new is only a design choice.
 Stop with one explicit list of the public values or behaviors admitted now. Approval of one event,
 setting, or source type never authorizes arbitrary extensibility.
 
-An internal scaffold, dormant package, or available transport is implementation evidence, not
-authorization to ship a new integration. Follow the accepted product entry point: for example,
-a CLI-first integration using released commands and host-native skills does not acquire a local
-server or protocol wrapper merely because a scaffold exists. A separately approved remote boundary
-does not authorize a local one. When a scaffold is removed, remove stale guidance describing it;
-preserve the still-current product constraint. This example generalizes the source repository's
-policy; it does not prescribe CLI-first integration for every product.
+Existing scaffolding, a dormant package, or an available transport shows what could be built, not
+what you are allowed to ship. Use the product entry point that was accepted. For example, if the
+product calls for CLI-first integration through released commands and host-native skills, do not add
+a local server or protocol wrapper just because scaffolding exists. Approval for a remote interface
+does not also approve a local one. If you remove the scaffolding, remove guidance that still
+describes it, but keep the product constraint that remains in force. This example comes from the
+source repository's policy; it does not require every product to use CLI-first integration.
 
 ## Anti-pattern
 

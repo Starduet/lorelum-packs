@@ -15,22 +15,23 @@ title: Ground Work in the User Goal
 
 ## When to apply
 
-Apply at task start, or when implementation details have displaced the reason for the work, and no
-current sentence states who needs what result. If the result is already clear and only the
-definition of done is missing, define acceptance instead.
+Before starting a task, make sure you can say who needs what result. Return to that question if
+implementation details have taken over and the reason for the work is no longer clear. If the result
+is already clear and only the definition of done is missing, define acceptance instead.
 
 ## Guidance
 
 1. Read the current request and any accepted issue or specification that governs it.
-2. Write one sentence naming the affected person, the result they must observe, and any explicit
-   constraint that changes it: "Creators can identify the failed file and retry it."
-3. Test each proposed activity against that sentence. Components, tests, documents, and abstractions
-   are possible means, not the goal; the easiest nearby change qualifies only if it produces the
-   named result.
+2. Write one sentence saying who needs the change, what they must be able to see or do, and any
+   explicit constraint that changes that result: "Creators can identify the failed file and retry
+   it."
+3. Compare each proposed activity with that sentence. Components, tests, documents, and abstractions
+   are ways to reach the goal, not the goal itself. The easiest nearby change is useful only if it
+   produces the result you wrote down.
 4. If two interpretations of the request produce different outcomes, ask the requester for the
    decision instead of picking silently.
 
-Stop when the sentence can reject work that does not advance the result.
+Stop when the sentence lets you rule out work that would not help produce that result.
 
 ## Anti-pattern
 
@@ -41,8 +42,8 @@ customers provide, so the polished component missed the needed result.
 
 ## Why
 
-A concrete outcome gives later decisions a stable comparison point. Without it, repository structure
-and visible artifacts can replace user value while superficial checks still pass.
+A clear result gives you something to compare later choices against. Otherwise, it is easy to finish
+a component and pass its checks without solving the user's problem.
 
 ## Exceptions and boundaries
 

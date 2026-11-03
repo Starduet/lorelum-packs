@@ -15,9 +15,9 @@ title: Pass ref as a Prop on React 19; Keep forwardRef for Older Lines
 
 ## When to apply
 
-Apply when writing or reviewing a component that needs to expose its DOM node or an imperative
-handle to callers — inputs that deserve focus, dialogs that need positioning. Decide how `ref`
-travels, given the React version line the project runs.
+An input may need to let its caller focus its DOM node, or a dialog may need to expose a node or
+imperative handle for positioning. When a component needs that access, choose how to pass `ref`
+based on every React version the project supports.
 
 ## Guidance
 
@@ -34,9 +34,8 @@ function TextField({ ref, label, ...props }: InputProps & { ref?: React.Ref<HTML
 }
 ```
 
-`forwardRef` is not wrong on React 19 — it still works — but new components gain nothing from it,
-and its indirection (a second function boundary, a separate type parameter) is now pure ceremony.
-Treat it as a migration decision, not a style war:
+`forwardRef` still works on React 19, but a new React-19-only component can accept and pass `ref`
+without that wrapper or its separate type parameter. Choose based on compatibility:
 
 - A project on React 19: write `ref`-as-prop for new components; migrate `forwardRef` wrappers
   opportunistically where the file is already being touched.
@@ -46,9 +45,8 @@ Treat it as a migration decision, not a style war:
 - Never hand-roll the alternative — passing a `domNodeRef`-style custom prop alongside a `ref`
   requirement — when one of the two built-in mechanisms covers the version line.
 
-The same version-line thinking governs the rest of the ref surface: imperative handles via
-`useImperativeHandle` follow the identical mechanism as the `ref` they attach to, so the decision
-above covers them together.
+The same compatibility choice applies to imperative handles. `useImperativeHandle` uses the ref
+received through the mechanism above, so choose it the same way as a DOM-node ref.
 
 ## Anti-pattern
 
@@ -59,10 +57,9 @@ runtime crash, just dead behavior.
 
 ## Why
 
-The two mechanisms are version-locked: ref-as-prop is invisible to React 18, and `forwardRef` is
-noise on React 19. Choosing by the project's supported React line — and keeping that line explicit
-in the library's peer dependencies — is what keeps ref support working and uniform while the
-ecosystem finishes its 19 migration.
+React 18 does not pass `ref` as an ordinary function-component prop; `forwardRef` works on both
+React 18 and 19. Choosing a mechanism supported by every target version keeps callers' refs working.
+A library's peer dependencies should state that supported version range.
 
 ## Exceptions and boundaries
 

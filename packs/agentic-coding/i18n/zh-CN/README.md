@@ -19,7 +19,7 @@
 
 领域仅限软件工程协作，不是生活问答。已有的完成声明与遗留问题规则仍分别决定“可以声称什么”和“哪些问题必须报告”，这两条不替代它们，也不强制每次回复套模板。
 
-先看[中文工程改写对照](../../references/engineering-communication.md)，包括并发刷新、索引取舍、未确认的超时原因和一句话范围答复。示例事实均为构造；[效果记录](../../../../fixtures/agentic-coding/baselines/engineering-communication-2026-11-02.md)另列实际生成的回答及限制。这次不做 #41 的全库改写或简介结构迁移。
+先看[中文工程改写对照](../../references/engineering-communication.md)，包括并发刷新、索引取舍、未确认的超时原因和一句话范围答复。示例事实均为构造；[首批效果记录](../../../../fixtures/agentic-coding/baselines/engineering-communication-2026-11-02.md)另列当时实际生成的回答及限制，不代表后续全库改稿的效果。
 
 当前内容只可按本地路径安装到隔离 Store 后读取，未新增 Registry 或 tag；下文的官方安装命令仍对应已发布 `0.7.0`。
 

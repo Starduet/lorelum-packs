@@ -15,19 +15,21 @@ title: Keep One PR to One Declared Scope
 
 ## When to apply
 
-Apply while assembling a PR and whenever work uncovers an adjacent problem worth fixing. The
-decision is whether each changed hunk belongs to the change the PR title declares. Do not apply to a
-mechanical repository-wide change, which is itself one declared scope.
+When preparing a PR, check whether everything in the diff belongs to the change described by its
+title. Do this again if you find another problem worth fixing along the way. A mechanical change
+across the repository can still be one change; touching many files is not itself a reason to split
+it.
 
 ## Guidance
 
-Make the PR title declare one scope, then hold every hunk to it: a hunk belongs only if reverting
-the PR should remove it. Resist folding in the small things found along the way — the unrelated
-typo, the stale test, the tempting refactor — and file each as its own change, however tiny. Where
-the repository convention is one issue per PR, link exactly the issue this PR resolves and leave
-sibling issues to sibling PRs. If a discovered problem blocks the current change, fix the minimum
-that unblocks and file the rest. Stop when the diff reads as one reviewable unit whose removal or
-revert is a single decision.
+Use the title to say what this PR changes. For each changed block, ask whether it should go away if
+the PR is reverted. Leave out unrelated typos, stale tests, or refactors you found along the way;
+submit each separately, however small. If the repository expects one issue per PR, link exactly the
+issue this PR resolves and leave the others for other PRs.
+
+If another problem prevents this change from working, fix only what is needed to unblock it and file
+the rest separately. Keep the diff to work that reviewers can approve together and maintainers can
+revert together without also undoing an unrelated improvement.
 
 ## Anti-pattern
 
@@ -38,9 +40,9 @@ dependency bump would tear out the bug fix with it.
 
 ## Why
 
-Review, revert, bisect, and cherry-pick all operate at PR granularity. A single scope means one
-approval covers one risk, one revert is one decision, and history stays attributable; mixed scope
-silently converts every approval into a package deal and couples unrelated failures together.
+Keeping one scope lets reviewers approve a change without also accepting unrelated work. It also
+lets maintainers revert or cherry-pick it independently and trace a regression to the change that
+caused it. Mixed scopes force those decisions together even when the failures are unrelated.
 
 ## Exceptions and boundaries
 

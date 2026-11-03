@@ -15,20 +15,21 @@ title: Separate Direction from Design and State Non-goals
 
 ## When to apply
 
-Apply when writing a proposal issue whose implementation could reasonably go several ways. The
-decision is which parts state the objective and its governing principles, which parts are already
-decided, and which decisions are deliberately deferred. Do not apply to defect reports where the
-root cause is the content, or to changes whose design was already settled elsewhere.
+When proposing a change that could be built in several reasonable ways, let reviewers discuss the
+goal without having to accept one design at the same time. Distinguish what has already been decided
+from what still needs a decision. This is not needed for a defect report focused on its root cause,
+or for a change whose design has already been settled elsewhere.
 
 ## Guidance
 
-State the objective and the principles any solution must satisfy; keep implementation choices out of
-the acceptance path unless a decision is already made, and then cite where it was made rather than
-restating it as new. Add an explicit non-goals section naming the decisions you are deferring and
-who or what process will make them. If the repository requires a separate design artifact, point to
-it instead of embedding design in the issue. Stop when a reader can agree or disagree with the
-objective without first accepting a mechanism, and every deferred decision is named rather than
-silently absent.
+Explain what you want to achieve and the principles any solution must satisfy. Do not make accepting
+the proposal depend on a particular implementation unless that choice is already settled; if it is,
+cite the earlier decision. In a non-goals section, say which decisions you are leaving for later and
+who will make them or which process will be used. If the repository requires a separate design
+document, link it rather than putting the design in the issue.
+
+Readers should be able to agree or disagree with the goal without first accepting an implementation.
+Name every decision you are postponing so they do not mistake silence for agreement.
 
 ## Anti-pattern
 
@@ -40,10 +41,10 @@ covered.
 
 ## Why
 
-Acceptance of an issue is remembered as agreement on a direction. When mechanism is baked in,
-reviewers must reject the goal to reject the design, and an accepted issue silently commits work
-that was never separately evaluated. Naming non-goals also prevents reviewers from assuming silence
-means a deferred decision was considered and taken.
+Accepting an issue is usually understood as agreeing to its objective. If the issue also requires
+one implementation, reviewers cannot reject that design without rejecting the goal. Acceptance then
+commits the team to choices it never evaluated separately. Naming deferred decisions prevents
+readers from assuming those choices have already been made.
 
 ## Exceptions and boundaries
 
@@ -57,5 +58,5 @@ from filing the follow-up issue that makes them.
 A proposal for a privacy-safe feedback loop states it "establishes the product and governance
 objective, not the implementation design", lists seven hard principles any design must satisfy, and
 closes with an out-of-scope section deferring storage, schema, and retention choices to a future
-spec. Reviewers argue about principles in the issue and leave mechanism questions to the design
-artifact, where they belong.
+spec. Reviewers discuss principles in the issue and leave implementation choices to the design
+document.

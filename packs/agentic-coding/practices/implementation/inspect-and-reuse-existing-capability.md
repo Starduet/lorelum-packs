@@ -15,20 +15,20 @@ title: Check What Already Exists Before Building
 
 ## When to apply
 
-Apply immediately before creating a helper, adapter, parser, cache, retry policy, or similar
-mechanism that could plausibly exist nearby. If current evidence already shows that the behavior is
-intentionally new or that existing options fail a required constraint, stop searching and design the
-new code.
+You are about to write a helper, adapter, parser, cache, retry policy, or similar piece of code.
+Check whether a nearby module, declared dependency, or runtime facility already does the job. If the
+evidence already shows that the behavior is intentionally new or existing options fail a required
+constraint, stop searching and design the new code.
 
 ## Guidance
 
-1. Open the module where the behavior belongs and the closest candidate capability inside it.
-2. Read the caller or test closest to your intended use — and one per distinct semantic,
-   compatibility, or failure contract when the candidate serves several — to decide whether it
-   preserves your required constraint.
+1. Open the module where the behavior belongs and the most promising existing code in it.
+2. Read the caller or test closest to your intended use. If the code serves different behavior,
+   compatibility, or failure requirements, read one caller or test for each distinct requirement.
+   Use those examples to decide whether reuse would preserve the constraint you need.
 3. Check the one declared dependency or runtime facility most likely to provide the behavior.
-4. Decide between direct reuse, a small adaptation, and a new implementation, and record the
-   specific mismatch that rules out each closer option.
+4. Choose direct reuse, a small adaptation, or a new implementation. If you pass over a more direct
+   option, record exactly why it does not fit.
 
 Stop as soon as the evidence supports one choice; do not catalog every vaguely similar helper,
 caller, or test.

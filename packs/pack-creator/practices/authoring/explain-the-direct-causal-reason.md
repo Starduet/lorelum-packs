@@ -15,16 +15,17 @@ title: Explain the Immediate Cause and Effect
 
 ## When to apply
 
-Apply while writing or reviewing the Why section. The reader already knows the action; the missing
-decision is which direct consequence justifies it. This Practice controls causal explanation, not
-the wording of every section or the completeness of the Example.
+When readers know what to do but cannot tell why it matters, use the Why section to explain the
+direct consequence of doing it or leaving it undone. Review that explanation here, rather than
+wording throughout the Practice or missing facts in the Example.
 
 ## Guidance
 
-Name the action or omission, the first important system or decision effect it causes, and why that
-effect changes the outcome. Prefer a short causal chain that the scenario or source can support.
-Remove mission statements and benefits that would be true of almost any good Practice. Stop when the
-reader can use the reason to recognize a near miss or justified exception.
+Explain what happens if the reader takes or omits the action, starting with the first important
+change in system behavior or in the decision, then say why it affects the outcome. Keep the causal
+chain short and supported by the scenario or source. Remove mission statements and benefits that
+could describe almost any good Practice. Stop when the reason helps readers recognize a similar
+situation where the rule does not apply, or judge whether an exception is justified.
 
 ## Anti-pattern
 

@@ -15,28 +15,28 @@ title: Chain Each Item's Follow-Up Fetch Inside Its Own Promise
 
 ## When to apply
 
-Apply when loading a list where each item needs a second request derived from that item — a detail
-record, an enrichment, a sub-resource. Decide whether follow-ups start per item or only after the
-whole first batch resolves.
+When each list item needs a follow-up request based on its own result, that follow-up can start as
+soon as the item is ready. This applies to loading a detail record, enrichment, or sub-resource
+without waiting for the rest of the list's first requests to finish.
 
 ## Guidance
 
-Chain inside the item. Map each identifier to one promise that resolves the item and continues to
-its follow-up, then await the mapped promises together:
+For each identifier, create one promise that loads the item and then starts its follow-up request.
+Await those per-item promises together:
 
 ```ts
 const board = await Promise.all(
   shipmentIds.map((id) =>
     getShipment(id).then((shipment) =>
-      getTrackingSnapshot(shipment.trackingNumber),
+      getTrackingSnapshot(shipment.carrier, shipment.trackingNumber),
     ),
   ),
 );
 ```
 
-Each item's second leg starts when that item lands. The common two-stage shape — `await` all items,
-then `await` all follow-ups — turns the slowest first-stage item into a barrier for every follow-up,
-even for items that resolved long ago.
+Each item's follow-up starts when that item's first request resolves. Awaiting all items before
+starting any follow-up makes every follow-up wait for the slowest first request, even when its own
+input is already available.
 
 Handle failure per item when the page tolerates partial data. Under a bare `Promise.all`, one
 rejected item discards the whole board; catching inside the per-item chain and returning a typed
@@ -56,9 +56,9 @@ milliseconds, because no follow-up may start until the entire first batch has se
 
 ## Why
 
-Per-item chaining removes the cross-item barrier: each row's latency becomes its own two legs
-instead of the slowest peer's first leg plus its own second. The data dependencies are unchanged —
-only the point at which each dependent request may start moves earlier.
+Per-item chaining lets each follow-up wait only for its own item's first request, not the slowest
+first request in the list. The data dependencies are unchanged; each dependent request can simply
+start earlier.
 
 ## Exceptions and boundaries
 
@@ -73,9 +73,9 @@ only the point at which each dependent request may start moves earlier.
 
 ## Example
 
-A shipments board enriches each row with its carrier's tracking snapshot. A per-item helper chains
-the two legs and tolerates per-row failure, and the board awaits one row promise per item. The
-declared helpers stand in for the data layer.
+A shipments board adds each carrier's tracking snapshot to its row. A per-item helper loads the
+shipment and then its snapshot, catching snapshot failures so that those rows can still appear. The
+board awaits one promise per row. The declared helpers stand in for the data layer.
 
 ```ts
 type Shipment = { id: string; carrier: string; trackingNumber: string };
@@ -111,6 +111,7 @@ export function loadShipmentBoard(shipmentIds: string[]): Promise<BoardRow[]> {
 }
 ```
 
-Each row's snapshot starts when its own shipment resolves, so one slow or failed carrier costs only
-its row. If the board instead awaited all shipments and then all snapshots, the slowest shipment
-would delay every row's enrichment.
+Each snapshot request starts when its own shipment resolves. A slow carrier delays only its own
+snapshot request, and a failed snapshot leaves that row with an error; a failed shipment request
+still rejects the board's `Promise.all`. Awaiting all shipments before starting snapshots would make
+the slowest shipment delay every snapshot request.

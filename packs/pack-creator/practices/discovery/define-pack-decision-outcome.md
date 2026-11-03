@@ -15,18 +15,19 @@ title: Define the Decisions the Pack Should Improve
 
 ## When to apply
 
-Apply before choosing Practices when the proposed Pack is still described as a subject such as
-"PostgreSQL operations" or "frontend accessibility." Decide what judgment the collection should
-improve and for whom. Identifying when that help is needed comes next; this Practice defines the
-result of the collection, not its retrieval moments.
+If you can describe the proposed Pack only as "PostgreSQL operations" or "frontend accessibility,"
+decide who will use it and which recurring choices it should help them make before choosing
+Practices. First establish what the collection should help readers do better; then work out when
+they will need that help.
 
 ## Guidance
 
-Write one outcome sentence naming the intended reader, the recurring decisions they face, and how
-the Pack should improve those choices. Test each candidate topic against that sentence: if knowing
-the topic would not change one of those decisions, it does not belong merely for completeness.
-Narrow or separate unrelated decision families instead of hiding them under a broad domain name.
-Stop when the outcome can admit useful guidance and reject impressive but irrelevant coverage.
+Write one sentence saying who the Pack is for, which decisions they repeatedly face, and how it
+should help them choose. Test each candidate topic against that sentence: if knowing the topic would
+not change one of those decisions, it does not belong merely for completeness. Narrow the scope or
+separate unrelated groups of decisions instead of hiding them under a broad domain name. Stop when
+the outcome sentence lets you include useful guidance and reject topics that look impressive but do
+not help the intended reader choose.
 
 ## Anti-pattern
 
@@ -40,9 +41,8 @@ topics only when they support those choices.
 
 ## Why
 
-A Pack organized around a decision outcome has a stable reason for including or excluding content. A
-topic inventory can grow indefinitely while still failing to help at the moment a reader must
-choose.
+Knowing which decisions the Pack should improve gives you a reason to include or exclude content. A
+topic list can grow indefinitely and still offer no help when a reader has to choose.
 
 ## Exceptions and boundaries
 
