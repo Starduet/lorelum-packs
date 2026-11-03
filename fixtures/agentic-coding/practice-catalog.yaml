@@ -1,6 +1,6 @@
 fixture_set: agentic-coding-practice-catalog
 evaluation_only: true
-description: Atomic retrieval and behavior hypotheses for the 37 agentic-coding 0.7.0 Practices. Not a runtime schema or proof of retrieval quality. Semantic expectation migrations require separate scoring from historical baselines.
+description: Atomic retrieval and behavior hypotheses for the 39 agentic-coding 0.8.0 working-tree Practices, including engineering conclusion reporting and concrete explanations. Unreleased content is not the immutable 37-Practice 0.7.0 release. Not a runtime schema or proof of retrieval quality. Semantic expectation migrations require separate scoring from historical baselines.
 entries:
   - id: agentic-coding.implementation.justify-added-checks
     positive_trigger: While planning ordinary startup, the agent proposes the first full installation scan even though no duplicate scan or blocked route exists, without identifying what failure the new I/O would prevent.
@@ -302,3 +302,19 @@ entries:
     expected_behavior: With the goal understood, form and advance a concrete feasible approach from the facts that change the choice. Obtain only missing decision-critical facts, make technical judgments within the assigned responsibility, and let actual results determine continuation. Solve the difficulty at its cause while preserving other required behavior, safety, authorization, compatibility, and the receiver's assigned judgment. Complete exact small edits directly, deliver the needed judgment for analysis-only work, and leave necessary exploration open.
     forbidden_behavior: Substitute goal repetition, warnings, process, or a convenient passing subset for the decisive work. Escape a hard mechanism by cancelling ordinary capability, silently dropping valid objects, imposing unaccepted design choices on a delegate, or returning false success. Turn every task into a mandatory extra checklist, require complete materials before a targeted decision, or delegate technical choices back to the user without a substantive user tradeoff.
     # A decision-point hypothesis, not a new mandatory workflow or proof of comparative benefit.
+
+  - id: agentic-coding.delivery.lead-with-engineering-conclusion
+    positive_trigger: A developer asks whether the reconnect fix is ready; the report recounts searches and edits before finally saying local replay passed but browser reconnect has not been checked.
+    paraphrase: A design recommendation lists every benchmark command before giving the chosen indexing approach, its observed read benefit, and the unmeasured production write cost.
+    near_miss: The engineering conclusion and its scope already come first, but "credential coordination landed" hides the implemented request-sharing mechanism (explain-engineering-work-plainly). An unsupported production claim needs claim-only-supported-outcome; an omitted release blocker needs report-material-residuals, not a reordered report.
+    nearest_neighbor: agentic-coding.delivery.explain-engineering-work-plainly
+    expected_behavior: Give the developer the diagnosis, recommendation, implemented result, or actual progress first, with the condition that changes the next action beside it. Follow with the relevant mechanism, evidence, and remaining action; retain units, environments, comparison bases, counterevidence, and uncertainty. Short engineering replies need no headings. State each limit clearly once, do not repeat generic disclaimers, and do not expand a judgment into an unsolicited rollout plan.
+    forbidden_behavior: Delay the answer behind work chronology or internal labels; put an unqualified success first and hide a controlling caveat later; turn every reply into a four-section template; delete decisive evidence to be short; or use reordering as a substitute for establishing the supported claim or disclosing a known blocker.
+
+  - id: agentic-coding.delivery.explain-engineering-work-plainly
+    positive_trigger: The implementation report says concurrency credential lifecycle coordination is complete, without explaining that simultaneous callers wait for one refresh and share its result.
+    paraphrase: An autosave explanation says the persistence lifecycle converges, although the useful fact is that acknowledging revision 12 leaves revision 13 pending.
+    near_miss: The mechanism is already concrete but the engineering conclusion comes after two paragraphs of investigation (lead-with-engineering-conclusion). Deciding claim scope belongs to claim-only-supported-outcome, selecting important unresolved issues to report-material-residuals, and editing reusable Practice content to pack-creator.authoring.prefer-plain-language-and-concrete-referents.
+    nearest_neighbor: agentic-coding.delivery.lead-with-engineering-conclusion
+    expected_behavior: Explain which component reads, writes, waits, rejects, or returns what and why that affects behavior. Keep precise engineering terms and explain unfamiliar project shorthand at first use. Preserve exact paths, commands, error quotations, conditions, quantities, environments, negations, and uncertainty. Separate established mechanism, observed result, and hypothesis; say what is unknown rather than inventing the missing cause.
+    forbidden_behavior: Replace a mechanism with an abstract label or blanket success claim, teach specialists unnecessary basics, rewrite protected literals, strengthen a possibility into a guarantee, or reframe engineering collaboration as general everyday advice or a repository-wide prose rewrite.

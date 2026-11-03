@@ -1,10 +1,10 @@
 # Agentic Coding
 
-`agentic-coding@0.7.0` is a tool-neutral Knowledge Pack of 37 decision-focused Practices for AI agents doing software engineering. It adds experience-derived guidance for recommending useful session handoffs and organizing work around a working solution instead of a controllable proxy.
+The `agentic-coding@0.8.0` working tree contains 39 decision-focused Practices for AI agents doing software engineering. Its two unreleased additions address clear engineering conclusions and concrete explanations to developers. The published `0.7.0` release remains the immutable 37-Practice artifact.
 
 Canonical English · [简体中文](./i18n/zh-CN/README.md)
 
-The immutable release ref is `agentic-coding-v0.7.0`. Its two additions are
+The published `0.7.0` immutable release ref is `agentic-coding-v0.7.0`. Its two additions are
 `agentic-coding.context.recommend-session-handoff` and
 `agentic-coding.planning.organize-work-around-the-solution`. The immutable `0.6.0` release
 retains its original 35 Practices; no older artifact is replaced.
@@ -23,6 +23,31 @@ lore pack update agentic-coding
 ```
 
 The Practices cover requirements, planning, implementation, testing, verification, review, delivery, correction, and context recovery. Each entry targets one decision point and is intended to remain useful when retrieved alone; consumers should retrieve only the few entries relevant to the current work and moment.
+
+## Unreleased 0.8.0: explain engineering work clearly
+
+- [Give the Developer the Conclusion First](./practices/delivery/lead-with-engineering-conclusion.md)
+  puts the diagnosis, recommendation, result, or actual progress before the investigation history,
+  with the limitation that changes the developer's next decision beside it.
+- [Explain Engineering Work with Concrete Actions](./practices/delivery/explain-engineering-work-plainly.md)
+  replaces labels such as "the lifecycle is closed" with what a component does and why it matters.
+  Keep useful technical terms, exact literals, and uncertainty.
+
+These are software engineering collaboration Practices, not general everyday advice. They organize
+and explain a supported answer; `claim-only-supported-outcome` still decides claim scope and
+`report-material-residuals` still selects important remaining issues. Do not replace those
+decisions with nicer wording. Short replies need no template; complex judgments retain the
+conditions, evidence, and counterevidence that determine the answer.
+
+Start with the [Chinese before-and-after examples](./references/engineering-communication.md):
+token-refresh results, an index tradeoff, an unconfirmed timeout cause, and a one-line change-scope
+answer. Their facts are constructed. The [effect record](../../fixtures/agentic-coding/baselines/engineering-communication-2026-11-02.md)
+shows actual generated engineering replies and keeps usability observations separate from search.
+
+This content has not been released or added to the Registry. For local use, install
+`--path ./packs/agentic-coding` into a new isolated `--store-root`, then use `lore get` with either
+full ID. The Registry commands above still select published `0.7.0`; they do not fetch `0.8.0`.
+No change to the host's instructions, automatic routing, or existing global Store is implied.
 
 ## Scope
 

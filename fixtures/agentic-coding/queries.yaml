@@ -1,7 +1,7 @@
 fixture_set: agentic-coding-queries
 evaluation_only: true
-description: Retrieval hypotheses for the 37 agentic-coding 0.7.0 Practices. Every Practice has at least 3 positive and 2 neighbor queries; the merged scope Practice retains predecessor blocks. Existing query IDs and wording survive two semantic expectation migrations, so historical scores using earlier expectations are not directly comparable. Situation wording avoids quoting titles or applies_when. Evaluation only, not runtime input or proof of downstream quality.
-target_pack: agentic-coding@0.7.0
+description: Retrieval hypotheses for the 39 agentic-coding 0.8.0 working-tree Practices, not a published release. Every Practice has at least 3 positive and 2 neighbor queries; the merged scope Practice retains predecessor blocks. Existing query IDs and wording survive two semantic expectation migrations, so historical scores using earlier expectations are not directly comparable. Situation wording avoids quoting titles or applies_when. Evaluation only, not runtime input or proof of downstream quality.
+target_pack: agentic-coding@0.8.0
 top_k: 3
 min_top3: 0.90
 queries:
@@ -1017,3 +1017,63 @@ queries:
     resembles: agentic-coding.planning.organize-work-around-the-solution
     expect: agentic-coding.implementation.choose-smallest-sufficient-design
     text: "both the direct discount rule and the plugin pipeline already meet every agreed behavior, including edge cases; the remaining decision is only which carries less new state and indirection"
+
+  # delivery.lead-with-engineering-conclusion
+  - id: delivery.lead-with-engineering-conclusion.p1
+    kind: positive
+    expect: agentic-coding.delivery.lead-with-engineering-conclusion
+    text: "the maintainer asked whether reconnect is ready, but my reply lists searches and changed files before finally saying one local replay passed and browser reconnect is still untested"
+  - id: delivery.lead-with-engineering-conclusion.p2
+    kind: positive
+    expect: agentic-coding.delivery.lead-with-engineering-conclusion
+    text: "I need to explain which query index I recommend; the current message makes developers read every benchmark command before finding the recommendation and the still-unknown production write cost"
+  - id: delivery.lead-with-engineering-conclusion.p3
+    kind: positive
+    expect: agentic-coding.delivery.lead-with-engineering-conclusion
+    text: "my technical update uses understandable words but narrates yesterday's debugging for two paragraphs before revealing that the parser change is blocked on an undecided malformed-input contract"
+  - id: delivery.lead-with-engineering-conclusion.n1
+    kind: neighbor
+    resembles: agentic-coding.delivery.lead-with-engineering-conclusion
+    expect: agentic-coding.delivery.explain-engineering-work-plainly
+    text: "the summary starts with the right outcome and caveat; its credential lifecycle coordination phrase still never tells the developer that parallel callers share one token refresh"
+  - id: delivery.lead-with-engineering-conclusion.n2
+    kind: neighbor
+    resembles: agentic-coding.delivery.lead-with-engineering-conclusion
+    expect: agentic-coding.delivery.explain-engineering-work-plainly
+    text: "the autosave answer is in the opening sentence already; I only need to replace persistence convergence with what acknowledging revision 12 does to edits made in revision 13"
+
+  # delivery.explain-engineering-work-plainly
+  - id: delivery.explain-engineering-work-plainly.p1
+    kind: positive
+    expect: agentic-coding.delivery.explain-engineering-work-plainly
+    text: "my implementation summary claims cache coherence governance landed, but the reviewer needs to understand that the export worker deletes the previous cached file only after generating the new one"
+  - id: delivery.explain-engineering-work-plainly.p2
+    kind: positive
+    expect: agentic-coding.delivery.explain-engineering-work-plainly
+    text: "I know the two refresh requests can overlap, yet the diagnosis says concurrency-induced credential inconsistency; I need to tell the developer how the second response can invalidate the first token without claiming every overlap fails"
+  - id: delivery.explain-engineering-work-plainly.p3
+    kind: positive
+    expect: agentic-coding.delivery.explain-engineering-work-plainly
+    text: "the reply begins with the chosen approach but calls it checkpoint convergence, a project nickname the new maintainer does not know; how do I explain the saved revision comparison without re-teaching ordinary database terminology"
+  - id: delivery.explain-engineering-work-plainly.n1
+    kind: neighbor
+    resembles: agentic-coding.delivery.explain-engineering-work-plainly
+    expect: agentic-coding.delivery.lead-with-engineering-conclusion
+    text: "the developer can understand every sentence, but only after reading the full trace do they learn the save fix passed locally and the browser refresh route has not been exercised"
+  - id: delivery.explain-engineering-work-plainly.n2
+    kind: neighbor
+    resembles: agentic-coding.delivery.explain-engineering-work-plainly
+    expect: agentic-coding.delivery.lead-with-engineering-conclusion
+    text: "there is no jargon in my design reply; the problem is that the read-versus-write tradeoff and chosen index appear after all the benchmark setup instead of answering whether to proceed"
+
+  # The neighboring decision is claim scope or disclosure, not communication style.
+  - id: delivery.lead-with-engineering-conclusion.claim-neighbor
+    kind: neighbor
+    resembles: agentic-coding.delivery.lead-with-engineering-conclusion
+    expect: agentic-coding.delivery.claim-only-supported-outcome
+    text: "the completion sentence is prominent and readable already; can one local queued edit replay justify saying that the whole offline sync feature is verified for production"
+  - id: delivery.explain-engineering-work-plainly.residual-neighbor
+    kind: neighbor
+    resembles: agentic-coding.delivery.explain-engineering-work-plainly
+    expect: agentic-coding.delivery.report-material-residuals
+    text: "the upgrade report is clear and opens with the right status but entirely omits two consumers still on the removed interface that prevent release; which remaining items must the recipient be told"

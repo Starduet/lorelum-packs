@@ -17,6 +17,10 @@ locales:
         source_digest: sha256:63bce23b4c7fd754e2dc707d6cd8d915e82e16a0eecaebc3e4f27f5cc662a315
       - path: practices/delivery/claim-only-supported-outcome.md
         source_digest: sha256:1b6224f4c7ecaabfd248563f93c4c037a736bfea937f5d496bfd6bb6004adacb
+      - path: practices/delivery/explain-engineering-work-plainly.md
+        source_digest: sha256:9ab238700ee9f984b7a618875d901e465b9aab979f1d58b64ed5d04be38c7ef4
+      - path: practices/delivery/lead-with-engineering-conclusion.md
+        source_digest: sha256:abdc76c95655a00dbfcaf130c557ea8491c2567447e54a8d2b12db5e903806ba
       - path: practices/delivery/report-material-residuals.md
         source_digest: sha256:840d9bd0dc15a58318fe73e35c538313e284eeaaa56149f80b23c5d1c1aff029
       - path: practices/implementation/choose-smallest-sufficient-design.md

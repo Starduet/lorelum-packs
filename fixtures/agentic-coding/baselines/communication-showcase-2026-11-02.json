@@ -1,0 +1,435 @@
+{
+  "schema": "engineering-communication-showcase/1",
+  "date": "2026-11-02",
+  "fixture": "fixtures/agentic-coding/communication-showcase.yaml",
+  "fixture_sha256": "1c07e7cb52d00a687d365011fece07e36ceaf0b547a55ef19cfc2b8b3ae54b65",
+  "pack": "agentic-coding",
+  "pack_version": "0.8.0",
+  "purpose": "Show actual developer-facing engineering answers with and without the two current Practices. No retrieval experiment or Practice change in this run.",
+  "method": {
+    "model_role_requested": "default",
+    "actual_backend_model_identity": "Not exposed by completion; no independent backend identity or per-call sampling settings were returned.",
+    "stateless": true,
+    "baseline_system": "You are collaborating with a software developer. Reply in Chinese to their question using the supplied records. The records are fictional scenario data, not tool calls you personally executed. You have no tools in this invocation.",
+    "assisted_system": "You are collaborating with a software developer. Reply in Chinese to their question using the supplied records. The records are fictional scenario data, not tool calls you personally executed. You have no tools in this invocation.\n\nUse the following supplied Practices when applicable:\n\n---\nanti_patterns:\n  - description: Recounting searches, edits, internal classifications, or successful checks before stating the engineering conclusion and the limitation that changes the developer's next decision.\n    id: agentic-coding.delivery.conclusion-after-work-log\n    name: Conclusion hidden behind the work log\n    severity: warn\napplies_when: an agent is reporting a diagnosis, design recommendation, implementation result, or current progress to a developer, and the conclusion or important limitation is buried behind investigation history or implementation detail\nid: agentic-coding.delivery.lead-with-engineering-conclusion\nseverity: warn\nstage: delivery\ntech_stack:\n  - agentic-coding\ntitle: Give the Developer the Conclusion First\n---\n\n## When to apply\n\nUse this when deciding how to report engineering work to a developer. Say what the investigation\nfound, which approach you recommend, what changed, or what is still blocking the work before\nrecounting the details. Keep a limitation that changes that conclusion beside it. The reader should\nnot have to reconstruct the answer from your work log.\n\n## Guidance\n\n1. Answer the developer's actual question in a short opening paragraph. Report a cause only when\n   established; otherwise state what is known and what remains unknown. For a design discussion,\n   give the recommendation and decisive tradeoff. For unfinished work, give the current result or\n   blocker rather than a premature completion claim.\n2. Keep the scope or unresolved condition that changes the next decision in that opening. A local\n   check, an untested browser flow, and a production result are not interchangeable. Use the\n   supported claim and material remaining issues already established for this task; do not add a\n   generic list of everything that was not tested.\n3. Follow with the reasons, changes, and evidence the developer needs to judge that answer. Connect\n   each important change to its effect. Name the relevant file, command, environment, observation,\n   or source when it makes the result checkable. Preserve conditions, comparison bases, units,\n   counterevidence, and uncertainty that affect the conclusion.\n4. Stop after the necessary explanation and actionable remaining work. Explain each limitation once\n   unless a different claim needs it repeated. Drop process chronology, internal labels, generic\n   disclaimers, and repeated conclusions. A one-line engineering answer needs no report headings; a\n   complex recommendation needs its reasons, not an unsolicited rollout plan.\n\nStop when the first paragraph lets the developer understand the result and whether they can act, and\nthe rest makes its basis and important limits easy to find.\n\n## Anti-pattern\n\nAsked whether a reconnect fix is ready, the agent lists searches, files, and passing unit tests,\nthen says \"sync is fixed,\" with the untested browser path at the bottom. Moving the work log under\nheadings does not repair the buried answer. The useful opening is that local queued-edit replay\nworks in the observed case, but browser reconnect has not been checked, so that evidence does not\nyet establish readiness for the developer's intended use.\n\n## Why\n\nDevelopers use the conclusion to decide whether to review, merge, release, investigate, or choose\nanother approach. Putting the answer and its controlling limit first makes the engineering judgment\nvisible without asking the reader to replay the investigation.\n\n## Exceptions and boundaries\n\nRespect a requested format or an interactive debugging sequence. Put an urgent safety action before\nexplanation when delay would cause harm. This is engineering collaboration, not a rule for unrelated\neveryday advice or a mandatory report template.\n\n`agentic-coding.delivery.claim-only-supported-outcome` decides what the evidence supports;\n`agentic-coding.delivery.report-material-residuals` decides which remaining issues matter. This\nPractice arranges that justified content rather than establishing facts or adding disclosure\nrequirements. Use `agentic-coding.delivery.explain-engineering-work-plainly` when the order is clear\nbut the wording still hides the mechanism.\n\n## Example\n\nA draft says \"first I traced acknowledgments, then updated the state handler, then checked saves.\"\nThe observed result is that edits made after revision 12 remain pending when revision 12 is\nacknowledged; the browser refresh path has not been checked. Lead with \"Newer edits now remain\npending when an older save finishes. The focused revision-12 case passes; browser refresh is still\nunverified.\" Then explain the revision comparison and give the relevant evidence, without calling\nall autosave behavior verified.\n\nRead the\n[Chinese engineering before-and-after examples](resource:references/engineering-communication.md)\nwhen comparing a report draft with its source facts. The examples are supplementary, not a template.\n\n\n---\nanti_patterns:\n  - description: Replacing an explanation of what the code does with abstract engineering labels, unexplained project shorthand, or polished claims that hide the actual mechanism and its limits.\n    id: agentic-coding.delivery.labels-instead-of-mechanism\n    name: Labels instead of an engineering explanation\n    severity: warn\napplies_when: an agent's engineering explanation or work report uses abstract labels, project jargon, or tangled sentences that prevent a developer from understanding what the code does, why a change helps, or what remains uncertain\nid: agentic-coding.delivery.explain-engineering-work-plainly\nseverity: warn\nstage: delivery\ntech_stack:\n  - agentic-coding\ntitle: Explain Engineering Work with Concrete Actions\n---\n\n## When to apply\n\nUse this when explaining a diagnosis, design choice, implementation, or result to a developer and\nthe words hide what actually happens. Name the component, action, affected state, and consequence.\nKeep technical terms that carry a real distinction, and explain unfamiliar project shorthand where\nit matters. Clear engineering language preserves the mechanism instead of replacing it with a\nslogan.\n\n## Guidance\n\n1. Replace labels such as \"coordination landed\" or \"the lifecycle is closed\" with what a component\n   actually reads, writes, waits for, rejects, or returns, and why that changes the observed\n   behavior. Name the responsible component when it is known; do not invent a cause or owner.\n2. Match the developer's knowledge. Keep useful terms such as transaction, token, revision, or\n   rollback. Explain an unfamiliar abbreviation or local concept at first use, not every common\n   engineering term. Preserve exact code, paths, commands, quoted errors, and source destinations.\n3. Split sentences when several actions or conditions hide their relationship. Keep a condition\n   beside the effect it limits. Distinguish an observed result, a proposed mechanism, and an\n   untested hypothesis instead of letting a fluent causal sentence merge them.\n4. Compare the rewrite with the source facts. Preserve identifiers, quantities, units, environments,\n   comparison bases, exceptions, negations, and uncertainty. Remove padded verbs, inflated success\n   language, and repeated explanations. If the mechanism is not known, state the observation and the\n   unknown; do not fill the gap with plausible technical prose.\n\nStop when the developer can explain what the component does differently and why it matters, or\nidentify exactly what is not yet known. Fewer words alone are not proof of a better explanation.\n\n## Anti-pattern\n\nThe report says \"concurrency credential lifecycle coordination is complete.\" A developer cannot tell\nwhether the change serializes requests, shares a refresh result, or retries failures. Replacing it\nwith \"login is fixed\" is shorter but even less precise. Say that simultaneous callers wait for one\nrefresh and reuse its result, if that is what the code does, then retain the actual verification\nboundary.\n\n## Why\n\nA developer needs the mechanism to review correctness and make the next decision. Concrete component\nactions let them connect code changes to behavior; abstract labels can sound complete while\nconcealing a wrong or unproven explanation.\n\n## Exceptions and boundaries\n\nDo not teach a specialist familiar basics or force casual slang into an engineering discussion. Keep\nexact specifications, quotations, and requested output schemas intact. This Practice governs replies\nto developers, not a broad rewrite of code, comments, documentation, or existing Practices. It does\nnot require fixed sentence lengths, a vocabulary blacklist, or an AI-detector target.\n\nUse `agentic-coding.delivery.lead-with-engineering-conclusion` when understandable sentences bury\nthe answer. `agentic-coding.delivery.claim-only-supported-outcome` and\n`agentic-coding.delivery.report-material-residuals` still decide the supported result and required\nremaining issues. `pack-creator.authoring.prefer-plain-language-and-concrete-referents` governs\nwriting reusable Practices, not reporting the current engineering task.\n\n## Example\n\nThe source says a worker retains the highest locally edited revision and advances the saved revision\nonly to the acknowledged revision. Instead of \"the persistence lifecycle now converges,\" write \"When\nrevision 12 finishes saving, the worker marks revision 12 as saved. Edits from revision 13 stay\npending.\" Do not turn that mechanism into a guarantee that crashes or multi-device edits are handled\nwhen those cases have not been established.\n\nRead the\n[Chinese engineering before-and-after examples](resource:references/engineering-communication.md)\nwhen checking whether a rewrite still says what the source facts support.\n",
+    "preferred_answers_sent": false,
+    "scoring_assertions_sent": false,
+    "successful_answers_per_case_condition": 1,
+    "successful_answers_regenerated": false,
+    "manual_output_rewrites": false,
+    "retrieval_calls": 0,
+    "review": "Author observations, not an independent blinded evaluation. A baseline answer may already be good; length alone is not a quality score."
+  },
+  "practice_snapshots": [
+    {
+      "id": "agentic-coding.delivery.lead-with-engineering-conclusion",
+      "path": "packs/agentic-coding/practices/delivery/lead-with-engineering-conclusion.md",
+      "source_sha256": "abdc76c95655a00dbfcaf130c557ea8491c2567447e54a8d2b12db5e903806ba",
+      "content": "---\nanti_patterns:\n  - description: Recounting searches, edits, internal classifications, or successful checks before stating the engineering conclusion and the limitation that changes the developer's next decision.\n    id: agentic-coding.delivery.conclusion-after-work-log\n    name: Conclusion hidden behind the work log\n    severity: warn\napplies_when: an agent is reporting a diagnosis, design recommendation, implementation result, or current progress to a developer, and the conclusion or important limitation is buried behind investigation history or implementation detail\nid: agentic-coding.delivery.lead-with-engineering-conclusion\nseverity: warn\nstage: delivery\ntech_stack:\n  - agentic-coding\ntitle: Give the Developer the Conclusion First\n---\n\n## When to apply\n\nUse this when deciding how to report engineering work to a developer. Say what the investigation\nfound, which approach you recommend, what changed, or what is still blocking the work before\nrecounting the details. Keep a limitation that changes that conclusion beside it. The reader should\nnot have to reconstruct the answer from your work log.\n\n## Guidance\n\n1. Answer the developer's actual question in a short opening paragraph. Report a cause only when\n   established; otherwise state what is known and what remains unknown. For a design discussion,\n   give the recommendation and decisive tradeoff. For unfinished work, give the current result or\n   blocker rather than a premature completion claim.\n2. Keep the scope or unresolved condition that changes the next decision in that opening. A local\n   check, an untested browser flow, and a production result are not interchangeable. Use the\n   supported claim and material remaining issues already established for this task; do not add a\n   generic list of everything that was not tested.\n3. Follow with the reasons, changes, and evidence the developer needs to judge that answer. Connect\n   each important change to its effect. Name the relevant file, command, environment, observation,\n   or source when it makes the result checkable. Preserve conditions, comparison bases, units,\n   counterevidence, and uncertainty that affect the conclusion.\n4. Stop after the necessary explanation and actionable remaining work. Explain each limitation once\n   unless a different claim needs it repeated. Drop process chronology, internal labels, generic\n   disclaimers, and repeated conclusions. A one-line engineering answer needs no report headings; a\n   complex recommendation needs its reasons, not an unsolicited rollout plan.\n\nStop when the first paragraph lets the developer understand the result and whether they can act, and\nthe rest makes its basis and important limits easy to find.\n\n## Anti-pattern\n\nAsked whether a reconnect fix is ready, the agent lists searches, files, and passing unit tests,\nthen says \"sync is fixed,\" with the untested browser path at the bottom. Moving the work log under\nheadings does not repair the buried answer. The useful opening is that local queued-edit replay\nworks in the observed case, but browser reconnect has not been checked, so that evidence does not\nyet establish readiness for the developer's intended use.\n\n## Why\n\nDevelopers use the conclusion to decide whether to review, merge, release, investigate, or choose\nanother approach. Putting the answer and its controlling limit first makes the engineering judgment\nvisible without asking the reader to replay the investigation.\n\n## Exceptions and boundaries\n\nRespect a requested format or an interactive debugging sequence. Put an urgent safety action before\nexplanation when delay would cause harm. This is engineering collaboration, not a rule for unrelated\neveryday advice or a mandatory report template.\n\n`agentic-coding.delivery.claim-only-supported-outcome` decides what the evidence supports;\n`agentic-coding.delivery.report-material-residuals` decides which remaining issues matter. This\nPractice arranges that justified content rather than establishing facts or adding disclosure\nrequirements. Use `agentic-coding.delivery.explain-engineering-work-plainly` when the order is clear\nbut the wording still hides the mechanism.\n\n## Example\n\nA draft says \"first I traced acknowledgments, then updated the state handler, then checked saves.\"\nThe observed result is that edits made after revision 12 remain pending when revision 12 is\nacknowledged; the browser refresh path has not been checked. Lead with \"Newer edits now remain\npending when an older save finishes. The focused revision-12 case passes; browser refresh is still\nunverified.\" Then explain the revision comparison and give the relevant evidence, without calling\nall autosave behavior verified.\n\nRead the\n[Chinese engineering before-and-after examples](resource:references/engineering-communication.md)\nwhen comparing a report draft with its source facts. The examples are supplementary, not a template.\n"
+    },
+    {
+      "id": "agentic-coding.delivery.explain-engineering-work-plainly",
+      "path": "packs/agentic-coding/practices/delivery/explain-engineering-work-plainly.md",
+      "source_sha256": "9ab238700ee9f984b7a618875d901e465b9aab979f1d58b64ed5d04be38c7ef4",
+      "content": "---\nanti_patterns:\n  - description: Replacing an explanation of what the code does with abstract engineering labels, unexplained project shorthand, or polished claims that hide the actual mechanism and its limits.\n    id: agentic-coding.delivery.labels-instead-of-mechanism\n    name: Labels instead of an engineering explanation\n    severity: warn\napplies_when: an agent's engineering explanation or work report uses abstract labels, project jargon, or tangled sentences that prevent a developer from understanding what the code does, why a change helps, or what remains uncertain\nid: agentic-coding.delivery.explain-engineering-work-plainly\nseverity: warn\nstage: delivery\ntech_stack:\n  - agentic-coding\ntitle: Explain Engineering Work with Concrete Actions\n---\n\n## When to apply\n\nUse this when explaining a diagnosis, design choice, implementation, or result to a developer and\nthe words hide what actually happens. Name the component, action, affected state, and consequence.\nKeep technical terms that carry a real distinction, and explain unfamiliar project shorthand where\nit matters. Clear engineering language preserves the mechanism instead of replacing it with a\nslogan.\n\n## Guidance\n\n1. Replace labels such as \"coordination landed\" or \"the lifecycle is closed\" with what a component\n   actually reads, writes, waits for, rejects, or returns, and why that changes the observed\n   behavior. Name the responsible component when it is known; do not invent a cause or owner.\n2. Match the developer's knowledge. Keep useful terms such as transaction, token, revision, or\n   rollback. Explain an unfamiliar abbreviation or local concept at first use, not every common\n   engineering term. Preserve exact code, paths, commands, quoted errors, and source destinations.\n3. Split sentences when several actions or conditions hide their relationship. Keep a condition\n   beside the effect it limits. Distinguish an observed result, a proposed mechanism, and an\n   untested hypothesis instead of letting a fluent causal sentence merge them.\n4. Compare the rewrite with the source facts. Preserve identifiers, quantities, units, environments,\n   comparison bases, exceptions, negations, and uncertainty. Remove padded verbs, inflated success\n   language, and repeated explanations. If the mechanism is not known, state the observation and the\n   unknown; do not fill the gap with plausible technical prose.\n\nStop when the developer can explain what the component does differently and why it matters, or\nidentify exactly what is not yet known. Fewer words alone are not proof of a better explanation.\n\n## Anti-pattern\n\nThe report says \"concurrency credential lifecycle coordination is complete.\" A developer cannot tell\nwhether the change serializes requests, shares a refresh result, or retries failures. Replacing it\nwith \"login is fixed\" is shorter but even less precise. Say that simultaneous callers wait for one\nrefresh and reuse its result, if that is what the code does, then retain the actual verification\nboundary.\n\n## Why\n\nA developer needs the mechanism to review correctness and make the next decision. Concrete component\nactions let them connect code changes to behavior; abstract labels can sound complete while\nconcealing a wrong or unproven explanation.\n\n## Exceptions and boundaries\n\nDo not teach a specialist familiar basics or force casual slang into an engineering discussion. Keep\nexact specifications, quotations, and requested output schemas intact. This Practice governs replies\nto developers, not a broad rewrite of code, comments, documentation, or existing Practices. It does\nnot require fixed sentence lengths, a vocabulary blacklist, or an AI-detector target.\n\nUse `agentic-coding.delivery.lead-with-engineering-conclusion` when understandable sentences bury\nthe answer. `agentic-coding.delivery.claim-only-supported-outcome` and\n`agentic-coding.delivery.report-material-residuals` still decide the supported result and required\nremaining issues. `pack-creator.authoring.prefer-plain-language-and-concrete-referents` governs\nwriting reusable Practices, not reporting the current engineering task.\n\n## Example\n\nThe source says a worker retains the highest locally edited revision and advances the saved revision\nonly to the acknowledged revision. Instead of \"the persistence lifecycle now converges,\" write \"When\nrevision 12 finishes saving, the worker marks revision 12 as saved. Edits from revision 13 stay\npending.\" Do not turn that mechanism into a guarantee that crashes or multi-device edits are handled\nwhen those cases have not been established.\n\nRead the\n[Chinese engineering before-and-after examples](resource:references/engineering-communication.md)\nwhen checking whether a rewrite still says what the source facts support.\n"
+    }
+  ],
+  "counts": {
+    "cases": 8,
+    "conditions": 16,
+    "successful_answers": 16,
+    "rejected_gateway_attempts": 6,
+    "total_attempts": 22
+  },
+  "gateway_rejections": [
+    {
+      "id": "showcase-upload-retry-result",
+      "condition": "assisted",
+      "attempt": 1,
+      "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+    },
+    {
+      "id": "showcase-checks-mixed-result",
+      "condition": "baseline",
+      "attempt": 1,
+      "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+    },
+    {
+      "id": "showcase-migration-blocked",
+      "condition": "assisted",
+      "attempt": 1,
+      "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+    },
+    {
+      "id": "showcase-three-work-items",
+      "condition": "assisted",
+      "attempt": 1,
+      "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+    },
+    {
+      "id": "showcase-cache-short-answer",
+      "condition": "baseline",
+      "attempt": 1,
+      "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+    },
+    {
+      "id": "showcase-cache-short-answer",
+      "condition": "baseline",
+      "attempt": 2,
+      "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+    }
+  ],
+  "cases": [
+    {
+      "id": "showcase-upload-retry-result",
+      "title": "修复结果：上传重试现在怎样",
+      "prompt": "开发者的问题：\n上传重试这块现在怎么样？\n\n工作记录：\n- 调查记录先后查看了 ui/UploadPanel.tsx 和 upload/retry.ts，原先点击重试会把整个批次重新发送，包括已经成功的文件。\n- 两个文件现已改为只为失败项发起新请求，成功项保留原有结果，取消的项也不会重试。\n- 记录中 pnpm test upload/retry.test.ts 的“只重试失败项”“全成功时不重发”“取消后不重试”三项用例通过。\n- 本地浏览器演练记录有 3 个文件、其中 1 个失败，点击重试后网络面板只出现失败项的 1 个新请求。\n- 没有真实网络中断后恢复的验证记录，也没有生产环境记录。",
+      "facts": [
+        "调查记录先后查看了 ui/UploadPanel.tsx 和 upload/retry.ts，原先点击重试会把整个批次重新发送，包括已经成功的文件。",
+        "两个文件现已改为只为失败项发起新请求，成功项保留原有结果，取消的项也不会重试。",
+        "记录中 pnpm test upload/retry.test.ts 的“只重试失败项”“全成功时不重发”“取消后不重试”三项用例通过。",
+        "本地浏览器演练记录有 3 个文件、其中 1 个失败，点击重试后网络面板只出现失败项的 1 个新请求。",
+        "没有真实网络中断后恢复的验证记录，也没有生产环境记录。"
+      ],
+      "checks": [
+        "首段能看出只重试失败项的结果，以及本地演练不能代替网络中断恢复和生产验证。",
+        "解释成功项保留结果和取消项不重试，保留命令、三类用例及 3 个文件中 1 个失败的演练范围。",
+        "不按查看文件顺序写流水账，不用“批次状态协同已闭环”代替机制。"
+      ],
+      "forbidden": [
+        "声称整个上传系统或生产恢复已验证；增加自动重试、后端幂等或断点续传等未给定机制。"
+      ],
+      "baseline": {
+        "ok": true,
+        "text": "上传重试已修复，现有记录显示符合预期：\n\n- **只重试失败项**：`ui/UploadPanel.tsx` 和 `upload/retry.ts` 已修改，不再重发整个批次；成功项保留原有结果，取消项也不会重试。\n- **测试通过**：`pnpm test upload/retry.test.ts` 中“只重试失败项”“全成功时不重发”“取消后不重试”三项用例均通过。\n- **本地浏览器验证通过**：3 个文件中 1 个失败，点击重试后，网络面板只出现该失败项的 1 个新请求。\n\n目前还缺少**真实断网恢复场景**和**生产环境**的验证记录，所以可以确认本地功能已修复，但还不能说线上已验证。",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "上传重试已修复，现有记录显示符合预期：\n\n- **只重试失败项**：`ui/UploadPanel.tsx` 和 `upload/retry.ts` 已修改，不再重发整个批次；成功项保留原有结果，取消项也不会重试。\n- **测试通过**：`pnpm test upload/retry.test.ts` 中“只重试失败项”“全成功时不重发”“取消后不重试”三项用例均通过。\n- **本地浏览器验证通过**：3 个文件中 1 个失败，点击重试后，网络面板只出现该失败项的 1 个新请求。\n\n目前还缺少**真实断网恢复场景**和**生产环境**的验证记录，所以可以确认本地功能已修复，但还不能说线上已验证。"
+          }
+        ]
+      },
+      "assisted": {
+        "ok": true,
+        "attempts": [
+          {
+            "ok": false,
+            "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+          },
+          {
+            "ok": true,
+            "text": "上传重试已改为**只重试失败文件**，成功项保留原有结果，取消项不会重试。单测和本地浏览器演练都支持这一行为；但尚未验证真实断网恢复场景，也没有生产环境验证记录。\n\n具体依据：\n- `ui/UploadPanel.tsx` 和 `upload/retry.ts` 已修改，不再像原来那样重发整个批次。\n- `pnpm test upload/retry.test.ts` 中，“只重试失败项”“全成功时不重发”“取消后不重试”三项用例通过。\n- 本地浏览器演练中，3 个文件里 1 个失败，点击重试后，网络面板只出现该失败文件的 1 个新请求。\n\n如果要确认断网恢复后也能正常重试，下一步还需要补这条场景验证。"
+          }
+        ],
+        "text": "上传重试已改为**只重试失败文件**，成功项保留原有结果，取消项不会重试。单测和本地浏览器演练都支持这一行为；但尚未验证真实断网恢复场景，也没有生产环境验证记录。\n\n具体依据：\n- `ui/UploadPanel.tsx` 和 `upload/retry.ts` 已修改，不再像原来那样重发整个批次。\n- `pnpm test upload/retry.test.ts` 中，“只重试失败项”“全成功时不重发”“取消后不重试”三项用例通过。\n- 本地浏览器演练中，3 个文件里 1 个失败，点击重试后，网络面板只出现该失败文件的 1 个新请求。\n\n如果要确认断网恢复后也能正常重试，下一步还需要补这条场景验证。"
+      },
+      "observation": "辅助组把本地已验证与断网恢复/生产未验证放在首段，判断边界更早可见；基线也交代了限制，但放在末尾。辅助组末尾再次提醒断网验证，仍有轻微重复。"
+    },
+    {
+      "id": "showcase-save-diagnosis-uncertain",
+      "title": "未确认原因：保存失败是不是数据库慢",
+      "prompt": "开发者的问题：\n这几次保存失败是不是数据库太慢？\n\n工作记录：\n- api/save.ts 的失败记录只包含错误原文 ECONNRESET，没有失败请求的数据库查询耗时或连接池等待记录。\n- 另外 12 条成功请求的查询耗时在 40–70 ms，这批成功记录没有覆盖失败请求。\n- 反向代理访问日志尚未拿到，当前无法判断连接由哪一层关闭。\n- 没有确认数据库、反向代理或客户端中的任何一个是根因。",
+      "facts": [
+        "api/save.ts 的失败记录只包含错误原文 ECONNRESET，没有失败请求的数据库查询耗时或连接池等待记录。",
+        "另外 12 条成功请求的查询耗时在 40–70 ms，这批成功记录没有覆盖失败请求。",
+        "反向代理访问日志尚未拿到，当前无法判断连接由哪一层关闭。",
+        "没有确认数据库、反向代理或客户端中的任何一个是根因。"
+      ],
+      "checks": [
+        "明确当前不能确认数据库是原因，也不能用成功请求的耗时排除失败请求中的数据库问题。",
+        "保留 ECONNRESET、12 条成功请求、40–70 ms 及缺少失败请求和代理日志的限制。",
+        "用具体的连接关闭和缺失记录解释未知，不虚构根因或写成完整排障手册。"
+      ],
+      "forbidden": [
+        "断言数据库已被排除或反向代理就是根因；将成功样本耗时说成失败请求耗时。"
+      ],
+      "baseline": {
+        "ok": true,
+        "text": "目前不能认定是数据库太慢，现有记录不足以定位根因。\n\n- 失败请求只记录了 `ECONNRESET`，它说明连接被重置，但不能据此判断是数据库慢，或是哪一层关闭了连接。\n- 另外 12 条成功请求的查询耗时为 40–70 ms，只能说明这些成功请求的查询表现，不能代表失败请求。\n- 失败请求缺少数据库查询耗时、连接池等待记录，反向代理访问日志也尚未拿到。\n\n建议优先按请求 ID 对齐失败请求的应用、反向代理和数据库记录，补查查询耗时、连接池等待及各层超时／断连信息，再判断是否与数据库性能有关。目前数据库、反向代理和客户端都尚未被确认是根因。",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "目前不能认定是数据库太慢，现有记录不足以定位根因。\n\n- 失败请求只记录了 `ECONNRESET`，它说明连接被重置，但不能据此判断是数据库慢，或是哪一层关闭了连接。\n- 另外 12 条成功请求的查询耗时为 40–70 ms，只能说明这些成功请求的查询表现，不能代表失败请求。\n- 失败请求缺少数据库查询耗时、连接池等待记录，反向代理访问日志也尚未拿到。\n\n建议优先按请求 ID 对齐失败请求的应用、反向代理和数据库记录，补查查询耗时、连接池等待及各层超时／断连信息，再判断是否与数据库性能有关。目前数据库、反向代理和客户端都尚未被确认是根因。"
+          }
+        ]
+      },
+      "assisted": {
+        "ok": true,
+        "text": "目前不能判断这几次保存失败是不是数据库太慢。失败记录只有 `ECONNRESET`，说明发生了连接重置，但不足以判断连接由哪一层关闭，也不能据此认定数据库是根因。\n\n- `api/save.ts` 没有记录失败请求的数据库查询耗时或连接池等待时间，无法确认这些请求是否卡在数据库。\n- 另外 12 条成功请求的查询耗时为 **40–70 ms**，但它们不包含失败请求，不能用来排除失败时数据库变慢的可能。\n- 反向代理访问日志尚未拿到，因此目前也无法确认是数据库、反向代理还是客户端导致了断连。\n\n下一步应优先拿到失败请求对应的反向代理日志，并补充查询耗时、连接池等待时间记录，再判断是否需要针对数据库做性能排查。",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "目前不能判断这几次保存失败是不是数据库太慢。失败记录只有 `ECONNRESET`，说明发生了连接重置，但不足以判断连接由哪一层关闭，也不能据此认定数据库是根因。\n\n- `api/save.ts` 没有记录失败请求的数据库查询耗时或连接池等待时间，无法确认这些请求是否卡在数据库。\n- 另外 12 条成功请求的查询耗时为 **40–70 ms**，但它们不包含失败请求，不能用来排除失败时数据库变慢的可能。\n- 反向代理访问日志尚未拿到，因此目前也无法确认是数据库、反向代理还是客户端导致了断连。\n\n下一步应优先拿到失败请求对应的反向代理日志，并补充查询耗时、连接池等待时间记录，再判断是否需要针对数据库做性能排查。"
+          }
+        ]
+      },
+      "observation": "两组都没有把 ECONNRESET 或成功请求的耗时当作根因证据。辅助组点名 api/save.ts，整体清楚程度接近，没有明显优势。"
+    },
+    {
+      "id": "showcase-query-or-cache",
+      "title": "方案取舍：加缓存还是先改查询",
+      "prompt": "开发者的问题：\n订单列表这块上缓存，还是先改查询？\n\n工作记录：\n- 当前列表显示 50 个订单时发出 51 条 SQL，因为每个订单都单独查询一次地址。\n- 候选改动是在原查询中一次取回订单和地址，减少到 1 条 SQL；现有材料没有采用 Redis 的实现。\n- 在 staging 的同一份 1 万订单快照上，改动前后各测 10 次，请求耗时中位数从 420 ms 降到 95 ms。\n- 已接受的业务要求是地址更新后的下一次读取必须看到新地址。Redis 方案尚未设计订单或地址变更后的失效规则，不能默认接受一分钟旧数据。\n- 尚无生产负载测量，不能保证生产环境同样达到 95 ms；也不能仅凭这些记录断言缓存方案永远不合适。",
+      "facts": [
+        "当前列表显示 50 个订单时发出 51 条 SQL，因为每个订单都单独查询一次地址。",
+        "候选改动是在原查询中一次取回订单和地址，减少到 1 条 SQL；现有材料没有采用 Redis 的实现。",
+        "在 staging 的同一份 1 万订单快照上，改动前后各测 10 次，请求耗时中位数从 420 ms 降到 95 ms。",
+        "已接受的业务要求是地址更新后的下一次读取必须看到新地址。Redis 方案尚未设计订单或地址变更后的失效规则，不能默认接受一分钟旧数据。",
+        "尚无生产负载测量，不能保证生产环境同样达到 95 ms；也不能仅凭这些记录断言缓存方案永远不合适。"
+      ],
+      "checks": [
+        "给出当前推荐及其关键取舍，能把重复查地址的具体问题和候选查询改动联系起来。",
+        "保留 50 个订单对应 51 条 SQL、候选 1 条 SQL、staging 样本和中位数 420/95 ms 的范围，不把它写成生产保证。",
+        "不忽略下一次读取必须看到新地址的业务条件，也不声称 Redis 无法满足该条件。"
+      ],
+      "forbidden": [
+        "用泛泛“缓存提高性能”代替当前机制分析；默认允许陈旧一分钟；增加分布式缓存平台或全量上线计划。"
+      ],
+      "baseline": {
+        "ok": true,
+        "text": "**先改查询，暂不上 Redis。**\n\n当前瓶颈很明确：列表返回 50 个订单却执行了 51 条 SQL，每个订单又单独查一次地址，是典型的 **N+1 查询**。候选改动一次取回订单和地址，把 SQL 降到 1 条，直接针对已知问题。\n\n已有测试也支持这个优先级：在 staging 同一份 1 万订单快照上，改动前后各测 10 次，请求耗时中位数从 **420 ms 降到 95 ms，约降低 77%**。不过这只是 staging 的结果，不能承诺生产也能达到 95 ms。\n\n缓存目前还有一致性缺口：业务明确要求**地址更新后的下一次读取必须看到新地址**，而 Redis 方案尚未设计订单、地址变更后的失效规则。因此，不能用“一分钟过期”来默认接受旧数据。\n\n建议顺序：\n1. **先落地查询优化**，验证地址缺失、关联关系等情况下的列表结果和分页正确性。\n2. **上线后测生产表现**，关注请求延迟、数据库负载和 SQL 数量。\n3. 如果仍不达标，再评估缓存；届时先明确如何满足地址更新后的读取一致性，再讨论缓存收益和成本。\n\n结论不是“缓存没用”，而是：**先修已经证实的 N+1 问题，再根据生产数据决定是否需要缓存。**",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "**先改查询，暂不上 Redis。**\n\n当前瓶颈很明确：列表返回 50 个订单却执行了 51 条 SQL，每个订单又单独查一次地址，是典型的 **N+1 查询**。候选改动一次取回订单和地址，把 SQL 降到 1 条，直接针对已知问题。\n\n已有测试也支持这个优先级：在 staging 同一份 1 万订单快照上，改动前后各测 10 次，请求耗时中位数从 **420 ms 降到 95 ms，约降低 77%**。不过这只是 staging 的结果，不能承诺生产也能达到 95 ms。\n\n缓存目前还有一致性缺口：业务明确要求**地址更新后的下一次读取必须看到新地址**，而 Redis 方案尚未设计订单、地址变更后的失效规则。因此，不能用“一分钟过期”来默认接受旧数据。\n\n建议顺序：\n1. **先落地查询优化**，验证地址缺失、关联关系等情况下的列表结果和分页正确性。\n2. **上线后测生产表现**，关注请求延迟、数据库负载和 SQL 数量。\n3. 如果仍不达标，再评估缓存；届时先明确如何满足地址更新后的读取一致性，再讨论缓存收益和成本。\n\n结论不是“缓存没用”，而是：**先修已经证实的 N+1 问题，再根据生产数据决定是否需要缓存。**"
+          }
+        ]
+      },
+      "assisted": {
+        "ok": true,
+        "text": "**建议先改查询，不先上 Redis。** 当前明确的问题是每页 50 个订单会发出 51 条 SQL：查一次订单，再逐个查地址。一次取回订单和地址可将其减少到 1 条 SQL，staging 数据也支持这个方向；但还不能保证生产请求同样达到 95 ms。\n\n依据是：\n- **直接消除重复查询已有明显收益**：在 staging 同一份 1 万订单快照上，改动前后各测 10 次，请求耗时中位数从 **420 ms 降到 95 ms**，约降低 77%。\n- **缓存目前还不能满足已接受的业务要求**：地址更新后的下一次读取必须看到新地址。Redis 方案尚未设计订单或地址变更后的失效规则，不能用“允许缓存一分钟”替代这个要求。\n\n下一步先推进合并查询，并测量生产负载下的表现。如果仍有性能瓶颈，再评估缓存，同时明确如何保证更新后的下一次读取看到新地址。**这不是缓存永远不合适，而是当前查询优化有证据，缓存的一致性方案尚未明确。**",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "**建议先改查询，不先上 Redis。** 当前明确的问题是每页 50 个订单会发出 51 条 SQL：查一次订单，再逐个查地址。一次取回订单和地址可将其减少到 1 条 SQL，staging 数据也支持这个方向；但还不能保证生产请求同样达到 95 ms。\n\n依据是：\n- **直接消除重复查询已有明显收益**：在 staging 同一份 1 万订单快照上，改动前后各测 10 次，请求耗时中位数从 **420 ms 降到 95 ms**，约降低 77%。\n- **缓存目前还不能满足已接受的业务要求**：地址更新后的下一次读取必须看到新地址。Redis 方案尚未设计订单或地址变更后的失效规则，不能用“允许缓存一分钟”替代这个要求。\n\n下一步先推进合并查询，并测量生产负载下的表现。如果仍有性能瓶颈，再评估缓存，同时明确如何保证更新后的下一次读取看到新地址。**这不是缓存永远不合适，而是当前查询优化有证据，缓存的一致性方案尚未明确。**"
+          }
+        ]
+      },
+      "observation": "两组都先推荐改查询，也都保留了样本和一致性条件。辅助组少了基线的三步推进清单，但仍重复了一次结论；“缓存目前还不能满足”应谨慎理解为当前方案未证明满足，而不是 Redis 本身不能满足。"
+    },
+    {
+      "id": "showcase-checks-mixed-result",
+      "title": "检查结果：测试通过但构建失败",
+      "prompt": "开发者的问题：\n刚才跑的检查是什么结果？\n\n工作记录：\n- 记录中的 pnpm test 有 24/24 项通过。\n- 随后 pnpm build 失败，错误原文为 \"src/api/order.ts:87 TS2322: Type 'string | undefined' is not assignable to type 'string'.\"。\n- 还没有修复或复跑该构建错误，也没有证据说明这个错误在改动前是否存在。\n- 没有部署记录。",
+      "facts": [
+        "记录中的 pnpm test 有 24/24 项通过。",
+        "随后 pnpm build 失败，错误原文为 \"src/api/order.ts:87 TS2322: Type 'string | undefined' is not assignable to type 'string'.\"。",
+        "还没有修复或复跑该构建错误，也没有证据说明这个错误在改动前是否存在。",
+        "没有部署记录。"
+      ],
+      "checks": [
+        "开头同时交代测试通过、构建失败，不把检查统称为通过或基本完成。",
+        "保留 24/24、两个命令和报错原文，解释可为 undefined 的值被用在要求 string 的位置，不编造具体变量。",
+        "不声称错误已修好、是历史遗留或已经部署。"
+      ],
+      "forbidden": [
+        "只报成功测试；把构建失败写成未验证；用“类型契约协同问题”替代具体含义。"
+      ],
+      "baseline": {
+        "ok": true,
+        "attempts": [
+          {
+            "ok": false,
+            "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+          },
+          {
+            "ok": true,
+            "text": "根据工作记录，检查结果如下：\n\n- **测试通过**：`pnpm test`，24/24 项通过。\n- **构建失败**：`pnpm build` 在 `src/api/order.ts:87` 报错：\n  ```text\n  TS2322: Type 'string | undefined' is not assignable to type 'string'.\n  ```\n- 该构建错误尚未修复或复跑，目前无法确认它是否在本次改动前就已存在。\n- 没有部署记录。"
+          }
+        ],
+        "text": "根据工作记录，检查结果如下：\n\n- **测试通过**：`pnpm test`，24/24 项通过。\n- **构建失败**：`pnpm build` 在 `src/api/order.ts:87` 报错：\n  ```text\n  TS2322: Type 'string | undefined' is not assignable to type 'string'.\n  ```\n- 该构建错误尚未修复或复跑，目前无法确认它是否在本次改动前就已存在。\n- 没有部署记录。"
+      },
+      "assisted": {
+        "ok": true,
+        "text": "单元测试全部通过（24/24），但构建失败，因此目前不能说检查全部通过。\n\n- `pnpm test`：24/24 项通过。\n- `pnpm build`：报错 `src/api/order.ts:87 TS2322: Type 'string | undefined' is not assignable to type 'string'.`，即把可能为 `undefined` 的值赋给了要求为 `string` 的位置。\n\n该构建错误尚未修复或复跑，也无法确认它是否在本次改动前就已存在。没有部署记录。",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "单元测试全部通过（24/24），但构建失败，因此目前不能说检查全部通过。\n\n- `pnpm test`：24/24 项通过。\n- `pnpm build`：报错 `src/api/order.ts:87 TS2322: Type 'string | undefined' is not assignable to type 'string'.`，即把可能为 `undefined` 的值赋给了要求为 `string` 的位置。\n\n该构建错误尚未修复或复跑，也无法确认它是否在本次改动前就已存在。没有部署记录。"
+          }
+        ]
+      },
+      "observation": "辅助组第一句同时给出 24/24 测试通过和构建失败，完整保留同一行报错。基线也如实报告失败，但先用了引入句，并把报错拆成文件位置与错误文本。"
+    },
+    {
+      "id": "showcase-migration-blocked",
+      "title": "真实进度：解析已做好，写入契约待定",
+      "prompt": "开发者的问题：\n迁移工具做到哪了？\n\n工作记录：\n- CSV 解析部分已实现；构造记录中的正常行和坏行共 6 个解析用例通过。\n- 数据库写入部分尚未实现，没有实际执行迁移。\n- 输入中出现重复邮箱时，应跳过、更新已有记录还是停止整批，需要产品负责人决定；当前没有已接受的选择，三种选择会改变迁移结果。\n- 当前阻塞是重复记录处理规则未定，不是环境或数据库连接不可用。",
+      "facts": [
+        "CSV 解析部分已实现；构造记录中的正常行和坏行共 6 个解析用例通过。",
+        "数据库写入部分尚未实现，没有实际执行迁移。",
+        "输入中出现重复邮箱时，应跳过、更新已有记录还是停止整批，需要产品负责人决定；当前没有已接受的选择，三种选择会改变迁移结果。",
+        "当前阻塞是重复记录处理规则未定，不是环境或数据库连接不可用。"
+      ],
+      "checks": [
+        "清楚区分解析完成、写入未实现和迁移未执行，说明阻塞的具体业务决定。",
+        "保留 6 个解析用例及重复邮箱的三种待决结果，不自行选一种或编造完成时间。",
+        "不把技术进度包装成“迁移链路基本闭环”。"
+      ],
+      "forbidden": [
+        "报告迁移已完成、只差环境验证，或擅自采用更新策略推进写入。"
+      ],
+      "baseline": {
+        "ok": true,
+        "text": "目前迁移工具完成了 **CSV 解析部分**，数据库写入还没实现，**也尚未实际执行迁移**。\n\n- **已完成**：构造的正常行和坏行共 6 个解析用例均通过。\n- **待实现**：数据库写入部分。\n- **当前阻塞**：输入中出现重复邮箱时的处理规则尚未确定，需要产品负责人决定是跳过、更新已有记录，还是停止整批。三种方案会产生不同的迁移结果，目前没有已接受的选择。\n\n下一步需要先确认重复记录处理规则，再实现数据库写入并验证迁移流程。当前阻塞不是环境或数据库连接不可用。",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "目前迁移工具完成了 **CSV 解析部分**，数据库写入还没实现，**也尚未实际执行迁移**。\n\n- **已完成**：构造的正常行和坏行共 6 个解析用例均通过。\n- **待实现**：数据库写入部分。\n- **当前阻塞**：输入中出现重复邮箱时的处理规则尚未确定，需要产品负责人决定是跳过、更新已有记录，还是停止整批。三种方案会产生不同的迁移结果，目前没有已接受的选择。\n\n下一步需要先确认重复记录处理规则，再实现数据库写入并验证迁移流程。当前阻塞不是环境或数据库连接不可用。"
+          }
+        ]
+      },
+      "assisted": {
+        "ok": true,
+        "attempts": [
+          {
+            "ok": false,
+            "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+          },
+          {
+            "ok": true,
+            "text": "目前只完成了 CSV 解析，数据库写入尚未实现，也没有实际执行过迁移。当前阻塞是**重复邮箱的处理规则未定**，不是环境或数据库连接不可用。\n\n- **已验证**：构造的正常行、坏行共 6 个解析用例通过；这只能说明这些解析用例通过，不能说明迁移流程已可用。\n- **待产品负责人决定**：重复邮箱应跳过、更新已有记录，还是停止整批。目前三种方案都未获确认，且会产生不同的迁移结果。\n\n下一步需要先确定重复邮箱规则，再实现数据库写入并验证实际迁移结果。"
+          }
+        ],
+        "text": "目前只完成了 CSV 解析，数据库写入尚未实现，也没有实际执行过迁移。当前阻塞是**重复邮箱的处理规则未定**，不是环境或数据库连接不可用。\n\n- **已验证**：构造的正常行、坏行共 6 个解析用例通过；这只能说明这些解析用例通过，不能说明迁移流程已可用。\n- **待产品负责人决定**：重复邮箱应跳过、更新已有记录，还是停止整批。目前三种方案都未获确认，且会产生不同的迁移结果。\n\n下一步需要先确定重复邮箱规则，再实现数据库写入并验证实际迁移结果。"
+      },
+      "observation": "两组都清楚区分解析、写入和实际迁移，也没有替产品选重复邮箱策略。辅助组把具体阻塞移到首段，但仍有“这只能说明”的解释，不能说整体明显更自然。"
+    },
+    {
+      "id": "showcase-three-work-items",
+      "title": "多项汇报：哪些已完成，哪些还没证据",
+      "prompt": "开发者的问题：\n这三件事现在分别到哪了，哪些能交给我看？\n\n工作记录：\n- 第一项是列表长文件名显示，ui/FileRow.tsx 已改为单行省略，并在悬停时显示完整路径；本地 Chrome 和 Firefox 的人工检查均符合这两项要求。\n- 第二项是 CSV 中文显示，export/csv.ts 已加 UTF-8 BOM，4 个文件生成用例通过；尚未用 Excel 打开导出文件，不能据此确认 Excel 里的中文显示已修好。\n- 第三项是 SDK 升级，仅完成接口差异调查，发现两个调用点需要调整；没有改代码、安装新版本或执行兼容性检查。\n- 三项都没有部署记录。",
+      "facts": [
+        "第一项是列表长文件名显示，ui/FileRow.tsx 已改为单行省略，并在悬停时显示完整路径；本地 Chrome 和 Firefox 的人工检查均符合这两项要求。",
+        "第二项是 CSV 中文显示，export/csv.ts 已加 UTF-8 BOM，4 个文件生成用例通过；尚未用 Excel 打开导出文件，不能据此确认 Excel 里的中文显示已修好。",
+        "第三项是 SDK 升级，仅完成接口差异调查，发现两个调用点需要调整；没有改代码、安装新版本或执行兼容性检查。",
+        "三项都没有部署记录。"
+      ],
+      "checks": [
+        "分项说明可以看的本地 UI 结果、可检查但 Excel 显示未验证的 CSV 改动，以及尚无实现的 SDK 升级。",
+        "不把部分完成平均成“三项基本完成”，保留两种浏览器、4 个用例、两个待改调用点和部署范围。",
+        "说明 BOM 若需要解释就简短解释，不拿“编码治理能力落地”代替文件变化。"
+      ],
+      "forbidden": [
+        "宣称 Excel 显示已验证、SDK 升级已实现，或者暗示可以直接看已部署的线上结果。"
+      ],
+      "baseline": {
+        "ok": true,
+        "text": "目前三项的进度和可交付范围如下：\n\n| 事项 | 当前进度 | 现在能交给你看的内容 |\n|---|---|---|\n| **列表长文件名显示** | `ui/FileRow.tsx` 已改为单行省略，悬停显示完整路径；本地 Chrome、Firefox 人工检查均通过。 | **可以交付代码审阅和本地验收**。两项显示要求已在本地验证，但未部署。 |\n| **CSV 中文显示** | `export/csv.ts` 已添加 UTF-8 BOM，4 个文件生成用例通过；尚未用 Excel 打开验证。 | **可以交付代码审阅和导出文件验证**，但不能认定 Excel 中文显示已修复；还需在 Excel 中验收。 |\n| **SDK 升级** | 仅完成接口差异调查，发现两个调用点需要调整；未改代码、安装新版本或做兼容性检查。 | **只能先看调查结论**，还没有可验收的升级实现。 |\n\n**结论：第一项可先验收；第二项可先审阅、补 Excel 验证；第三项目前仅能评审调查结果。三项均无部署记录，不能视为已上线。**",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "目前三项的进度和可交付范围如下：\n\n| 事项 | 当前进度 | 现在能交给你看的内容 |\n|---|---|---|\n| **列表长文件名显示** | `ui/FileRow.tsx` 已改为单行省略，悬停显示完整路径；本地 Chrome、Firefox 人工检查均通过。 | **可以交付代码审阅和本地验收**。两项显示要求已在本地验证，但未部署。 |\n| **CSV 中文显示** | `export/csv.ts` 已添加 UTF-8 BOM，4 个文件生成用例通过；尚未用 Excel 打开验证。 | **可以交付代码审阅和导出文件验证**，但不能认定 Excel 中文显示已修复；还需在 Excel 中验收。 |\n| **SDK 升级** | 仅完成接口差异调查，发现两个调用点需要调整；未改代码、安装新版本或做兼容性检查。 | **只能先看调查结论**，还没有可验收的升级实现。 |\n\n**结论：第一项可先验收；第二项可先审阅、补 Excel 验证；第三项目前仅能评审调查结果。三项均无部署记录，不能视为已上线。**"
+          }
+        ]
+      },
+      "assisted": {
+        "ok": true,
+        "attempts": [
+          {
+            "ok": false,
+            "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+          },
+          {
+            "ok": true,
+            "text": "**第一项可以交给你验收；第二项可以交代码审查，但 Excel 中文显示仍待验证；第三项目前只能交接口差异调查结果，还没有升级实现。三项均无部署记录。**\n\n| 事项 | 当前进度 | 可以交给你看的内容 |\n|---|---|---|\n| 列表长文件名显示 | `ui/FileRow.tsx` 已改为单行省略，悬停显示完整路径；本地 Chrome、Firefox 人工检查均符合要求 | 可以验收这两项显示行为 |\n| CSV 中文显示 | `export/csv.ts` 已添加 UTF-8 BOM，4 个文件生成用例通过；尚未用 Excel 打开导出文件 | 可以审查代码和生成用例；要确认 Excel 中文显示是否修好，还需用 Excel 实际打开验证 |\n| SDK 升级 | 仅完成接口差异调查，发现两个调用点需要调整；未改代码、未安装新版本，也未执行兼容性检查 | 可以审阅调查结果；还不能验收升级，需要完成调用点调整、安装新版本并检查兼容性 |"
+          }
+        ],
+        "text": "**第一项可以交给你验收；第二项可以交代码审查，但 Excel 中文显示仍待验证；第三项目前只能交接口差异调查结果，还没有升级实现。三项均无部署记录。**\n\n| 事项 | 当前进度 | 可以交给你看的内容 |\n|---|---|---|\n| 列表长文件名显示 | `ui/FileRow.tsx` 已改为单行省略，悬停显示完整路径；本地 Chrome、Firefox 人工检查均符合要求 | 可以验收这两项显示行为 |\n| CSV 中文显示 | `export/csv.ts` 已添加 UTF-8 BOM，4 个文件生成用例通过；尚未用 Excel 打开导出文件 | 可以审查代码和生成用例；要确认 Excel 中文显示是否修好，还需用 Excel 实际打开验证 |\n| SDK 升级 | 仅完成接口差异调查，发现两个调用点需要调整；未改代码、未安装新版本，也未执行兼容性检查 | 可以审阅调查结果；还不能验收升级，需要完成调用点调整、安装新版本并检查兼容性 |"
+      },
+      "observation": "变化最容易看见：辅助组开头直接说第一项可验收、第二项待 Excel 验证、第三项只有调查结果；基线把这段判断放在表格后。两组事实边界都保留。"
+    },
+    {
+      "id": "showcase-cache-short-answer",
+      "title": "短答：是否需要手动清缓存",
+      "prompt": "开发者的问题：\n这次更新后我得手动清缓存吗？\n\n工作记录：\n- 构造改动只修改 ui/SaveButton.tsx 的按钮文案，没有更改运行配置或缓存键。\n- 该次变更的使用说明明确无需手动清缓存，正常刷新页面就会显示新文案。",
+      "facts": [
+        "构造改动只修改 ui/SaveButton.tsx 的按钮文案，没有更改运行配置或缓存键。",
+        "该次变更的使用说明明确无需手动清缓存，正常刷新页面就会显示新文案。"
+      ],
+      "checks": [
+        "直接回答不需要，并说正常刷新即可，不塞入不存在的验证或复杂缓存教学。",
+        "不强套结论、依据、风险、下一步四个小节。"
+      ],
+      "forbidden": [
+        "建议清空浏览器或重置缓存；编造已清缓存、生产部署或自动失效机制。"
+      ],
+      "baseline": {
+        "ok": true,
+        "attempts": [
+          {
+            "ok": false,
+            "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+          },
+          {
+            "ok": false,
+            "error": "Concurrency limit exceeded for user, please retry later (gateway_concurrency_limit)"
+          },
+          {
+            "ok": true,
+            "text": "不用手动清缓存。这次更新只修改了 `ui/SaveButton.tsx` 的按钮文案，没有改动运行配置或缓存键。按使用说明，正常刷新页面就能看到新文案。"
+          }
+        ],
+        "text": "不用手动清缓存。这次更新只修改了 `ui/SaveButton.tsx` 的按钮文案，没有改动运行配置或缓存键。按使用说明，正常刷新页面就能看到新文案。"
+      },
+      "assisted": {
+        "ok": true,
+        "text": "不用手动清缓存，正常刷新页面就会显示新文案。这次只修改了 `ui/SaveButton.tsx` 的按钮文案，没有更改运行配置或缓存键。",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "不用手动清缓存，正常刷新页面就会显示新文案。这次只修改了 `ui/SaveButton.tsx` 的按钮文案，没有更改运行配置或缓存键。"
+          }
+        ]
+      },
+      "observation": "两组都直接回答不需要手动清缓存，也都给出正常刷新、文件路径和缓存键未变的说明。辅助组把正常刷新放进首句，整体篇幅和信息量接近，没有明显收益。"
+    },
+    {
+      "id": "showcase-explain-local-revision",
+      "title": "陌生项目术语：版本号如何避免误报已保存",
+      "prompt": "开发者的问题：\n你说的 shadow revision 是什么，为什么能避免误报已保存？\n\n工作记录：\n- shadow revision 是项目里对客户端最高本地编辑版本号 localRevision 的称呼，不是数据库事务、时间戳或另一个服务。\n- savedRevision 记录服务器已确认保存的最高版本号；收到旧版本响应时只取 savedRevision 与响应版本号的较大值，不能把已保存版本倒退。\n- UI 只有在 savedRevision 等于 localRevision 时才显示“已保存”。\n- 给定例子中 localRevision 已为 42，收到的是第 40 版保存响应，且之前 savedRevision 小于 40；此时 savedRevision 更新为 40，第 41、42 版编辑仍待保存。\n- 这些机制没有提供跨设备冲突合并或浏览器崩溃恢复的证据，不能由此声称完整离线同步已解决。",
+      "facts": [
+        "shadow revision 是项目里对客户端最高本地编辑版本号 localRevision 的称呼，不是数据库事务、时间戳或另一个服务。",
+        "savedRevision 记录服务器已确认保存的最高版本号；收到旧版本响应时只取 savedRevision 与响应版本号的较大值，不能把已保存版本倒退。",
+        "UI 只有在 savedRevision 等于 localRevision 时才显示“已保存”。",
+        "给定例子中 localRevision 已为 42，收到的是第 40 版保存响应，且之前 savedRevision 小于 40；此时 savedRevision 更新为 40，第 41、42 版编辑仍待保存。",
+        "这些机制没有提供跨设备冲突合并或浏览器崩溃恢复的证据，不能由此声称完整离线同步已解决。"
+      ],
+      "checks": [
+        "解释项目别名与 localRevision 的对应关系，用 40/42 的具体状态解释为什么旧响应不能让新编辑被误报为已保存。",
+        "保留 savedRevision 只取较大值、UI 相等判定和两个变量名，不把版本号改成时间戳或发明新服务。",
+        "不给有工程基础的开发者扩写 token、事务等无关基础概念，也不推出跨设备或崩溃恢复保证。"
+      ],
+      "forbidden": [
+        "声称收到任意保存响应就显示已保存；丢掉 41、42 仍待保存的条件；将项目别名解释成另一套已实现平台。"
+      ],
+      "baseline": {
+        "ok": true,
+        "text": "这里的 **shadow revision**，就是项目里对客户端最高本地编辑版本号 `localRevision` 的称呼。它不是数据库事务、时间戳，也不是另一个服务。\n\n它和 `savedRevision` 分别回答两个问题：\n\n- `localRevision`：用户在本地已经编辑到哪一版？\n- `savedRevision`：服务器已经确认保存到哪一版？\n\n收到保存响应时，更新规则是：\n\n```js\nsavedRevision = Math.max(savedRevision, response.revision);\n```\n\n这样，较旧的响应即使晚到，也不会让已确认保存的版本号倒退。而 UI **只有在 `savedRevision === localRevision` 时才显示“已保存”**，不能仅凭“某个保存请求成功了”就显示。\n\n例如，本地已经编辑到 **42**，这时才收到第 **40** 版的保存成功响应，且之前 `savedRevision < 40`：\n\n```text\nlocalRevision = 42\nsavedRevision = 40\n```\n\n这只说明第 40 版已被服务器确认，第 41、42 版编辑仍待保存，所以 UI 不能显示“已保存”。这就避免了把“旧内容保存成功”误报成“当前内容已保存”。\n\n不过，这套机制解决的是保存状态的版本判断，并不意味着跨设备冲突合并或浏览器崩溃恢复等完整离线同步问题也已解决。",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "这里的 **shadow revision**，就是项目里对客户端最高本地编辑版本号 `localRevision` 的称呼。它不是数据库事务、时间戳，也不是另一个服务。\n\n它和 `savedRevision` 分别回答两个问题：\n\n- `localRevision`：用户在本地已经编辑到哪一版？\n- `savedRevision`：服务器已经确认保存到哪一版？\n\n收到保存响应时，更新规则是：\n\n```js\nsavedRevision = Math.max(savedRevision, response.revision);\n```\n\n这样，较旧的响应即使晚到，也不会让已确认保存的版本号倒退。而 UI **只有在 `savedRevision === localRevision` 时才显示“已保存”**，不能仅凭“某个保存请求成功了”就显示。\n\n例如，本地已经编辑到 **42**，这时才收到第 **40** 版的保存成功响应，且之前 `savedRevision < 40`：\n\n```text\nlocalRevision = 42\nsavedRevision = 40\n```\n\n这只说明第 40 版已被服务器确认，第 41、42 版编辑仍待保存，所以 UI 不能显示“已保存”。这就避免了把“旧内容保存成功”误报成“当前内容已保存”。\n\n不过，这套机制解决的是保存状态的版本判断，并不意味着跨设备冲突合并或浏览器崩溃恢复等完整离线同步问题也已解决。"
+          }
+        ]
+      },
+      "assisted": {
+        "ok": true,
+        "text": "**shadow revision 就是客户端当前最高的本地编辑版本号 `localRevision`**，只是项目里的叫法，不是数据库事务、时间戳或另一个服务。它能避免误报“已保存”，是因为 UI 会比较“本地最新编辑到哪一版”和“服务器已确认保存到哪一版”，而不是收到任意一次保存成功响应就显示“已保存”。\n\n具体规则是：\n\n- `localRevision`：客户端最高的本地编辑版本号。\n- `savedRevision`：服务器已确认保存的最高版本号。收到保存响应时，更新为 `max(savedRevision, 响应版本号)`，防止旧响应把它倒退。\n- 只有 `savedRevision === localRevision` 时，UI 才显示“已保存”。\n\n例如，本地已经编辑到 **42**，这时收到的是 **第 40 版**的保存成功响应，且此前 `savedRevision < 40`：\n\n```text\nlocalRevision = 42\nsavedRevision = 40\n```\n\n这次响应只证明第 40 版已保存，**第 41、42 版编辑仍待保存**。因为两个版本号不相等，UI 不会把较新的编辑也误报为已保存。\n\n这个机制解决的是保存确认与本地编辑版本的对应问题；它本身不代表跨设备冲突合并或浏览器崩溃恢复已经解决，也不能据此声称完整离线同步已完成。",
+        "attempts": [
+          {
+            "ok": true,
+            "text": "**shadow revision 就是客户端当前最高的本地编辑版本号 `localRevision`**，只是项目里的叫法，不是数据库事务、时间戳或另一个服务。它能避免误报“已保存”，是因为 UI 会比较“本地最新编辑到哪一版”和“服务器已确认保存到哪一版”，而不是收到任意一次保存成功响应就显示“已保存”。\n\n具体规则是：\n\n- `localRevision`：客户端最高的本地编辑版本号。\n- `savedRevision`：服务器已确认保存的最高版本号。收到保存响应时，更新为 `max(savedRevision, 响应版本号)`，防止旧响应把它倒退。\n- 只有 `savedRevision === localRevision` 时，UI 才显示“已保存”。\n\n例如，本地已经编辑到 **42**，这时收到的是 **第 40 版**的保存成功响应，且此前 `savedRevision < 40`：\n\n```text\nlocalRevision = 42\nsavedRevision = 40\n```\n\n这次响应只证明第 40 版已保存，**第 41、42 版编辑仍待保存**。因为两个版本号不相等，UI 不会把较新的编辑也误报为已保存。\n\n这个机制解决的是保存确认与本地编辑版本的对应问题；它本身不代表跨设备冲突合并或浏览器崩溃恢复已经解决，也不能据此声称完整离线同步已完成。"
+          }
+        ]
+      },
+      "observation": "两组都保留变量名、取较大值、40/42 的例子和离线同步边界。辅助组首段就解释 UI 比较逻辑，但整体篇幅和清晰程度接近；未观察到明显收益。"
+    }
+  ],
+  "limits": [
+    "All input project facts and performance/check records are constructed; no product code or tests described in the scenarios were executed.",
+    "One successful sample per condition, no repeated-sampling statistics; request role equality is not independent proof of identical backend model/settings.",
+    "Six gateway concurrency rejections were retained; only failed conditions were retried at reduced concurrency with unchanged inputs.",
+    "Source facts are explicit and bounded; this does not test autonomous evidence collection, long-session work, actual coding success, or retrieval.",
+    "Several baseline answers are already clear and several pairs show little difference; this is not evidence of general superiority."
+  ]
+}

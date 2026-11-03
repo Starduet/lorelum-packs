@@ -1,6 +1,6 @@
 # `agentic-coding` 简体中文阅读版
 
-这里是 `agentic-coding@0.7.0` 的 37 条 Practice 中文 companion，供人类阅读和审查 Pack 的判断质量；新增会话迁移与围绕可行解法组织工作的经验指导。不可变的 `0.6.0` 仍保留原有 35 条。中文内容不参与安装、检索或运行时注入。ID、元数据、反模式 ID 和运行时行为仍以 [`../../practices`](../../practices/) 中的英文 canonical 文件为唯一真源；中英文有冲突时，以英文为准。
+这里是未发布工作树 `agentic-coding@0.8.0` 的 39 条 Practice 中文阅读版。本次新增工程结论汇报与具体表达两条；已发布的 `0.7.0` 仍是原有 37 条，不可变发布内容没有改写。中文内容不参与安装、检索或运行时注入。ID、元数据、反模式 ID 和运行时行为仍以 [`../../practices`](../../practices/) 中的英文 canonical 文件为唯一真源；中英文有冲突时，以英文为准。
 
 ## Pack 简介
 
@@ -11,6 +11,17 @@
 本次修订：全部 Guidance 改写为带停止点的步骤式决策程序；`applies_when` 按检索评测的混淆矩阵改写以区分近邻 Practice；示例补强为冷读者可复述的自包含场景；severity 分为三档（critical=证据与交付诚实，warn=范围与规划，info=惯例）。原"只承诺有理由的工作"与"开工前写停止条件"两条同属开工前范围决策，合并为一条。
 
 `agentic-coding-v0.5.0` 已作为不可变 ref 通过官方 Registry 发布。2026 年 9 月 21 日已用官方安装路径解析该 ref、完成 Pack 解码并读回 34 条 Practice；这只证明安装与物化链路，不证明检索效果或下游 Agent 行为。`agentic-coding-v0.5.1` 为仅元数据发布：目录描述改写以点名 0.5.0 新增的两条规划校准 Practice 的触发时刻，Practice 内容不变；2026 年 9 月 21 日已用官方安装路径解析该 ref（`954324c`）、完成解码并回读 34 条 Practice ID。
+
+## 未发布 0.8.0：向开发者讲清工程结论
+
+- [先把工程结论告诉开发者](practices/delivery/lead-with-engineering-conclusion.md)：先说排查结论、方案建议、实现结果或实际进度，把决定下一步的重要限制放在旁边，再给理由和证据。
+- [用具体动作讲清工程工作](practices/delivery/explain-engineering-work-plainly.md)：说出组件做了什么、为什么有用，不用“机制落地”“生命周期闭环”等标签代替解释；保留准确术语、原文和不确定性。
+
+领域仅限软件工程协作，不是生活问答。已有的完成声明与遗留问题规则仍分别决定“可以声称什么”和“哪些问题必须报告”，这两条不替代它们，也不强制每次回复套模板。
+
+先看[中文工程改写对照](../../references/engineering-communication.md)，包括并发刷新、索引取舍、未确认的超时原因和一句话范围答复。示例事实均为构造；[效果记录](../../../../fixtures/agentic-coding/baselines/engineering-communication-2026-11-02.md)另列实际生成的回答及限制。这次不做 #41 的全库改写或简介结构迁移。
+
+当前内容只可按本地路径安装到隔离 Store 后读取，未新增 Registry 或 tag；下文的官方安装命令仍对应已发布 `0.7.0`。
 
 ## 0.7.0：把工作经验落到具体判断
 
@@ -100,7 +111,7 @@ keyword 改善及旧查询退化、语义准备失败、正文成功提供，但
 另行记录了新方案的排名，以及仅提供目录与明确路由的受控会话。两个会话均在设计决定前读取新正文，
 并保留必要保障；但每组只有一个会话、没有无知识盲测对照、也未部署真实宿主，不证明稳定触发或因果性决策改善。
 
-## 导航（37 条）
+## 导航（39 条）
 
 ### 需求（3）
 
@@ -149,10 +160,12 @@ keyword 改善及旧查询退化、语义准备失败、正文成功提供，但
 - [提交前删掉没有必要的改动](practices/review/run-subtractive-review-before-commit.md)
 - [按审查意见改代码前先确认它成立](practices/review/validate-findings-before-action.md)
 
-### 交付（2）
+### 交付与工程汇报（4）
 
 - [完成声明只说证据证明的部分](practices/delivery/claim-only-supported-outcome.md)
 - [只报告会改变接收方决策的剩余问题](practices/delivery/report-material-residuals.md)
+- [先把工程结论告诉开发者](practices/delivery/lead-with-engineering-conclusion.md)
+- [用具体动作讲清工程工作](practices/delivery/explain-engineering-work-plainly.md)
 
 ### 纠正（1）
 
