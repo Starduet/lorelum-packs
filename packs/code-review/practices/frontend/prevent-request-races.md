@@ -1,0 +1,42 @@
+---
+id: code-review.frontend.prevent-request-races
+title: Check Whether an Old Response Can Replace Current UI State
+stage: review
+severity: warn
+tech_stack: [code-review]
+applies_when: a frontend change permits overlapping requests to write the same view state or changes response ownership and cancellation
+anti_patterns:
+  - id: code-review.frontend.stale-response-wins
+    name: Older response wins a newer interaction
+    description: An earlier request can finish last and replace the results for the user's current input.
+    severity: warn
+---
+
+## When to apply
+
+A changed component starts requests as input, navigation, or dependencies change, and multiple responses may write the same displayed state. Decide whether completion order can contradict the current interaction.
+
+## Guidance
+
+1. Trace the input or navigation that starts each request, the state each response writes, and what the user should see. Determine whether requests can actually overlap.
+2. Consider a reachable order in which the newer request resolves first and the older one resolves later, as well as cancellation and unmount. Inspect request IDs, abort handling, cache keys, and result guards at the actual write.
+3. Compare the resulting view with the product contract. Report a specific stale result, incorrect loading state, or other visible effect only if protections fail to exclude that sequence.
+4. Stop after the relevant response ownership and state writes are understood; do not turn every request into a performance finding.
+
+## Anti-pattern
+
+A search field fires a request for each input. Results for `cat` arrive first, then a slower earlier request for `ca` replaces them while the field still says `cat`. A report that ignores a generation check discarding the earlier response would be a false positive.
+
+## Why
+
+Network completion order does not preserve interaction order. A result valid for the previous input can be wrong for the current screen.
+
+## Exceptions and boundaries
+
+An application may intentionally show an older cached result with a visible stale indicator; use the actual contract. Aborting a request may not guarantee a response handler cannot run, so check the runtime and write guard. Rendering cost and load waterfalls are separate performance decisions.
+
+## Example
+
+The user types `ca`, then `cat`; two requests overlap. The new handler writes every response into the same `results` state without checking the request's query. If `cat` completes first and `ca` completes later, the displayed items no longer match the input. Report the changed write. If a current-request token prevents the older response from writing, do not report this sequence.
+
+Before conducting a review, explicitly load the [review execution contract and workflow](resource:references/review-workflow.md); retrieval does not load it. The designated reviewer makes the substantive judgment.

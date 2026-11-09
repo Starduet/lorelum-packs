@@ -1,0 +1,42 @@
+---
+id: code-review.concurrency.protect-critical-sections
+title: Check Locks Against the Invariant They Protect
+stage: review
+severity: warn
+tech_stack: [code-review]
+applies_when: a change moves shared-state access across a lock boundary, changes lock order, or waits while holding a lock
+anti_patterns:
+  - id: code-review.concurrency.unprotected-invariant
+    name: Critical operation escapes its protection
+    description: Concurrent work can violate a shared invariant or wait indefinitely because lock scope or ordering changed.
+    severity: warn
+---
+
+## When to apply
+
+A diff changes a lock, shared mutable state, critical section, or a wait inside one. Determine whether the actual synchronization still protects the relevant invariant and allows progress.
+
+## Guidance
+
+1. Identify the shared resource, participants, invariant, and lock or atomic operation that protects it. Trace all relevant acquisition and release paths, including error and cancellation.
+2. For an altered lock order or a wait while locked, follow what the awaited operation needs. Construct a feasible order in which participants hold and request the same resources. For a narrowed critical section, show how another participant can act between the read and write.
+3. Check existing serialization, atomic updates, lock reentrancy, and timeout semantics before deciding whether the sequence is possible.
+4. Report the changed line, a specific interleaving or wait cycle, and its effect on data or progress. Stop when the relevant invariant is protected or a reachable violation is established.
+
+## Anti-pattern
+
+A handler holds a mutex while waiting for a worker that must acquire the same mutex to complete. Both wait indefinitely. Merely seeing an `await` while holding a lock, without showing that the awaited path needs the lock or otherwise harms the contract, does not prove a deadlock.
+
+## Why
+
+Mutual exclusion protects only the operations actually covered by the same synchronization. Waiting can also extend lock ownership into work that cannot complete until the lock is released.
+
+## Exceptions and boundaries
+
+A lock may intentionally span asynchronous work when the awaited path does not require it and the latency tradeoff is accepted. Inspect actual callers rather than assuming concurrent access. Task cancellation ownership and stale state transitions are distinct decisions, though a single change can require both reviews.
+
+## Example
+
+An order handler acquires `inventoryLock`, starts a reservation worker, and awaits its result before releasing the lock. The worker must acquire `inventoryLock` to decrement stock and signal completion. Both paths are reachable in the same request, so the new await forms a wait cycle and checkout never completes. If the worker uses an independent resource and no caller needs the lock to make progress, the same syntax is not evidence of that cycle.
+
+Before conducting a review, explicitly load the [review execution contract and workflow](resource:references/review-workflow.md); retrieval does not load it. The designated reviewer makes the substantive judgment.

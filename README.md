@@ -4,6 +4,7 @@ This repository is the official public catalog for installable Lorelum Knowledge
 
 ## Catalog
 
+- [`code-review`](./packs/code-review/README.md) — unreleased candidate with eight diff-triggered review Practices and an explicitly loaded review execution contract. Model routing and permanent instruction loading require harness support.
 - `issue-pr-etiquette@0.1.0` — 12 repository-neutral Practices for filing issues, opening pull requests, and taking part in reviews: single-problem convergence with testable acceptance criteria, cited evidence, gate classification, single declared scope, conventional titles, cold-reviewer PR bodies, diff hygiene, review discipline, and honest AI-assistance disclosure. Bundles issue and PR skeleton templates as `assets/` resources.
   - [简体中文本地化](./packs/issue-pr-etiquette/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `pack-creator@0.2.0` — published release with 27 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Packs, including repository-local project layers. The official Registry resolves the immutable `pack-creator-v0.2.0` ref.

@@ -1,0 +1,260 @@
+fixture_set: code-review-cases
+evaluation_only: true
+description: >-
+  Synthetic, independently authored review scenarios for evaluating the eight code-review
+  Practices. Contracts and surrounding behavior are assumptions of each case, not claims
+  about a real repository or AACR. Diffs use illustrative paths and line numbers. A positive
+  case expects a finding on the changed line; its paired negative case must not produce
+  the specified finding. These are evaluation hypotheses, not runtime instructions or
+  evidence of retrieval or review quality.
+cases:
+  - id: side-effect-failure-positive
+    practice: code-review.side-effects.isolate-noncritical-failures
+    kind: positive
+    contract: A paid order must remain successfully submitted when the optional analytics service is unavailable; analytics is not part of the order transaction.
+    context: save_order commits the order before returning; analytics.send raises on network errors; the endpoint converts an uncaught exception into HTTP 500.
+    diff: |
+      --- a/orders.py
+      +++ b/orders.py
+      @@ -40,2 +40,3 @@
+       order = save_order(request)
+      +analytics.send(order.id)  # new line 41
+       return response(201, order)
+    expected_finding:
+      location: orders.py:41
+      observation: An analytics outage turns a committed order into a 500 response, encouraging clients to retry an order that was already created.
+      minimum_evidence: The committed save, throwing analytics call, and exception-to-500 behavior establish the failure path.
+  - id: side-effect-failure-negative
+    practice: code-review.side-effects.isolate-noncritical-failures
+    kind: negative
+    contract: A paid order must remain successfully submitted when the optional analytics service is unavailable.
+    context: save_order commits the order; enqueue_analytics is a local non-throwing best-effort operation whose failure is reported separately and never affects the response.
+    diff: |
+      --- a/orders.py
+      +++ b/orders.py
+      @@ -40,2 +40,3 @@
+       order = save_order(request)
+      +enqueue_analytics(order.id)  # new line 41
+       return response(201, order)
+    expected_no_finding: Do not claim that an analytics failure changes the order response; the established enqueue contract rules out that path.
+
+  - id: llm-usage-positive
+    practice: code-review.llm.account-for-all-usage
+    kind: positive
+    contract: Every provider call, including a retry, must be charged using the usage reported for that call; a failed call can still return billable usage.
+    context: call_model returns a response with usage and a retryable flag; charge persists usage immediately and has no other caller for these attempts.
+    diff: |
+      --- a/generate.py
+      +++ b/generate.py
+      @@ -21,3 +21,5 @@
+       result = call_model(prompt)
+      +if result.retryable:
+      +    result = call_model(prompt)  # new line 23
+       charge(result.usage)
+       return result
+    expected_finding:
+      location: generate.py:23
+      observation: A retry overwrites the first response before its usage is charged, so billable first-attempt tokens are omitted.
+      minimum_evidence: The first response can have usage, the retry replaces it, and charge receives only the final response.
+  - id: llm-usage-negative
+    practice: code-review.llm.account-for-all-usage
+    kind: negative
+    contract: Every billable provider attempt must be charged using its reported usage.
+    context: call_and_charge charges the returned usage for each invocation before returning, including retryable responses; no other charge is needed.
+    diff: |
+      --- a/generate.py
+      +++ b/generate.py
+      @@ -21,2 +21,4 @@
+       result = call_and_charge(prompt)
+      +if result.retryable:
+      +    result = call_and_charge(prompt)  # new line 23
+       return result
+    expected_no_finding: Do not report uncharged first-attempt usage merely because the local result is overwritten; charging occurs inside each call.
+
+  - id: cancellation-positive
+    practice: code-review.async.preserve-task-cancellation
+    kind: positive
+    contract: Cancelling the parent request must cancel and join its in-flight worker before request cleanup finishes.
+    context: In this Python asyncio service the worker is a separately created task; cancelling the request task does not automatically cancel that worker, and shield prevents cancellation propagating through the await.
+    diff: |
+      --- a/handler.py
+      +++ b/handler.py
+      @@ -12,2 +12,2 @@
+       worker = asyncio.create_task(fetch())
+      -return await worker
+      +return await asyncio.shield(worker)  # new line 13
+    expected_finding:
+      location: handler.py:13
+      observation: When the request is cancelled, the shielded worker keeps running after request cleanup instead of being cancelled and joined.
+      minimum_evidence: The independently created task, shielded await, and absence of cancellation cleanup in this complete handler show the broken lifecycle.
+  - id: cancellation-negative
+    practice: code-review.async.preserve-task-cancellation
+    kind: negative
+    contract: Cancelling the parent request must cancel and join its in-flight worker before request cleanup finishes.
+    context: This complete Python asyncio handler joins the worker in finally, and cancellation is not caught or suppressed.
+    diff: |
+      --- a/handler.py
+      +++ b/handler.py
+      @@ -12,2 +12,6 @@
+       worker = asyncio.create_task(fetch())
+      -return await worker
+      +try:
+      +    return await asyncio.shield(worker)  # new line 14
+      +finally:
+      +    worker.cancel()
+      +    await asyncio.gather(worker, return_exceptions=True)
+    expected_no_finding: Do not flag shielding alone as a leaked task; the finally block cancels and joins the worker while preserving parent cancellation.
+
+  - id: terminal-state-positive
+    practice: code-review.state.prevent-stale-terminal-overwrites
+    kind: positive
+    contract: A job that reaches cancelled or completed is terminal; an older progress callback must never change its state back to running.
+    context: A callback reads a job, then an independent cancellation transaction can commit before the callback's update; update_state writes unconditionally by id.
+    diff: |
+      --- a/jobs.py
+      +++ b/jobs.py
+      @@ -30,2 +30,3 @@
+       job = load_job(job_id)
+      +update_state(job.id, 'running')  # new line 31
+       publish_progress(job.id)
+    expected_finding:
+      location: jobs.py:31
+      observation: A delayed callback can overwrite a concurrently committed cancelled or completed state with running.
+      minimum_evidence: The stale read, possible terminal transition, and unconditional update establish the specific interleaving.
+  - id: terminal-state-negative
+    practice: code-review.state.prevent-stale-terminal-overwrites
+    kind: negative
+    contract: A cancelled or completed job must never return to running.
+    context: compare_and_set_state performs one atomic database update conditioned on the current state being queued or running; terminal states cannot match.
+    diff: |
+      --- a/jobs.py
+      +++ b/jobs.py
+      @@ -30,2 +30,3 @@
+       job = load_job(job_id)
+      +compare_and_set_state(job.id, from_states=['queued', 'running'], to='running')  # new line 31
+       publish_progress(job.id)
+    expected_no_finding: Do not report a stale terminal overwrite; the state predicate is checked atomically at the write.
+
+  - id: critical-section-positive
+    practice: code-review.concurrency.protect-critical-sections
+    kind: positive
+    contract: At most one request may reserve the final unit of a SKU; inventory is shared across threads.
+    context: All reservations use this lock; available and decrement access the same in-memory counter and neither operation locks internally.
+    diff: |
+      --- a/inventory.py
+      +++ b/inventory.py
+      @@ -10,4 +10,4 @@
+       with inventory_lock:
+           enough = available(sku) > 0
+      -    if enough: decrement(sku)
+      +if enough: decrement(sku)  # new line 12
+       return enough
+    expected_finding:
+      location: inventory.py:12
+      observation: Two requests can both observe the last unit under the lock before either decrements outside it, so both reservations succeed.
+      minimum_evidence: The read and write are separated by lock release, and both operate on the shared counter.
+  - id: critical-section-negative
+    practice: code-review.concurrency.protect-critical-sections
+    kind: negative
+    contract: At most one request may reserve the final unit of a SKU.
+    context: reserve_atomic checks availability and decrements in a single atomic database statement shared by every reservation path; the removed lock was process-local.
+    diff: |
+      --- a/inventory.py
+      +++ b/inventory.py
+      @@ -10,2 +10,1 @@
+      -with inventory_lock: return reserve_atomic(sku)
+      +return reserve_atomic(sku)  # new line 10
+    expected_no_finding: Do not infer an oversell solely from removing the local lock; the shared atomic reservation owns the check and mutation.
+
+  - id: delivery-positive
+    practice: code-review.delivery.align-ack-and-idempotency
+    kind: positive
+    contract: A message must be retried until its database effect commits, and redelivery must not apply that effect twice.
+    context: The broker permanently removes a message when ack succeeds; apply_effect and record_processed are committed together in one database transaction keyed by message id.
+    diff: |
+      --- a/consumer.py
+      +++ b/consumer.py
+      @@ -20,3 +20,3 @@
+      +broker.ack(message)  # new line 20
+       with db.transaction():
+           apply_effect_and_record_processed(message)
+      -broker.ack(message)
+    expected_finding:
+      location: consumer.py:20
+      observation: A crash after acknowledgement but before the database commit permanently loses the message and its effect; the idempotency record cannot recover an acknowledged message.
+      minimum_evidence: Acknowledgement removes the message, and the transaction has not committed at the crash point.
+  - id: delivery-negative
+    practice: code-review.delivery.align-ack-and-idempotency
+    kind: negative
+    contract: A message must be retried until its database effect commits, and redelivery must not apply that effect twice.
+    context: The broker redelivers unacknowledged messages. Within one database transaction, a unique message-id insert gates the effect; an existing id skips it. The transaction commits before ack.
+    diff: |
+      --- a/consumer.py
+      +++ b/consumer.py
+      @@ -20,2 +20,3 @@
+       with db.transaction():
+      +    apply_effect_if_unprocessed(message)  # new line 21
+       broker.ack(message)
+    expected_no_finding: Do not claim the commit-to-ack crash window duplicates the effect; redelivery is gated by the committed unique message id.
+
+  - id: frontend-race-positive
+    practice: code-review.frontend.prevent-request-races
+    kind: positive
+    contract: The search results shown must correspond to the latest submitted query, even when requests complete out of order.
+    context: Each call starts an independent request; there is no cancellation or request-version check elsewhere in this complete handler.
+    diff: |
+      --- a/Search.tsx
+      +++ b/Search.tsx
+      @@ -10,2 +10,3 @@
+       async function search(query: string) {
+      +  setResults(await fetchResults(query));  // new line 11
+       }
+    expected_finding:
+      location: Search.tsx:11
+      observation: A slow response for an earlier query can arrive after the newer response and overwrite the current results.
+      minimum_evidence: Independent requests update the same state on completion without checking which query is current.
+  - id: frontend-race-negative
+    practice: code-review.frontend.prevent-request-races
+    kind: negative
+    contract: The search results shown must correspond to the latest submitted query, even when requests complete out of order.
+    context: latestRequest is a persistent ref for this component; every search increments it synchronously and only the matching response updates results.
+    diff: |
+      --- a/Search.tsx
+      +++ b/Search.tsx
+      @@ -10,2 +10,5 @@
+       async function search(query: string) {
+      +  const id = ++latestRequest.current;
+      +  const results = await fetchResults(query);
+      +  if (id === latestRequest.current) setResults(results);  // new line 13
+       }
+    expected_no_finding: Do not flag stale results merely because requests overlap; the persistent request version rejects older completions.
+
+  - id: frontend-cost-positive
+    practice: code-review.frontend.control-render-and-load-cost
+    kind: positive
+    contract: The initial page shows 20 results and must not load or render the remaining records until the user requests another page.
+    context: The endpoint supports limit and offset; fetchAll returns every record, and the component renders every result passed to it. The dataset can contain 100,000 records.
+    diff: |
+      --- a/Results.tsx
+      +++ b/Results.tsx
+      @@ -8,2 +8,2 @@
+      -const results = await fetchPage({ limit: 20, offset: 0 });
+      +const results = await fetchAll();  // new line 8
+       return <ResultList results={results} />;
+    expected_finding:
+      location: Results.tsx:8
+      observation: Initial load now transfers and renders the entire dataset instead of the requested 20 records, violating the loading contract and increasing work with dataset size.
+      minimum_evidence: The changed fetch is unbounded, the renderer consumes all returned records, and the accepted initial-page limit is 20.
+  - id: frontend-cost-negative
+    practice: code-review.frontend.control-render-and-load-cost
+    kind: negative
+    contract: The initial page shows 20 results and must not load or render the remaining records until the user requests another page.
+    context: fetchPage applies limit and offset server-side; ResultList renders only the supplied records. The mapping is linear in the at-most-20 results.
+    diff: |
+      --- a/Results.tsx
+      +++ b/Results.tsx
+      @@ -8,2 +8,2 @@
+       const results = await fetchPage({ limit: 20, offset: 0 });
+      -return <ResultList results={results} />;
+      +return <ResultList results={results.map(toView)} />;  // new line 9
+    expected_no_finding: Do not report an unbounded render or dataset-sized initial load; the extra mapping is bounded by the server-side page limit.
