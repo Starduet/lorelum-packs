@@ -170,33 +170,32 @@ cases:
   - id: delivery-positive
     practice: code-review.delivery.align-ack-and-idempotency
     kind: positive
-    contract: A message must be retried until its database effect commits, and redelivery must not apply that effect twice.
-    context: The broker permanently removes a message when ack succeeds; apply_effect and record_processed are committed together in one database transaction keyed by message id.
+    contract: Each completed invoice may trigger only one bank transfer.
+    context: The SQS standard queue visibility timeout is 30 seconds; bank transfers can take two minutes and are not idempotent. No worker extends visibility or records a deduplication key.
     diff: |
-      --- a/consumer.py
-      +++ b/consumer.py
-      @@ -20,3 +20,3 @@
-      +broker.ack(message)  # new line 20
-       with db.transaction():
-           apply_effect_and_record_processed(message)
-      -broker.ack(message)
+      --- a/worker.go
+      +++ b/worker.go
+      @@ -20,1 +20,3 @@
+      +transferToBank(message) // line 20
+      +sqs.DeleteMessage(message)
+       return nil
     expected_finding:
-      location: consumer.py:20
-      observation: A crash after acknowledgement but before the database commit permanently loses the message and its effect; the idempotency record cannot recover an acknowledged message.
-      minimum_evidence: Acknowledgement removes the message, and the transaction has not committed at the crash point.
+      location: worker.go:20
+      observation: A second worker can receive the invoice after visibility expires while the first bank transfer is still in progress, causing a duplicate transfer.
+      minimum_evidence: Processing exceeds visibility and neither the transfer nor the worker deduplicates.
   - id: delivery-negative
     practice: code-review.delivery.align-ack-and-idempotency
     kind: negative
-    contract: A message must be retried until its database effect commits, and redelivery must not apply that effect twice.
-    context: The broker redelivers unacknowledged messages. Within one database transaction, a unique message-id insert gates the effect; an existing id skips it. The transaction commits before ack.
+    contract: Each completed invoice may trigger only one bank transfer.
+    context: The bank atomically deduplicates transfer calls using the invoice ID across all workers and retains the key for the entire redelivery period.
     diff: |
-      --- a/consumer.py
-      +++ b/consumer.py
-      @@ -20,2 +20,3 @@
-       with db.transaction():
-      +    apply_effect_if_unprocessed(message)  # new line 21
-       broker.ack(message)
-    expected_no_finding: Do not claim the commit-to-ack crash window duplicates the effect; redelivery is gated by the committed unique message id.
+      --- a/worker.go
+      +++ b/worker.go
+      @@ -20,1 +20,3 @@
+      +transferToBank(message, message.InvoiceID) // line 20
+      +sqs.DeleteMessage(message)
+       return nil
+    expected_no_finding: Redelivery can repeat the call but cannot produce a second transfer under the bank's idempotency contract.
 
   - id: frontend-race-positive
     practice: code-review.frontend.prevent-request-races

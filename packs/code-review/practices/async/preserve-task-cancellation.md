@@ -4,7 +4,7 @@ title: Trace Task Ownership and Cancellation
 stage: review
 severity: warn
 tech_stack: [code-review]
-applies_when: a changed request or job starts or detaches asynchronous work, or changes who cancels, joins, and observes that work
+applies_when: a change starts or detaches work via create_task, go func, or a Promise, or changes cancellation, joining, or exception observation
 anti_patterns:
   - id: code-review.async.unowned-work
     name: Work outlives its owner without a contract
@@ -18,10 +18,7 @@ A change creates a task, subscription, timer, or stream, or changes its parent l
 
 ## Guidance
 
-1. Identify the task owner and the contract for completion, cancellation, errors, shutdown, and cleanup. Determine whether the task is intentionally allowed to outlive its caller.
-2. Trace creation, waiting, cancellation propagation, error observation, and resource release on normal completion and on each relevant failure or cancellation path. Check actual runtime semantics and existing supervisors.
-3. Compare the reachable lifecycle with the contract. Report a changed path only when the missing ownership or cleanup produces a concrete effect, such as continued provider calls, leaked resources, or a lost failure.
-4. Stop after establishing the owner and relevant terminal paths; do not demand that every asynchronous task be awaited by the initiating request.
+Identify the owner of each spawned task and check what actually stops, joins, and observes it when the owner exits. Report a concrete lifecycle violation, not mere detachment.
 
 Inspect the actual runtime, not a generic notion of cancellation:
 

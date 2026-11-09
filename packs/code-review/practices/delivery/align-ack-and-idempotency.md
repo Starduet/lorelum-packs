@@ -4,7 +4,7 @@ title: Trace Commit, Delivery, and Acknowledgement Together
 stage: review
 severity: critical
 tech_stack: [code-review]
-applies_when: a change moves a database commit, message publish, acknowledgement, retry, or deduplication boundary in a durable workflow
+applies_when: a change moves message ack, offset commit, publish, outbox, transaction commit, or deduplication around a durable effect
 anti_patterns:
   - id: code-review.delivery.partial-success-window
     name: Delivery and durable state diverge
@@ -18,10 +18,7 @@ A change affects a durable write and message publication or consumption. Determi
 
 ## Guidance
 
-1. Establish the broker's actual delivery and acknowledgement semantics and the business contract for loss, duplicates, ordering, and recovery. Do not assume exactly-once delivery.
-2. Lay out transaction commits, outbox writes, publishing, side effects, acknowledgements, retries, and crash boundaries. Trace the actual consumer and producer, not only the changed statement.
-3. At each reachable partial-success window, check whether the existing transaction, durable outbox, deduplication key, or idempotent effect closes it. Idempotency must cover the actual repeated effect and key scope; an acknowledgement alone is not deduplication.
-4. Report a concrete loss or duplicate sequence that violates the contract, anchored to the change. Stop when the relevant windows and real protections are accounted for; do not prescribe an outbox without establishing a gap.
+Compare ack or offset commit, business transaction, outbox and external effects at each crash boundary. A deduplication key must cover the actual logical effect and retention window; ack alone cannot prevent duplicates.
 
 Broker-specific checks expose different windows:
 

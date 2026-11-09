@@ -1,0 +1,488 @@
+{
+  "evaluation_only": true,
+  "description": "Expected IDs and neutral intent summaries fixed before execution; same 16 current positive diffs in both query shapes.",
+  "lore_version": "0.1.0-alpha.7",
+  "artifact_digest": "ce3c1cfe5558dbee1e9fa0072309c18159b08383b190b35c0fe18e85e30ef319",
+  "results": [
+    {
+      "case": "side-effect-failure-positive",
+      "expected": "code-review.side-effects.isolate-noncritical-failures",
+      "diff": "--- a/DocumentController.java\n+++ b/DocumentController.java\n@@ -40,2 +40,3 @@\n Document doc = save(request);\n+thumbnail.generate(doc.id());  // line 41\n return created(doc);\n",
+      "intent": "Generate a thumbnail after saving a document.",
+      "raw_keyword": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.delivery.align-ack-and-idempotency"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "llm-usage-positive",
+      "expected": "code-review.llm.account-for-all-usage",
+      "diff": "--- a/generate.go\n+++ b/generate.go\n@@ -21,3 +21,6 @@\n result := providerA.Call(ctx)\n+if result.Retryable {\n+    result = providerB.Call(ctx) // line 23\n+}\n ledger.Add(result.Provider, result.Usage)\n return result\n",
+      "intent": "Use a second provider when the first returns a retryable result.",
+      "raw_keyword": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.prevent-request-races",
+        "code-review.state.prevent-stale-terminal-overwrites"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.llm.account-for-all-usage",
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.frontend.control-render-and-load-cost"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.llm.account-for-all-usage",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.frontend.prevent-request-races"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "cancellation-positive",
+      "expected": "code-review.async.preserve-task-cancellation",
+      "diff": "--- a/handler.go\n+++ b/handler.go\n@@ -12,2 +12,5 @@\n+go func() { // line 12\n+    for { readNext() }\n+}()\n <-request.Context().Done()\n return\n",
+      "intent": "Start a polling worker for the duration of a request.",
+      "raw_keyword": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.concurrency.protect-critical-sections"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.llm.account-for-all-usage",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "terminal-state-positive",
+      "expected": "code-review.state.prevent-stale-terminal-overwrites",
+      "diff": "--- a/jobs.py\n+++ b/jobs.py\n@@ -30,2 +30,3 @@\n job = load_job(job_id)\n+update_state(job.id, 'running')  # new line 31\n publish_progress(job.id)\n",
+      "intent": "Update a job status when progress is published.",
+      "raw_keyword": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.delivery.align-ack-and-idempotency"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "critical-section-positive",
+      "expected": "code-review.concurrency.protect-critical-sections",
+      "diff": "--- a/inventory.py\n+++ b/inventory.py\n@@ -10,4 +10,4 @@\n with inventory_lock:\n     enough = available(sku) > 0\n-    if enough: decrement(sku)\n+if enough: decrement(sku)  # new line 12\n return enough\n",
+      "intent": "Change how inventory reservations use a lock.",
+      "raw_keyword": [
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.async.preserve-task-cancellation",
+        "code-review.state.prevent-stale-terminal-overwrites"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.prevent-request-races"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "delivery-positive",
+      "expected": "code-review.delivery.align-ack-and-idempotency",
+      "diff": "--- a/worker.go\n+++ b/worker.go\n@@ -20,1 +20,3 @@\n+transferToBank(message) // line 20\n+sqs.DeleteMessage(message)\n return nil\n",
+      "intent": "Process invoice messages and initiate bank transfers.",
+      "raw_keyword": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.delivery.align-ack-and-idempotency"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.frontend.prevent-request-races"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.llm.account-for-all-usage",
+        "code-review.concurrency.protect-critical-sections"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.llm.account-for-all-usage"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "frontend-race-positive",
+      "expected": "code-review.frontend.prevent-request-races",
+      "diff": "--- a/Metrics.tsx\n+++ b/Metrics.tsx\n@@ -10,1 +10,1 @@\n-useQuery({ queryKey: ['metrics', workspaceId], queryFn: loadMetrics });\n+useQuery({ queryKey: ['metrics'], queryFn: loadMetrics }); // line 10\n",
+      "intent": "Change the metrics query key for a workspace dashboard.",
+      "raw_keyword": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.llm.account-for-all-usage"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.delivery.align-ack-and-idempotency"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.delivery.align-ack-and-idempotency"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "frontend-cost-positive",
+      "expected": "code-review.frontend.control-render-and-load-cost",
+      "diff": "--- a/Results.tsx\n+++ b/Results.tsx\n@@ -8,2 +8,2 @@\n-const results = await fetchPage({ limit: 20, offset: 0 });\n+const results = await fetchAll();  // new line 8\n return <ResultList results={results} />;\n",
+      "intent": "Change how the results page loads its records.",
+      "raw_keyword": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.frontend.prevent-request-races"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.frontend.prevent-request-races",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.frontend.prevent-request-races",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "stream-disconnect-positive",
+      "expected": "code-review.llm.account-for-all-usage",
+      "diff": "--- a/stream.ts\n+++ b/stream.ts\n@@ -8,2 +8,3 @@\n for await (const event of upstream) {\n+  if (client.closed) return; // line 9\n   captureUsage(event);\n }\n",
+      "intent": "Stop processing the provider stream when the client disconnects.",
+      "raw_keyword": [
+        "code-review.llm.account-for-all-usage",
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.async.preserve-task-cancellation",
+        "code-review.state.prevent-stale-terminal-overwrites"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.llm.account-for-all-usage",
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.llm.account-for-all-usage",
+        "code-review.async.preserve-task-cancellation",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "lock-order-positive",
+      "expected": "code-review.concurrency.protect-critical-sections",
+      "diff": "--- a/transfer.go\n+++ b/transfer.go\n@@ -10,2 +10,3 @@\n ledgerLock.Lock()\n+accountLock.Lock() // line 11\n transfer()\n",
+      "intent": "Acquire an account lock inside the transfer operation.",
+      "raw_keyword": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.frontend.control-render-and-load-cost"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.llm.account-for-all-usage",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "outbox-atomicity-positive",
+      "expected": "code-review.delivery.align-ack-and-idempotency",
+      "diff": "--- a/shipping.go\n+++ b/shipping.go\n@@ -5,2 +5,3 @@\n saveShipment(shipment)\n+saveOutbox(shipment.ID) // line 6\n return nil\n",
+      "intent": "Write a shipment and create its dispatch record.",
+      "raw_keyword": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.delivery.align-ack-and-idempotency"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.llm.account-for-all-usage"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "optional-timeout-positive",
+      "expected": "code-review.side-effects.isolate-noncritical-failures",
+      "diff": "--- a/profile.js\n+++ b/profile.js\n@@ -3,1 +3,2 @@\n+await getRecommendations(user); // line 3\n return profile;\n",
+      "intent": "Load recommendations before returning a profile.",
+      "raw_keyword": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.frontend.prevent-request-races",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.frontend.prevent-request-races",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.frontend.prevent-request-races",
+        "code-review.llm.account-for-all-usage"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "promise-rejection-positive",
+      "expected": "code-review.async.preserve-task-cancellation",
+      "diff": "--- a/refresh.js\n+++ b/refresh.js\n@@ -5,1 +5,2 @@\n+void refresh(); // line 5\n return cached;\n",
+      "intent": "Start a background cache refresh.",
+      "raw_keyword": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.state.prevent-stale-terminal-overwrites"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.async.preserve-task-cancellation",
+        "code-review.llm.account-for-all-usage",
+        "code-review.state.prevent-stale-terminal-overwrites"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "state-version-positive",
+      "expected": "code-review.state.prevent-stale-terminal-overwrites",
+      "diff": "--- a/profile.rb\n+++ b/profile.rb\n@@ -5,2 +5,3 @@\n return unless row.version == expected\n data = lookup_remote()\n+save(row.id, data) # line 7\n",
+      "intent": "Save profile enrichment after remote lookup.",
+      "raw_keyword": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.llm.account-for-all-usage",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.state.prevent-stale-terminal-overwrites",
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.llm.account-for-all-usage",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "loading-race-positive",
+      "expected": "code-review.frontend.prevent-request-races",
+      "diff": "--- a/load.ts\n+++ b/load.ts\n@@ -5,2 +5,3 @@\n try { await fetchData(id); }\n+finally { setLoading(false); } // line 6\n return;\n",
+      "intent": "Clear the loading indicator when data fetching ends.",
+      "raw_keyword": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.frontend.prevent-request-races",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.async.preserve-task-cancellation",
+        "code-review.state.prevent-stale-terminal-overwrites"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.frontend.prevent-request-races",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.state.prevent-stale-terminal-overwrites"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.frontend.prevent-request-races",
+        "code-review.llm.account-for-all-usage"
+      ],
+      "intent_semantic_status": "complete"
+    },
+    {
+      "case": "waterfall-positive",
+      "expected": "code-review.frontend.control-render-and-load-cost",
+      "diff": "--- a/checkout.ts\n+++ b/checkout.ts\n@@ -3,1 +3,2 @@\n+const address = await fetchAddress(userId); // line 3\n+const payment = await fetchPayment(userId);\n",
+      "intent": "Load the address and payment options for checkout.",
+      "raw_keyword": [
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "raw_keyword_status": "ok",
+      "raw_semantic": [
+        "code-review.side-effects.isolate-noncritical-failures",
+        "code-review.delivery.align-ack-and-idempotency",
+        "code-review.async.preserve-task-cancellation"
+      ],
+      "raw_semantic_status": "complete",
+      "intent_keyword": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.concurrency.protect-critical-sections",
+        "code-review.state.prevent-stale-terminal-overwrites"
+      ],
+      "intent_keyword_status": "ok",
+      "intent_semantic": [
+        "code-review.frontend.control-render-and-load-cost",
+        "code-review.llm.account-for-all-usage",
+        "code-review.side-effects.isolate-noncritical-failures"
+      ],
+      "intent_semantic_status": "complete"
+    }
+  ]
+}

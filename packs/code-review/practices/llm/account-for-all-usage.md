@@ -4,7 +4,7 @@ title: Trace Usage and Settlement Across LLM Attempts
 stage: review
 severity: critical
 tech_stack: [code-review]
-applies_when: a changed LLM call can retry, fall back, stream partially, or alter how provider usage is recorded or settled
+applies_when: an LLM provider call, stream, usage ledger, charge, retry, or fallback changes and per-attempt settlement may be lost or duplicated
 anti_patterns:
   - id: code-review.llm.lost-or-duplicate-usage
     name: Usage disappears between attempts
@@ -18,10 +18,7 @@ A diff changes an LLM invocation, response stream, retry or fallback, usage coll
 
 ## Guidance
 
-1. Trace each provider attempt from dispatch through success, error, cancellation, partial stream, and final usage capture. Find the provider's actual guarantees for billable failed calls and usage metadata; a cancelled response is not proof of zero cost.
-2. Follow usage into the ledger, customer charge, reconciliation, and deduplication mechanisms. On retry or fallback, identify which attempt each record represents and whether ambiguous completion can repeat it.
-3. Check the business, accounting, and compliance contract for required durability, permitted estimates, and recovery. Separately trace whether settlement failure or delay changes an otherwise successful LLM response. A recoverable settlement may be independent, while a required durable record may legitimately gate success.
-4. Report a reachable discrepancy between that contract and the changed path, including the affected attempt and consequence. Stop when all relevant terminal paths and their existing safeguards are accounted for.
+Match each provider attempt and its usage to its own price and settlement record, including interrupted streams and fallback. Separately decide from the accounting contract whether settlement may delay or fail the primary result.
 
 Provider and transport details change which evidence exists:
 

@@ -4,7 +4,7 @@ title: Check Whether a Side Effect Blocks the Main Result
 stage: review
 severity: warn
 tech_stack: [code-review]
-applies_when: a changed request or job waits for a non-billing side effect before reporting its primary result, or changes how that side effect fails
+applies_when: a committed operation waits on optional analytics, notifications, thumbnails, cache invalidation, or telemetry before reporting success
 anti_patterns:
   - id: code-review.side-effects.failure-controls-primary-result
     name: Optional side effect controls a committed result
@@ -18,10 +18,7 @@ A change puts a notification, analytics event, cache update, or other non-billin
 
 ## Guidance
 
-1. Identify when the main operation takes effect and what the caller is promised. Trace the added side effect through waits, exceptions, timeouts, and response handling.
-2. Find the actual contract for the side effect: whether it is required before success, must eventually be durable, or is best effort. Trace existing queues, recovery, and reconciliation rather than assuming fire-and-forget is safe.
-3. For each reachable failure or slow response, compare the observable main result with that contract. Consider client retries after the primary work already committed.
-4. Report only a changed path that violates the contract, with the side-effect failure, primary consequence, and a precise location. Stop when the path and existing protections explain the result; do not propose a queue merely because the call is synchronous.
+Compare the committed primary operation with the non-billing side effect's failure and latency contract. Check whether its error or delay changes the result, and whether existing recovery makes the required effect durable.
 
 Look for these concrete coupling mechanisms:
 

@@ -4,7 +4,7 @@ title: Check Locks Against the Invariant They Protect
 stage: review
 severity: critical
 tech_stack: [code-review]
-applies_when: a change moves shared-state access across a lock boundary, changes lock order, or waits while holding a lock
+applies_when: a diff changes mutex Lock or Unlock, lock ordering, SELECT FOR UPDATE, a Redis lease, or shared read-modify-write protection
 anti_patterns:
   - id: code-review.concurrency.unprotected-invariant
     name: Critical operation escapes its protection
@@ -18,10 +18,7 @@ A diff changes a lock, shared mutable state, critical section, or a wait inside 
 
 ## Guidance
 
-1. Identify the shared resource, participants, invariant, and lock or atomic operation that protects it. Trace all relevant acquisition and release paths, including error and cancellation.
-2. For an altered lock order or a wait while locked, follow what the awaited operation needs. Construct a feasible order in which participants hold and request the same resources. For a narrowed critical section, show how another participant can act between the read and write.
-3. Check existing serialization, atomic updates, lock reentrancy, and timeout semantics before deciding whether the sequence is possible.
-4. Report the changed line, a specific interleaving or wait cycle, and its effect on data or progress. Stop when the relevant invariant is protected or a reachable violation is established.
+Compare every participant's lock scope and acquisition order against the protected shared invariant. A finding needs a reachable interleaving or wait cycle that survives the actual atomic or distributed protections.
 
 Check concrete protection boundaries:
 

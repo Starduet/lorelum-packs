@@ -4,7 +4,7 @@ title: Trace Added Work on a User Interaction
 stage: review
 severity: warn
 tech_stack: [code-review]
-applies_when: a frontend change adds repeated rendering, data loading, or asset work to an interaction or initial navigation
+applies_when: a frontend diff changes list rendering, fetchPage versus fetchAll, asset imports, or sequential independent fetches on a visible interaction
 anti_patterns:
   - id: code-review.frontend.unbounded-interaction-work
     name: Repeated work grows with user data
@@ -18,10 +18,7 @@ A frontend diff changes render dependencies, list processing, data loading, or a
 
 ## Guidance
 
-1. Trace the user action through requests, rendering, data size, and visible completion. Compare the changed path with the previous path and inspect caching, pagination, existing batching, and browser behavior.
-2. Identify the mechanism: repeated calls, a new dependent request waterfall, a render that scales with the entire dataset, or an asset now loaded before the user needs it. Distinguish unavoidable dependencies and intentional tradeoffs.
-3. Establish a representative reachable workload and an observable consequence. Measure timing, network, or resource usage when available; without measurement describe the added work rather than inventing a latency or percentage.
-4. Report a causal, user-relevant regression, not a missing optimization annotation. Stop when the mechanism and materiality are supported or existing bounds rule out the concern.
+Compare the old and new UI critical path at a realistic list size and interaction frequency. Identify the added network waterfall, bundle work, or repeated computation; quantify only when measured.
 
 Inspect where work is introduced:
 

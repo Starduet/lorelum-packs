@@ -4,7 +4,7 @@ title: Check Whether an Old Response Can Replace Current UI State
 stage: review
 severity: warn
 tech_stack: [code-review]
-applies_when: a frontend change permits overlapping requests to write the same view state or changes response ownership and cancellation
+applies_when: frontend queryKey, useEffect cleanup, AbortController, setLoading, or response handlers change which request owns displayed state
 anti_patterns:
   - id: code-review.frontend.stale-response-wins
     name: Older response wins a newer interaction
@@ -18,10 +18,7 @@ A changed component starts requests as input, navigation, or dependencies change
 
 ## Guidance
 
-1. Trace the input or navigation that starts each request, the state each response writes, and what the user should see. Determine whether requests can actually overlap.
-2. Consider a reachable order in which the newer request resolves first and the older one resolves later, as well as cancellation and unmount. Inspect request IDs, abort handling, cache keys, and result guards at the actual write.
-3. Compare the resulting view with the product contract. Report a specific stale result, incorrect loading state, or other visible effect only if protections fail to exclude that sequence.
-4. Stop after the relevant response ownership and state writes are understood; do not turn every request into a performance finding.
+At every data, error, and loading-state write, check whether its request still owns the current input and cache key. A concrete overlapping completion or wrong-key reuse must remain possible after existing guards.
 
 Check the framework's actual response ownership:
 

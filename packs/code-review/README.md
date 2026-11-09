@@ -17,11 +17,13 @@ This candidate is not registered or released. Installation, retrieval, and actua
 ## Local evidence
 
 Lorelum 0.1.0-alpha.7 validated the Pack and updated all eight Practices in an isolated Store.
-Sixteen positive fixture diffs were submitted directly as queries, with expected Practice IDs
-fixed before execution. Keyword retrieval ranked 5 first and 9 in the top three; semantic retrieval
-ranked 3 first and 9 in the top three. Both modes missed seven targets in the top three, although
-not always the same cases. See `fixtures/code-review/diff-retrieval-observation.json` in the
-repository for per-case rankings. These are retrieval failures, not a pass.
+On 16 positive fixture diffs, raw keyword queries returned the intended Practice first in 4 cases
+and in the top three in 9; raw semantic queries scored 2 and 6 respectively. Adding a prewritten
+neutral change-intent sentence improved keyword to 12 and 15, and semantic to 10 and 14. Neither
+shape satisfies complete coverage; raw diff retrieval in particular remains poor. Both query
+shapes, expectations, and per-case rankings are recorded in
+`fixtures/code-review/diff-retrieval-rerun.json`. The earlier observation remains separately
+recorded; one fixture changed, so its aggregate is not a controlled before/after comparison.
 
 The 32 synthetic positive and negative cases have not been run as independent review sessions.
 Specified-model routing and real review quality remain unverified. Do not treat this Pack as

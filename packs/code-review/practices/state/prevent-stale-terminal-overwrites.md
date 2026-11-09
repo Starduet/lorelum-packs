@@ -4,7 +4,7 @@ title: Check Whether Older Work Can Overwrite Newer State
 stage: review
 severity: warn
 tech_stack: [code-review]
-applies_when: a changed asynchronous completion or state update may write a result after a newer operation or terminal transition
+applies_when: an update_state, save, version check, or asynchronous completion can write after a newer operation or terminal state
 anti_patterns:
   - id: code-review.state.stale-result-overwrite
     name: Older completion overwrites current state
@@ -18,10 +18,9 @@ A diff changes state writes, completion handlers, terminal status, or version ch
 
 ## Guidance
 
-1. Establish the actual state contract: legal transitions, terminal states, ownership of each result, and whether later attempts supersede earlier ones.
-2. Trace the changed read and write through persistence and callers. Construct a feasible sequence in which an older result arrives after a newer write or cancellation.
-3. Check version comparisons, conditional updates, generation identifiers, serialization, and other real protections at the write boundary. A guard checked only before an intervening wait may no longer protect the write.
-4. Report only when the sequence remains possible and produces an invalid state or visible result. Identify the changed write and the contract it violates; stop if an existing guard excludes the sequence.
+At the final write, check whether current status, version, or generation is atomically constrained against the operation that produced the result. A guard before a wait does not protect the later mutation.
+
+Assign finding severity from actual impact: a stale display may be minor, but a reachable overwrite of payment or order terminal state that causes financial loss or corrupts authoritative records can warrant critical severity.
 
 Examine the write boundary for these failure modes:
 
