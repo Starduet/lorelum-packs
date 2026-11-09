@@ -23,9 +23,17 @@ A changed component starts requests as input, navigation, or dependencies change
 3. Compare the resulting view with the product contract. Report a specific stale result, incorrect loading state, or other visible effect only if protections fail to exclude that sequence.
 4. Stop after the relevant response ownership and state writes are understood; do not turn every request into a performance finding.
 
+Check the framework's actual response ownership:
+
+- React runs an effect's cleanup before rerunning it with changed dependencies and on unmount. Missing cleanup matters when stale callbacks can still write or subscriptions remain active.
+- `AbortController.abort()` can abort an in-flight fetch or body consumption, but it cannot undo an already fulfilled promise or arbitrary asynchronous work in a later `.then`; guard the final state write as needed.
+- SWR or TanStack Query cache keys must distinguish every input that changes the returned resource, including tenant or account where applicable. A shared key can reuse another parameter's data even without overlapping network requests.
+- An old request's `finally` can clear a loading indicator for a newer request; guard error and loading writes as well as successful data.
+- Resetting a request counter on remount or reusing an ID can let an old callback match a new request; check the identifier's lifetime.
+
 ## Anti-pattern
 
-A search field fires a request for each input. Results for `cat` arrive first, then a slower earlier request for `ca` replaces them while the field still says `cat`. A report that ignores a generation check discarding the earlier response would be a false positive.
+A dashboard changes accounts while the old account's balance request is still running. The new balance loads first, then the old callback writes into the shared balance state. A request-generation guard or correctly scoped query cache can rule out this sequence.
 
 ## Why
 
@@ -38,5 +46,3 @@ An application may intentionally show an older cached result with a visible stal
 ## Example
 
 The user types `ca`, then `cat`; two requests overlap. The new handler writes every response into the same `results` state without checking the request's query. If `cat` completes first and `ca` completes later, the displayed items no longer match the input. Report the changed write. If a current-request token prevents the older response from writing, do not report this sequence.
-
-Before conducting a review, explicitly load the [review execution contract and workflow](resource:references/review-workflow.md); retrieval does not load it. The designated reviewer makes the substantive judgment.

@@ -23,6 +23,14 @@ A diff changes state writes, completion handlers, terminal status, or version ch
 3. Check version comparisons, conditional updates, generation identifiers, serialization, and other real protections at the write boundary. A guard checked only before an intervening wait may no longer protect the write.
 4. Report only when the sequence remains possible and produces an invalid state or visible result. Identify the changed write and the contract it violates; stop if an existing guard excludes the sequence.
 
+Examine the write boundary for these failure modes:
+
+- A status or version check before an `await` is stale after the wait; put the expected version or allowed status into the atomic write predicate, or verify an equivalent protection.
+- A zero-row conditional update is not success: follow its result to see whether the caller incorrectly publishes completion or retries with an unconditional update.
+- Reusing a generation ID after deletion and recreation can make an old callback appear current; check identity lifetime as well as the counter.
+- Multiple fields can form one invariant: updating status and result in separate transactions may expose `succeeded` with an old result, even when each write is individually atomic.
+- Database isolation and transaction boundaries matter: a read guarded in one transaction does not protect an update performed after that transaction ends.
+
 ## Anti-pattern
 
 An older background job writes `succeeded` after the user has cancelled its replacement, even though cancellation is terminal. Reporting every asynchronous write as a race without checking the update predicate would be equally misleading.
@@ -38,5 +46,3 @@ Some systems explicitly permit later results to replace earlier ones or reopen t
 ## Example
 
 A job row holds a generation number. Starting a second run increments it; cancelling that run sets a terminal `cancelled` status. A changed callback from the first run updates the row by ID only and sets `succeeded`. If it finishes after cancellation, it overwrites the newer terminal status. The changed unconditional update is reportable. An atomic update constrained by the original generation and allowed current status excludes that sequence.
-
-Before conducting a review, explicitly load the [review execution contract and workflow](resource:references/review-workflow.md); retrieval does not load it. The designated reviewer makes the substantive judgment.

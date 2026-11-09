@@ -16,9 +16,14 @@ This candidate is not registered or released. Installation, retrieval, and actua
 
 ## Local evidence
 
-Lorelum 0.1.0-alpha.7 validated the rewritten Pack and updated all eight Practices in an isolated
-Store. Four keyword smoke queries contrasted stale state with task cancellation and frontend request
-ordering with repeated loading; each returned its intended Practice first. These observations do
-not establish broad retrieval coverage. The 16 synthetic positive and negative cases are evaluation
-hypotheses; they have not been run as independent review sessions. Semantic retrieval,
-specified-model routing, and real review quality remain unverified.
+Lorelum 0.1.0-alpha.7 validated the Pack and updated all eight Practices in an isolated Store.
+Sixteen positive fixture diffs were submitted directly as queries, with expected Practice IDs
+fixed before execution. Keyword retrieval ranked 5 first and 9 in the top three; semantic retrieval
+ranked 3 first and 9 in the top three. Both modes missed seven targets in the top three, although
+not always the same cases. See `fixtures/code-review/diff-retrieval-observation.json` in the
+repository for per-case rankings. These are retrieval failures, not a pass.
+
+The 32 synthetic positive and negative cases have not been run as independent review sessions.
+Specified-model routing and real review quality remain unverified. Do not treat this Pack as
+satisfying issue #45's review behavior acceptance until the requested model and reasoning level are
+verified and the cases run.

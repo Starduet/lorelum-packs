@@ -23,9 +23,17 @@ A change creates a task, subscription, timer, or stream, or changes its parent l
 3. Compare the reachable lifecycle with the contract. Report a changed path only when the missing ownership or cleanup produces a concrete effect, such as continued provider calls, leaked resources, or a lost failure.
 4. Stop after establishing the owner and relevant terminal paths; do not demand that every asynchronous task be awaited by the initiating request.
 
+Inspect the actual runtime, not a generic notion of cancellation:
+
+- Python `asyncio.create_task` needs a strong reference for reliable detached work; the event loop keeps weak references. A task group or supervising collection may already own it.
+- `asyncio.shield` prevents cancellation of the awaiting caller from propagating to the inner task, but the caller still receives `CancelledError`; direct cancellation of the inner task still works. Check the cleanup path rather than assuming shielding guarantees completion.
+- JavaScript `void somePromise()` does not observe rejection; check a rejection handler or supervisor and the host's unhandled-rejection policy.
+- In Go, cancelling a `context.Context` signals cancellation; it does not kill goroutines. Check whether blocking operations and loops select on `ctx.Done()` or otherwise terminate.
+- A shutdown hook that initiates cancellation but never joins workers can close resources while they are still in use. Conversely, joining a worker that ignores cancellation can prevent shutdown.
+
 ## Anti-pattern
 
-A request starts an independent worker, shields it from cancellation, and exits without a supervisor or cleanup. If the contract requires the worker to stop before request cleanup, the worker continues after its owner has gone. Flagging shielding without checking a `finally` block that cancels and joins it would instead be a false positive.
+A JavaScript handler starts an optional background refresh with `void refresh()` and assumes the runtime will report its rejection to the request's error handler. The request has already returned and no supervisor observes the rejected promise, so the failure is unhandled. A deliberately detached promise with a real rejection handler is different.
 
 ## Why
 
@@ -38,5 +46,3 @@ A deliberately detached task with a real owner and appropriate error handling is
 ## Example
 
 An asyncio handler creates a worker and awaits it through `asyncio.shield`. The request contract requires cancellation to stop and join that worker before request cleanup. Cancelling the handler does not cancel the shielded worker, and there is no `finally` cleanup or supervisor. The shielded await is a finding because the worker continues past cleanup. If a `finally` block cancels and joins it, shielding alone is not evidence of a leak.
-
-Before conducting a review, explicitly load the [review execution contract and workflow](resource:references/review-workflow.md); retrieval does not load it. The designated reviewer makes the substantive judgment.

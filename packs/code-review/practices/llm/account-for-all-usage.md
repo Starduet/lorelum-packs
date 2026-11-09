@@ -2,14 +2,14 @@
 id: code-review.llm.account-for-all-usage
 title: Trace Usage and Settlement Across LLM Attempts
 stage: review
-severity: warn
+severity: critical
 tech_stack: [code-review]
 applies_when: a changed LLM call can retry, fall back, stream partially, or alter how provider usage is recorded or settled
 anti_patterns:
   - id: code-review.llm.lost-or-duplicate-usage
     name: Usage disappears between attempts
     description: Retrying replaces an incurred attempt before its usage is captured, or a repeated settlement charges it twice.
-    severity: warn
+    severity: critical
 ---
 
 ## When to apply
@@ -23,9 +23,17 @@ A diff changes an LLM invocation, response stream, retry or fallback, usage coll
 3. Check the business, accounting, and compliance contract for required durability, permitted estimates, and recovery. Separately trace whether settlement failure or delay changes an otherwise successful LLM response. A recoverable settlement may be independent, while a required durable record may legitimately gate success.
 4. Report a reachable discrepancy between that contract and the changed path, including the affected attempt and consequence. Stop when all relevant terminal paths and their existing safeguards are accounted for.
 
+Provider and transport details change which evidence exists:
+
+- For OpenAI Chat Completions streaming, `stream_options.include_usage` requests an additional usage chunk before `[DONE]`; an interrupted stream may never deliver it. This is endpoint-specific, not a rule for every OpenAI API.
+- Anthropic Messages streaming includes initial usage in `message_start` and cumulative output usage in `message_delta`; summing successive cumulative values would overcount.
+- A client disconnect can stop consumption before final usage arrives even if the provider has incurred cost. Check whether the server keeps reading, retrieves authoritative usage, estimates under an allowed policy, or reconciles later.
+- Fallback attempts may use different models, cached-input rates, currencies, or pricing versions. Associate usage and price with each attempt, not just the final provider.
+- Local tokenizer counts are estimates unless the provider contract makes them authoritative; tool input, cache categories, and provider tokenization can differ. Do not silently treat missing usage as zero or an estimate as the provider's exact bill.
+
 ## Anti-pattern
 
-A retry replaces a response object before the only billing call reads its usage. The first failed attempt may have incurred tokens, so billing only the last response can omit a real charge. Conversely, reporting a lost charge without checking a helper that already records each attempt would be a false positive.
+A streaming proxy disconnects as soon as the client leaves and persists zero usage because no final usage event arrived. The provider can already have generated billable output; zero is not evidence of zero usage. An approved reconciliation process may instead account for it later.
 
 ## Why
 
@@ -38,5 +46,3 @@ Do not assume every provider cost must be billed to the customer, that final usa
 ## Example
 
 A contract requires recording usage from every provider call, including retryable failures. `call_model` returns both `usage` and `retryable`; the changed handler retries by assigning a second result over the first, then calls `charge(result.usage)` once. Because the first result can contain billable usage and no other code records it, the retry line can cause undercounting. If each call records its usage before returning, overwriting the local result alone is not a finding.
-
-Before conducting a review, explicitly load the [review execution contract and workflow](resource:references/review-workflow.md); retrieval does not load it. The designated reviewer makes the substantive judgment.

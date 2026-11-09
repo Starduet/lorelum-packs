@@ -23,9 +23,17 @@ A change puts a notification, analytics event, cache update, or other non-billin
 3. For each reachable failure or slow response, compare the observable main result with that contract. Consider client retries after the primary work already committed.
 4. Report only a changed path that violates the contract, with the side-effect failure, primary consequence, and a precise location. Stop when the path and existing protections explain the result; do not propose a queue merely because the call is synchronous.
 
+Look for these concrete coupling mechanisms:
+
+- A transaction commits before a notification or cache invalidation throws; a 500 response can cause a retry of already-completed work.
+- `Promise.all` rejects when any member rejects, so a nonessential telemetry promise can fail a response even while the primary promise succeeds.
+- An awaited network call with no bounded timeout can exhaust the primary request deadline even if its errors are caught.
+- A framework background task may run only after a response is sent or may be cancelled on process shutdown; verify the actual framework and whether required work survives restart.
+- A synchronous log exporter or full queue can apply backpressure on the request thread. Check its configured blocking and overflow policy, not just the logging call's name.
+
 ## Anti-pattern
 
-A paid order is committed, then an analytics request throws. The handler reports HTTP 500, although the accepted contract says analytics is optional. The customer retries and may submit the order twice. Reporting the analytics call as a mere style problem would miss the committed-order failure window.
+A successful file upload waits for a best-effort email. The mail service hangs beyond the gateway deadline, so the client sees a timeout even though the file was stored. Retrying may create another upload. A mandatory durable notification would require a different contract analysis.
 
 ## Why
 
@@ -38,5 +46,3 @@ Do not report synchronous work merely because it waits: a required audit, author
 ## Example
 
 An endpoint commits an order and then awaits an analytics service before returning 201. The service throws on network errors, and the endpoint turns uncaught exceptions into 500. The product contract says analytics failure must not affect ordering. The changed await is reportable: an analytics outage makes a successfully placed order look failed. If the endpoint instead uses a non-throwing best-effort handoff and returns 201, this failure claim is not supported.
-
-Before conducting a review, the caller must explicitly load the [review execution contract and workflow](resource:references/review-workflow.md); retrieval alone does not load it. The designated reviewer makes the substantive judgment.
