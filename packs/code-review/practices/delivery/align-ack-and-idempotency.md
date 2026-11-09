@@ -4,7 +4,7 @@ title: Trace Commit, Delivery, and Acknowledgement Together
 stage: review
 severity: critical
 tech_stack: [code-review]
-applies_when: a change moves message ack, offset commit, publish, outbox, transaction commit, or deduplication around a durable effect
+applies_when: a change moves message ack, offset commit, publish, dispatch or event record, outbox, transaction commit, or deduplication around a durable effect
 anti_patterns:
   - id: code-review.delivery.partial-success-window
     name: Delivery and durable state diverge

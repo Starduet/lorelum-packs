@@ -11,7 +11,7 @@ The specified reviewer personally decides the review strategy, inspects each rel
 ## Workflow
 
 1. Establish the requested scope: base and head or workspace state, changed paths, and any excluded or inaccessible material. Identify the governing behavior from the request, repository contracts and actual callers; do not invent requirements.
-2. Read the diff and trace relevant entry points, callers, consumers, state, persistence, responses and side effects in repository context. Select the Practices whose concrete change signals apply. Avoid assuming unchanged code or a test name proves the contract.
+2. Read the diff and trace relevant entry points, callers, consumers, state, persistence, responses and side effects in repository context. Before retrieving Practices, write a short neutral sentence describing the change and query it together with the diff; raw-diff retrieval alone performed poorly. Even intent-assisted retrieval can miss relevant guidance, so inspect neighboring Practices where needed. Avoid assuming unchanged code or a test name proves the contract.
 3. For each candidate, establish a reachable input or event sequence, the changed code's causal contribution, any relevant existing protection and the observable consequence. Seek counterexamples and withdraw unsupported or pre-existing issues. If essential context is missing, investigate; disclose remaining uncertainty instead of making an unsupported finding.
 4. Report actionable findings with a precise changed-code location, trigger, causal chain and impact, ordered by severity where appropriate. Keep incomplete coverage and uncertainties distinct from confirmed findings. If no finding survives, say so without claiming the code is defect-free.
 

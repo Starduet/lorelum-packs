@@ -1,6 +1,6 @@
 {
   "evaluation_only": true,
-  "description": "Direct positive fixture diff retrieval on isolated store; expectations from case practice fields; results are not review behavior.",
+  "description": "Historical first-round observation, superseded by diff-retrieval-rerun.json; one fixture has changed, so aggregates are not directly comparable. Evaluation-only, not review behavior.",
   "lore_version": "0.1.0-alpha.7",
   "store": "isolated local candidate",
   "results": [

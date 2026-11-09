@@ -10,7 +10,7 @@ The requested reviewer performs all substantive review decisions. Other agents m
 
 ## Use
 
-For local authoring, install this directory into an isolated Lorelum Store using `lore pack install --path ./packs/code-review --store-root <isolated-store>`. Load the execution contract explicitly, then retrieve relevant Practices for the changed behavior. Repository-specific requirements and actual code determine whether a side effect must block, be durable, or can fail independently; accounting is not assumed disposable.
+For local authoring, install this directory into an isolated Lorelum Store using `lore pack install --path ./packs/code-review --store-root <isolated-store>`. Explicitly load the execution contract. Before retrieval, the reviewer writes a short, neutral sentence describing the change's intent and includes it with the diff; do not rely on raw diff alone, which performed poorly in the recorded sample. Even intent-assisted retrieval missed cases; inspect relevant neighboring Practices and do not claim comprehensive coverage. Repository-specific requirements and actual code determine whether a side effect must block, be durable, or can fail independently; accounting is not assumed disposable.
 
 This candidate is not registered or released. Installation, retrieval, and actual review behavior are distinct evidence; see the evaluation fixtures for hypotheses, not claims of success. [Sources](./SOURCES.md) record what external examples support and their limits.
 
@@ -24,6 +24,14 @@ shape satisfies complete coverage; raw diff retrieval in particular remains poor
 shapes, expectations, and per-case rankings are recorded in
 `fixtures/code-review/diff-retrieval-rerun.json`. The earlier observation remains separately
 recorded; one fixture changed, so its aggregate is not a controlled before/after comparison.
+
+After adding a delivery synonym, an independent `openai/gpt-6.1-terra` agent saw only numbered
+diffs and wrote neutral change descriptions without expected Practice IDs. With those descriptions,
+keyword retrieval returned the intended Practice first in 14/16 and in the top three in 15/16;
+semantic returned it first in 9/16 and in the top three in 16/16. The keyword miss was the terminal
+state case. See `fixtures/code-review/blind-intent-retrieval.json` for the descriptions and results.
+This small, synthetic sample is not proof of generalization or review behavior, and the Pack revision
+differs from the earlier run.
 
 The 32 synthetic positive and negative cases have not been run as independent review sessions.
 Specified-model routing and real review quality remain unverified. Do not treat this Pack as
