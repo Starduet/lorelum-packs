@@ -1,6 +1,6 @@
 ---
 id: code-review.side-effects.isolate-noncritical-failures
-title: Check Whether a Side Effect Blocks the Main Result
+title: Don't Let Optional Work Hold Up the Main Job
 stage: review
 severity: warn
 tech_stack: [code-review]
@@ -14,19 +14,21 @@ anti_patterns:
 
 ## When to apply
 
-A change puts a notification, analytics event, cache update, or other non-billing work on the path to a request or job result. Determine whether its failure or latency may alter that result. Billing and usage settlement need their own accounting contract; do not treat them as disposable analytics.
+The code has done what the user asked, but still needs to send a notification, write a log, or update a cache. Check whether that extra work can keep the user waiting or make the completed job look like a failure.
 
 ## Guidance
 
-Compare the committed primary operation with the non-billing side effect's failure and latency contract. Check whether its error or delay changes the result, and whether existing recovery makes the required effect durable.
+Find out when the main job actually finishes. If a later notification, log, thumbnail, or cache update fails or takes too long, what does the caller see? Trace the error or delay back to the response.
 
-Look for these concrete coupling mechanisms:
+Check what the extra work is supposed to guarantee. Some work is best effort; other work must be saved and retried even if the caller doesn't wait for it. Don't suggest simply dropping it without checking.
+
+Watch for these situations:
 
 - A transaction commits before a notification or cache invalidation throws; a 500 response can cause a retry of already-completed work.
 - `Promise.all` rejects when any member rejects, so a nonessential telemetry promise can fail a response even while the primary promise succeeds.
 - An awaited network call with no bounded timeout can exhaust the primary request deadline even if its errors are caught.
 - A framework background task may run only after a response is sent or may be cancelled on process shutdown; verify the actual framework and whether required work survives restart.
-- A synchronous log exporter or full queue can apply backpressure on the request thread. Check its configured blocking and overflow policy, not just the logging call's name.
+- A synchronous log exporter or full queue can make the request thread wait. Check whether the configured exporter or queue blocks, drops messages, or reports an error.
 
 ## Anti-pattern
 
@@ -34,11 +36,11 @@ A successful file upload waits for a best-effort email. The mail service hangs b
 
 ## Why
 
-A dependency placed after a commit can change the caller's perception of success without undoing the operation. Slow optional work can likewise increase response latency or cause a timeout.
+If an order was saved but the response says it failed, the customer may try again and place a second order. An optional call that never returns can cause the same confusion through a timeout.
 
 ## Exceptions and boundaries
 
-Do not report synchronous work merely because it waits: a required audit, authorization, or durable record may be part of success. If the contract is unknown, investigate before claiming isolation is required. This Practice excludes billing; analyze usage and settlement with `code-review.llm.account-for-all-usage`. Task ownership and cancellation are separate decisions.
+Some work really must finish before the caller gets a success response. Authorization, audit records, and other required records depend on the actual contract. If you don't know the contract, find it before reporting a bug. This Practice covers non-billing work; use `code-review.llm.account-for-all-usage` for usage and billing.
 
 ## Example
 

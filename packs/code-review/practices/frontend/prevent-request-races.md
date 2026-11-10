@@ -1,6 +1,6 @@
 ---
 id: code-review.frontend.prevent-request-races
-title: Check Whether an Old Response Can Replace Current UI State
+title: Don't Show an Older Response for the User's New Input
 stage: review
 severity: warn
 tech_stack: [code-review]
@@ -14,13 +14,13 @@ anti_patterns:
 
 ## When to apply
 
-A changed component starts requests as input, navigation, or dependencies change, and multiple responses may write the same displayed state. Decide whether completion order can contradict the current interaction.
+A user changes a search term, account, or page while a request is still running. Check whether the old request can finish later and replace what the user should see now.
 
 ## Guidance
 
-At every data, error, and loading-state write, check whether its request still owns the current input and cache key. A concrete overlapping completion or wrong-key reuse must remain possible after existing guards.
+Follow each response to where it updates data, an error message, or a loading indicator. If the user starts a newer request first, can the old response still write there? Also check whether the cache key keeps data for different inputs apart.
 
-Check the framework's actual response ownership:
+Before reporting a bug, check any cancellation, request ID, or cache guard that may already prevent it:
 
 - React runs an effect's cleanup before rerunning it with changed dependencies and on unmount. Missing cleanup matters when stale callbacks can still write or subscriptions remain active.
 - `AbortController.abort()` can abort an in-flight fetch or body consumption, but it cannot undo an already fulfilled promise or arbitrary asynchronous work in a later `.then`; guard the final state write as needed.
@@ -34,7 +34,7 @@ A dashboard changes accounts while the old account's balance request is still ru
 
 ## Why
 
-Network completion order does not preserve interaction order. A result valid for the previous input can be wrong for the current screen.
+The network doesn't promise that requests finish in the order they started. An earlier response can arrive last.
 
 ## Exceptions and boundaries
 

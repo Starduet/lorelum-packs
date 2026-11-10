@@ -1,6 +1,6 @@
 ---
 id: code-review.llm.account-for-all-usage
-title: Trace Usage and Settlement Across LLM Attempts
+title: Don't Lose Track of What Each LLM Call Cost
 stage: review
 severity: critical
 tech_stack: [code-review]
@@ -14,13 +14,15 @@ anti_patterns:
 
 ## When to apply
 
-A diff changes an LLM invocation, response stream, retry or fallback, usage collection, or billing. Determine what happens to each attempt, including attempts whose response is not delivered to the caller.
+An LLM call can succeed, stop halfway, retry, or fall back to another provider. When the code changes any of those paths, check what gets recorded for every call that may have cost money.
 
 ## Guidance
 
-Match each provider attempt and its usage to its own price and settlement record, including interrupted streams and fallback. Separately decide from the accounting contract whether settlement may delay or fail the primary result.
+Follow each call from the provider response to the usage record and the price used for it. A retry or fallback may mean there are two calls to account for, even if the user sees only one answer.
 
-Provider and transport details change which evidence exists:
+Also check what happens when the answer is ready but recording usage or charging fails. Does the user still get the answer? Whether that is allowed depends on the billing and accounting requirements; don't assume either that billing may be discarded or that it must block the response.
+
+The details vary by provider:
 
 - For OpenAI Chat Completions streaming, `stream_options.include_usage` requests an additional usage chunk before `[DONE]`; an interrupted stream may never deliver it. This is endpoint-specific, not a rule for every OpenAI API.
 - Anthropic Messages streaming includes initial usage in `message_start` and cumulative output usage in `message_delta`; summing successive cumulative values would overcount.
@@ -30,11 +32,11 @@ Provider and transport details change which evidence exists:
 
 ## Anti-pattern
 
-A streaming proxy disconnects as soon as the client leaves and persists zero usage because no final usage event arrived. The provider can already have generated billable output; zero is not evidence of zero usage. An approved reconciliation process may instead account for it later.
+A streaming proxy stops reading when the client disconnects. It records zero usage because it never received the final usage event, even though the provider may already have generated billable output. A separate reconciliation process may account for the missing usage; check for one before reporting loss.
 
 ## Why
 
-One user request can produce several provider attempts, and a response failure does not necessarily reverse provider work. Treating the last result as the only attempt loses the relationship between incurred usage and settlement.
+The provider can charge for work even when the user never receives the answer. Looking only at the final response can miss an earlier call or charge for the same call twice.
 
 ## Exceptions and boundaries
 

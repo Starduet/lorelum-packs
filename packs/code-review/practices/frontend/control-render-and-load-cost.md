@@ -1,6 +1,6 @@
 ---
 id: code-review.frontend.control-render-and-load-cost
-title: Trace Added Work on a User Interaction
+title: Check Whether the Change Makes Users Wait Longer
 stage: review
 severity: warn
 tech_stack: [code-review]
@@ -14,13 +14,15 @@ anti_patterns:
 
 ## When to apply
 
-A frontend diff changes render dependencies, list processing, data loading, or asset loading on an interaction or navigation path. Decide whether the change adds material work or delay for a reachable workload.
+A page or interaction now fetches data, renders a list, or loads code differently. Check whether users have to wait for more work than they did before.
 
 ## Guidance
 
-Compare the old and new UI critical path at a realistic list size and interaction frequency. Identify the added network waterfall, bundle work, or repeated computation; quantify only when measured.
+Follow what happens when a user opens the page or performs the interaction. Compare it with the old code: does it make another network trip, download code earlier, or repeat a calculation for a large list?
 
-Inspect where work is introduced:
+Use a realistic amount of data and a realistic interaction. Don't claim a specific slowdown unless you measured it.
+
+Look for work added in these places:
 
 - New object or function identities in effect dependencies can cause repeated effect execution; establish whether this actually triggers costly work, not just an extra development-only Strict Mode cycle.
 - Awaiting independent data requests in sequence creates a network waterfall; verify the inputs, connection limits, and error semantics before suggesting parallelism.
@@ -34,7 +36,7 @@ A changed search field triggers a full unpaginated dataset fetch on every keystr
 
 ## Why
 
-A small source change can repeat work along a frequent interaction or serialize independent network waits. The cost depends on actual frequency, dataset size, caching, and user-visible critical path.
+A short piece of code can run on every keystroke or make users wait for several requests in a row. Whether that matters depends on how often it runs, how much data it handles, and whether the result is cached.
 
 ## Exceptions and boundaries
 

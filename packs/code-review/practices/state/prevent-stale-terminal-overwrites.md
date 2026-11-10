@@ -1,6 +1,6 @@
 ---
 id: code-review.state.prevent-stale-terminal-overwrites
-title: Check Whether Older Work Can Overwrite Newer State
+title: Don't Let an Old Result Undo a Newer Change
 stage: review
 severity: warn
 tech_stack: [code-review]
@@ -14,18 +14,18 @@ anti_patterns:
 
 ## When to apply
 
-A diff changes state writes, completion handlers, terminal status, or version checks. Determine whether an earlier operation can complete after a later operation and overwrite a state that the contract says must be retained.
+One operation starts, then another changes the same record before the first operation finishes. Check whether the older result can overwrite the newer state, such as turning a cancelled job back into a running one.
 
 ## Guidance
 
-At the final write, check whether current status, version, or generation is atomically constrained against the operation that produced the result. A guard before a wait does not protect the later mutation.
+Look at the final database or state write. Does it check that the version, generation, or status is still the one the operation started with? The check and write need to happen together, unless another protection prevents an intervening change. A check before an `await` is not enough on its own.
 
 Assign finding severity from actual impact: a stale display may be minor, but a reachable overwrite of payment or order terminal state that causes financial loss or corrupts authoritative records can warrant critical severity.
 
 Examine the write boundary for these failure modes:
 
 - A status or version check before an `await` is stale after the wait; put the expected version or allowed status into the atomic write predicate, or verify an equivalent protection.
-- A zero-row conditional update is not success: follow its result to see whether the caller incorrectly publishes completion or retries with an unconditional update.
+- A conditional update may affect zero rows because the state changed. Check whether the caller notices, rather than reporting success or retrying without the condition.
 - Reusing a generation ID after deletion and recreation can make an old callback appear current; check identity lifetime as well as the counter.
 - Multiple fields can form one invariant: updating status and result in separate transactions may expose `succeeded` with an old result, even when each write is individually atomic.
 - Database isolation and transaction boundaries matter: a read guarded in one transaction does not protect an update performed after that transaction ends.
@@ -36,7 +36,7 @@ An older background job writes `succeeded` after the user has cancelled its repl
 
 ## Why
 
-A result can be correct for the operation that produced it but obsolete for the current state. The ordering of completion is not necessarily the ordering of requests.
+The first request to start isn't always the first to finish. Its result may have been right when it started but wrong by the time it is saved.
 
 ## Exceptions and boundaries
 

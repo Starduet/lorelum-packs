@@ -1,0 +1,31 @@
+evaluation_only: true
+source:
+  name: AACR-Bench
+  license: Apache-2.0
+  revision: ee9d7fef70ef31acea2ff7ae316ce0a9575fe4df
+  records: https://github.com/alibaba/aacr-bench/blob/ee9d7fef70ef31acea2ff7ae316ce0a9575fe4df/dataset/positive_samples.json
+  converter: https://github.com/alibaba/aacr-bench/blob/ee9d7fef70ef31acea2ff7ae316ce0a9575fe4df/evaluation/converters/aacr_bench.py
+notes: >-
+  Candidate real PRs, not verified defects or completed evaluations. The benchmark maps
+  source_commit to base and target_commit to head. These commits diverge, so preserve both
+  the benchmark base and the merge base; base...head uses the merge base. Do not expose
+  benchmark comments to the reviewer before findings are frozen. Benchmark labels are not
+  authoritative findings and need independent validation. Selected by repository and change
+  size, not sampled randomly; results cannot represent the full benchmark.
+cases:
+  - id: aacr-gofr-1681
+    repo: gofr-dev/gofr
+    pr: https://github.com/gofr-dev/gofr/pull/1681
+    base: d0300073f685bb1154f7437f3172799d31bfddbe
+    head: c1a26ade6db7da96622c9bdca7674ef7094c122f
+    merge_base: 717443dc91dbf04169789d41bd4998a6ac858a14
+    compare: https://github.com/gofr-dev/gofr/compare/d0300073f685bb1154f7437f3172799d31bfddbe...c1a26ade6db7da96622c9bdca7674ef7094c122f
+    repo_license: Apache-2.0
+  - id: aacr-localai-4577
+    repo: mudler/LocalAI
+    pr: https://github.com/mudler/LocalAI/pull/4577
+    base: 78533d7230bdb5e352e325c15d0d53f38428b08e
+    head: e466450c007539a2b1e4d2951c6756ff004a2b52
+    merge_base: 20edd44463c15baa305d8cb988f05a5600baa13b
+    compare: https://github.com/mudler/LocalAI/compare/78533d7230bdb5e352e325c15d0d53f38428b08e...e466450c007539a2b1e4d2951c6756ff004a2b52
+    repo_license: MIT

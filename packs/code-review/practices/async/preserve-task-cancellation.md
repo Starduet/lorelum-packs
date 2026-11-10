@@ -1,6 +1,6 @@
 ---
 id: code-review.async.preserve-task-cancellation
-title: Trace Task Ownership and Cancellation
+title: Make Sure Background Work Knows When to Stop
 stage: review
 severity: warn
 tech_stack: [code-review]
@@ -14,13 +14,15 @@ anti_patterns:
 
 ## When to apply
 
-A change creates a task, subscription, timer, or stream, or changes its parent lifecycle. Determine who owns it and what must happen when its owner finishes, fails, or is cancelled.
+A request or job starts a task, timer, subscription, or stream. Check what happens to that work when the request finishes, fails, or is cancelled.
 
 ## Guidance
 
-Identify the owner of each spawned task and check what actually stops, joins, and observes it when the owner exits. Report a concrete lifecycle violation, not mere detachment.
+Find who is responsible for the work after it starts. If the request goes away, should the work stop or keep running? Check who stops it when needed, waits for it to finish, and handles errors.
 
-Inspect the actual runtime, not a generic notion of cancellation:
+Starting a task without awaiting it is not a bug by itself. Report it when the actual lifetime or error handling breaks a requirement.
+
+The answer depends on the runtime:
 
 - Python `asyncio.create_task` needs a strong reference for reliable detached work; the event loop keeps weak references. A task group or supervising collection may already own it.
 - `asyncio.shield` prevents cancellation of the awaiting caller from propagating to the inner task, but the caller still receives `CancelledError`; direct cancellation of the inner task still works. Check the cleanup path rather than assuming shielding guarantees completion.
@@ -34,7 +36,7 @@ A JavaScript handler starts an optional background refresh with `void refresh()`
 
 ## Why
 
-Starting work does not establish who observes its failure or how it ends. Cancellation often affects the caller and the spawned task differently.
+Returning from a request doesn't necessarily stop the work it started. If nobody is responsible for that work, it may keep running, leave resources open, or fail without anyone handling the error.
 
 ## Exceptions and boundaries
 

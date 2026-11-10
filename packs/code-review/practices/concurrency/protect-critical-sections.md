@@ -1,6 +1,6 @@
 ---
 id: code-review.concurrency.protect-critical-sections
-title: Check Locks Against the Invariant They Protect
+title: Check What Happens When Two Workers Need the Same Data
 stage: review
 severity: critical
 tech_stack: [code-review]
@@ -14,13 +14,15 @@ anti_patterns:
 
 ## When to apply
 
-A diff changes a lock, shared mutable state, critical section, or a wait inside one. Determine whether the actual synchronization still protects the relevant invariant and allows progress.
+Two requests or workers can touch the same data, and the change adds, removes, or moves a lock. Check whether they can both act on the same old value or end up waiting for each other.
 
 ## Guidance
 
-Compare every participant's lock scope and acquisition order against the protected shared invariant. A finding needs a reachable interleaving or wait cycle that survives the actual atomic or distributed protections.
+Find the data both workers use and what must not happen—for example, selling the same last item twice. Follow the locks each worker takes and the order in which it takes them.
 
-Check concrete protection boundaries:
+Report a race or deadlock only when you can show an execution order that existing protections do not prevent.
+
+Check where those protections end:
 
 - A process-local mutex does not serialize requests in other processes or replicas; a shared atomic update or distributed coordination may nevertheless protect the invariant.
 - A Redis lease can expire while its former holder is still executing. Check renewal failure, ownership-checked release, and whether the protected resource rejects stale holders with fencing where required.
@@ -34,7 +36,7 @@ A handler holds a mutex while waiting for a worker that must acquire the same mu
 
 ## Why
 
-Mutual exclusion protects only the operations actually covered by the same synchronization. Waiting can also extend lock ownership into work that cannot complete until the lock is released.
+A lock only protects the work done while the right worker holds it. If two workers take locks in different orders, each can also end up waiting for the other to let go.
 
 ## Exceptions and boundaries
 

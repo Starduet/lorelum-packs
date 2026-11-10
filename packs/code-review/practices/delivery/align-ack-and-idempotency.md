@@ -1,6 +1,6 @@
 ---
 id: code-review.delivery.align-ack-and-idempotency
-title: Trace Commit, Delivery, and Acknowledgement Together
+title: Check Whether a Crash Can Lose or Repeat the Work
 stage: review
 severity: critical
 tech_stack: [code-review]
@@ -14,13 +14,13 @@ anti_patterns:
 
 ## When to apply
 
-A change affects a durable write and message publication or consumption. Determine what remains true if the process crashes between commit, publish, business effect, and acknowledgement.
+The code saves something, sends or receives a message, and may call another service. Check what happens if the process stops between those steps, then the work is retried.
 
 ## Guidance
 
-Compare ack or offset commit, business transaction, outbox and external effects at each crash boundary. A deduplication key must cover the actual logical effect and retention window; ack alone cannot prevent duplicates.
+Follow one message through the database write, the business action, and the acknowledgement. At each point, ask: if the process crashes here, will the message come back? If it does, can the action happen twice? Follow an outbox or deduplication record through the same failure, if one exists.
 
-Broker-specific checks expose different windows:
+Broker details change the answer:
 
 - Kafka automatic offset commits can advance independently of application side-effect completion; inspect consumer configuration, polling, batching, rebalance, and actual commit timing.
 - An SQS visibility timeout shorter than processing can allow another consumer to receive the same message; even an unexpired timeout does not absolutely prevent duplicates for standard queues. Check extension and idempotent effects.
@@ -34,7 +34,7 @@ A consumer acknowledges a message before committing its non-repeatable business 
 
 ## Why
 
-A database, broker, and external service do not automatically share one atomic boundary. A crash between two successful steps can leave only one visible, and retry can repeat a step that already happened.
+Saving a database row and sending a message are usually separate operations. A crash between them can leave one done and the other undone. A retry can also repeat an action that already succeeded.
 
 ## Exceptions and boundaries
 
