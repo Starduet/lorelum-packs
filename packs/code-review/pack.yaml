@@ -1,6 +1,6 @@
 name: code-review
 version: 0.1.0
-description: Diff-triggered code review practices for backend failure boundaries, concurrency, and frontend correctness and performance.
+description: Diff-triggered code review practices for backend and frontend behavior, tests, and logging.
 author:
   name: Lorelum
 license: CC-BY-4.0

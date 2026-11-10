@@ -1,6 +1,6 @@
 # Code Review
 
-An unreleased, lightweight Knowledge Pack for reviewing changes in repository context. Eight independently retrievable Practices target concrete backend and frontend change signals; findings require reachable scenarios, relevant contracts and user-visible consequences, not merely suspicious syntax.
+An unreleased, lightweight Knowledge Pack for reviewing changes in repository context. Ten independently retrievable Practices cover backend and frontend behavior, tests, and logging; findings require reachable scenarios, relevant contracts and user-visible consequences, not merely suspicious syntax.
 
 ## Required review entry point
 
@@ -16,7 +16,7 @@ This candidate is not registered or released. Installation, retrieval, and actua
 
 ## Local evidence
 
-Lorelum 0.1.0-alpha.7 validated the Pack and updated all eight Practices in an isolated Store.
+Lorelum 0.1.0-alpha.7 validated an earlier eight-Practice revision in an isolated Store.
 On 16 positive fixture diffs, raw keyword queries returned the intended Practice first in 4 cases
 and in the top three in 9; raw semantic queries scored 2 and 6 respectively. Adding a prewritten
 neutral change-intent sentence improved keyword to 12 and 15, and semantic to 10 and 14. Neither
@@ -45,13 +45,19 @@ no false positives among 16 negatives. The reported run used low reasoning and t
 previously seen the answers, so it is a process exercise, not independent blind or high-effort
 acceptance evidence. This report has not been independently reproduced here.
 
-Two real AACR-Bench PRs are pinned in `fixtures/code-review/aacr-candidates.yaml` without
+Three real AACR-Bench PRs are pinned in `fixtures/code-review/aacr-candidates.yaml` without
 copying their reference comments. The LocalAI candidate was checked out at its recorded head,
 and its benchmark base-to-head merge-base diff was accessible. An intent plus the first hunk
 of `core/http/endpoints/openai/chat.go` returned the LLM Practice first in keyword mode and
 third in semantic mode. Sending the whole 6,323-character patch as one query failed with
 `usage.invalid`. These are input and retrieval smoke observations, not a complete diff review,
 an independent label judgment, or benchmark acceptance.
+
+For the ten-Practice revision, isolated installation and exact readback succeeded. An intent plus
+one real test-generation hunk from TypeScript-Go #1446 returned the testing Practice first in both
+keyword and semantic modes. An intent plus the logging middleware patch from GoFr #1681 returned
+the logging Practice first in both modes. These two manually selected queries do not test whether
+the Practices lead to correct findings or avoid false positives.
 
 This exercise does not establish real-PR review quality. Issue #45's specified-model, high-effort
 blind review acceptance remains unmet.
