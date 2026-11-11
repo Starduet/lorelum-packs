@@ -3,7 +3,7 @@ id: modern-web-guidance.platform.secure-external-assets
 title: Pin and Verify External Script and Stylesheet Bytes
 stage: implementation
 severity: critical
-applies_when: a page loads an immutable third-party script or stylesheet across origins
+applies_when: adding or upgrading a third-party script or stylesheet loaded directly by a page
 tech_stack:
   - html
   - web
@@ -14,10 +14,10 @@ anti_patterns:
     description: A mutable CDN URL executes third-party bytes without an independently obtained integrity digest.
 ---
 
-Pin external scripts and stylesheets to immutable versioned URLs and generate a Subresource Integrity digest from known-good local bytes at build or release time, or use the publisher's trusted digest. Put the digest in `integrity`, choose `crossorigin="anonymous"` for public assets and require the CDN to return a suitable CORS header. Set a deliberate referrer policy, such as `no-referrer` for a third-party asset. A mismatch blocks the resource; update the pinned URL and digest together when upgrading.
+First decide whether the page needs the third-party code at all: a script executes with the page's privileges. For a public, version-pinned CDN script or stylesheet whose bytes are known in advance, add an `integrity` digest generated from known-good release bytes or obtained independently from the publisher. Use `crossorigin="anonymous"` and ensure the CDN serves a matching CORS header; update the URL and digest together. Choose a referrer policy appropriate to the third party.
 
-Computing the expected hash from the same live response being verified provides no independent protection. CSP and integrity protect different boundaries: an allowed script is not made safe by an origin allowlist alone, and SRI does not replace CSP. If a vendor insists on mutable bytes, SRI cannot pin that resource; prefer a pinned alternative or assess isolation and CSP rather than claiming equivalent integrity protection.
+For example, when upgrading a pinned library, generate its new digest from the verified release, deploy it with the new URL, and check that the resource loads with CORS and that a mismatched digest is blocked. Hashing the live response against itself does not establish trust.
 
-HTML script and stylesheet SRI is broadly supported in the upstream snapshot. CSS `url()` integrity modifiers have much narrower support; a plain-URL fallback is unverified, so do not claim cross-browser integrity for it. Where verification is mandatory, prefer an integrity-protected HTML stylesheet link or a trusted same-origin asset delivery strategy. Verify browser and CDN behavior for the deployed targets.
+SRI verifies bytes, not whether the verified code is trustworthy; CSP and isolation address different risks. A mutable vendor tag cannot be pinned this way: prefer a pinned alternative or explicitly assess isolation and CSP rather than claiming equivalent integrity. CSS `url()` integrity support is narrower than HTML script and stylesheet SRI; an unverified fallback does not enforce integrity.
 
 Source: [Secure external subresources with Subresource Integrity, CORS, and Referrer Policy](https://github.com/GoogleChrome/modern-web-guidance/blob/4dd968349e54ca45a05dd5c818fb035c9054b022/skills/modern-web-guidance/guides/security/secure-external-subresources.md), v1.0.0, commit `4dd968349e54ca45a05dd5c818fb035c9054b022`.

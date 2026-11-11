@@ -13,25 +13,13 @@ anti_patterns:
     severity: warn
 ---
 
-## When to apply
-
-Apply when designing CSS rules that otherwise require specificity escalation or reset overrides.
-
 ## Guidance
 
-Declare cascade layer order up front, use `:where()` for low-specificity defaults, and exclude states that should never match with `:not()`. Use scoped boundaries where nested subtrees must be excluded or proximity matters.
-
-## Anti-pattern
-
-A generic hover rule followed by a disabled override becomes incorrect when the rules are reordered.
-
-## Why
-
-Non-overlapping selectors express the intended state, while layers separate priority from selector specificity.
+Exclude irrelevant states in the selector instead of undoing an overbroad rule. For example, a hover rule should not match disabled buttons, regardless of source order. For rules that repeatedly compete by specificity, use cascade layers to express priority and `:where()` for overridable defaults; follow existing project conventions rather than renaming classes.
 
 ## Exceptions and boundaries
 
-Unlayered normal author rules outrank layered normal author rules; important declarations reverse layer order. `@scope` is progressive enhancement: supply a functional selector fallback when outside the target matrix. Existing BEM conventions need not be renamed.
+Normal unlayered author rules outrank layered rules, and `!important` reverses layer order. Adding a layer to an existing stylesheet can therefore change priority: account for existing unlayered rules before migrating. Overrides remain appropriate for genuine specialization.
 
 ## Example
 
