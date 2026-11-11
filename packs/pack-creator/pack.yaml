@@ -1,5 +1,5 @@
 name: pack-creator
-version: 0.2.1
+version: 0.3.0
 description: Practices for creating atomic, retrievable, reviewable Lorelum Knowledge Packs, including repository-local project layers and verifiable Registry releases.
 author:
   name: Lorelum
