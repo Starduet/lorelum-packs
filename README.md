@@ -4,6 +4,7 @@ This repository is the official public catalog for installable Lorelum Knowledge
 
 ## Catalog
 
+- [`modern-web-guidance`](./packs/modern-web-guidance/README.md) — unreleased selection of web-platform decision Practices distilled from the upstream Modern Web Guidance guides; not an official Registry release.
 - `issue-pr-etiquette@0.1.1` — 12 repository-neutral Practices for filing issues, opening pull requests, and taking part in reviews: single-problem convergence with testable acceptance criteria, cited evidence, gate classification, single declared scope, conventional titles, cold-reviewer PR bodies, diff hygiene, review discipline, and honest AI-assistance disclosure. Bundles issue and PR skeleton templates as `assets/` resources.
   - [简体中文本地化](./packs/issue-pr-etiquette/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `pack-creator@0.3.0` — 28 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Packs, including task-shaped design and repository-local project layers. The official Registry resolves the immutable `pack-creator-v0.3.0` ref.
