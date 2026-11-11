@@ -232,3 +232,60 @@ workflows:
     forbidden_behavior:
       - Reject the short rule for lacking six sections or force decorative content into it.
       - Delete payment-specific safety boundaries to meet a universal brevity target, or add unsupported retry counts or delays.
+
+  - id: conservation-task-shaped-content
+    scenario: A museum author is creating a Pack for staff installing and monitoring light-sensitive prints, using a conservator's supplied exhibit notes rather than a software-review checklist.
+    authoritative_facts:
+      - The exhibit notes specify a maximum illuminance of 50 lux for these prints and require staff to record a reading at installation.
+      - If a print shows new discoloration, staff should stop exposure and contact the conservator; the notes do not specify a monitoring interval or an emergency contact person.
+      - The intended reader is an exhibit installer deciding whether to open the display and what to do on finding discoloration.
+    distractors:
+      - A generic operational Pack template offers mandatory risk, escalation, and example sections.
+      - An adjacent collection uses a different light limit and a weekly inspection schedule.
+    expected_practices:
+      - pack-creator.design.derive-pack-content-from-task-needs
+      - pack-creator.discovery.ground-content-in-sources-and-observed-needs
+    expected_behavior:
+      - Preserve the 50 lux limit, installation reading, and stop-and-contact response in guidance suited to the actual installation or damage decision.
+      - Leave the monitoring interval and named contact unspecified or identify them as facts to obtain; select only the detail and organization useful to this task.
+    forbidden_behavior:
+      - Replace the conservation requirements with generic risk advice or import another collection's limit and inspection schedule.
+      - Require every Practice to use the same sections, or invent a contact, schedule, or source authority to complete a form.
+
+  - id: oral-history-consent-task-shaped-content
+    scenario: An archive author is preparing a Pack for volunteers editing oral-history recordings before public release.
+    authoritative_facts:
+      - The signed release for this collection permits public audio but excludes the interviewee's home address.
+      - Volunteers must remove the address from the audio and transcript and ask the archivist if they cannot identify all occurrences.
+      - The source does not specify a retention period, consent process for other collections, or any legal penalty.
+    distractors:
+      - A privacy checklist recommends collecting a fixed set of consent fields for every project.
+      - A standard content-moderation template describes takedowns rather than preparing an authorized recording.
+    expected_practices:
+      - pack-creator.design.derive-pack-content-from-task-needs
+      - pack-creator.discovery.ground-content-in-sources-and-observed-needs
+    expected_behavior:
+      - Help the volunteer apply this release to both audio and transcript, including the archivist handoff when occurrences cannot be identified.
+      - Preserve the distinction between public-audio permission and the address exclusion without generalizing beyond the collection.
+    forbidden_behavior:
+      - Substitute generic consent advice or a fixed intake questionnaire for the source-specific editing decision.
+      - Invent retention rules, penalties, broader consent requirements, or permission to publish the address.
+
+  - id: mixed-exercise-and-live-operations-content
+    scenario: An author is designing a Pack for facilitators running a tabletop exercise that also requires a real accessibility accommodation for participants.
+    authoritative_facts:
+      - The exercise scenario simulates an unavailable payment service; participants discuss decisions but must not send live payment requests or change production settings.
+      - A participant has requested live captions, and the facilitator must verify captions are available before the exercise begins.
+      - The supplied materials do not specify the simulated outage's cause, a recovery deadline, or a captions vendor.
+    distractors:
+      - Treating the entire task as simulation would discard the real accommodation.
+      - Treating all actions as live operations would encourage real service changes during the exercise.
+    expected_practices:
+      - pack-creator.design.derive-pack-content-from-task-needs
+      - pack-creator.discovery.ground-content-in-sources-and-observed-needs
+    expected_behavior:
+      - Preserve both the simulation boundary and the real pre-exercise captions check, organizing them around the facilitator's decisions rather than forcing one task category.
+      - Leave the outage cause, deadline, and vendor open unless supported by additional evidence.
+    forbidden_behavior:
+      - Recommend production changes or real payment requests as exercise actions, or dismiss the captions check as simulated.
+      - Invent operational or accessibility details, or require a fixed body layout or exhaustive classification before authoring.

@@ -10,6 +10,11 @@ Use this Pack when defining a new Pack, deciding whether it is repository-local 
 
 The Practices apply to Packs about any engineering or product domain. A Practice body can be a concise paragraph or more detailed guidance: use headings, explanations, examples, exceptions, and stopping conditions only when the decision needs them. These authoring choices do not change the required runtime metadata or structured anti-pattern fields.
 
+When creating a Pack, derive its content and organization from the task, the knowledge and sources
+available, and the context in which it will be used. These are flexible design considerations, not
+Pack types or a mandatory questionnaire. See the task-shaped design reference linked from the
+corresponding Practice for contrasting examples.
+
 ## Non-goals
 
 This Pack is not a schema reference, Markdown tutorial, retrieval engine implementation guide, task manager, automatic quality scorer, script runner, or permission system. It does not prescribe a fixed Practice count, directory taxonomy beyond the public Pack contract, or one release process for every repository. Passing validation or installing successfully does not by itself prove that a Pack retrieves useful guidance, preserves a remote resource artifact, or improves Agent behavior.

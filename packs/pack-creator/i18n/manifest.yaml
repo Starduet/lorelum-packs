@@ -29,6 +29,8 @@ locales:
         source_digest: sha256:c568a8ed509bf6a93f3de6314d2681480b6413556e5a8cae77f8c2f4e2930f61
       - path: practices/design/decompose-one-decision-per-practice.md
         source_digest: sha256:807411d73a27ce3d6c89d874b2e0d07d2bb28d40a0c48d9bfb300dfb2c332cf6
+      - path: practices/design/derive-pack-content-from-task-needs.md
+        source_digest: sha256:de4739fee669dd27a13dd6ba06a47134470c408300a69a548b5c8039c597e74d
       - path: practices/design/keep-each-practice-standalone.md
         source_digest: sha256:8a90ed877f6d3f78ba4c81b38b46f44a74d5fb2d95f59b3ba1ada7bf5ca59fe8
       - path: practices/design/separate-neighboring-triggers.md

@@ -1,12 +1,12 @@
 # `pack-creator` 简体中文审阅版
 
-这里是 `pack-creator@0.2.1` 的 27 条 canonical Practice 中文 companion，供中文读者审查这套 Pack 的写作判断是否清楚、具体且适用于不同领域。`0.2.0` 是此前已验证的不可变发布版本。中文不是另一套运行时 Pack，也不会参与召回。
+这里是 `pack-creator@0.2.1` 及未发布更新的 canonical Practice 中文 companion，供中文读者审查这套 Pack 的写作判断是否清楚、具体且适用于不同领域。`0.2.0` 是此前已验证的不可变发布版本。中文不是另一套运行时 Pack，也不会参与召回。
 
 [`../../practices`](../../practices/) 中的英文 canonical 文件是运行时权威：Practice ID、anti-pattern ID、trigger、动作、例外和发布含义都由英文文件控制。中文文件通过相同相对路径与 canonical 对应，不复制 runtime frontmatter。若中英文意义冲突，应先修正 canonical，再重新同步译文，不能只在中文中另写规则。
 
 Practice 正文可以是简短段落，也可以按具体决定的需要展开；标题、解释、示例、例外和停止条件都不是统一必备项。写作选择不改变运行时必需的元数据或结构化 anti-pattern 字段。
 
-## 导航（27 条）
+## 导航（28 条）
 
 ### 发现（4）
 
@@ -15,8 +15,9 @@ Practice 正文可以是简短段落，也可以按具体决定的需要展开�
 - [每条重要规则都要有可追溯的依据](practices/discovery/ground-content-in-sources-and-observed-needs.md)
 - [找出整套 Pack 应该在什么时候提供帮助](practices/discovery/identify-retrieval-moments.md)
 
-### 设计（4）
+### 设计（5）
 
+- [根据任务与知识特点设计 Pack 内容](practices/design/derive-pack-content-from-task-needs.md)
 - [一条 Practice 只处理一个可独立出现的决定](practices/design/decompose-one-decision-per-practice.md)
 - [把父子项目层组成增量覆盖](practices/design/compose-inherited-project-layers.md)
 - [让每条 Practice 脱离相邻文件也能直接使用](practices/design/keep-each-practice-standalone.md)

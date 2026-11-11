@@ -1,6 +1,6 @@
 fixture_set: pack-creator-practice-catalog
 evaluation_only: true
-description: Retrieval and content hypotheses for the 27 pack-creator Practices; not a runtime schema or proof of content, retrieval, or downstream quality.
+description: Retrieval and content hypotheses for the 28 pack-creator Practices; not a runtime schema or proof of content, retrieval, or downstream quality.
 entries:
   - id: pack-creator.discovery.define-pack-decision-outcome
     positive_trigger: A security Pack has forty authentication documents, and the author must decide whether the collection should cover those topics or improve concrete credential-storage, rotation, and validation decisions.
@@ -25,6 +25,14 @@ entries:
     nearest_neighbor: pack-creator.authoring.write-discriminating-applies-when
     expected_behavior: List recurring collection-level decision moments from real questions and failures, merge synonyms, and remove moments unrelated to the Pack outcome.
     forbidden_behavior: Treat source chapters, repository folders, or one fixed workflow as the moments readers will use to retrieve the Pack.
+
+  - id: pack-creator.design.derive-pack-content-from-task-needs
+    positive_trigger: An author must build a Pack from a museum's exhibit-conservation notes, including light exposure limits and a handoff when an object shows damage; no existing software-review template fits the conservators' decisions.
+    paraphrase: A team wants a Pack for tabletop incident exercises, with facilitator prompts, evidence of participant decisions, and a boundary between simulated and live actions; decide what guidance those tasks actually need.
+    near_miss: The author has already identified the decision-relevant content for an individual Practice, but it depends on an unexplained term in another file and must stand alone.
+    nearest_neighbor: pack-creator.design.keep-each-practice-standalone
+    expected_behavior: Derive useful content and its level of detail from the reader's actual task, source facts, decisions, and consequences; retain domain-specific constraints and combine relevant needs without assigning the Pack to a fixed category or imposing a body template.
+    forbidden_behavior: Replace source-supported domain constraints with generic advice, invent thresholds or authority, or require every Pack to answer a fixed questionnaire or follow a prescribed set of sections.
 
   - id: pack-creator.design.decompose-one-decision-per-practice
     positive_trigger: A frontend-performance draft combines image sizing, cache policy, bundle splitting, and measurement because one internal guide discusses them together.
