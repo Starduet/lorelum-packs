@@ -55,12 +55,15 @@ Public sources:
 
 | Practice ID | Provenance | Relationship to source |
 | --- | --- | --- |
-| `pack-creator.authoring.link-pack-resources-from-the-practice` | Protocol-aligned synthesis; Pack-authoring synthesis | Keeps the trigger, action, reason, exception, and stop condition in one retrievable Practice, with `resource:` links used only for supplemental same-Pack files. |
+| `pack-creator.authoring.link-pack-resources-from-the-practice` | Protocol-aligned synthesis; Pack-authoring synthesis; issue #47 | Keeps facts essential to the immediate decision in the retrievable Practice, with `resource:` links used for supplemental same-Pack files; no fixed body sections are required. |
 | `pack-creator.authoring.choose-reference-asset-or-script` | Protocol-aligned synthesis; Pack-authoring synthesis | Distinguishes read-on-demand references, copy-before-edit assets, and explicitly authorized scripts without inventing descriptors or execution authority. |
 | `pack-creator.evaluation.verify-resource-integrity-without-overclaiming` | Protocol-aligned synthesis; Pack-authoring synthesis | Separates resource structure, selected-artifact preservation, explicit script behavior, retrieval selection, and downstream Agent evidence. |
 
 The release Practices also apply to resource-only updates: changed bytes require a new immutable Pack
 artifact and release evidence even when an unchanged Practice retains its canonical digest.
+
+Issue #47 separates the format's required metadata and structured anti-pattern fields from
+authoring choices about body content; the latter depend on the decision, not a fixed template.
 
 ## Synthesis boundary
 

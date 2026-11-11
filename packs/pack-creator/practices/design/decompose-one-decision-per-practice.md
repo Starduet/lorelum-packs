@@ -22,8 +22,9 @@ files are separate, check whether their triggers still compete for the same requ
 ## Guidance
 
 Look at what the draft asks the reader to decide or do. If they could reasonably need one action
-without the others, give each decision its own trigger, guidance, explanation of what can go wrong,
-and limits. Keep shared evidence in provenance or links; a source chapter need not become one file.
+without the others, give each decision its own trigger and the guidance needed to make it. Explain
+failure mechanisms or limits where they matter, rather than requiring them in every entry. Keep
+shared evidence in provenance or links; a source chapter need not become one file.
 Put pieces back together if they offer no independent choice and merely repeat setup. Stop when each
 Practice helps with one decision without bringing along unrelated guidance.
 

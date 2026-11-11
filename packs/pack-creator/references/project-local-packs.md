@@ -38,12 +38,12 @@ applies_to:
   - service-delivery
 ```
 
-The example below follows this Pack's existing six-section authoring pattern. The runtime format
-requires `id`, `title`, `stage`, `tech_stack`, and `applies_when`; `severity` is optional, and
-structured anti-patterns use `id`, `name`, `description`, and `severity`. Keep the applicability
-condition in `applies_when` and When to apply, not in an additional required summary. Localized
-companions follow the same relative Practice paths outside runtime input and do not copy the YAML
-frontmatter.
+The runtime format requires `id`, `title`, `stage`, `tech_stack`, and `applies_when`; Practice
+`severity` is optional. Structured anti-patterns use `id`, `name`, `description`, and `severity`.
+The body has no fixed heading set: include only what the decision needs. Localized companions follow
+the same relative Practice paths outside runtime input and do not copy the YAML frontmatter.
+
+This concise example uses no body headings:
 
 ```markdown
 ---
@@ -61,39 +61,9 @@ anti_patterns:
     severity: warn
 ---
 
-## When to apply
-
-Apply before approving a release that changes stored data or a contract used outside the service.
-Decide whether the proposed rollback has been tested for that change.
-
-## Guidance
-
-Identify the data or contract that changes. Review the rollback steps and the test showing that
-they restore the required state. Do not approve the release on the strength of a redeploy switch
-alone. Stop when the review records the tested rollback plan or the missing evidence blocking
-approval.
-
-## Anti-pattern
-
-A release changes stored records, but the review checks only that the old binary can be redeployed.
-That familiar deployment switch looks like a rollback plan even though the old binary may no longer
-be able to read the changed records.
-
-## Why
-
-Reverting code does not necessarily revert data or an external contract. Testing the rollback for
-the proposed change reveals whether the service can actually return to the required state.
-
-## Exceptions and boundaries
-
-A release that changes neither persistent data nor an externally visible contract is outside this
-Practice's trigger. A code-only redeploy test does not satisfy the rule when either one changes.
-
-## Example
-
-A service release changes the response fields used by a client. Before approval, the reviewer
-checks the plan for restoring the previous response and the test showing that the client can use
-it. The review records that evidence instead of assuming a successful binary redeploy is enough.
+Before approving a release that changes persistent data or an external contract, review the tested
+steps for restoring that data or contract. Redeploying an old binary alone does not establish that
+the changed state can be restored.
 ```
 
 Do not put SQLite indexes, semantic vectors, model files, Backend state, or cache directories under `.lorelum`. They are user-owned derived state and can be recreated from current Pack source.

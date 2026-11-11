@@ -4,33 +4,33 @@ locales:
   zh-CN:
     entries:
       - path: practices/authoring/choose-reference-asset-or-script.md
-        source_digest: sha256:568df12e4b6aa1cc297db4042d19eea85dc61cb439731c011b0a865fb7affd12
+        source_digest: sha256:b44ba36e1031ca658103accaabd471194f1cc219d97f154ec0ff5e20219ef2af
       - path: practices/authoring/create-a-project-local-pack.md
         source_digest: sha256:d1f10b3fbe1fcbefb77520b4137f60aac8af825b1cd4ac129aff20dbd09a2cb6
       - path: practices/authoring/explain-the-direct-causal-reason.md
-        source_digest: sha256:85b8e6e8e10082ad6dc5de8c5e9f83cdc46d0f838d7c090fab6af6d86f7012ec
+        source_digest: sha256:726e585cd9bc1b477018f577c8ad66e50e666adcc2d317ef459a36733110f9cd
       - path: practices/authoring/give-anti-pattern-and-example-distinct-jobs.md
-        source_digest: sha256:3668f5fb40333af963d4a09ebc9931cb9c68a419d32cb54cdad458c9b118becc
+        source_digest: sha256:a134b47d574101d4e108e3087179103e1396350c36d1d985162ea97c331b1603
       - path: practices/authoring/link-pack-resources-from-the-practice.md
-        source_digest: sha256:faa0070561b618881c67190fab93f607e687cfb5fb9f6c14c031867aa364e572
+        source_digest: sha256:8bf2470010eaee331bbecd3ca4c3a27edd76e159337ff9f09fc959884d9b0698
       - path: practices/authoring/make-examples-self-contained.md
-        source_digest: sha256:0739c993100a1aecdc0e426a5017bb181a02ca3a45c22293de5997ada6b6c275
+        source_digest: sha256:7150dcdea1c5aacff2f8e55c2493482a6eb73cedd284a34521faa4ceae679206
       - path: practices/authoring/prefer-plain-language-and-concrete-referents.md
         source_digest: sha256:f184ffe3fadb3eaee11627c91b0ea67b7c4a9d2f3a283dbc85535408d41abdac
       - path: practices/authoring/use-realistic-failure-mechanisms.md
         source_digest: sha256:094ca0a591e314dbbe2aae8fbd64976fafda7a5d054459c8d7a69f876f998c3f
       - path: practices/authoring/write-concrete-guidance-and-stop-condition.md
-        source_digest: sha256:0934731046e854e25e0d895972b673ee3a59daeed1efd3e1c926f091ad309b5f
+        source_digest: sha256:f10731ccbbb979b1cb3b2b74bf7f8e3901b29f0b310bddab45fc481a0faa1924
       - path: practices/authoring/write-discriminating-applies-when.md
-        source_digest: sha256:cc3b540a20c1354996662182dd169e95ed0fbc413490a84a01b3aab0c1c1f7d6
+        source_digest: sha256:94cf6a32a68b95c4500ac77c10b4ae9d4c9ed5888b86080f00dcf3d8370d0385
       - path: practices/authoring/write-specific-exceptions-and-boundaries.md
-        source_digest: sha256:899567564dc963354e54eab12730e616d4834ffe11ae6210b7a0ba3795d39ee3
+        source_digest: sha256:4b1b8d0d6c9d712c7f1fae176563760f6c38f46863746dd67aa8bc39f5b51239
       - path: practices/design/compose-inherited-project-layers.md
         source_digest: sha256:c568a8ed509bf6a93f3de6314d2681480b6413556e5a8cae77f8c2f4e2930f61
       - path: practices/design/decompose-one-decision-per-practice.md
-        source_digest: sha256:6fd6d145e9b567524792f3bd342b5984628a7d79c0a0b83bf3d334f8fe923f9f
+        source_digest: sha256:807411d73a27ce3d6c89d874b2e0d07d2bb28d40a0c48d9bfb300dfb2c332cf6
       - path: practices/design/keep-each-practice-standalone.md
-        source_digest: sha256:cdac96cdb3f8cd4b8f063f900380a0558e1d1fad1ec39f4e52b93b03f71a2ccf
+        source_digest: sha256:8a90ed877f6d3f78ba4c81b38b46f44a74d5fb2d95f59b3ba1ada7bf5ca59fe8
       - path: practices/design/separate-neighboring-triggers.md
         source_digest: sha256:3a79ec24be3e71e1842354f79ac0bd38a0ec0febcb14c65a166d5918c2e4560b
       - path: practices/discovery/choose-project-local-or-registry-release.md
@@ -42,9 +42,9 @@ locales:
       - path: practices/discovery/identify-retrieval-moments.md
         source_digest: sha256:80885a0812193988efcc78a48ccf405c75e99e3fa7b3a850eaae45f6a82442f9
       - path: practices/evaluation/separate-structural-and-semantic-evidence.md
-        source_digest: sha256:f5f45fba1f8097cf642c31eb88816b491abd0ecdb6a004972009a15016f01661
+        source_digest: sha256:662debaaaae45753b5eff7be73baca2f47a3d94cd2eea6da210498c973da6f0d
       - path: practices/evaluation/test-retrieval-with-contrasting-queries.md
-        source_digest: sha256:65152cce7b74b4377355d36e5dcaa273c503d264bdab48a363c3fc8f3afba467
+        source_digest: sha256:e0468015d33aa287e8b3970aac9d16bcecaea6a3f40347ca98039b291cc5a05b
       - path: practices/evaluation/verify-project-local-pack-activation.md
         source_digest: sha256:2843990e9c940eadbd394883eae57f8a839f8148a1014588336c16fa490cd973
       - path: practices/evaluation/verify-resource-integrity-without-overclaiming.md

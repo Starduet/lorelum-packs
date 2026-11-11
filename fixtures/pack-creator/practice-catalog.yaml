@@ -47,7 +47,7 @@ entries:
     paraphrase: A compliance Practice depends on an acronym and approval rule explained only in the Pack README.
     near_miss: The complete Practice works without its neighbors, but its Example refers to an internal incident whose roles and constraints are not stated.
     nearest_neighbor: pack-creator.authoring.make-examples-self-contained
-    expected_behavior: Cold-read the whole file alone and add only the trigger, action, reason, stop, exception, and definitions needed to use it safely.
+    expected_behavior: Cold-read the whole file alone and include only the decision-critical context needed to act safely, whether that includes a reason, boundary, stopping point, or definition.
     forbidden_behavior: Depend on Pack order, an earlier Practice, README context, or an unopened source for a fact required by the immediate decision.
 
   - id: pack-creator.authoring.write-discriminating-applies-when
@@ -63,7 +63,7 @@ entries:
     paraphrase: A frontend color Practice says to consider the design system without telling the reader what to inspect, record, or decide before stopping.
     near_miss: The default action and stopping point are already observable, but the exception section says only "unless security or business needs require otherwise."
     nearest_neighbor: pack-creator.authoring.write-specific-exceptions-and-boundaries
-    expected_behavior: Name the facts to inspect, the comparison or change to make, the result to record, and the condition that ends further work.
+    expected_behavior: Make the action and decision concrete; for this open-ended review, name the facts to inspect, result to record, and condition that ends further work.
     forbidden_behavior: Supply considerations and background that let research continue without producing a bounded decision.
 
   - id: pack-creator.authoring.use-realistic-failure-mechanisms
@@ -79,7 +79,7 @@ entries:
     paraphrase: A consent-import Example names a quarantine action but omits the policy facts that require consent time and source.
     near_miss: The Example contains its goal, constraints, choice, and result, while other sections still rely on earlier Practices and hidden Pack order.
     nearest_neighbor: pack-creator.design.keep-each-practice-standalone
-    expected_behavior: Include only the Pack goal, source or system facts, plausible alternative, chosen action, and result needed to understand the scenario cold.
+    expected_behavior: When an example helps the decision, include only the context and outcome needed to understand that scenario cold; do not require an example for every Practice.
     forbidden_behavior: Rely on internal names, familiar incidents, unexplained relationships, or earlier entries to make the Example intelligible.
 
   - id: pack-creator.authoring.give-anti-pattern-and-example-distinct-jobs
@@ -87,7 +87,7 @@ entries:
     paraphrase: An authorization Practice explains one cached-membership failure and then retells it with the decision reversed as its only positive example.
     near_miss: The sections teach different information, but the Anti-pattern's wrong choice is too foolish for a capable practitioner to make.
     nearest_neighbor: pack-creator.authoring.use-realistic-failure-mechanisms
-    expected_behavior: Keep the Anti-pattern on temptation, mechanism, and failure, and use the Example to show the correct action or boundary in another concrete case.
+    expected_behavior: When both are useful, keep the Anti-pattern on temptation, mechanism, and failure, and use the Example to show a distinct action or boundary; omit a redundant example.
     forbidden_behavior: Mirror one scenario with positive and negative wording when deleting either section would lose no distinct lesson.
 
   - id: pack-creator.authoring.prefer-plain-language-and-concrete-referents
@@ -103,7 +103,7 @@ entries:
     paraphrase: A token Practice says audience checks improve security without stating that they reject tokens issued for another service.
     near_miss: The immediate cause is correct, but abstract wording hides which actor, artifact, or state actually changes.
     nearest_neighbor: pack-creator.authoring.prefer-plain-language-and-concrete-referents
-    expected_behavior: Connect the required action to the first important system or decision effect and explain why that effect changes the outcome.
+    expected_behavior: When a reason is needed, connect the action to its direct effect and explain why that effect changes the outcome; do not require a rationale in every Practice.
     forbidden_behavior: Use a mission statement, distant business benefit, or unsupported causal chain as the rationale.
 
   - id: pack-creator.authoring.write-specific-exceptions-and-boundaries
@@ -111,7 +111,7 @@ entries:
     paraphrase: An operations retry rule says only "do not retry when risky" and leaves duplicate external charges unprotected.
     near_miss: The default itself contains no concrete steps, decision output, or stopping point, so Guidance must be completed before its exceptions are refined.
     nearest_neighbor: pack-creator.authoring.write-concrete-guidance-and-stop-condition
-    expected_behavior: Name the observable condition, how the default changes, and which protection remains for every exception that can alter the decision.
+    expected_behavior: When an exception can alter the decision, name its observable condition, how the default changes, and which protection remains; do not invent exceptions for every Practice.
     forbidden_behavior: Add broad concern lists or imaginable edge cases that let any preference bypass the default.
 
   - id: pack-creator.review.run-subtractive-content-review

@@ -64,8 +64,8 @@ workflows:
         correctness_assertions:
           - The trigger identifies acceptance of a token across service boundaries and distinguishes it from token issuance or storage decisions.
           - Guidance names the issuer, audience, intended receiving service, rejection behavior, and the observation that ends the check.
-          - The Anti-pattern explains the credible reuse incentive and missed audience check; the Example demonstrates correct application in a different self-contained service relationship.
-          - The Why states that signature validation alone cannot show the token was issued for this service, and any exception names an identifiable compatibility condition plus protections that remain.
+          - If an Anti-pattern or Example is retained, it has a distinct decision-relevant job; the Anti-pattern explains the credible reuse incentive and missed audience check, while an Example demonstrates a different self-contained service relationship.
+          - If the rationale is needed, it explains that signature validation alone cannot show the token was issued for this service; any exception names an identifiable compatibility condition plus protections that remain.
         forbidden_behavior:
           - Prove the rule with an incompetent actor, unexplained incident labels, abstract trust language, or an exception that can excuse every case.
           - Make the Example a positive paraphrase of the Anti-pattern or require another Practice to explain the actors and tokens.
@@ -141,7 +141,7 @@ workflows:
   - id: resource-backed-pack-release
     scenario: "A database-migration Pack adds a compatibility reference, a migration-plan asset, and a read-only schema-diff helper. The migration Practice is independently actionable, but the author must route each supplemental file and prepare a release claim without turning the script into automatic authority."
     authoritative_facts:
-      - "The Practice body contains the decision trigger, action, reason, exception, and stopping point; resources only add conditional depth or repeatable help."
+      - "The Practice retains the information needed for its migration decision; resources only add conditional depth or repeatable help. A reason, exception, or stopping point belongs in the body only when the decision needs it."
       - "`lore validate` can report path/link structure but does not execute scripts or prove remote artifact preservation."
       - "A resource-only update can replace the selected Pack artifact without changing an unchanged Practice's canonical digest or retrieval revision."
     distractors:
@@ -203,3 +203,32 @@ workflows:
           - Validation, context status, keyword query, and get run from the payments directory establish the current winner before any semantic claim.
         forbidden_behavior:
           - Copy the whole parent Pack, use `inherit: false` for one override, or report one old semantic result as current-context proof.
+
+  - id: decision-sized-practice-bodies
+    scenario: An author is reviewing two Practices against a proposed six-section body template and a competing proposal to make every Practice one sentence.
+    authoritative_facts:
+      - Both Practices retain the required runtime metadata, including a string applicability condition; any structured anti-pattern retains id, name, description, and severity.
+      - 'A logging rule has a complete immediate action in one paragraph without headings: "Do not log access tokens; redact them before emitting any log entry."'
+      - A payment retry decision must distinguish an unknown payment outcome from a confirmed failure, account for idempotency and provider constraints, and stop for human reconciliation when the result cannot safely be resolved.
+      - |-
+        A detailed payment body can say:
+
+        ## Resolve the outcome
+        After a payment request times out, check the provider's status for the original transaction before deciding whether to send again. A timeout alone does not establish failure.
+
+        ## Retry boundary
+        Retry only when the provider's documented rules and the original idempotency key make that safe. Follow the provider's limits; if the outcome remains unknown or safe retry cannot be established, stop and send the transaction for human reconciliation.
+    distractors:
+      - Six headings would make the two Practices look uniform.
+      - One sentence per Practice would minimize the word count.
+    expected_practices:
+      - pack-creator.design.keep-each-practice-standalone
+      - pack-creator.authoring.write-concrete-guidance-and-stop-condition
+      - pack-creator.review.run-subtractive-content-review
+    expected_behavior:
+      - Accept the short logging paragraph without inventing a reason, example, exception, stop, or body heading merely to fill a template.
+      - Preserve the detailed payment guidance, including its decision-critical stop and reconciliation boundary; a concrete example or headings may be retained when they clarify that decision.
+      - Keep required frontmatter and all four fields of any structured anti-pattern regardless of body length.
+    forbidden_behavior:
+      - Reject the short rule for lacking six sections or force decorative content into it.
+      - Delete payment-specific safety boundaries to meet a universal brevity target, or add unsupported retry counts or delays.

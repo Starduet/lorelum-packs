@@ -4,6 +4,8 @@
 
 [`../../practices`](../../practices/) 中的英文 canonical 文件是运行时权威：Practice ID、anti-pattern ID、trigger、动作、例外和发布含义都由英文文件控制。中文文件通过相同相对路径与 canonical 对应，不复制 runtime frontmatter。若中英文意义冲突，应先修正 canonical，再重新同步译文，不能只在中文中另写规则。
 
+Practice 正文可以是简短段落，也可以按具体决定的需要展开；标题、解释、示例、例外和停止条件都不是统一必备项。写作选择不改变运行时必需的元数据或结构化 anti-pattern 字段。
+
 ## 导航（27 条）
 
 ### 发现（4）

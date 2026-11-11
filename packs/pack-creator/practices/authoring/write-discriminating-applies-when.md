@@ -17,14 +17,14 @@ title: Write a Trigger That Selects One Practice
 
 Before finishing `applies_when`, ask what would be happening when a reader needs this particular
 Practice. Its question should already be clear. Describe that situation, not just the broad topic.
-Finding useful situations across the whole Pack comes earlier; what to do after finding this entry
-and when to stop belong in Guidance.
+Finding useful situations across the whole Pack comes earlier; action details belong in the body
+when needed.
 
 ## Guidance
 
 Describe what the reader is about to decide or do, what it affects, and the condition that makes
-this Practice useful. Keep `applies_when` focused on that condition. Use the existing When to apply
-section for necessary context, without adding a summary or introduction. If another Practice could
+this Practice useful. Keep `applies_when` focused on that condition. Add context to the body only
+when needed, without requiring a particular heading. If another Practice could
 match the same request, record a similar but unsuitable request in the retrieval fixture or
 authoring notes. Put only the fact that changes which Practice to use into `applies_when`. Remove
 topic labels that do not narrow its use. Stop when someone reading the Practice for the first time

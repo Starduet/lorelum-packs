@@ -8,7 +8,7 @@ Canonical English · [简体中文 companion](./i18n/zh-CN/README.md)
 
 Use this Pack when defining a new Pack, deciding whether it is repository-local or a versioned release, splitting domain guidance into Practices, writing triggers and examples, reviewing overlap, designing retrieval fixtures, adding references/assets/scripts, localizing content for human review, or preparing a Registry release.
 
-The Practices apply to Packs about any engineering or product domain. Examples may use security, databases, frontend work, operations, compliance, or Pack infrastructure, but no example defines a mandatory Pack workflow.
+The Practices apply to Packs about any engineering or product domain. A Practice body can be a concise paragraph or more detailed guidance: use headings, explanations, examples, exceptions, and stopping conditions only when the decision needs them. These authoring choices do not change the required runtime metadata or structured anti-pattern fields.
 
 ## Non-goals
 
@@ -19,8 +19,8 @@ This Pack is not a schema reference, Markdown tutorial, retrieval engine impleme
 Use `references/` for additional material to read, `assets/` for files to copy before editing, and
 `scripts/` for helpers that a current task may explicitly run. A Practice uses normal Markdown such
 as `[review checklist](resource:assets/resource-review-checklist.md)` to explain when the material
-is useful. Resources are supplementary: the retrieved Practice still owns the trigger, action,
-reason, exceptions, and stopping point.
+is useful. Resources are supplementary: keep the facts needed for the immediate decision in the
+retrieved Practice.
 
 Read [the resource authoring guide](resource:references/pack-resources.md) after that immediate
 decision is already complete. The bundled [inventory helper](resource:scripts/inspect-resources.py)
