@@ -3,7 +3,7 @@ id: modern-web-guidance.platform.yield-long-tasks
 title: Yield Long Main-Thread Work
 stage: implementation
 severity: warn
-applies_when: diagnosing browser-side computation that delays interaction or rendering
+applies_when: an export, save, large list, or other browser-side operation makes the interface slow or unresponsive by delaying interaction or rendering
 tech_stack:
   - javascript
   - web
