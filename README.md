@@ -6,7 +6,7 @@ This repository is the official public catalog for installable Lorelum Knowledge
 
 - `issue-pr-etiquette@0.1.1` — 12 repository-neutral Practices for filing issues, opening pull requests, and taking part in reviews: single-problem convergence with testable acceptance criteria, cited evidence, gate classification, single declared scope, conventional titles, cold-reviewer PR bodies, diff hygiene, review discipline, and honest AI-assistance disclosure. Bundles issue and PR skeleton templates as `assets/` resources.
   - [简体中文本地化](./packs/issue-pr-etiquette/i18n/zh-CN/README.md) is available as non-runtime companion content.
-- `pack-creator@0.2.1` — 27 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Packs, including repository-local project layers. The official Registry resolves the immutable `pack-creator-v0.2.1` ref.
+- `pack-creator@0.3.0` — 28 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Packs, including task-shaped design and repository-local project layers. The official Registry resolves the immutable `pack-creator-v0.3.0` ref.
   - [简体中文本地化](./packs/pack-creator/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `react-web-craft@0.1.1` — 24 Practices for React web application design and performance across component state, async data flow, code loading, rendering, and component composition.
   - [简体中文本地化](./packs/react-web-craft/i18n/zh-CN/README.md) is available as non-runtime companion content.
