@@ -8,6 +8,7 @@ This repository is the official public catalog for installable Lorelum Knowledge
   - [简体中文本地化](./packs/issue-pr-etiquette/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `pack-creator@0.3.0` — 28 domain-neutral Practices for defining, designing, authoring, reviewing, evaluating, localizing, and releasing Packs, including task-shaped design and repository-local project layers. The official Registry resolves the immutable `pack-creator-v0.3.0` ref.
   - [简体中文本地化](./packs/pack-creator/i18n/zh-CN/README.md) is available as non-runtime companion content.
+  - [0.3.0 release verification](./fixtures/pack-creator/pack-creator-0.3.0-release.md) records the official Registry upgrade from `0.2.1`, Practice readback, and resource check.
 - `react-web-craft@0.1.1` — 24 Practices for React web application design and performance across component state, async data flow, code loading, rendering, and component composition.
   - [简体中文本地化](./packs/react-web-craft/i18n/zh-CN/README.md) is available as non-runtime companion content.
 - `agentic-coding@0.8.0` — 39 decision-focused Practices, including [engineering conclusion reporting and concrete explanations](./packs/agentic-coding/README.md#080-explain-engineering-work-clearly). Immutable release ref: `agentic-coding-v0.8.0`; the older `0.7.0` artifact retains 37.
