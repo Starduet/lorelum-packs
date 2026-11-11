@@ -1,0 +1,28 @@
+issue: 47
+record_type: exploratory-evidence
+scope: >-
+  The strong-model comparison was conducted against an earlier working-tree revision, not this
+  isolated revision. The CLI smoke below was repeated for this isolated revision.
+cli_smoke:
+  date: 2026-11-11
+  tool: "bun run packages/cli/src/main.ts"
+  cli_version: 0.1.0-alpha.7
+  cli_revision: 88cda2c89642426b0da60daa89d880358228a490
+  cli_source_state: dirty
+  observations:
+    - The isolated revision's Pack validated with pack.valid true, no Pack diagnostics, and 27 current Chinese companions.
+    - Targeted i18n sync returned localization.invalid without a detailed cause; twelve source digests were computed with the CLI format library and checked by validate instead.
+    - A temporary Pack with a heading-free one-paragraph logging Practice and a detailed payment-retry Practice with two headings, an example, and a four-field structured anti-pattern validated successfully; it had two missing-severity warnings and one small-pack info.
+    - Local directory installation into an isolated Store and lore get returned both bodies, including the short paragraph and detailed example.
+  limitations:
+    - This local smoke did not establish Registry installation, semantic retrieval, translation quality, or downstream usefulness.
+    - The CLI source schema makes structured anti-pattern severity optional, while the published contract specifies all four fields; the smoke did not test that discrepancy.
+strong_model_comparison:
+  setup: Two independent planner sessions received identical Chinese logging and payment-retry tasks; one had no Pack guidance and the other read revised guidance.
+  model: The planner configuration named openai/gpt-6.1-sol:medium, but the actual execution model identity was not exposed and cannot be independently confirmed.
+  observations:
+    - The no-Pack baseline already chose a short logging paragraph and a detailed payment rule, but used YAML arrays rather than strings for applies_when.
+    - The guided output also chose task-sized detail and used string applies_when, but introduced unsupported payment retry counts and delays.
+  limitations:
+    - One sample per condition, no blinding or randomized ordering, no old-guidance arm, and no deployed behavioral test.
+    - This comparison does not demonstrate a Pack benefit; measure downstream tasks against a verified strong-model baseline before claiming improvement.

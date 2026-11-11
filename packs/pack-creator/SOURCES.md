@@ -29,6 +29,7 @@ Public sources:
 | `pack-creator.discovery.define-pack-decision-outcome`                            | Issue-derived synthesis: #28, #35; Pack-authoring synthesis   | Generalizes the difference between improving a real decision and producing an impressive collection of topics or artifacts.                           |
 | `pack-creator.discovery.ground-content-in-sources-and-observed-needs`            | Issue-derived synthesis: #28, #32; Pack-authoring synthesis   | Adapts the fact, assumption, and evidence boundary to Pack sources so author synthesis remains visible rather than acquiring false authority.         |
 | `pack-creator.discovery.identify-retrieval-moments`                              | Issue-derived synthesis: #28, #32; Pack-authoring synthesis   | The issues motivate guidance at consequential moments; this Practice turns that boundary into a collection-level authoring decision.                  |
+| `pack-creator.design.derive-pack-content-from-task-needs` | Pack-authoring synthesis; issue #47 | Connects task, knowledge, evidence and usage context to content and organization choices without imposing Pack types or a body template. |
 | `pack-creator.design.decompose-one-decision-per-practice`                        | Format-explicit: ADR 0003; Issue-derived synthesis: #28       | ADR 0003 defines discrete retrievable Practices; the one-decision boundary is author synthesis for making that unit useful when retrieved alone.      |
 | `pack-creator.design.separate-neighboring-triggers`                              | Issue-derived synthesis: #28; Pack-authoring synthesis        | Generalizes review findings where individually plausible entries still competed for the same query and needed a meaningful routing distinction.       |
 | `pack-creator.design.keep-each-practice-standalone`                              | Format-explicit: ADR 0003; Issue-derived synthesis: #28, #32  | Selective retrieval and context loss require a Practice to carry the decisive facts rather than depend on hidden Pack order or omitted context.       |
@@ -55,12 +56,15 @@ Public sources:
 
 | Practice ID | Provenance | Relationship to source |
 | --- | --- | --- |
-| `pack-creator.authoring.link-pack-resources-from-the-practice` | Protocol-aligned synthesis; Pack-authoring synthesis | Keeps the trigger, action, reason, exception, and stop condition in one retrievable Practice, with `resource:` links used only for supplemental same-Pack files. |
+| `pack-creator.authoring.link-pack-resources-from-the-practice` | Protocol-aligned synthesis; Pack-authoring synthesis; issue #47 | Keeps facts essential to the immediate decision in the retrievable Practice, with `resource:` links used for supplemental same-Pack files; no fixed body sections are required. |
 | `pack-creator.authoring.choose-reference-asset-or-script` | Protocol-aligned synthesis; Pack-authoring synthesis | Distinguishes read-on-demand references, copy-before-edit assets, and explicitly authorized scripts without inventing descriptors or execution authority. |
 | `pack-creator.evaluation.verify-resource-integrity-without-overclaiming` | Protocol-aligned synthesis; Pack-authoring synthesis | Separates resource structure, selected-artifact preservation, explicit script behavior, retrieval selection, and downstream Agent evidence. |
 
 The release Practices also apply to resource-only updates: changed bytes require a new immutable Pack
 artifact and release evidence even when an unchanged Practice retains its canonical digest.
+
+Issue #47 separates the format's required metadata and structured anti-pattern fields from
+authoring choices about body content; the latter depend on the decision, not a fixed template.
 
 ## Synthesis boundary
 

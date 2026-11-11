@@ -24,10 +24,10 @@ just whether its Example supplies enough facts.
 
 Read the Practice without its directory name, README, neighboring entries, or source open. Replace
 phrases such as "as established above," "use the previous threshold," and unexplained local
-shorthand with the minimum fact needed to decide. Include the trigger, action, direct reason,
-stopping point, and material exception in the entry. Link detailed background and evidence rather
-than copying a domain manual, but repeat decisive constraints that the action depends on. Stop when
-a cold reader can explain when to use the Practice, what to do, and what not to assume.
+shorthand with the minimum fact needed to decide. Include the context and constraints this decision
+actually depends on; a reason, stopping point, or exception belongs in the entry when it helps make
+that decision, not as a universal checklist. Link detailed background and evidence rather than
+copying a domain manual. Stop when a cold reader can use the entry without missing decisive context.
 
 ## Anti-pattern
 

@@ -22,11 +22,9 @@ reviewed for hidden dependencies.
 
 ## Guidance
 
-State the Pack goal relevant to the scenario, the source or system facts that constrain the choice,
-the plausible alternative, and why the selected action is better. Replace unexplained internal names
-with what each person or system does and how they relate to the choice. Include only facts that
-change the decision. Stop when a reader seeing the Example for the first time can retell the
-request, constraint, choice, and result without asking what a local acronym or past incident means.
+Include the facts needed to follow the example's decision, such as relevant goals, constraints,
+alternatives, or consequences when they matter. Explain unfamiliar internal names through their
+roles and relationship to the choice. Omit facts that do not help explain the application.
 
 ## Anti-pattern
 
