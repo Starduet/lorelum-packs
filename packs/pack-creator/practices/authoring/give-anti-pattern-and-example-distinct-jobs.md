@@ -18,7 +18,7 @@ title: Give the Anti-Pattern and Example Different Jobs
 When a Practice uses both a prose anti-pattern and an example, check whether they teach different
 things. A prose anti-pattern can show why a recurring wrong choice fails; an example can show how
 to apply the guidance. Neither is required in the body solely to fill a section. Structured
-frontmatter anti-patterns remain required by the format.
+frontmatter anti-patterns are optional; when present, preserve their required fields.
 
 ## Guidance
 

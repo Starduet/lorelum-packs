@@ -10,7 +10,7 @@ locales:
       - path: practices/authoring/explain-the-direct-causal-reason.md
         source_digest: sha256:726e585cd9bc1b477018f577c8ad66e50e666adcc2d317ef459a36733110f9cd
       - path: practices/authoring/give-anti-pattern-and-example-distinct-jobs.md
-        source_digest: sha256:a134b47d574101d4e108e3087179103e1396350c36d1d985162ea97c331b1603
+        source_digest: sha256:311d87d4385efa8cdb6125d1b2dfc371d491c7d5b427a8744e7d9828494fcd99
       - path: practices/authoring/link-pack-resources-from-the-practice.md
         source_digest: sha256:8bf2470010eaee331bbecd3ca4c3a27edd76e159337ff9f09fc959884d9b0698
       - path: practices/authoring/make-examples-self-contained.md
