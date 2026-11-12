@@ -44,7 +44,7 @@ This applies to headings in the card scope outside the limited content subtree. 
 
 ## Validation
 
-Inspect computed styles and matched rules for enabled, hovered and disabled controls, including a disabled control under the pointer. Confirm disabled styling stays correct if the two example rules are reordered. For layered changes, inspect representative existing overrides and `!important` rules before and after migration; for scoped rules, exercise nested cards and the excluded subtree in supported and fallback browsers. Stop if an unrelated component's winning value changes unexpectedly; adjust the scope or layer plan rather than adding an arbitrary override.
+Inspect computed styles and matched rules for the states affected by the change. For the button example, include enabled, hovered and disabled controls; the disabled button should not match the hover rule regardless of source order. For layered changes, inspect representative existing overrides and `!important` rules before and after migration; for scoped rules, exercise the relevant nested and excluded subtrees and any fallback required by the project's browser target. If an unrelated component's winning value changes unexpectedly, adjust the scope or layer plan rather than adding an arbitrary override.
 
 ## Sources
 

@@ -18,13 +18,13 @@ anti_patterns:
 
 First decide whether the page needs the third-party resource: a script runs with the page's privileges. SRI checks that fetched bytes match an expected digest; it does not establish that those bytes are benign, isolate the script, or verify resources it subsequently loads. Review the publisher and release independently, and use CSP and isolation for their distinct purposes.
 
-For a public script or stylesheet served at an immutable, version-pinned URL, obtain the publisher's authenticated digest or verify the release through a trusted independent channel, then hash the known-good local file at release time:
+When a third-party script or stylesheet can be served at an immutable version-pinned or content-addressed URL, use SRI where supported by the project's target browsers and security requirements. Obtain the publisher's authenticated digest, or verify the release through a trusted independent channel and hash the known-good local file at release time:
 
 ```sh
 printf 'sha384-%s\n' "$(openssl dgst -sha384 -binary app.min.js | openssl base64 -A)"
 ```
 
-Hashing whatever the CDN returns at runtime against itself is not verification. Copy the resulting digest into the HTML alongside the exact versioned URL; this template applies to an anonymous public CDN whose CORS response permits the requesting origin:
+Hashing whatever the CDN returns at runtime against itself is not verification. Copy the authenticated or independently calculated digest into the HTML alongside the exact pinned URL; this template applies to an anonymous public CDN whose CORS response permits the requesting origin:
 
 ```html
 <script src="https://cdn.example.com/ui@2.4.0/app.min.js"
@@ -32,11 +32,11 @@ Hashing whatever the CDN returns at runtime against itself is not verification. 
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 ```
 
-Replace the template digest with the actual output before deployment; the placeholder intentionally cannot validate an asset. Apply the same attributes to an external `<link rel="stylesheet">` and ensure relevant preloads use matching URL, CORS mode and integrity metadata. Anonymous cross-origin SRI requires a CORS-readable response, such as `Access-Control-Allow-Origin: *`; credentialed assets need a matching origin and credentials-enabled CORS instead. Set a document-level referrer policy as well, for requests without a per-element policy. For a legitimate set of known byte variants, list their independently verified same-algorithm digests separated by spaces; any matching digest of the strongest listed algorithm is accepted.
+Replace the template digest with the actual digest before deployment; the placeholder intentionally cannot validate an asset. Apply integrity metadata to an external `<link rel="stylesheet">` when using SRI and ensure relevant preloads use matching URL, CORS mode and integrity metadata. Anonymous cross-origin SRI requires a CORS-readable response, such as `Access-Control-Allow-Origin: *`; credentialed assets need a matching origin and credentials-enabled CORS instead. Choose a document-level referrer policy for requests without a per-element policy, and adjust the example's `no-referrer` to the project's privacy and integration needs. For a legitimate set of known byte variants, list their independently verified same-algorithm digests separated by spaces; any matching digest of the strongest listed algorithm is accepted.
 
 ## Deploy and diagnose without bypassing integrity
 
-Update URL and digest together. In each supported browser, inspect the network response and console: a correct release must load and the expected script behavior or stylesheet must appear. In a controlled test, substitute an incorrect valid digest and confirm the script does not execute or the stylesheet is not applied; repeat with missing or incorrect CORS headers and verify the load fails. Distinguish hash mismatch, CORS, CDN failure and CSP blocking before remediation. A CDN transformation, changed bytes, cache or stale HTML can cause a mismatch: investigate the actual release and deploy a verified URL/digest pair, or roll back both. Never remove `integrity` or dynamically trust the failed response to restore service.
+When using SRI, update URL and digest together. In supported target browsers, check that the verified release loads and the expected script behavior or stylesheet appears. In a controlled test, substitute an incorrect valid digest and confirm the script does not execute or the stylesheet is not applied; for cross-origin resources, also check that missing or incorrect CORS headers block the load. Distinguish hash mismatch, CORS, CDN failure and CSP blocking before remediation. A CDN transformation, changed bytes, cache or stale HTML can cause a mismatch: investigate the actual release and deploy a verified URL/digest pair, or roll back both. Never remove `integrity` or dynamically trust the failed response merely to restore service.
 
 SRI on a stylesheet does not verify its `@import`, fonts or images. Prefer a pinned HTML stylesheet link over `@import` when cross-browser stylesheet SRI is required. CSS `url()` integrity modifiers have narrower browser support; check actual target support and test mismatch blocking. A plain URL fallback may retain functionality but is **unverified**, and an unverified font in the same `src` list can load after the verified source fails. If integrity is mandatory in unsupported browsers, do not load that external resource there; use a controlled alternative instead. For mutable vendor tags, prefer a pinned alternative; otherwise explicitly assess the risk and isolate or restrict the integration with sandboxing and CSP, without presenting those controls as equivalent to byte integrity.
 

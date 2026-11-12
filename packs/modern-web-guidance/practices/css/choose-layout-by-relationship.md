@@ -26,7 +26,7 @@ Keep controls in reading and keyboard order in the DOM. `order`, reverse flex di
 
 ## Example
 
-The toolbar wraps independently of the card grid. The card track minimum is capped at the available width, so it can still fit a container narrower than `15rem`.
+The toolbar wraps independently of the card grid. The illustrative `15rem` track minimum is capped at the available width, so it can still fit a narrower container; choose a minimum for the actual content.
 
 ```css
 .toolbar { display: flex; flex-wrap: wrap; gap: 1rem; }
@@ -42,7 +42,7 @@ For subgrid, a parent with two shared row tracks can use `.card { grid-row: span
 
 ## Exceptions and validation
 
-A toolbar may intentionally scroll instead of wrapping if every control remains reachable. Do not clip overflow to disguise an undersized layout. In the actual embedding context, resize from wide to narrow, including a container narrower than a card's preferred minimum; insert a long unbreakable label and enlarge text. Verify no unintended horizontal overflow or lost content, and tab through controls to confirm focus follows the visible sequence. Check the fallback in target browsers if subgrid support is required; do not ship a fallback that breaks essential alignment.
+A toolbar may intentionally scroll instead of wrapping if every control remains reachable. Do not clip overflow to disguise an undersized layout. In the actual embedding context, check the supported range of widths, including a container narrower than the card's preferred minimum if that can occur; use representative long content and enlarged text. Verify no unintended horizontal overflow or lost content, and tab through controls to confirm focus follows the visible sequence. If target browsers need a subgrid fallback, check that it preserves any essential alignment.
 
 ## Sources
 

@@ -23,7 +23,7 @@ When the excess is purely decorative, `overflow: clip` cuts it off without creat
 
 ## Examples
 
-For a constrained results region, the focusable named region exposes keyboard access even when its contents are plain text:
+For a constrained results region, the focusable named region exposes keyboard access even when its contents are plain text. The stable gutter is optional when scrollbar-induced shifts matter:
 
 ```html
 <section class="results" tabindex="0" aria-label="Search results">
@@ -48,7 +48,7 @@ Here `hidden` preserves the boundary in older browsers but creates a scroll cont
 
 ## Validation
 
-Test the actual region with enough content to overflow, then with little content. At narrow widths and enlarged text, verify no accidental page-level horizontal overflow; scroll to both ends with pointer and keyboard and confirm all content and focus indicators remain visible. Check sticky elements and any scripted scrolling after changing `hidden` to `clip`. If a needed item or focus indicator is cut off, or the fallback changes required scrolling behavior, change the layout or fallback rather than accepting the clip.
+Test the affected region with enough content to overflow and with little content. At relevant narrow widths and enlarged text, check for unintended page-level horizontal overflow and lost content. For a scroll region, check that its content is reachable by pointer and keyboard and focus indicators remain visible. If changing `hidden` to `clip`, check sticky positioning or scripted scrolling where the layout uses them. If a needed item or focus indicator is cut off, or the fallback changes required scrolling behavior, change the layout or fallback rather than accepting the clip.
 
 ## Sources
 
