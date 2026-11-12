@@ -14,10 +14,30 @@ anti_patterns:
     description: A mutable CDN URL executes third-party bytes without an independently obtained integrity digest.
 ---
 
-First decide whether the page needs the third-party code at all: a script executes with the page's privileges. For a public, version-pinned CDN script or stylesheet whose bytes are known in advance, add an `integrity` digest generated from known-good release bytes or obtained independently from the publisher. Use `crossorigin="anonymous"` and ensure the CDN serves a matching CORS header; update the URL and digest together. Choose a referrer policy appropriate to the third party.
+## Decide what can be pinned
 
-For example, when upgrading a pinned library, generate its new digest from the verified release, deploy it with the new URL, and check that the resource loads with CORS and that a mismatched digest is blocked. Hashing the live response against itself does not establish trust.
+First decide whether the page needs the third-party resource: a script runs with the page's privileges. SRI checks that fetched bytes match an expected digest; it does not establish that those bytes are benign, isolate the script, or verify resources it subsequently loads. Review the publisher and release independently, and use CSP and isolation for their distinct purposes.
 
-SRI verifies bytes, not whether the verified code is trustworthy; CSP and isolation address different risks. A mutable vendor tag cannot be pinned this way: prefer a pinned alternative or explicitly assess isolation and CSP rather than claiming equivalent integrity. CSS `url()` integrity support is narrower than HTML script and stylesheet SRI; an unverified fallback does not enforce integrity.
+For a public script or stylesheet served at an immutable, version-pinned URL, obtain the publisher's authenticated digest or verify the release through a trusted independent channel, then hash the known-good local file at release time:
+
+```sh
+printf 'sha384-%s\n' "$(openssl dgst -sha384 -binary app.min.js | openssl base64 -A)"
+```
+
+Hashing whatever the CDN returns at runtime against itself is not verification. Copy the resulting digest into the HTML alongside the exact versioned URL; this template applies to an anonymous public CDN whose CORS response permits the requesting origin:
+
+```html
+<script src="https://cdn.example.com/ui@2.4.0/app.min.js"
+        integrity="sha384-REPLACE-WITH-VERIFIED-RELEASE-DIGEST"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+```
+
+Replace the template digest with the actual output before deployment; the placeholder intentionally cannot validate an asset. Apply the same attributes to an external `<link rel="stylesheet">` and ensure relevant preloads use matching URL, CORS mode and integrity metadata. Anonymous cross-origin SRI requires a CORS-readable response, such as `Access-Control-Allow-Origin: *`; credentialed assets need a matching origin and credentials-enabled CORS instead. Set a document-level referrer policy as well, for requests without a per-element policy. For a legitimate set of known byte variants, list their independently verified same-algorithm digests separated by spaces; any matching digest of the strongest listed algorithm is accepted.
+
+## Deploy and diagnose without bypassing integrity
+
+Update URL and digest together. In each supported browser, inspect the network response and console: a correct release must load and the expected script behavior or stylesheet must appear. In a controlled test, substitute an incorrect valid digest and confirm the script does not execute or the stylesheet is not applied; repeat with missing or incorrect CORS headers and verify the load fails. Distinguish hash mismatch, CORS, CDN failure and CSP blocking before remediation. A CDN transformation, changed bytes, cache or stale HTML can cause a mismatch: investigate the actual release and deploy a verified URL/digest pair, or roll back both. Never remove `integrity` or dynamically trust the failed response to restore service.
+
+SRI on a stylesheet does not verify its `@import`, fonts or images. Prefer a pinned HTML stylesheet link over `@import` when cross-browser stylesheet SRI is required. CSS `url()` integrity modifiers have narrower browser support; check actual target support and test mismatch blocking. A plain URL fallback may retain functionality but is **unverified**, and an unverified font in the same `src` list can load after the verified source fails. If integrity is mandatory in unsupported browsers, do not load that external resource there; use a controlled alternative instead. For mutable vendor tags, prefer a pinned alternative; otherwise explicitly assess the risk and isolate or restrict the integration with sandboxing and CSP, without presenting those controls as equivalent to byte integrity.
 
 Source: [Secure external subresources with Subresource Integrity, CORS, and Referrer Policy](https://github.com/GoogleChrome/modern-web-guidance/blob/4dd968349e54ca45a05dd5c818fb035c9054b022/skills/modern-web-guidance/guides/security/secure-external-subresources.md), v1.0.0, commit `4dd968349e54ca45a05dd5c818fb035c9054b022`.

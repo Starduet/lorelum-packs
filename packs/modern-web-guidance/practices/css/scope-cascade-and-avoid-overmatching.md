@@ -15,20 +15,36 @@ anti_patterns:
 
 ## Guidance
 
-Exclude irrelevant states in the selector instead of undoing an overbroad rule. For example, a hover rule should not match disabled buttons, regardless of source order. For rules that repeatedly compete by specificity, use cascade layers to express priority and `:where()` for overridable defaults; follow existing project conventions rather than renaming classes.
+When a declaration wins unexpectedly, inspect the element's matched rules and computed property in browser developer tools. Check whether the rule matches the intended element and state first; then compare origin and importance, layer priority, specificity, scope proximity where applicable, and finally source order. Inheritance matters when no declaration wins on the element itself. Fix the source of competition rather than adding another higher-specificity reset.
 
-## Exceptions and boundaries
-
-Normal unlayered author rules outrank layered rules, and `!important` reverses layer order. Adding a layer to an existing stylesheet can therefore change priority: account for existing unlayered rules before migrating. Overrides remain appropriate for genuine specialization.
-
-## Example
+Exclude fundamentally irrelevant states instead of styling them and undoing the value later. For example:
 
 ```css
-@layer base, components;
-@layer components {
-  button:hover:not(:disabled) { background: royalblue; }
+button:hover:not(:disabled) { background: var(--color-blue); }
+button:disabled { background: var(--color-neutral); }
+```
+
+The hover rule no longer matches a disabled native button even if the rules change order. An `aria-disabled` custom control is not matched by `:disabled`: handle its semantics and state separately. Conversely, a base button style followed by a primary-button style is legitimate specialization, not necessarily overmatching.
+
+## Layers and scope
+
+If rules repeatedly compete across parts of the stylesheet, first inventory existing layered and unlayered rules, imports, and `!important` declarations. An explicit order such as `@layer base, components, utilities;` makes later layers win for normal declarations; normal unlayered author rules still outrank all normal layered author rules. For important declarations layer order reverses, and important layered rules outrank important unlayered rules. Moving only one existing rule into a layer can therefore change its winner. Migrate deliberately rather than wrapping a single file and assuming its old priority remains.
+
+Within the intended layer, `:where()` gives its arguments zero specificity, useful for overridable defaults or incidental filters. It does not erase specificity outside the function: `.card :where(a)` still has the class selector's specificity. Follow existing naming conventions instead of escalating selectors.
+
+For a nested subtree boundary, `@scope` can express a scope root and limit more reliably than a long descendant `:not()` selector:
+
+```css
+@scope (.card) to (.card__content) {
+  h2 { margin-block: 0; }
 }
 ```
+
+This applies to headings in the card scope outside the limited content subtree. Check browser support against the project's target before relying on `@scope`; an unsupported block is ignored, so provide a separate safe fallback if the style is essential. Scope proximity is considered only after higher-priority cascade criteria such as layer and specificity; it is not a universal override.
+
+## Validation
+
+Inspect computed styles and matched rules for enabled, hovered and disabled controls, including a disabled control under the pointer. Confirm disabled styling stays correct if the two example rules are reordered. For layered changes, inspect representative existing overrides and `!important` rules before and after migration; for scoped rules, exercise nested cards and the excluded subtree in supported and fallback browsers. Stop if an unrelated component's winning value changes unexpectedly; adjust the scope or layer plan rather than adding an arbitrary override.
 
 ## Sources
 

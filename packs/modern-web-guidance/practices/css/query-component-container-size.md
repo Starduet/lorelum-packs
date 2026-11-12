@@ -15,21 +15,37 @@ anti_patterns:
 
 ## Guidance
 
-Start with a usable narrow layout. Set `container-type: inline-size` on a sized ancestor and query it from the component; name the container when nested contexts could otherwise select the wrong ancestor. Choose the breakpoint where the component content needs more room, not by device name. Use media queries instead for page-level changes and user preferences.
+Use a container query when the same component can appear in differently sized regions of the same viewport. First inspect the embedding layout: identify an ancestor whose inline size is supplied by its parent and which actually wraps the component. Put `container-type: inline-size` on that ancestor, not on the element being styled: a size query selects a qualifying ancestor and cannot query the target itself. Name the container if intervening components may establish their own query containers.
 
-## Exceptions and boundaries
-
-A container cannot query itself. Size containment affects intrinsic sizing; use `container-type: size` only when both axes need querying and the block size is provided. The narrow base must remain usable without container queries. Check reflow at 200% text resize.
+Start with a usable stacked layout. Resize the actual slot with representative content and choose the threshold where a side-by-side layout has enough space, including for translated or enlarged text; the example's `30rem` is illustrative, not a device breakpoint. Use a media query for viewport-wide layout or user preferences instead.
 
 ## Example
+
+The wrapper and card are distinct elements; the same card can be placed in a narrow sidebar or wide main region.
+
+```html
+<div class="card-slot">
+  <article class="card">
+    <div class="card__summary"><h2>Account</h2><p>Account details</p></div>
+    <a href="/account">View account</a>
+  </article>
+</div>
+```
 
 ```css
 .card-slot { container: card / inline-size; }
 .card { display: flex; flex-direction: column; gap: 1rem; }
+.card__summary { min-inline-size: 0; overflow-wrap: anywhere; }
 @container card (inline-size > 30rem) {
-  .card { flex-direction: row; }
+  .card { flex-direction: row; align-items: center; }
 }
 ```
+
+## Boundaries and validation
+
+Inline-size containment changes intrinsic sizing: do not expect the wrapper's children to determine its intrinsic inline size. Ensure its parent gives it appropriate space, especially in a flex or intrinsically sized layout. `container-type: size` contains both axes; use it only if both are needed and the container has a suitable independent block size. `block-size` is not a valid container type. Container query units without an eligible ancestor fall back to small viewport units, so do not assume they always reflect the intended component.
+
+In browsers without size queries, the stacked base must work. A viewport-based fallback is suitable only if it also fits every placement; otherwise keep the base. With the viewport held wide, compare the card in narrow and wide slots, then move each slot across the threshold. Confirm the narrow card stays stacked and the wide card switches without clipping; repeat at 200% text resize and with long content. If the rule does not trigger, inspect the selected ancestor, its computed container name/type and its actual size before changing the breakpoint.
 
 ## Sources
 
