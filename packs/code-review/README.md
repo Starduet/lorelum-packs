@@ -1,25 +1,22 @@
 # Code Review
 
-An unreleased, lightweight Knowledge Pack for reviewing changes in repository context. Ten independently retrievable Practices cover backend and frontend behavior, tests, and logging; findings require reachable scenarios, relevant contracts and user-visible consequences, not merely suspicious syntax.
+An unreleased, lightweight Knowledge Pack for reviewing changes in repository context. Its five Practices cover backend and UI navigation, task completion boundaries, changed tests, and logging. Findings require reachable scenarios, relevant contracts, and concrete consequences.
 
-## Required review entry point
+## Review entry point
 
-Before each review, the calling harness or user must explicitly load [the review execution contract and workflow](resource:references/review-workflow.md) into the actual reviewer's context. It contains the model and reasoning-level requirements, permitted assistance, and the complete diff-to-finding workflow. Neither a Pack README nor an on-demand resource is automatically resident; Pack installation and Practice retrieval alone do not enforce this contract or select a model. If the harness cannot establish a requested model or reasoning level, substantive review is blocked rather than silently routed elsewhere.
+For an explicit review request, resolve the installed Pack with `lore pack list code-review` and use its [workflow](resource:references/review-workflow.md). The optional `review-tools.py prepare --scope scope.json [--focus "user request"]` produces a prompt for the host to pass to the designated reviewer. A focus prioritizes a question without changing the review target. Installation does not load guidance or select a model; the host owns reviewer dispatch.
 
-The requested reviewer performs all substantive review decisions. Other agents may assist with factual lookup, not candidate findings or module-by-module judgments. Posting comments, modifying code and transmitting repository content remain subject to the user's authorization.
+For an explicit request to consult domain guidance, use `prepare --guidance requested` and the `guidance` helper. With `--record`, the helper saves full JSON and prints concise candidates or the selected Practice as Markdown for the same reviewer. For a repository-evidence-only request, use `--guidance source-only`. Ordinary reviews keep the default `manual` mode.
 
 ## Use
 
-For local authoring, install this directory into an isolated Lorelum Store using `lore pack install --path ./packs/code-review --store-root <isolated-store>`. Explicitly load the execution contract. Before retrieval, the reviewer writes a short, neutral sentence describing the change's intent and includes it with the diff; do not rely on raw diff alone, which performed poorly in the recorded sample. Even intent-assisted retrieval missed cases; inspect relevant neighboring Practices and do not claim comprehensive coverage. Repository-specific requirements and actual code determine whether a side effect must block, be durable, or can fail independently; accounting is not assumed disposable.
+Install this candidate into an isolated Lorelum Store: `lore pack install --path ./packs/code-review --store-root <isolated-store>`. It is usable on its own. Install `backend-engineering` and `frontend-engineering` for domain coverage; use `react-web-craft` when the question depends on React. Do not assume that the presence of a navigation Practice means its domain Pack is installed.
+
+Use navigation to identify distinct changed behavior paths, then query for the domain decisions that need guidance using the observed mechanism, without a review-stage filter. Check each match against the repository's actual contracts. Adding a domain Practice does not require editing CR navigation.
+
+The [review tools](resource:scripts/review-tools.py) are optional Python and Git tools for scope capture, bounded reads, and mechanical location and coverage checks. The [workflow](resource:references/review-workflow.md) documents their commands and fields. Installation, indexing, and retrieval do not run the script. It cannot decide findings, infer review coverage, or verify reviewer identity.
 
 This candidate is not registered or released. Installation and retrieval do not prove that a
 reviewer will find real defects. [Sources](./SOURCES.md) records the references used to write the
 Practices.
 
-## Validation limits
-
-Lorelum 0.1.0-alpha.7 validated and installed the ten-Practice Pack in an isolated Store. Local
-retrieval checks included both synthetic changes and selected real PR diffs; they are not proof
-of real-world review quality. A reported review of 32 synthetic cases used low reasoning and a
-reviewer who had previously seen the answers, so it does not satisfy issue #45's independent
-Opus 5.5 high review requirement. That acceptance remains unmet.
