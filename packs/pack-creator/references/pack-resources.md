@@ -1,8 +1,8 @@
 # Pack resource authoring guide
 
-Use this reference after a Practice already contains the trigger, action, direct reason, exceptions,
-and stopping point for its immediate decision. It summarizes how a Pack may provide additional
-materials without turning those materials into a second workflow or an execution authority.
+Use this reference when a Practice needs supplementary material for its immediate decision. Keep
+the facts essential to that decision in the Practice; add explanations, exceptions, examples, or
+stopping conditions only when needed. Resources do not create a second workflow or execution authority.
 
 ## Canonical tree
 

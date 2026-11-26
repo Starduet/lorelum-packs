@@ -22,14 +22,17 @@ using it well are different results. Keep those differences visible when reporti
 ## Guidance
 
 Keep the results in separate groups. Structural checks can show that frontmatter is valid, paths are
-safe, IDs are unique, and the catalog is covered. Human content review asks whether the trigger,
-action, failure mechanism, exception, and example are correct for the domain. Retrieval runs show
-which Practices a particular system selected for stated queries. Downstream exercises show whether
-representative Agents made better decisions after receiving them. For each conclusion, say which
-kind of result supports it, which Pack revision was used, and exactly what was observed. If a
-stronger claim was not tested, keep the wording narrow. Stop when every claim that the Pack is ready
-has the kind of evidence it needs. Do not average these groups into a quality score unless a
-separate evaluation contract defines that score.
+safe, IDs are unique, and the catalog is covered. Human content review checks whether the guidance
+and any decision-relevant context are correct for the domain, not whether every entry contains a
+fixed list of elements. Retrieval runs show which Practices a particular system selected for stated
+queries; selection alone does not establish that the guidance improves decisions.
+
+To assess added value, compare representative tasks using the same strong model without the Pack
+and with the relevant Practices, keeping other conditions comparable. Record the tasks, model, Pack
+revision, conditions, and observed decision outcomes, including regressions. For each conclusion,
+say which result supports it and exactly what was observed. If a stronger claim was not tested,
+keep the wording narrow. Do not average these groups into a quality score unless a separate
+evaluation contract defines that score.
 
 ## Anti-pattern
 

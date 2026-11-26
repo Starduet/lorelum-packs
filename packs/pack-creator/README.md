@@ -1,6 +1,6 @@
 # Pack Creator
 
-`pack-creator@0.2.1` is a domain-neutral Knowledge Pack for creating Lorelum Packs whose Practices can be retrieved independently, understood by humans, used as repository-local project layers or versioned releases, evaluated without confusing format success with semantic or behavioral quality, and supplemented with safely routed Pack-native resources.
+`pack-creator@0.3.0` is a domain-neutral Knowledge Pack for creating Lorelum Packs whose Practices can be retrieved independently, understood by humans, used as repository-local project layers or versioned releases, evaluated without confusing format success with semantic or behavioral quality, and supplemented with safely routed Pack-native resources.
 
 Canonical English · [简体中文 companion](./i18n/zh-CN/README.md)
 
@@ -8,7 +8,12 @@ Canonical English · [简体中文 companion](./i18n/zh-CN/README.md)
 
 Use this Pack when defining a new Pack, deciding whether it is repository-local or a versioned release, splitting domain guidance into Practices, writing triggers and examples, reviewing overlap, designing retrieval fixtures, adding references/assets/scripts, localizing content for human review, or preparing a Registry release.
 
-The Practices apply to Packs about any engineering or product domain. Examples may use security, databases, frontend work, operations, compliance, or Pack infrastructure, but no example defines a mandatory Pack workflow.
+The Practices apply to Packs about any engineering or product domain. A Practice body can be a concise paragraph or more detailed guidance: use headings, explanations, examples, exceptions, and stopping conditions only when the decision needs them. These authoring choices do not change the required runtime metadata or structured anti-pattern fields.
+
+When creating a Pack, derive its content and organization from the task, the knowledge and sources
+available, and the context in which it will be used. These are flexible design considerations, not
+Pack types or a mandatory questionnaire. See the task-shaped design reference linked from the
+corresponding Practice for contrasting examples.
 
 ## Non-goals
 
@@ -19,8 +24,8 @@ This Pack is not a schema reference, Markdown tutorial, retrieval engine impleme
 Use `references/` for additional material to read, `assets/` for files to copy before editing, and
 `scripts/` for helpers that a current task may explicitly run. A Practice uses normal Markdown such
 as `[review checklist](resource:assets/resource-review-checklist.md)` to explain when the material
-is useful. Resources are supplementary: the retrieved Practice still owns the trigger, action,
-reason, exceptions, and stopping point.
+is useful. Resources are supplementary: keep the facts needed for the immediate decision in the
+retrieved Practice.
 
 Read [the resource authoring guide](resource:references/pack-resources.md) after that immediate
 decision is already complete. The bundled [inventory helper](resource:scripts/inspect-resources.py)
@@ -37,6 +42,7 @@ Read [the project-local Pack guide](resource:references/project-local-packs.md) 
 - `0.1.0` is the published first release.
 - `0.2.0` is the immutable release at `pack-creator-v0.2.0`, available through the official Registry after the canonical content, localization, fixtures, and local-layer evidence were reviewed.
 - `0.2.1` revises the guidance for readability and completes the project-local starter and resource checklist.
+- `0.3.0` adds task-shaped Pack design guidance and removes fixed Practice body-section expectations. Format validation and an exploratory authoring comparison do not establish improved downstream behavior.
 
 ## Release evidence status
 

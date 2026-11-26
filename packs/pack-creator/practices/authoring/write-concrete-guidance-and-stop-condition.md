@@ -1,30 +1,28 @@
 ---
 anti_patterns:
-  - description: Providing useful considerations and background without an observable action or stopping point, encouraging the reader to keep exploring after enough evidence exists.
+  - description: Providing considerations and background without an actionable decision, or omitting a stopping point when it is needed to prevent unnecessary investigation.
     id: pack-creator.authoring.guidance-without-decision
     name: Guidance that never reaches a decision
     severity: warn
-applies_when: a Practice trigger is already clear, but its Guidance does not yet tell the reader what to do, what output to produce, and when the decision is complete
+applies_when: a Practice does not yet make the decision or action clear, or readers need a stopping point to avoid unnecessary investigation
 id: pack-creator.authoring.write-concrete-guidance-and-stop-condition
 severity: warn
 stage: authoring
 tech_stack:
   - lorelum-pack-authoring
-title: Give Concrete Actions and a Clear Stop
+title: Make Guidance Actionable and Bound Work When Needed
 ---
 
 ## When to apply
 
-Once you know what question a Practice answers and when readers need it, write Guidance that tells
-them what to do and how to know they have done enough. Do not use this section to reconsider when
-the entry should be found or whether its failure scenario is realistic.
+Once you know what question a Practice answers, make the relevant action or decision clear. Specify
+when to stop if that helps readers avoid unnecessary investigation or expansion.
 
 ## Guidance
 
-Tell readers what to inspect, compare, choose, record, or change. Explain which facts they need,
-what they should have decided or produced at the end, and when they can stop investigating or
-expanding the work. Remove advice that would not change that result. Stop when a reader can follow
-the Guidance and show an observable result without inventing an extra workflow.
+Tell readers what to inspect, compare, choose, record, or change as the decision requires. Include
+the necessary facts and expected result; add a stopping point when it materially bounds the work.
+Remove advice that does not help the reader make the decision.
 
 ## Anti-pattern
 
@@ -36,16 +34,14 @@ investigation expands while the inconsistent setting remains.
 
 ## Why
 
-Guidance changes behavior only when it tells the reader what result completes the decision. Without
-a stopping point, even relevant advice can delay action, expand the work unnecessarily, or lead
-readers to do different things.
+Actionable guidance helps readers make the intended decision. Where investigation might otherwise
+expand unnecessarily, a stopping point can help readers know when enough evidence exists.
 
 ## Exceptions and boundaries
 
-An exploratory Practice may end by naming the evidence still missing or asking someone to make a
-decision rather than choosing a technical solution. Safety and incident response may require
-immediate containment before full analysis. In either case, say what must be handed over or brought
-under control before the reader stops following this Practice.
+An exploratory Practice may identify missing evidence or ask someone to make a decision rather
+than choosing a technical solution. Safety and incident response may require immediate containment
+before full analysis. Specify handoff or containment conditions when they matter to the decision.
 
 ## Example
 

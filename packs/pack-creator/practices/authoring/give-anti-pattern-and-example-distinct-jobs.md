@@ -15,10 +15,10 @@ title: Give the Anti-Pattern and Example Different Jobs
 
 ## When to apply
 
-Once the Anti-pattern and Example are drafted, check whether they teach different things. The
-Anti-pattern should show why a recurring wrong choice fails; the Example should show how to apply
-the guidance correctly in a specific situation. Whether each case is believable and supplies enough
-facts still needs its own review.
+When a Practice uses both a prose anti-pattern and an example, check whether they teach different
+things. A prose anti-pattern can show why a recurring wrong choice fails; an example can show how
+to apply the guidance. Neither is required in the body solely to fill a section. Structured
+frontmatter anti-patterns are optional; when present, preserve their required fields.
 
 ## Guidance
 
@@ -44,9 +44,9 @@ action to a new case.
 
 ## Exceptions and boundaries
 
-Both sections may use the same domain when that domain is essential, but they should still
-contribute different facts or decisions. A very short Practice may omit decorative detail; it should
-not keep two sections whose only difference is positive versus negative wording.
+Both scenarios may use the same domain when that domain is essential, but they should still
+contribute different facts or decisions. Omit a redundant body scenario rather than keeping it
+solely to fill a section; this does not remove the structured frontmatter requirement.
 
 ## Example
 

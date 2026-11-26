@@ -22,7 +22,8 @@ Lorelum returns only this Practice.
 
 ## Guidance
 
-Keep the trigger, action, direct reason, material exception, and stopping point in the Practice.
+Keep the information needed for the immediate decision in the Practice; include reasons, exceptions,
+or stopping points only when that decision needs them.
 Place only the supplementary file in `references/`, `assets/`, or `scripts/`, then use a normal
 Markdown link with a Pack-root-relative `resource:` target. State the reader's condition for using
 the material, not just its filename. For example, say to read the compatibility matrix after

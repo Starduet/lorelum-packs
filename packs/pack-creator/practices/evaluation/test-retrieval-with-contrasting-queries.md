@@ -44,7 +44,8 @@ fields.”
 
 A positive query shows that a Practice can be found; it does not show that retrieval knows when that
 Practice is the wrong answer. Contrasting queries reveal whether triggers and neighboring guidance
-carry enough information to make a useful choice rather than matching a shared topic.
+carry enough information to distinguish selections rather than matching a shared topic. Even correct
+selection does not establish that the Practice improves decisions over a strong model without it.
 
 ## Exceptions and boundaries
 

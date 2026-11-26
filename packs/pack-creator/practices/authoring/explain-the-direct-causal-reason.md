@@ -4,7 +4,7 @@ anti_patterns:
     id: pack-creator.authoring.distant-rationale
     name: Distant benefit used as the rationale
     severity: warn
-applies_when: a Practice has an action but its Why section does not yet explain the direct engineering or decision consequence of following or ignoring that action
+applies_when: readers need a direct explanation of the consequence of following or ignoring a Practice's action to make the decision
 id: pack-creator.authoring.explain-the-direct-causal-reason
 severity: warn
 stage: authoring
@@ -15,9 +15,8 @@ title: Explain the Immediate Cause and Effect
 
 ## When to apply
 
-When readers know what to do but cannot tell why it matters, use the Why section to explain the
-direct consequence of doing it or leaving it undone. Review that explanation here, rather than
-wording throughout the Practice or missing facts in the Example.
+When readers know what to do but need to understand why it matters, explain the direct consequence
+of doing it or leaving it undone. No separate reason section is required.
 
 ## Guidance
 
@@ -49,7 +48,7 @@ causality. Do not extend the chain beyond what the source supports.
 
 ## Example
 
-A security Pack says to verify a token's audience before accepting it. Its Why states: "Audience
+A security Pack says to verify a token's audience before accepting it. It explains: "Audience
 verification prevents a token issued for another service from being accepted by this service." That
 direct effect explains both the action and its security boundary; a generic claim that validation
 "improves trust" would not.

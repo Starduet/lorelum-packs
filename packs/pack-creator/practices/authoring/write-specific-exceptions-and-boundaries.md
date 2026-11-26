@@ -4,7 +4,7 @@ anti_patterns:
     id: pack-creator.authoring.blanket-exception-list
     name: Blanket exceptions that weaken the rule
     severity: warn
-applies_when: a Practice has a useful default rule and the author must state the observable conditions that change, limit, or transfer that rule
+applies_when: a Practice has a default rule and an observable condition changes, limits, or transfers that rule in a way readers need to know
 id: pack-creator.authoring.write-specific-exceptions-and-boundaries
 severity: warn
 stage: authoring
@@ -15,16 +15,15 @@ title: Name Specific Exceptions and Boundaries
 
 ## When to apply
 
-Once the default action is clear, explain when readers should depart from it, limit it, or use
-another rule instead. Give them conditions they can recognize. Do not use Exceptions and boundaries
-to broaden the trigger or add a second workflow.
+When a condition materially changes or limits the default action, explain it so readers can
+recognize it. Do not invent exceptions or require a separate section when none is needed.
 
 ## Guidance
 
-For each exception, name the observable condition, explain how the default changes, and identify any
-protection that must remain. State near misses that look similar but still follow the default.
-Delete categories that cannot be tested from available facts. Stop when each listed exception could
-change a concrete decision; do not aim to cover every imaginable edge case.
+For each relevant exception, name the observable condition and explain how the default changes.
+Identify protections that must remain and similar cases that still follow the default when those
+facts matter. Delete categories that cannot be tested from available facts; do not aim to cover
+every imaginable edge case.
 
 ## Anti-pattern
 

@@ -26,7 +26,7 @@ table, evidence note, compatibility matrix, or runbook. Put material whose next 
 task artifact in `assets/`: examples include a report outline, checklist, config skeleton, or
 starter file; instruct the reader to copy it to the intended workspace before editing. Put a
 repeated, deterministic diagnostic, check, or conversion in `scripts/`; the linking Practice must
-name when it is useful, its inputs, expected output, and the condition that ends the work.
+name when it is useful, its inputs and expected output, and any end condition needed for its use.
 
 Use the smallest resource that supports the next action. Keep scripts explicit and self-contained
 enough to inspect: do not make installation install dependencies, read credentials, connect to a

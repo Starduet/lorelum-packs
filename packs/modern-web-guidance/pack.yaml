@@ -1,0 +1,8 @@
+name: modern-web-guidance
+version: 0.1.0
+description: Decision-focused practices for using modern web platform capabilities with accessible behavior and appropriate compatibility fallbacks.
+author:
+  name: Lorelum
+license: Apache-2.0
+applies_to:
+  - web
