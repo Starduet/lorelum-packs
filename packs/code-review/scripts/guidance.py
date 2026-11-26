@@ -35,16 +35,22 @@ def lookup(args, *command):
         raise GuidanceError("lore_timeout") from exc
     except (OSError, ValueError) as exc:
         raise GuidanceError("lore_response_unavailable") from exc
-    trace_id = (reply.get("diagnostics") or {}).get("traceId")
+    diagnostics = reply.get("diagnostics") or {}
     if proc.returncode or reply.get("ok") is not True:
-        raise GuidanceError((reply.get("error") or {}).get("code", "lore_unavailable"), trace_id)
-    return reply["data"], trace_id
+        raise GuidanceError((reply.get("error") or {}).get("code", "lore_unavailable"),
+                            diagnostics.get("traceId"))
+    return reply["data"], diagnostics
 
 
 def query(args):
     if not args.question.strip():
         raise GuidanceError("empty_question")
-    data, trace_id = lookup(args, "query", "--top-k", "5", "--", args.question)
+    data, diagnostics = lookup(args, "query", "--top-k", "5", "--", args.question)
+    state = data.get("state")
+    if state in ("preparing", "indexing"):
+        pending = {"status": state, "data": data, "diagnostics": diagnostics}
+        return {**pending, "question": args.question}, pending
+    trace_id = diagnostics.get("traceId")
     items = data["results"]
     visible = [{key: item[key] for key in CANDIDATE_FIELDS} for item in items]
     record = {"status": "candidates", "question": args.question, "items": items, "trace_id": trace_id}
@@ -58,7 +64,8 @@ def select(args):
     offered = next((item for item in offers["items"] if item["practiceId"] == args.practice_id), None)
     if offered is None:
         raise GuidanceError("not_offered")
-    data, trace_id = lookup(args, "get", "--", args.practice_id)
+    data, diagnostics = lookup(args, "get", "--", args.practice_id)
+    trace_id = diagnostics.get("traceId")
     body = data["practice"]["body"]
     digest = data["contentDigest"]
     if not digest or digest != offered["contentDigest"] or not isinstance(body, str) or not body.strip():
