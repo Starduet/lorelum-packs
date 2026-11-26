@@ -4,7 +4,7 @@ This repository is the official public catalog for installable Lorelum Knowledge
 
 ## Catalog
 
-- [`code-review`](./packs/code-review/README.md) — unreleased candidate with five Practices, snapshot-bound Git evidence, and explicit guidance delivery. The host must verify the requested model and reasoning level before dispatching substantive review.
+- [`code-review`](./packs/code-review/README.md) — unreleased candidate with five Practices and explicit guidance delivery. The host supplies review scope and repository evidence tools and verifies the requested reviewer before dispatch.
 - [`backend-engineering`](./packs/backend-engineering/README.md) — unreleased candidate with six Practices for task lifetimes, concurrency, delivery, LLM usage, side effects, and state writes.
 - [`frontend-engineering`](./packs/frontend-engineering/README.md) — unreleased candidate with two Practices for asynchronous result ownership and interaction cost.
 - [`modern-web-guidance`](./packs/modern-web-guidance/README.md) — unreleased selection of web-platform decision Practices distilled from the upstream Modern Web Guidance guides; not an official Registry release.
