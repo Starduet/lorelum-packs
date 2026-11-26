@@ -31,3 +31,21 @@ layers.
 - [ ] Representative queries checked that the Practice, rather than a neighboring one, is selected when its resource is needed.
 - [ ] A downstream Agent task, if run, records the exact Practice/resource revision and observed outcome.
 - [ ] The release or review statement names only the evidence layers actually observed.
+
+### Domain Packs used in code review
+
+- [ ] Install the candidate and the Code Review Pack into the same isolated Store. Verify
+  installation and read a representative Practice separately from the review run.
+- [ ] Use a pinned, representative change and run an ordinary review without preloading a
+  Practice, suggesting a query, or requesting explicit guidance. Record the change, Pack
+  revisions, reviewer model, the question it asks, the candidates offered, and whether an
+  applicable full Practice reached the reviewer before its conclusion. Record incomplete runs
+  and provider failures separately.
+
+If the reviewer asks the right question but cannot retrieve useful guidance, inspect the domain
+Practice and retrieval. Consider changing CR navigation only when reviewers repeatedly overlook
+the underlying behavior and never ask the question. Adding a Pack does not by itself require a
+navigation update.
+
+Report this run separately from structural validation. If automated, run it on demand and
+report the observed results; do not make model output or provider availability a merge gate.

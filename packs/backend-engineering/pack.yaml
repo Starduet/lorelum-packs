@@ -1,0 +1,8 @@
+name: backend-engineering
+version: 0.1.0
+description: Make backend decisions about task lifetimes, concurrency, message delivery, LLM usage, optional work, and state transitions.
+author:
+  name: Lorelum
+license: CC-BY-4.0
+applies_to:
+  - backend

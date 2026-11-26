@@ -1,0 +1,8 @@
+name: frontend-engineering
+version: 0.1.0
+description: Keep asynchronous UI results with their current owner and bound work on the paths users wait for.
+author:
+  name: Lorelum
+license: CC-BY-4.0
+applies_to:
+  - ui

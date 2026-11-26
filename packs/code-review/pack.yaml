@@ -1,0 +1,8 @@
+name: code-review
+version: 0.1.0
+description: Review changes in context with domain navigation and explicit read-only Git evidence tools.
+author:
+  name: Lorelum
+license: CC-BY-4.0
+applies_to:
+  - code-review
